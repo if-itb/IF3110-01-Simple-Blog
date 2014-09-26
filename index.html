@@ -3,18 +3,116 @@
 <head>
 	<title>Baspram's Homepage</title>
 	<style type="text/css">
-		img{
+		@font-face{
+			font-family: Chase;
+			src: url(fonts/Chase.ttf);
+		}
+
+		@font-face{
+			font-family: Coolvetica;
+			src: url(fonts/Coolvetica.ttf);
+		}
+
+		@font-face{
+			font-family: Matchbook;
+			src: url(fonts/Matchbook.otf);
+		}
+
+		@font-face{
+			font-family: Strasua;
+			src:url(fonts/Strasua.ttf);
+		}
+		html,body{
+			height: 100%;
+		    width: 100%;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		div{
+			margin: 0;
+			padding: 0;
+		}
+		#topLogo img{
 			position: absolute;
-			width: 7%;
-			height: 20%;
+			height: 13%;
+			width: auto;
 			top: 0;
 			left: 10%;
+			z-index: 100;
+			opacity: 0.8;
+		}
+		#topNav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			width: 100%;
+			height: auto;
+			z-index: 99;
+			background: #000;
+			opacity: 0.4;
+
+		}
+
+		#topNav ul{
+			position: relative;
+			padding-left: 40%;
+			width: 100%;
+			height: 100%;
+		}
+
+		#topNav ul li{
+			position: relative;
+			display: inline;
+			width: 15%;
+			margin: auto 3%;
+		}
+
+		#topNav ul li a{
+			text-decoration: none;
+
+			font-family: Coolvetica;
+			color: #fff;
+		}
+
+		.fullpage{
+			content: "";
+			width: 100%;
+			min-height: 100%;
+			max-height: auto;
+			margin: 0px;
+		}			
+
+		#header{
+			position: relative;
+			background: #000;
+			background: url(img/purple.jpg) no-repeat center center fixed ; 
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+
+		#header #headBackground{
+			position: relative;
+			min-height: 100%;
+			width: 100%;
+			content:"";
 		}
 	</style>
 </head>
 <body>
-	<h1>Halo Dunia!</h1>
-	bego lu gas!
-	<img src="logo/baspramban.png">
+	<div id="topLogo"><img src="logo/basprambanw.png"></div>
+	<div id="topNav">
+		<ul>
+			<li><a href="">ME</a></li>
+			<li><a href="">PORTOFOLIO</a></li>
+			<li><a href="">OWN CREATION</a></li>
+			<li><a href="">CONTACT</a></li>
+		</ul>
+	</div>
+	<div id="header" class="fullpage">
+	</div>
 </body>
 </html>
