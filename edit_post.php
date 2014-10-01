@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -40,7 +40,7 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.html">+ Edit Post</a></li>
     </ul>
 </nav>
 
@@ -51,22 +51,33 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
+            <h2>Edit Post</h2>
+			<?php
+				include("connect.php");
+				$query	=	mysql_query("SELECT * from post WHERE no=".$_GET['id']);
+				$hasil_eksekusi	=	mysql_fetch_array($query);
+				
+				$nomor	=	$hasil_eksekusi['no'];
+				$judul	=	$hasil_eksekusi['judul'];
+				$tanggal	=	$hasil_eksekusi['tanggal'];
+				$konten	=	$hasil_eksekusi['konten'];
+			echo '
             <div id="contact-area">
-                <form method="post" action="post.php">
+                <form method="post" action="update.php">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="judul" id="Judul">
-
+                    <input type="text" name="judul" id="Judul" value="'.$judul.'">
+		
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="tanggal" id="Tanggal">
+                    <input type="text" name="tanggal" id="Tanggal" value="'.$tanggal.'">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="konten" rows="20" cols="20" id="Konten"></textarea>
-
+                    <textarea name="konten" rows="20" cols="20" id="Konten">'.$konten.'</textarea>
+					<input type="hidden" name="nomor" value="'.$nomor.'">
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
             </div>
+			';
+			?>
         </div>
     </div>
 

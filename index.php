@@ -29,9 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
-
-
+<title>Simple Blog</title>
 </head>
 
 <body class="default">
@@ -44,33 +42,38 @@
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="post.php">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+			<?php
+				include("connect.php");
+				$query	=	mysql_query("SELECT * from post ORDER BY no");
+				while($hasil_eksekusi = mysql_fetch_array($query)){
+					$nomor	=	$hasil_eksekusi['no'];
+					$judul	=	$hasil_eksekusi['judul'];
+					$tanggal	=	$hasil_eksekusi['tanggal'];
+					$konten	=	$hasil_eksekusi['konten'];
+					
+					echo '
+						<li class="art-list-item">
+							<div class="art-list-item-title-and-time">
+								<h2 class="art-list-title"><a href="show_post.php?id='.$nomor.'">'.$judul.'</a></h2>
+								<div class="art-list-time">'.$tanggal.'</div>
+								<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+							</div>
+							<p>'.$konten.'</p>
+							<p>
+							  <a href="edit_post.php?id='.$nomor.'">Edit</a> | <a href="delete.php?id='.$nomor.'">Hapus</a>
+							</p>
+						</li>				
+						';
+				}
+			?>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
