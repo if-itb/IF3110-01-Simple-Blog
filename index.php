@@ -31,7 +31,9 @@
 
 <title>Simple Blog</title>
 
-
+<?php
+	include ("connect.php");
+?>
 </head>
 
 <body class="default">

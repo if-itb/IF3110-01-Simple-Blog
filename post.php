@@ -30,7 +30,9 @@
 <![endif]-->
 
 <title>Simple Blog | Apa itu Simple Blog?</title>
-
+<?php
+	include ("connect.php");
+?>
 
 </head>
 
