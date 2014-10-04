@@ -36,7 +36,7 @@ Halaman View Post merupakan halaman untuk melihat suatu post. Pada halaman ini t
 
 ### Komentar
 
-Komentar berisi daftar komentar yang ditulis untuk post tertentu. Form komentar terdiri dari `Nama`, `Email`, dan `Komentar`, simpan juga tanggal dibuatnya komentar tersebut. Setiap item pada list komentar berisi `Nama`, `Tanggal`, `Komentar`.
+Komentar berisi daftar komentar yang ditulis untuk post tertentu. Form komentar terdiri dari `Nama`, `Email`, dan `Komentar`, simpan juga tanggal dibuatnya komentar tersebu	t. Setiap item pada list komentar berisi `Nama`, `Tanggal`, `Komentar`.
 
 Lakukan **validasi** email pada form komentar dengan menggunakan javascript. Komentar dibuat dengan menggunakan AJAX. Pemanggilan AJAX dilakukan saat
 
