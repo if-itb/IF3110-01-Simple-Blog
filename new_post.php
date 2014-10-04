@@ -94,7 +94,6 @@ include 'functions.php';
             
         </aside>
     </footer>
-    <?php disconnect_db();?>
 </div>
 		
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>

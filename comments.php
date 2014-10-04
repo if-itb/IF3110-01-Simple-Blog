@@ -10,7 +10,6 @@
 		$comment = $_GET['komentar'];
 		$insertQuery = "INSERT INTO sb_comments (nama, email, komentar, id_post) VALUES ('" .
 			$name . "', '" . $email . "', '" . $comment . "', '" . $pid . "')";
-		echo $insertQuery;
 		$row = run_query($insertQuery);
 	}
 	$selectionQuery = "SELECT * FROM sb_comments WHERE id_post='" . $pid . "' ORDER BY timestamp DESC";

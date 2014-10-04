@@ -16,14 +16,12 @@ if ($_GET['action']=="edit" || $_GET['action']=="add"){
 	if($_GET['action']=="add"){ // menambahkan post
 		$insertQuery = "INSERT INTO sb_posts (judul, tanggal, konten) VALUES ('" .
 			$title . "', '" . $date . "', '" . $content . "')";
-		echo $insertQuery;
 		$row = run_query($insertQuery);
 	}
 	else{ // mengedit post yang ada
 		$pid = $_POST['pid'];
 		$updateQuery = "UPDATE sb_posts SET judul = '" .
 			$title . "', tanggal = '" . $date . "', konten = '" . $content . "' WHERE id_post=" . $pid;
-		echo $updateQuery;
 		$row = run_query($updateQuery);
 	}
 	if($row != false){

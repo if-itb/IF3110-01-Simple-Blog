@@ -65,7 +65,14 @@ function get_posts_list(){
 					<div class="art-list-time">' . $date . '</div>
 					<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
 				</div>
-				<p>' . $content . '</p>
+				<p>';
+				if(str_word_count($content) > 30){
+					echo implode(' ', array_slice(explode(' ', $content), 0, 30)) . '&hellip;';
+				}
+				else{
+					echo $content;
+				}
+				echo '</p>
 				<p>
 				  <a href="edit_post.php?pid=' . $pid . '">Edit</a> | <a id="deletepost' . $pid . '" href="#" >Hapus</a>
 				</p>

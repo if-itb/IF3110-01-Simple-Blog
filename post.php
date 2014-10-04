@@ -58,6 +58,7 @@ function submitComment(pid,nama,email,komentar) {
   }
   xmlhttp.open("GET","comments.php?pid="+pid+"&nama="+nama+"&email="+email+"&komentar="+komentar,true);
   xmlhttp.send();
+  return false;
 }
 function showComments(pid) {
   if (window.XMLHttpRequest) {
@@ -108,7 +109,7 @@ function showComments(pid) {
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#comments">
+                <form method="post" action="#" onSubmit="return submitComment(<?php echo $pid; ?>,Nama.value,Email.value,Komentar.value)">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -118,7 +119,7 @@ function showComments(pid) {
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button" onClick="submitComment(<?php echo $pid; ?>,Nama.value,Email.value,Komentar.value)">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
 
