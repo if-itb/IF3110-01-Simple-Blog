@@ -28,8 +28,29 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+<?php
+    extract($_GET);
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+    // Connect to DB  
+    $dbhost = "localhost";
+    $dbusername = "root";
+    $dbpassword = "";
+    $dbname = "db_simpleblog";
+    $conn = mysqli_connect($dbhost, $dbusername, $dbpassword, $dbname);
+
+    // Check connection
+    if (mysqli_connect_errno()) 
+    {
+      echo "Failed to connect to MySQL: ". mysqli_connect_error();
+    }
+
+    // Fetch post from DB
+    $query = "SELECT * FROM post WHERE id=$id";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result);
+?>
+
+<title><?php echo $row['judul']; ?></title>
 
 
 </head>
@@ -38,9 +59,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,8 +69,12 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <?php  // Date Formatting
+            $time = strtotime($row['tanggal']);
+            $date = date("d M y", $time);
+            ?>
+            <time class="art-time"><?php echo $date; ?></time>
+            <h2 class="art-title"><?php echo $row['judul']; ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,9 +82,7 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
+            <?php echo $row['konten']; ?>
             <hr />
             
             <h2>Komentar</h2>
@@ -102,7 +125,7 @@
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="#">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
