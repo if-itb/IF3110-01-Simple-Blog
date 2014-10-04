@@ -31,28 +31,7 @@
 
 <title>Simple Blog | Tambah Post</title>
 
- <script type="text/javascript" src="jquery.js"></script>
 
-<script type="text/javascript">
-function cekInputan(){
-        var judul = $("#judul").val();
-        var tanggal = $("#tanggal").val();
-        var konten = $("#konten").val();
-        var dataString = 'judul='+ judul + '&tanggal=' + tanggal + '&konten=' + konten;
-        
-            if(judul=='' || tanggal =='' || konten =='')
-            {
-                alert('Silahkan lengkapi form yang tersedia');
-            }
-            else
-            {
-                
-            }
-}
-function bandingkanTangal(){
-    
-}
-</script>
 </head>
 
 <body class="default">
@@ -75,7 +54,7 @@ function bandingkanTangal(){
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="post.php">
+                <form method="post" action="">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="judul" id="Judul">
 
@@ -85,7 +64,7 @@ function bandingkanTangal(){
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="cekInputan">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="cekInputan();">
                 </form>
             </div>
         </div>
@@ -113,6 +92,27 @@ function bandingkanTangal(){
 </footer>
 
 </div>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+function cekInputan(){
+        var judul = $("#Judul").val();
+        var tanggal = $("#Tanggal").val();
+        var konten = $("#Konten").val();
+        var dataString = 'judul='+ judul + '&tanggal=' + tanggal + '&konten=' + konten;
+        
+            if(judul=='' || tanggal =='' || konten =='')
+            {
+                alert('Silahkan lengkapi form yang tersedia');
+            }
+            else
+            {
+                alert('data udah ada');
+            }
+}
+function bandingkanTangal(){
+    
+}
+</script>
 <script>
     var today = new Date();
     var dd = today.getDate();
