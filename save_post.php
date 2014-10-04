@@ -12,6 +12,6 @@ if (!mysql_query($sql)) {
 }
 
 //mysql_query($sql);
-//header ('Location: index.php');
+header ('Location: index.php');
 mysql_close($con);
 ?>

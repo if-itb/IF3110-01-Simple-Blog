@@ -56,7 +56,7 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="save_post.php">
+                <form name="form1" method="post" action="save_post.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
@@ -66,7 +66,7 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="validatedate(document.form1.text1)">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="validatedate(document.form1.Tanggal)">
                 </form>
             </div>
         </div>
@@ -93,7 +93,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript" src="assets/js/date_validationjs"></script>
+<script type="text/javascript" src="assets/js/date_validation.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
