@@ -50,7 +50,24 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
+			<?php
+				$listpost = mysql_query("SELECT id,judul, tanggal, konten FROM post");
+				
+				while($row = mysql_fetch_array($listpost)){
+					echo '<li class="art-list-item">';
+					echo	'<div class="art-list-item-title-and-time">';
+					echo 		'<h2 class="art-list-title"><a href="post.php?id='.$row['id'].'">'.$row['judul'].'</a></h2>';
+					echo		'<div class="art-list-time">'.$row['tanggal'].'</div>';
+					echo	'</div>';
+					echo 	'<p>'.$row['konten'].'&hellip;</p>';
+					echo	'<p>';
+					echo		'<a href="#">Edit</a> | <a href="#">Hapus</a>';
+					echo	'</p>';
+					echo '</li>';
+				}
+			
+			?>
+            <!-- <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href="post.php">Apa itu Simple Blog?</a></h2>
                     <div class="art-list-time">15 Juli 2014</div>
@@ -71,7 +88,7 @@
                 <p>
                   <a href="#">Edit</a> | <a href="#">Hapus</a>
                 </p>
-            </li>
+            </li>-->
           </ul>
         </nav>
     </div>

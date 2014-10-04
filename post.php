@@ -29,14 +29,28 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<!--<title>Simple Blog | Apa itu simple blog?</title> -->
+
 <?php
 	include ("connect.php");
+	$id=$_GET['id'];
+	$listpost = mysql_query("SELECT judul, tanggal, konten FROM post WHERE id=".$id);
+	
+	while($post = mysql_fetch_array($listpost)){?>
+					<title>Simple Blog | <?=$post['judul']?></title>';
+				<?php
+				}
 ?>
 
 </head>
 
 <body class="default">
+<?php
+	$id=$_GET['id'];
+	$listpost = mysql_query("SELECT judul, tanggal, konten FROM post WHERE id=".$id);
+	
+	while($post = mysql_fetch_array($listpost)){
+	?>
 <div class="wrapper">
 
 <nav class="nav">
@@ -50,8 +64,8 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?=$post['tanggal']?></time>
+            <h2 class="art-title"><?=$post['judul']?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -59,7 +73,7 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
+            <p><?=$post['konten']?></p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
 
             <hr />
@@ -132,6 +146,6 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+<?php } ?>
 </body>
 </html>
