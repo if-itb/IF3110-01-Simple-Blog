@@ -36,7 +36,7 @@
 
 </head>
 
-<body class="default" onload='document.form1.text1.focus()'>
+<body class="default" onload='invalid_button()'> <!--document.form1.text1.focus(); ; -->
 <div class="wrapper">
 
 <nav class="nav">
@@ -56,17 +56,17 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form name="form1" method="post" action="save_post.php">
+                <form name="form1" method="post"  action="save_post.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" placeholder="yyyy-mm-dd" id="Tanggal">
+                    <input type="text" name="Tanggal" placeholder="yyyy-mm-dd" id="Tanggal" onBlur="validasitanggal(document.form1.Tanggal)" >
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="validatedate(document.form1.Tanggal)">
+                    <input type="submit" id="simpan" name="submit" value="Simpan" class="submit-button" >
                 </form>
             </div>
         </div>
