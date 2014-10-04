@@ -36,7 +36,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload='document.form1.text1.focus()'>
 <div class="wrapper">
 
 <nav class="nav">
@@ -56,17 +56,17 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="save_post.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" placeholder="yyyy-mm-dd" id="Tanggal">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="validatedate(document.form1.text1)">
                 </form>
             </div>
         </div>
@@ -93,6 +93,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/date_validationjs"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
