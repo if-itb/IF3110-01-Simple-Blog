@@ -71,7 +71,7 @@
               echo '<li class="art-list-item">';
                   echo '<div class="art-list-item-title-and-time">';
                       echo '<h2 class="art-list-title"><a href="post.php?id='.$row['id'].'">'. $row['judul'] ."</a></h2>";
-                      $time = strtotime($row['tanggal']);
+                      $time = strtotime($row['tanggal']); // Date Formatting
                       $date = date("d M Y", $time);
                       echo '<div class="art-list-time">'. $date ."</div>";
                       echo '<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
