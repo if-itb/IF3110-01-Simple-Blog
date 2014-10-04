@@ -106,11 +106,22 @@ function cekInputan(){
             }
             else
             {
-                alert('data udah ada');
+                if(bandingkanTangal(tanggal)){
+
+                }else{
+                    alert('Tanggal tidak benar. Silahkan masukkan tanggal lain.');
+                }
             }
 }
-function bandingkanTangal(){
-    
+function bandingkanTangal(input){
+    var date1   =   new Date();
+    var date2   =   new Date(input);
+
+    if (date1.getTime() > date2.getTime()){
+        return false;
+    }else{
+        return true;
+    }
 }
 </script>
 <script>
