@@ -87,14 +87,14 @@
 								</div>
 								<hr/>
 								<div id="formKomentar">
-									<form method="post" action="post_komentar.php">
+									<form method="post" action="">
 										Nama <input type="text" name="nama"><br/>
 										Email <input type="text" name="email"><br/>
 										Pesan</br>
 											<textarea name="pesan" cols="84" rows="5"></textarea><br/>
 										<input type="hidden" name="tanggal" value="'.date("Y-m-d").'">
 										<input type="hidden" name="id" value="'.$_GET['id'].'">
-										<input type="submit" name="postKomentar" value="Post Komentar">
+										<input type="submit" name="postKomentar" value="Post Komentar" onClick="PostKomentar();">
 									</form>
 								</div>
 							</td>
@@ -128,6 +128,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/comment_handler.js"></script>
 <script type="text/javascript" src="assets/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
