@@ -844,7 +844,7 @@ hr.featured-article:after {
 }
 
 #contact-area textarea:focus, #contact-area input:focus {
-  border: 2px solid #900;
+  border: 2px solid #0084B4;
 }
 
 #contact-area input.submit-button {

@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -54,15 +54,15 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="insert_database.php">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" required="">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" required="">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" required></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -71,6 +71,13 @@
     </div>
 
 </article>
+
+<script type="text/javascript">
+	function validateForm()
+	{
+		
+	}
+</script>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
