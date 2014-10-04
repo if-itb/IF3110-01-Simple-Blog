@@ -80,6 +80,25 @@
 							  <a href="edit_post.php?id='.$nomor.'">Edit</a> | <a href="delete.php?id='.$nomor.'">Hapus</a>
 							</td>
 						</tr>
+						<tr>
+							<td colspan="2">
+								<hr/>
+								<div id="Komentar">
+								</div>
+								<hr/>
+								<div id="formKomentar">
+									<form method="post" action="post_komentar.php">
+										Nama <input type="text" name="nama"><br/>
+										Email <input type="text" name="email"><br/>
+										Pesan</br>
+											<textarea name="pesan" cols="84" rows="5"></textarea><br/>
+										<input type="hidden" name="tanggal" value="'.date("Y-m-d").'">
+										<input type="hidden" name="id" value="'.$_GET['id'].'">
+										<input type="submit" name="postKomentar" value="Post Komentar">
+									</form>
+								</div>
+							</td>
+						</tr>
 					</table>
 					</center>
 				';
@@ -109,7 +128,7 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
