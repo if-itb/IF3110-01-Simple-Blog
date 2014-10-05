@@ -1,5 +1,5 @@
 <?php
-	header("Location:index.php");
+	header("Location:readDB.php");
 	$link = mysql_connect("localhost","root","");
 	if (!$link){
 		die("Not connected : ". mysql_error());

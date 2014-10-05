@@ -48,6 +48,16 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
+            <?php
+                session_start();
+                $variable = $_SESSION['data'];
+                $i=0;
+                foreach ($variable as $data) {
+                  echo "$data[1] ";
+                  echo "$data[2] ";
+                  echo "$data[3] <br>";
+                }
+            ?>
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
