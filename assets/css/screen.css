@@ -410,7 +410,6 @@ div.cover > img {
   font-size: 12px;
   line-height: 20px;
   letter-spacing: 2px;
-  text-transform: uppercase;
   color: #999;
 }
 .art-list-title a {
@@ -847,7 +846,7 @@ hr.featured-article:after {
 }
 
 #contact-area textarea {
-  height: 90px;
+  height: 250px;
 }
 
 #contact-area textarea:focus, #contact-area input:focus {

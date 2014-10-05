@@ -1,9 +1,8 @@
-<?php 
-	$id = $_POST['id'];
-	echo "id = " . $id . "<br>";
+<?php 	
 	
 	//establish connection to database
 	$con = mysqli_connect('localhost', 'root', "", 'simple_blog');
+	$id = mysqli_real_escape_string($con, $_POST['id']);
 	
 	//query for deleting entry
 	$query = "DELETE FROM `info_post` 

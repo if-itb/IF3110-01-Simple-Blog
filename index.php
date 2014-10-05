@@ -59,13 +59,19 @@
 						 ORDER BY `tanggal` DESC";
 				$results = mysqli_query($con, $query);
 				
+				
 				//print them to the screen
 				foreach ($results as $result) {
+					
+				//reverse date format
+				$retrieved = $result['tanggal'];
+				$date = DateTime::createFromFormat('Y-m-d', $retrieved);
+				
 				echo"
 				<li class=\"art-list-item\">
 	                <div class=\"art-list-item-title-and-time\">
 	                    <h2 class=\"art-list-title\"><a href=\"post.html\">" . $result['judul'] . "</a></h2>
-	                    <div class=\"art-list-time\">" . $result['tanggal'] . "</div>
+	                    <div class=\"art-list-time\">" . $date->format('l\, j F Y') . "</div>
 	                </div>
 	                <p>" . $result['konten'] . "</p>
 	                <p class=\"editable\" id=\"" . $result['id'] . "\">
@@ -81,7 +87,7 @@
           	<!-- Sending data to javascript using this hidden form -->
           	
           	<form name="post" method="post">
-          		<input type="hidden" name="id" value="test" action="">
+          		<input type="hidden" name="id" value="test">
           	</form>
           	
           	<!-- Sending data to javascript using this hidden form -->
