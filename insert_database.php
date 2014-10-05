@@ -15,6 +15,13 @@
 	}
 	else 
 	{
+		$query = "SELECT * FROM `info_post` WHERE `judul` = '$judul'";
+				  
+		if(!($results = mysqli_query($con,$query)))
+		{
+			die('Error: ' . mysqli_error($con));
+		}
+		
 		$query = "INSERT INTO `simple_blog`.`info_post` (`id`, `judul`, `tanggal`, `konten`) 
 				  VALUES (NULL, '$judul', '$tanggal', '$konten');";
 					
@@ -22,7 +29,10 @@
 		{
 			die('Error: ' . mysqli_error($con));
 		}
+		
 		echo "1 record added";
+		header('Location: index.php');
+
 	}
 	
 	mysqli_close($con);

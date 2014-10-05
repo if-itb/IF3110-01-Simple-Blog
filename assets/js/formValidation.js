@@ -1,7 +1,9 @@
 function Validation()
 {
-	var tanggal1 = document.getElementById('Tanggal').value;
-	var tanggal1 = parseDate(tanggal1);
+	document.cookie = "";
+	var tanggal = document.getElementById('Tanggal').value;
+	document.getElementById('errormsg').innerHTML="";
+	var tanggal1 = parseDate(tanggal);
 	if(tanggal1 == null)
 	{
 		return false;
@@ -12,7 +14,8 @@ function Validation()
 		var result = tanggal1 >= tanggal2;
 		if(result)
 		{
-			document.getElementById('errormsg').innerHTML="";
+			var tanggal_reverse = tanggal.split("-").reverse().join("-");
+			document.getElementById('Tanggal').value=tanggal_reverse;
 			return true;
 		}
 		else
