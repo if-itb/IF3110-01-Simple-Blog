@@ -34,13 +34,15 @@
 			padding: 0;
 		}
 		#topLogo img{
-			position: absolute;
-			height: 13%;
+			position: fixed;
+			height: 40px;
 			width: auto;
-			top: 0;
-			left: 10%;
+			top: 5px;
+			left: 0%;
+			right: 0%;
 			z-index: 100;
-			opacity: 0.8;
+			display: block;
+			margin: auto;
 		}
 		#topNav {
 			position: fixed;
@@ -48,32 +50,44 @@
 			left: 0;
 			right: 0;
 			width: 100%;
-			height: auto;
+			height: 50px;
 			z-index: 99;
-			background: #000;
-			opacity: 0.4;
-
+			padding: none;
 		}
 
 		#topNav ul{
-			position: relative;
-			padding-left: 40%;
-			width: 100%;
-			height: 100%;
+			position: fixed;
+			top: 15px;
+			left: 0;
+			right: 50px;
+			width: 70%;
+			margin: auto;
+			height: 35px;
 		}
 
 		#topNav ul li{
 			position: relative;
 			display: inline;
-			width: 15%;
-			margin: auto 3%;
+			width: auto;
+			height: 30px;
+			border-bottom: 0px solid black;
+		}
+		
+		#topNav ul .leftNav{
+			display: block;
+			float: left;
+			margin-left: 30%;
 		}
 
+		#topNav ul .rightNav{
+			display: block;
+			float: right;
+			margin-right: 30%;
+		}
 		#topNav ul li a{
 			text-decoration: none;
-
 			font-family: Coolvetica;
-			color: #fff;
+			color: #000;
 		}
 
 		.fullpage{
@@ -100,19 +114,160 @@
 			width: 100%;
 			content:"";
 		}
+
+		#mainContainer{
+			position: fixed;
+			left: 100px;
+			right: 100px;
+			top: 50px;
+			bottom: -17px;
+			content: "";
+			overflow: scroll;
+		}
+		
+		#sideName{
+			position: fixed;
+			left: 10px;
+			top: 50%;
+			width: auto;
+			font-family: Coolvetica;
+			/*-ms-transform: rotate(-90deg); /* IE 9 */
+		    /*-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+		    transform: rotate(270deg);
+		    z-index: 200;
+		}
+		#sideName h1{
+			padding: 0;
+			display: block;
+			margin: auto;
+		}
+		#sideName .nama{
+			width: auto;
+			height: 62px;
+			border-bottom: 0px solid black;
+		}
+
+		#hello, #project, #me{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			content: "";
+			color: #000;
+			padding: 0;
+			margin: 0;
+		}
+
+		#hello{
+			background: url(img/log.jpg) no-repeat center center; 
+			-webkit-background-size: 100% auto;
+			-moz-background-size: 100% auto;
+			-o-background-size: 100% auto;
+			background-size: 100% auto;
+		}
+		#project{
+			background: url(img/sky.jpg) no-repeat center center; 
+			-webkit-background-size: 100% auto;
+			-moz-background-size: 100% auto;
+			-o-background-size: 100% auto;
+			background-size: 100% auto;
+		}
+		#me{
+			background: url(img/purple.jpg) no-repeat center center; 
+			-webkit-background-size: 100% auto;
+			-moz-background-size: 100% auto;
+			-o-background-size: 100% auto;
+			background-size: 100% auto;
+		}
+		::-webkit-scrollbar {
+			  width: 15px;
+		} /* this targets the default scrollbar (compulsory) */
+		::-webkit-scrollbar-track {
+		      background-color: #fff;
+		} /* the new scrollbar will have a flat appearance with the set background color */
+		 
+		::-webkit-scrollbar-thumb {
+		      background-color: #000; 
+		} /* this will style the thumb, ignoring the track */
+		 
+		::-webkit-scrollbar-button {
+		      background-color: #fff;
+		} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+		 
+		::-webkit-scrollbar-corner {
+		      background-color: #000;
+		} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+		::-webkit-scrollbar-corner:vertical{
+			display: none;
+		}
+		::-webkit-scrollbar-corner:horizontal{
+			padding-top: 15px;
+		}
+		
+		.scrollBottom{
+			position: absolute;
+			right: 50px;
+			bottom: 50px;
+			text-decoration: none;
+			font-family: Coolvetica;
+			border: 5px solid black;
+			color: black;
+			padding: 5px;
+		}
+
 	</style>
+		
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript">
+
+		$(function() {
+		  $('a[href*=#]:not([href=#])').click(function() {
+		    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		      var target = $(this.hash);
+		      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+		      if (target.length) {
+		        $("html, body, #mainContainer").animate({
+		          scrollTop: target.offset().top
+		        }, 1000);
+		        return false;
+		      }
+		    }
+		  });
+		});
+
+		$(document).ready(function() {
+			$('li, .nama').hover(
+				function(){
+					$(this).stop().animate({borderWidth:'5px'});
+				},
+				function(){
+					$(this).stop().animate({borderWidth:'0px'});
+				}
+			);
+
+		});
+		</script>
 </head>
 <body>
-	<div id="topLogo"><img src="logo/basprambanw.png"></div>
+	<div id="topLogo"><a href="#hello"><img src="logo/bp.png"></a></div>
 	<div id="topNav">
 		<ul>
-			<li><a href="">ME</a></li>
-			<li><a href="">PORTOFOLIO</a></li>
-			<li><a href="">OWN CREATION</a></li>
-			<li><a href="">CONTACT</a></li>
+			<li class="leftNav"><a href="#project"> My Works </a></li>
+			<li class="rightNav"><a href="#me"> About Me </a></li>
 		</ul>
 	</div>
-	<div id="header" class="fullpage">
+	<div id="sideName">
+		<div class="nama">
+			<h1>baspram</h1>
+		</div>
+	</div>
+	<div id="mainContainer">
+		<div id="hello">
+			<a class="scrollBottom" href="#project"> v </a>
+		</div>
+		<div id="project">
+		</div>
+		<div id="me">
+		</div>
 	</div>
 </body>
 </html>
