@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -48,28 +48,35 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+          	
+          	<?php 
+          		//establish connection to database
+          		$con = mysqli_connect('localhost', 'root', "", 'simple_blog');
+				
+				//retrieve posts from database
+				$query = "SELECT * 
+						 FROM `info_post`";
+				$results = mysqli_query($con, $query);
+				
+				//print them to the screen
+				foreach ($results as $result) {
+				echo"
+				<li class=\"art-list-item\">
+	                <div class=\"art-list-item-title-and-time\">
+	                    <h2 class=\"art-list-title\"><a href=\"post.html\">" . $result['judul'] . "</a></h2>
+	                    <div class=\"art-list-time\">" . $result['tanggal'] . "</div>
+	                </div>
+	                <p>" . $result['konten'] . "</p>
+	                <p class=\"editable\">
+	                  <a href=\"#\">Edit</a> | <a href=\"#\">Hapus</a>
+	                </p>
+           		</li>";
+				}
+				
+				//close connection to database
+				mysqli_close($con);
+          	?>
+          	
           </ul>
         </nav>
     </div>

@@ -106,14 +106,14 @@ header#teaser h1 {
 /* Links
 ================================================== */
 a {
-  color: #F40034;
+  color: #3403F7;
   text-decoration: none;
   -webkit-transition: color .2s ease-in-out;
      -moz-transition: color .2s ease-in-out;
           transition: color .2s ease-in-out;
 }
 a:hover {
-  color: #F40034;
+  color: #FF0000;
 }
 
 /*  Layout
@@ -417,7 +417,7 @@ div.cover > img {
   color: #000;
 }
 .art-list-title a:hover {
-  color: #F40034;
+  color: #3403F7;
 }
 .art-list-item p {
   width: 65%;
@@ -426,6 +426,12 @@ div.cover > img {
   margin-bottom: 0;
   font-size: 16px;
   line-height: 24px;
+  text-align: justify;
+}
+
+.art-list-item .editable {
+	position: relative;
+	left: 30%;
 }
 
 
