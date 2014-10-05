@@ -55,7 +55,8 @@
 				
 				//retrieve posts from database
 				$query = "SELECT * 
-						 FROM `info_post`";
+						 FROM `info_post`
+						 ORDER BY `tanggal` DESC";
 				$results = mysqli_query($con, $query);
 				
 				//print them to the screen
@@ -67,8 +68,8 @@
 	                    <div class=\"art-list-time\">" . $result['tanggal'] . "</div>
 	                </div>
 	                <p>" . $result['konten'] . "</p>
-	                <p class=\"editable\">
-	                  <a href=\"#\">Edit</a> | <a href=\"#\">Hapus</a>
+	                <p class=\"editable\" id=\"" . $result['id'] . "\">
+	                  <a onclick=\"edit(this.id)\" id=\"e" . $result['id'] . "\">Edit</a> | <a onclick=\"hapus(this.id)\" id=\"d" . $result['id'] . "\">Hapus</a>
 	                </p>
            		</li>";
 				}
@@ -76,6 +77,14 @@
 				//close connection to database
 				mysqli_close($con);
           	?>
+          	
+          	<!-- Sending data to javascript using this hidden form -->
+          	
+          	<form name="post" method="post">
+          		<input type="hidden" name="id" value="test" action="">
+          	</form>
+          	
+          	<!-- Sending data to javascript using this hidden form -->
           	
           </ul>
         </nav>
@@ -107,6 +116,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/post.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

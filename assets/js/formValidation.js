@@ -1,6 +1,5 @@
 function Validation()
 {
-	document.cookie = "";
 	var tanggal = document.getElementById('Tanggal').value;
 	document.getElementById('errormsg').innerHTML="";
 	var tanggal1 = parseDate(tanggal);

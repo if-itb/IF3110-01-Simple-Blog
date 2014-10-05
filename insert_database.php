@@ -27,13 +27,21 @@
 			die('Error: ' . mysqli_error($con));
 		}
 		
+		//Replace all '\n' with '<br>'
+		$query = "UPDATE `info_post` SET `konten`= REPLACE (`konten`, '\n', '<br>')";
+		
+		if (!mysqli_query($con, $query))
+		{
+			die('Error: ' . mysqli_errno($con));
+		}
+		
 		//Data was succesfully added to the database
 		echo "1 record added";
-		
-		//Redirect to index.php
-		header('Location: index.php');
 
 	}
 	
 	mysqli_close($con);
+	
+	//Redirect to index.php
+	header('Location: index.php');
  ?>

@@ -50,7 +50,7 @@ h1 {
 }
 
 h2 {
-  font-size: 45px;
+  font-size: 35px;
   padding-bottom: 25px;
 }
 
@@ -432,6 +432,7 @@ div.cover > img {
 .art-list-item .editable {
 	position: relative;
 	left: 30%;
+	cursor: pointer;
 }
 
 
