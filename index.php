@@ -61,11 +61,23 @@
 					echo	'</div>';
 					echo 	'<p>'.$row['konten'].'&hellip;</p>';
 					echo	'<p>';
-					echo		'<a href="#">Edit</a> | <a href="#">Hapus</a>';
+					echo		'<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0)" onclick="validatedelete()">Hapus</a>';
 					echo	'</p>';
 					echo '</li>';
+				
+			/*echo '<html><script type="text/javascript">
+				function validatedelete(teks)
+				{
+					var x;
+					if (confirm("hapus?")==true)
+					{
+						x=window.location.href="delete_post.php?id='.$row['id'].'";
+						}else{
+						x="cancel";
+					}
 				}
-			
+			</script></html>';*/
+			}
 			?>
             <!-- <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
@@ -113,6 +125,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

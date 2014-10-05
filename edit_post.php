@@ -29,8 +29,6 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<!--<title>Simple Blog | Apa itu simple blog?</title> -->
-
 <?php
 	include ("connect.php");
 	$id=$_GET['id'];
@@ -44,7 +42,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload='validasitanggal()'> <!--document.form1.text1.focus(); ; -->
 <?php
 	$id=$_GET['id'];
 	$listpost = mysql_query("SELECT judul, tanggal, konten FROM post WHERE id=".$id);
@@ -62,56 +60,27 @@
 
 <article class="art simple post">
     
-    <header class="art-header">
-        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time"><?=$post['tanggal']?></time>
-            <h2 class="art-title"><?=$post['judul']?></h2>
-            <p class="art-subtitle"></p>
-        </div>
-    </header>
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
     <div class="art-body">
         <div class="art-body-inner">
-            <hr class="featured-article" />
-            <p><?=$post['konten']?></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
-            <hr />
-            
-            <h2>Komentar</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
-        
-                    <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
-                    
-                    <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                <form name="form1" method="post"  action="update_post.php">
+                    <label for="Judul">Judul:</label>
+                    <input type="text" name="judul" id="judul" value="<?=$post['judul']?>">
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="tanggal" placeholder="yyyy-mm-dd" id="Tanggal" onBlur="validasitanggal(document.form1.tanggal)" value="<?=$post['tanggal']?>" >
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="konten" rows="20" cols="20" id="konten"><?=$post['konten']?></textarea>
+
+                    <input type="submit" id="simpan" name="submit" value="Update" class="submit-button" >
                 </form>
             </div>
-
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
         </div>
     </div>
 
@@ -136,6 +105,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/date_validation.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -146,6 +116,8 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-<?php } ?>
+<?php
+}
+?>
 </body>
 </html>
