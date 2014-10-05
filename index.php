@@ -1,5 +1,5 @@
 <?php
-	require_once('config.php');
+  require_once('config.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,8 +32,24 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
-<script type="text/javascript" src="assets/js/validation.js"></script>
+<title>Simple Blog</title>
+<script language="JavaScript" type="text/javascript">
+  function delete_post(id, judul){  //Fungsi untuk memunculkan konfirmasi penghapusan
+    if (confirm('Apakah Anda yakin menghapus post ini?\n"' + judul + '"')){
+      window.location.href = 'index.php?delete_post=' + id;
+    }
+  } 
+</script>
+<?php
+  if(isset($_GET['delete_post'])){ 
+
+  $stmt = $db->prepare('DELETE FROM posts WHERE ID = :ID') ;  //query untuk menghapus dari database
+  $stmt->execute(array(':ID' => $_GET['delete_post']));
+
+  header('Location: index.php?action=deleted');
+  exit;
+  } 
+?>
 </head>
 
 <body class="default">
@@ -46,52 +62,43 @@
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <?php
+              try {
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+                $stmt = $db->query('SELECT ID, Judul, Tanggal, Konten FROM posts ORDER BY Tanggal DESC');   //query untuk mengambil dari database
+                while($row = $stmt->fetch()){
+                  
+                  echo '<li class="art-list-item">';
+                      echo '<div class="art-list-item-title-and-time">';
+                          echo '<h2 class="art-list-title"><a href="post.php?id='.$row['ID'].'">'.$row['Judul'].'</a></h2>';
+                          echo '<div class="art-list-time">'.date('j M Y', strtotime($row['Tanggal'])).'</div>';
+                          echo '<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
+                      echo '</div>';
+                      echo '<p>'.substr($row['Konten'],0,255).'&hellip;</p>'; //menampilkan sebagian konten
+                      ?>
 
-            <div id="contact-area">
-				<?php
-					if(isset($_POST['submit'])){
+                        <p>
+                          <a href="edit_post.php?id='<?php echo $row['ID'] ?>'">Edit</a> | 
+                          <a href="javascript:delete_post('<?php echo $row['ID'];?>','<?php echo $row['Judul'];?>')">Hapus</a>
+                        </p>
+                      <?php
+                  echo '</li>';
 
-						$_POST = array_map( 'stripslashes', $_POST );
+                }
 
-						extract($_POST);
-							//masukkan ke database
-							$stmt = $db->prepare('INSERT INTO posts (Judul,Tanggal,Konten) VALUES (:Judul, :Tanggal, :Konten)') ;
-							$stmt->execute(array(
-								':Judul' => $Judul,
-								':Tanggal' => $Tanggal,
-								':Konten' => $Konten
-							));
-
-							//kembali ke halaman index
-							header('Location: index.php');
-							exit;
-					}
-				?>
-				<form name="addPost" method="post" action="">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" >
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" >
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten" ></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validateDate(document.addPost.Tanggal);">
-                </form>
-            </div>
-        </div>
+              } catch(PDOException $e) {
+                  echo $e->getMessage();
+              }
+            ?>
+            
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -131,4 +138,3 @@
 
 </body>
 </html>
-              

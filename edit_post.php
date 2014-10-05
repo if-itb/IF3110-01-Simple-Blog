@@ -32,7 +32,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 <script type="text/javascript" src="assets/js/validation.js"></script>
 </head>
 
@@ -53,40 +53,64 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
 				<?php
-					if(isset($_POST['submit'])){
+                    if(isset($_POST['submit'])){
 
-						$_POST = array_map( 'stripslashes', $_POST );
+                        $_POST = array_map( 'stripslashes', $_POST );
 
-						extract($_POST);
-							//masukkan ke database
-							$stmt = $db->prepare('INSERT INTO posts (Judul,Tanggal,Konten) VALUES (:Judul, :Tanggal, :Konten)') ;
-							$stmt->execute(array(
-								':Judul' => $Judul,
-								':Tanggal' => $Tanggal,
-								':Konten' => $Konten
-							));
+                        extract($_POST);
+                        if(!isset($error)){
 
-							//kembali ke halaman index
-							header('Location: index.php');
-							exit;
-					}
-				?>
-				<form name="addPost" method="post" action="">
+                            try {
+                                //update database
+                                $stmt = $db->prepare('UPDATE posts SET Judul = :Judul, Tanggal = :Tanggal, Konten = :Konten WHERE ID = :ID') ;
+                                $stmt->execute(array(
+                                    ':Judul' => $Judul,
+                                    ':Konten' => $Konten,
+                                    ':Tanggal' => $Tanggal,
+                                    ':ID' => $ID
+                                ));
+
+                                //kembali ke halaman index dengan aksi update sudah terlaksana
+                                header('Location: index.php?action=updated');
+                                exit;
+                            } catch(PDOException $e) {
+                                echo $e->getMessage();
+                            }
+                        }
+                    }
+                ?>
+                <?php
+                
+                    try {
+                        //query untuk mendapatkan isi database
+                        $stmt = $db->prepare('SELECT ID, Judul, Tanggal, Konten FROM posts WHERE ID = :ID') ;
+                        $stmt->execute(array(':ID' => $_GET['id']));
+                        $row = $stmt->fetch(); 
+
+                    } catch(PDOException $e) {
+                        echo $e->getMessage();
+                    }
+
+                ?>
+				<form method="post" action="">
+                    <input type='hidden' name='ID' value='<?php echo $row['ID'];?>'>
+
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" >
+                    <input type="text" name="Judul" id="Judul" value='<?php echo $row['Judul'];?>'>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" >
+                    <input type="text" name="Tanggal" id="Tanggal" value='<?php echo $row['Tanggal'];?>'>
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten" ></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" ><?php echo $row['Konten'];?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validateDate(document.addPost.Tanggal);">
                 </form>
+
             </div>
         </div>
     </div>

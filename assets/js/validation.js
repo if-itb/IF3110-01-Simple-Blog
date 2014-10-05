@@ -1,8 +1,8 @@
-function validateDate(inputDate) {
+function validateDate(inputDate) {  //Fungsi untuk memvalidasi tanggal
     // regular expression format tanggal yang valid
     var re = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
 
-    if(inputDate.value != '' && !inputDate.value.match(re)) {
+    if(inputDate.value != '' && !inputDate.value.match(re)) {   //memeriksa format tanggal
      	alert("Format tanggal salah: " + inputDate.value +"\nFormat tanggal yang benar: YYYY-MM-DD");
       	document.addPost.Tanggal.focus();
       	return false;
@@ -20,7 +20,7 @@ function validateDate(inputDate) {
     }
 }
 
-function isDate(inputDate){
+function isDate(inputDate){ //Fungsi untuk kelogisan tanggal
 	//Pekondisi: Format tanggal pasti benar
 	var date = inputDate.value.split("-");
 	if ((parseInt(date[0]) > 0) && (parseInt(date[1]) > 0) && (parseInt(date[2]) > 0)){
@@ -40,7 +40,7 @@ function isDate(inputDate){
 	}
 }
 
-function isDateTrue(inputDate, today){
+function isDateTrue(inputDate, today){  //Fungsi untuk memeriksa apakah tanggal masukan lebih besar atau sama dengan hari ini
 	//Pekondisi: Format tanggal pasti benar
 	var date = inputDate.value.split("-");
     if (parseInt(date[0]) > parseInt(today.getFullYear())){
