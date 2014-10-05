@@ -852,6 +852,13 @@ hr.featured-article:after {
   
 }
 
+#contact-area #errormsg{
+	position:relative;
+	left:115px;
+	color: #FF0000;
+	font-size:medium;
+}
+
 label {
   float: left;
   text-align: right;
