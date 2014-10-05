@@ -29,69 +29,67 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Edit Post</title>
+
 
 </head>
 
 <body class="default">
-<div class="wrapper">
 
 <?php
 $con=mysqli_connect("localhost", "root", "", "SimpleBlog");
 // Check connection
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
-else {echo "berhasil"}
-
-// Retrieve data
-$result = mysqli_query($con,"SELECT * FROM Posts");
-
-while($row = mysqli_fetch_array($result)) {
-  echo $row['Judul'] . " " . $row['Tanggal'] . " " . $row['Konten'];
   echo "<br>";
 }
 
-mysqli_close($con);
+$ID = $_GET['id'];
+$result = mysqli_query($con,"SELECT Judul, Tanggal, Konten FROM Posts WHERE PID='$ID'");
+
+while($row = mysqli_fetch_array($result)) {
 ?>
 
+<div class="wrapper">
+
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="9</"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.html">Edit Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="delete_post.php">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="delete_post.php">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Edit Post</h2>
+
+            <div id="contact-area">
+                <form name="Edit" method="post" action="save_edit_post.php?id=<?php echo $ID; ?>">
+                    <label for="Judul">Judul:</label>
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['Judul']; ?>">
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $row['Tanggal']; ?>">
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['Konten']; ?></textarea>
+
+                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
+<?php
+} 
+mysqli_close($con);
+?>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>

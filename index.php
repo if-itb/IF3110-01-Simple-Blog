@@ -41,22 +41,21 @@ $con=mysqli_connect("localhost", "root", "", "SimpleBlog");
 // Check connection
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "<br>";
 }
-else {echo "berhasil"}
 
 // Retrieve data
 $result = mysqli_query($con,"SELECT * FROM Posts");
 
 while($row = mysqli_fetch_array($result)) {
-  echo $row['Judul'] . " " . $row['Tanggal'] . " " . $row['Konten'];
-  echo "<br>";
-}
-
-mysqli_close($con);
+  $ID = $row['PID'];
+  $Judul = $row['Judul'];
+  $Tanggal = $row['Tanggal'];
+  $Konten = $row['Konten'];  
 ?>
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -68,29 +67,19 @@ mysqli_close($con);
           <ul class="art-list-body">
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
+                    <h2 class="art-list-title"><a href="post.php?id=<?php echo $ID; ?>"><?php echo $Judul ?></a></h2>
+                    <div class="art-list-time"><?php echo $Tanggal ?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p><?php echo $Konten ?> &hellip;</p>
                 <p>
-                  <a href="#">Edit</a> | <a href="delete_post.php">Hapus</a>
-                </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="delete_post.php">Hapus</a>
+                  <a href="edit_post.php?id=<?php echo $ID; ?>">Edit</a> | <a href="delete_post.php?id=<?php echo $ID; ?>" onclick="return confirm('Apakah Anda yakin menghapus post ini?');">Hapus</a>
                 </p>
             </li>
           </ul>
         </nav>
     </div>
+	<?php } mysqli_close($con);?>
 </div>
 
 <footer class="footer">
