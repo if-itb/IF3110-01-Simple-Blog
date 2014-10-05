@@ -68,7 +68,7 @@
                     <input type="text" name="judul" id="Judul" value="'.$judul.'">
 		
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="tanggal" id="Tanggal" value="'.$tanggal.'">
+                    <input type="text" name="tanggal" id="Tanggal" value="">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="Konten">'.$konten.'</textarea>
@@ -103,7 +103,19 @@
 </footer>
 
 </div>
-
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    } 
+    if(mm<10) {
+        mm='0'+mm
+    } 
+    document.getElementById("Tanggal").value= yyyy + "-" + mm + "-" + dd;
+</script>
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>

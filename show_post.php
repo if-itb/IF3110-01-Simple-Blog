@@ -87,21 +87,37 @@
 								</div>
 								<hr/>
 								<div id="formKomentar">
-									<form method="post" action="">
-										Nama <input type="text" name="nama"><br/>
-										Email <input type="text" name="email"><br/>
+									<form method="post" action="" onSubmit="return PostKomentar(nama.value,email.value,pesan.value,id.value);">
+										Nama <input type="text" id="nama" name="nama" ><br/>
+										Email <input type="text" id="email" name="email" ><br/>
 										Pesan</br>
-											<textarea name="pesan" cols="84" rows="5"></textarea><br/>
-										<input type="hidden" name="tanggal" value="'.date("Y-m-d").'">
-										<input type="hidden" name="id" value="'.$_GET['id'].'">
-										<input type="submit" name="postKomentar" value="Post Komentar" onClick="PostKomentar();">
+											<textarea id="pesan" name="pesan" cols="84" rows="5"></textarea><br/>
+										<input type="hidden" id="tanggal" name="tanggal" value="'.date("Y-m-d").'">
+										<input type="hidden" id="id" name="id" value="'.$_GET['id'].'">
+										<input type="submit" name="postKomentar" value="Post Komentar">
 									</form>
 								</div>
 							</td>
 						</tr>
 					</table>
-					</center>
+				</center>
 				';
+				$query	=	mysql_query("SELECT * from comments WHERE post_id_fk=$no ORDER BY com_date DESC");
+				while($hasil_eksekusi = mysql_fetch_array($query)){
+					$name	=	$hasil_eksekusi['com_name'];
+					$tanggal	=	$hasil_eksekusi['com_date'];
+					$konten	=	$hasil_eksekusi['com_dis'];
+
+					echo '
+						<div align="center">
+							'.$name.'<br/>
+							'.$tanggal.'<br/>
+							'.$konten.'</br>
+						</div>
+						<hr/>
+					';
+
+				}
 			?>
           </ul>
         </nav>
