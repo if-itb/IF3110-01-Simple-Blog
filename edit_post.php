@@ -32,7 +32,7 @@
 <?php
 	include ("connect.php");
 	$id=$_GET['id'];
-	$listpost = mysql_query("SELECT judul, tanggal, konten FROM post WHERE id=".$id);
+	$listpost = mysql_query("SELECT * FROM post WHERE id=".$id);
 	
 	while($post = mysql_fetch_array($listpost)){?>
 					<title>Simple Blog | <?=$post['judul']?></title>
@@ -45,7 +45,7 @@
 <body class="default" onload='validasitanggal()'> <!--document.form1.text1.focus(); ; -->
 <?php
 	$id=$_GET['id'];
-	$listpost = mysql_query("SELECT judul, tanggal, konten FROM post WHERE id=".$id);
+	$listpost = mysql_query("SELECT * FROM post WHERE id=".$id);
 	
 	while($post = mysql_fetch_array($listpost)){
 	?>
@@ -68,15 +68,15 @@
             <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form name="form1" method="post"  action="update_post.php">
+                <form name="form1" method="post"  action="update_post.php?id=<?=$id=$post['id']?>">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="judul" id="judul" value="<?=$post['judul']?>">
+                    <input type="text" name="Judul" id="Judul" value="<?=$post['judul_post']?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="tanggal" placeholder="yyyy-mm-dd" id="Tanggal" onBlur="validasitanggal(document.form1.tanggal)" value="<?=$post['tanggal']?>" >
+                    <input type="text" name="Tanggal" placeholder="yyyy-mm-dd" id="Tanggal" onBlur="validasitanggal(document.form1.Tanggal)" value="<?=$post['tanggal_post']?>" >
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="konten" rows="20" cols="20" id="konten"><?=$post['konten']?></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?=$post['konten_post']?></textarea>
 
                     <input type="submit" id="simpan" name="submit" value="Update" class="submit-button" >
                 </form>

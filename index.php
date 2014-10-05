@@ -51,15 +51,15 @@
         <nav class="art-list">
           <ul class="art-list-body">
 			<?php
-				$listpost = mysql_query("SELECT id,judul, tanggal, konten FROM post");
+				$listpost = mysql_query("SELECT * FROM post");
 				
 				while($row = mysql_fetch_array($listpost)){
 					echo '<li class="art-list-item">';
 					echo	'<div class="art-list-item-title-and-time">';
-					echo 		'<h2 class="art-list-title"><a href="post.php?id='.$row['id'].'">'.$row['judul'].'</a></h2>';
-					echo		'<div class="art-list-time">'.$row['tanggal'].'</div>';
+					echo 		'<h2 class="art-list-title"><a href="post.php?id='.$row['id'].'">'.$row['judul_post'].'</a></h2>';
+					echo		'<div class="art-list-time">'.$row['tanggal_post'].'</div>';
 					echo	'</div>';
-					echo 	'<p>'.$row['konten'].'&hellip;</p>';
+					echo 	'<p>'.$row['konten_post'].'&hellip;</p>';
 					echo	'<p>';
 					echo		'<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0)" onclick="validatedelete()">Hapus</a>';
 					echo	'</p>';

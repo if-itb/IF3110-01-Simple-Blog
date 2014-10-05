@@ -34,10 +34,10 @@
 <?php
 	include ("connect.php");
 	$id=$_GET['id'];
-	$listpost = mysql_query("SELECT judul, tanggal, konten FROM post WHERE id=".$id);
+	$listpost = mysql_query("SELECT * FROM post WHERE id=".$id);
 	
 	while($post = mysql_fetch_array($listpost)){?>
-					<title>Simple Blog | <?=$post['judul']?></title>
+					<title>Simple Blog | <?=$post['judul_post']?></title>
 				<?php
 				}
 ?>
@@ -47,7 +47,7 @@
 <body class="default">
 <?php
 	$id=$_GET['id'];
-	$listpost = mysql_query("SELECT judul, tanggal, konten FROM post WHERE id=".$id);
+	$listpost = mysql_query("SELECT * FROM post WHERE id=".$id);
 	
 	while($post = mysql_fetch_array($listpost)){
 	?>
@@ -64,8 +64,8 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time"><?=$post['tanggal']?></time>
-            <h2 class="art-title"><?=$post['judul']?></h2>
+            <time class="art-time"><?=$post['tanggal_post']?></time>
+            <h2 class="art-title"><?=$post['judul_post']?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -73,7 +73,7 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p><?=$post['konten']?></p>
+            <p><?=$post['konten_post']?></p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
 
             <hr />

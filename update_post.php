@@ -1,12 +1,12 @@
 <?php
 include "connect.php";
 //session_start();
-$id=$_GET['id'];
-$judul=$_POST['judul'];
-$tanggal=$_POST['tanggal'];
-$konten=$_POST['konten'];
+$id=$_GET['id']; 
+$judul=$_POST['Judul'];
+$tanggal=$_POST['Tanggal'];
+$konten=$_POST['Konten'];
 
-$sql="UPDATE `post` SET `judul`='$judul', `tanggal`='$tanggal', `konten`='$konten' WHERE `id`='$id'";
+$sql="UPDATE `post` SET `judul_post`='$judul', `tanggal_post`='$tanggal', `konten_post`='$konten' WHERE `id`='$id'";
 
 if (!mysql_query($sql)) {
   die('Error: ' . mysql_error($con));
