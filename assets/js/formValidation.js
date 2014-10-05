@@ -30,7 +30,7 @@ function parseDate(str) {
   var tanggal3;
   if(m)
   {
-  	var tanggal3 = new Date(m[3],m[2]-1,m[1]);
+  	var tanggal3 = new Date(m[3],m[2]-1,m[1]+1);
   }
   else
   {
