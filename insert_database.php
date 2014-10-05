@@ -5,6 +5,12 @@
 	$judul = mysqli_real_escape_string($con, $_POST['Judul']);
 	$tanggal = mysqli_real_escape_string($con, $_POST['Tanggal']);
 	$konten = mysqli_real_escape_string($con, $_POST['Konten']);
+	$update = FALSE;
+	if(isset($_POST['id']))
+	{
+		$id = mysqli_real_escape_string($con, $_POST['id']);
+		$update = TRUE;
+	}
 	
 	//Check if Judul, Tanggal, and Konten are retrieved correctly
 	echo "Judul: ",$judul, "<br>";
@@ -19,8 +25,17 @@
 	else 
 	{
 		//Insert form values into database
-		$query = "INSERT INTO `simple_blog`.`info_post` (`id`, `judul`, `tanggal`, `konten`) 
-				  VALUES (NULL, '$judul', '$tanggal', '$konten');";
+		if(!$update)
+		{
+			$query = "INSERT INTO `simple_blog`.`info_post` (`id`, `judul`, `tanggal`, `konten`) 
+					  VALUES (NULL, '$judul', '$tanggal', '$konten');";
+		}
+		else 
+		{
+			$query = "UPDATE `info_post` 
+			          SET `judul`='$judul',`tanggal`='$tanggal',`konten`='$konten' 
+				      WHERE id = $id";
+		}
 					
 		if (!mysqli_query($con,$query)) 
 		{

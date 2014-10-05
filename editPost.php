@@ -80,6 +80,9 @@
 	
 	            <div id=\"contact-area\">
 	                <form method=\"post\" action=\"insert_database.php\" onsubmit=\"return Validation()\">
+	                
+	                	<input type=\"hidden\" value=".$id." name=\"id\">
+	                
 	                    <label for=\"Judul\">Judul:</label>
 	                    <input type=\"text\" name=\"Judul\" id=\"Judul\" required=\"\" value=\"" . $results['judul'] ."\">
 	
@@ -90,7 +93,7 @@
 	                    <label for=\"Konten\"><br>Konten:</label><br>
 	                    <textarea name=\"Konten\" rows=\"40\" cols=\"20\" id=\"Konten\" required>".$results['konten']."</textarea>
 	
-	                    <input type=\"submit\" name=\"submit\" value=\"Simpan\" class=\"submit-button\">
+	                    <input type=\"submit\" name=\"submit\" value=\"Simpan\" class=\"submit-button\" onclick=\"hapus2(".$id.")\">
 	                </form>
 	            </div>
 	        </div>
@@ -138,16 +141,6 @@
 	</body>
 	</html>
 	";
-	
-	//Delete data from database
-	$id = $results['id'];
-	$query = "DELETE FROM `info_post` 
-			  WHERE `id` = $id";
-			  
-	if(!mysqli_query($link, $query))
-	{
-		die('Error ' . mysqli_errno($con));
-	}
-	
+
 	mysqli_close($link);
 ?>
