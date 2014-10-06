@@ -84,13 +84,13 @@
 				mysqli_close($con);
           	?>
           	
-          	<!-- Sending data to javascript using this hidden form -->
+          	<!-- Sending data to javascript (edit & delete post) using this hidden form -->
           	
           	<form name="post" method="post">
           		<input type="hidden" name="id" value="test">
           	</form>
           	
-          	<!-- Sending data to javascript using this hidden form -->
+          	<!-- Sending data to javascript (edit & delete post) using this hidden form -->
           	
           </ul>
         </nav>
@@ -118,7 +118,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
