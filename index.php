@@ -66,9 +66,7 @@
 					echo '</li>';
 				
 			echo '<html><script type="text/javascript">
-
 				function validatedelete(id)
-
 				{
 					var x;
 					if (confirm("hapus?" id)==true)
