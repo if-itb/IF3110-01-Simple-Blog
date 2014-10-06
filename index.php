@@ -60,18 +60,20 @@
 					echo		'<div class="art-list-time">'.$row['tanggal_post'].'</div>';
 					echo	'</div>';
 					echo 	'<p>'.$row['konten_post'].'&hellip;</p>';
-					echo	'<p>';
-					echo		'<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0)" onclick="validatedelete()">Hapus</a>';
+					echo	'<p id='.$row['id'].'>';
+					echo		'<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0)" onclick="validatedelete(id)">Hapus</a>';
 					echo	'</p>';
 					echo '</li>';
 				
 			echo '<html><script type="text/javascript">
-				function validatedelete(teks)
+
+				function validatedelete(id)
+
 				{
 					var x;
-					if (confirm("hapus?")==true)
+					if (confirm("hapus?" id)==true)
 					{
-						x=window.location.href="delete_post.php?id='.$row['id'].'";
+						x=window.location.href="delete_post.php?id="id;
 						}else{
 						x="cancel"; 
 					}
