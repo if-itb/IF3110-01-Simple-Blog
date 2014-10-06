@@ -65,7 +65,7 @@
 					echo	'</p>';
 					echo '</li>';
 				
-			/*echo '<html><script type="text/javascript">
+			echo '<html><script type="text/javascript">
 				function validatedelete(teks)
 				{
 					var x;
@@ -73,10 +73,10 @@
 					{
 						x=window.location.href="delete_post.php?id='.$row['id'].'";
 						}else{
-						x="cancel";
+						x="cancel"; 
 					}
 				}
-			</script></html>';*/
+			</script></html>';
 			}
 			?>
             <!-- <li class="art-list-item">
