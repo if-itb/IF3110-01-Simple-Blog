@@ -70,7 +70,7 @@
 				echo"
 				<li class=\"art-list-item\">
 	                <div class=\"art-list-item-title-and-time\">
-	                    <h2 class=\"art-list-title\"><a href=\"post.html\">" . $result['judul'] . "</a></h2>
+	                    <h2 class=\"art-list-title\"><a onclick=\"comment(this.id)\" id=\"t". $result['id'] ."\">" . $result['judul'] . "</a></h2>
 	                    <div class=\"art-list-time\">" . $date->format('l\, j F Y') . "</div>
 	                </div>
 	                <p>" . $result['konten'] . "</p>
@@ -87,7 +87,7 @@
           	<!-- Sending data to javascript (edit & delete post) using this hidden form -->
           	
           	<form name="post" method="post">
-          		<input type="hidden" name="id" value="test">
+          		<input type="hidden" name="id" value="">
           	</form>
           	
           	<!-- Sending data to javascript (edit & delete post) using this hidden form -->

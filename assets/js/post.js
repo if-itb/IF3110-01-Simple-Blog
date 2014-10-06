@@ -19,3 +19,12 @@ function edit(id)
 	formObjects.action = "editPost.php";
 	formObjects.submit();
 }
+
+function comment(id)
+{
+	var formObjects = document.forms['post'];
+	var formElements = formObjects.elements['id'];
+	formElements.value = id.substring(1);
+	formObjects.action = "post.php";
+	formObjects.submit();	
+}

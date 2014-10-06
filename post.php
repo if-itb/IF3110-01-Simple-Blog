@@ -29,7 +29,30 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<?php 
+	//establish connection to database
+	$link = mysqli_connect('localhost', 'root', "", 'simple_blog');
+	$id = mysqli_real_escape_string($link, $_POST['id']);
+	
+	//retrieve data from database (info_post)
+	$query = "SELECT * FROM info_post WHERE id = $id";
+	if(!($results = mysqli_query($link, $query)))
+	{
+		die('Error ' . mysqli_errno($link));
+	}
+	$result = $results->fetch_assoc();
+	$retrieved = $result['tanggal'];
+	$date = DateTime::createFromFormat('Y-m-d', $retrieved);
+	
+	//retrieve data from database (info_post)
+	$query1 = "SELECT * FROM info_comment WHERE id = $id";
+	if(!($results1 = mysqli_query($link, $query1)))
+	{
+		die('Error ' . mysqli_errno($link));
+	}
+?>
+
+<title>Simple Blog | <?php echo $result['judul']; ?></title>
 
 
 </head>
@@ -38,7 +61,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -48,19 +71,16 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?php echo $date->format('l\, j F Y'); ?></time>
+            <h2 class="art-title"><?php echo $result['judul']; ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
 
     <div class="art-body">
-        <div class="art-body-inner">
-            <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+        <div class="art-body-inner" style="padding-top: 0px;">
+            <p><?php echo $result['konten']; ?></p>
 
-            <hr />
             
             <h2>Komentar</h2>
 
@@ -80,21 +100,20 @@
             </div>
 
             <ul class="art-list-body">
+            	<?php 
+            		while($row = mysqli_fetch_assoc($results1))
+					{
+            	?>
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
+                        <h2 class="art-list-title"><a href="post.html"><?php echo $row['nama']; ?></a></h2>
                         <div class="art-list-time">2 menit lalu</div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                    <p><?php echo $row['comment']; ?></p>
                 </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+                <?php 
+					} 
+				?>
             </ul>
         </div>
     </div>
@@ -122,7 +141,11 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<?php 
+	//close connection to server
+	mysqli_close($link);
+?>
+
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
