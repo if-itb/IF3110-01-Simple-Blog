@@ -69,7 +69,7 @@
 				}
 				echo $splitDate[2].' '.$month.' '.$splitDate[0];
 			  }
-			  
+
 			  include 'dbconnect.php';       
 
 			  $sqlQuery = "SELECT * FROM `simple_blog`.`post` ORDER BY `tanggal` DESC";
@@ -115,29 +115,10 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
+<script type="text/javascript" src="assets/js/myjs.js"></script>
 
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-	  function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-	  t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-	  t.src='//www.google-analytics.com/analytics.js';
-	  z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-	  ga('create',ga_ua);ga('send','pageview');
-</script>
-<script type="text/javascript">
-  function confirmDeletion(postId) {
-	var confirm = window.confirm("Apakah Anda yakin menghapus post ini?");
-	if (confirm == true) {
-		window.location = "delete_post.php?p=" + postId;
-	} else {
-		return false;
-	}
-  }
-</script>
 </body>
 </html>

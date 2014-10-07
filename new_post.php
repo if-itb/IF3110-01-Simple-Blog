@@ -110,71 +110,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-	  function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-	  t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-	  t.src='//www.google-analytics.com/analytics.js';
-	  z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-	  ga('create',ga_ua);ga('send','pageview');
-</script>
-<script type="text/javascript">
-	function validate() {
-		var judul = document.getElementById("Judul").value;        
-		var content = document.getElementById("Konten").value;
-		var validDateFormat = true;
-		var rawDate, tanggal;
-		try {
-			rawDate = document.getElementById("Tanggal").value.split("/");
-			tanggal = new Date(rawDate[2], rawDate[0], rawDate[1] - 1);
-		} catch(exception) {
-			validDateFormat = false;
-		}
-		var today = new Date();
-
-		if (isEmpty(judul)) {
-			alert("Judul tidak boleh kosong");
-			return false;            
-		}
-		if (validDateFormat) {            
-			if (!compareDate(tanggal, today)) {
-				alert("Format tanggal tidak valid");
-				return false;
-			}
-		} else {
-			alert("Format tanggal tidak valid");        
-			return false;
-		}
-		if (isEmpty(content)) {
-			alert("Konten tidak boleh kosong");  
-			return false;
-		}
-
-		return true;
-	}
-
-	function compareDate(tanggal, today) {        
-		if (tanggal.getFullYear() > today.getFullYear())
-			return true;
-		if (tanggal.getFullYear() < today.getFullYear())
-			return false;
-		if (tanggal.getMonth() > today.getMonth())
-			return true;
-		if (tanggal.getMonth() < today.getMonth())
-			return false;
-		if (tanggal.getDate() >= today.getDate())
-			return true;
-		if (tanggal.getDate() < today.getDate())
-			return false;
-	}
-
-	function isEmpty(val){
-		return (val === undefined || val == null || val.length <= 0) ? true : false;
-	}
-
-</script>
+<script type="text/javascript" src="assets/js/myjs.js"></script>
 
 </body>
 </html>

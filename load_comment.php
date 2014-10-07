@@ -3,7 +3,7 @@
 	include 'header.php';
 	
 	$postId = $_GET['idpost'];
-	$sqlQuery = "SELECT * FROM `simple_blog`.`komentar` WHERE `id_post`='$postId'";	
+	$sqlQuery = "SELECT * FROM `simple_blog`.`komentar` WHERE `id_post`='$postId' ORDER BY `tanggal` DESC";	
 	$result = mysqli_query($connDb, $sqlQuery);              
 	
 	$stringBuilder = '';
