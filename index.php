@@ -60,23 +60,24 @@
 					echo		'<div class="art-list-time">'.$row['tanggal_post'].'</div>';
 					echo	'</div>';
 					echo 	'<p>'.$row['konten_post'].'&hellip;</p>';
-					echo	'<p id='.$row['id'].'>';
-					echo		'<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0)" onclick="validatedelete(id)">Hapus</a>';
+					echo	'<p name="instruksi" id="'.$row['id'].'">';
+					echo		'<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0)" onclick="validatedelete('.$row['id'].')">Hapus</a>';
 					echo	'</p>';
 					echo '</li>';
 				
-			echo '<html><script type="text/javascript">
-				function validatedelete(id)
+			/*echo '<script type="text/javascript">
+				function validatedelete(teks)
 				{
 					var x;
-					if (confirm("hapus?" id)==true)
+					var y = teks;
+					if (confirm("hapus")==true)
 					{
-						x=window.location.href="delete_post.php?id="id;
+						x=window.location.href="delete_post.php?id="y;
 						}else{
 						x="cancel"; 
 					}
 				}
-			</script></html>';
+			</script>';*/
 			}
 			?>
             <!-- <li class="art-list-item">
@@ -121,11 +122,25 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-
+<script type="text/javascript">
+				function validatedelete(teks)
+				{
+					var x;
+					var y = teks;
+					var z = "delete_post.php?id=";
+					var res = z.concat(y);
+					if (confirm("Apakah Anda yakin menghapus post ini?")==true)
+					{
+						x=window.location.href=res;
+						}else{
+						x="cancel"; 
+					}
+				}
+			</script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
