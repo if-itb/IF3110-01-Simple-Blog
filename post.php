@@ -28,22 +28,6 @@
 <!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
-<title>Simple Blog | Apa itu Simple Blog?</title>
-
-
-</head>
-
-<body class="default">
-<div class="wrapper">
-
-<nav class="nav">
-	<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-	<ul class="nav-primary">
-		<li><a href="new_post.php">+ Tambah Post</a></li>
-	</ul>
-</nav>
-
 <?php 
 		function printReadableDateFormat($tanggal) {
 		$rawDate = substr($tanggal, 0, 10);
@@ -79,6 +63,21 @@
 			mysqli_close($connDb);
 		}
 ?>
+
+<title><?php echo $post['judul']; ?> | Simple Blog</title>
+
+
+</head>
+
+<body class="default">
+<div class="wrapper">
+
+<nav class="nav">
+	<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+	<ul class="nav-primary">
+		<li><a href="new_post.php">+ Tambah Post</a></li>
+	</ul>
+</nav>
 
 <article class="art simple post">
 	
