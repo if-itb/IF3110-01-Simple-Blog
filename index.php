@@ -6,7 +6,6 @@
 <div class="wrapper">
 
 <?php 
-  echo convertDate("2010-02-11");
   $query = 'SELECT * FROM posting';
   $result = mysql_query($query);
   if(!$result){

@@ -1,10 +1,15 @@
 <?php 
+  include 'dbconnect.php';
   if( $_POST["Judul"] && $_POST["Tanggal"] && $_POST["Konten"] )
   {
-     echo "Welcome ". $_POST['Judul']. "<br />";
-     echo "You are ". $_POST['Tanggal']. " years old.";
-     echo "Thx ".$_POST['Konten']."yeah";
-     exit();
+  	$judul = mysql_real_escape_string($_POST["Judul"]);
+  	$tanggal = mysql_real_escape_string($_POST["Tanggal"]);
+  	$konten = mysql_real_escape_string($_POST["Konten"]);
+  	$query = "INSERT INTO posting (judul,tanggal,konten) VALUES ('$judul','$tanggal','$konten')";
+  	if(!mysql_query($query)){
+  		echo 'blablabla';
+  	}
+    //header('Location: ../index.php');
   }
   else{
   	echo "isi lengkap postingnya";
