@@ -105,7 +105,11 @@ function validate() {
 	var rawDate, tanggal;
 	try {
 		rawDate = document.getElementById("Tanggal").value.split("/");
-		tanggal = new Date(rawDate[2], rawDate[0], rawDate[1] - 1);
+		if (rawDate[2] < 1990 || rawDate[2] > 2099 || rawDate[0] < 0 || rawDate[0] > 12 || rawDate[1] < 0 || rawDate[1] > 31) {
+			validDateFormat = false;
+		} else {
+			tanggal = new Date(rawDate[2], rawDate[0] - 1, rawDate[1]);
+		}
 	} catch(exception) {
 		validDateFormat = false;
 	}
