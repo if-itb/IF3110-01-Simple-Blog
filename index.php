@@ -31,7 +31,7 @@
               for($i=1;$i<sizeof($id);$i++){?>
                 <li class="art-list-item">
                   <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html"> <?php echo $judul[$i]; ?></a></h2>
+                    <h2 class="art-list-title"><a href="post.php?judul=<?php echo $judul[$i]?>"> <?php echo $judul[$i]; ?></a></h2>
                     <div class="art-list-time"> <?php echo convertDate($tanggal[$i]) ?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                   </div>
