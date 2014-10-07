@@ -6,10 +6,7 @@
 		$tanggal = $rawDate->format('Y-m-d H:i:s');
 		$konten = sanitize($_POST["Konten"]);  		
 
-		$connDb = mysqli_connect("localhost", "root", "", "simple_blog");
-		if (mysqli_connect_errno()) {
-		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}		
+		include 'dbconnect.php';
 
 		if (!isset($_POST["EditMode"])) {			
 			$sqlQuery = "INSERT INTO `simple_blog`.`post` (judul, tanggal, content) VALUES ('$judul', '$tanggal', '$konten')";
@@ -20,8 +17,7 @@
 		}
 		if (!mysqli_query($connDb, $sqlQuery)) {
 			die('Error: ' . mysqli_error($connDb));
-		}
-		mysqli_close($connDb);
+		}		
 
 		header('Location: index.php');
 		die();

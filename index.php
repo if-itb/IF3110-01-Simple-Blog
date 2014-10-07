@@ -69,14 +69,11 @@
 				}
 				echo $splitDate[2].' '.$month.' '.$splitDate[0];
 			  }
-			  $connDb = mysqli_connect("localhost", "root", "", "simple_blog");
-			  if (mysqli_connect_errno()) {
-				echo "Failed to connect to MySQL: " . mysqli_connect_error();
-			  }       
+			  
+			  include 'dbconnect.php';       
 
 			  $sqlQuery = "SELECT * FROM `simple_blog`.`post` ORDER BY `tanggal` DESC";
 			  $result = mysqli_query($connDb, $sqlQuery);              
-			  mysqli_close($connDb);                
 
 			  while($post = mysqli_fetch_array($result)) {
 			?>

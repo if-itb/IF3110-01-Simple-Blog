@@ -34,17 +34,13 @@
 </head>
 
 <?php 
-	if (isset($_GET['p'])) {  
-		$postId = $_GET['p'];
-		$connDb = mysqli_connect("localhost", "root", "", "simple_blog");
-		if (mysqli_connect_errno()) {
-		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}       
-
+	if (isset($_GET['p'])) { 
+		include 'dbconnect.php';
+		
+		$postId = $_GET['p'];		
 		$sqlQuery = "SELECT * FROM `simple_blog`.`post` WHERE `id_post` = '$postId'";
 		$result = mysqli_query($connDb, $sqlQuery);
-		$post = mysqli_fetch_array($result);        
-		mysqli_close($connDb);
+		$post = mysqli_fetch_array($result);	
 	}
 ?>
 
@@ -54,7 +50,7 @@
 <nav class="nav">
 	<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
 	<ul class="nav-primary">
-		<li><a href="new_post.php<?php if (isset($_GET['p'])) echo '?p='.$_GET['p'] ?>">+ <?php if (!isset($_GET['p'])) echo 'Tambah Post'; else echo 'Edit Post'; ?></a></li>
+		<li><a href="new_post.php">+ Tambah Post</a></li>
 	</ul>
 </nav>
 
