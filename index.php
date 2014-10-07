@@ -5,12 +5,18 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
-    </ul>
-</nav>
+<?php 
+  // $query = 'SELECT konten FROM posting';
+  // $result = mysql_query($query);
+  // if(!$result){
+  //   echo 'no result';
+  // }
+  // while($row = mysql_fetch_row($result)){
+  //  echo $row[0];
+  //  echo '</br>';
+  // }
+  
+?>
 
 <div id="home">
     <div class="posts">

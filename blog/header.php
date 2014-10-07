@@ -1,5 +1,5 @@
 <head>
-
+<?php include 'dbconnect.php'; ?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -28,6 +28,10 @@
 <![endif]-->
 
 <title>Simple Blogsss | Tambah Post</title>
-
-
+<nav class="nav">
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <ul class="nav-primary">
+        <li><a href="new_post.php">+ Tambah Post</a></li>
+    </ul>
+</nav>
 </head>
