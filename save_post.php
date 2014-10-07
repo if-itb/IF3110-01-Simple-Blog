@@ -1,10 +1,10 @@
 <?php
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$judul = sanitize($_POST["Judul"]);
+		$judul = mysql_real_escape_string(sanitize($_POST["Judul"]));
 		$rawDate = new DateTime($_POST["Tanggal"]);
 		$tanggal = $rawDate->format('Y-m-d H:i:s');
-		$konten = sanitize($_POST["Konten"]);  		
+		$konten = mysql_real_escape_string(sanitize($_POST["Konten"]));
 
 		include 'dbconnect.php';
 
@@ -26,7 +26,7 @@
 	function sanitize($data) {
 		$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = htmlspecialchars($data);		
 		return $data;
 	}
 

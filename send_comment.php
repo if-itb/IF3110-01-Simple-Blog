@@ -2,9 +2,9 @@
 	include 'header.php';
 	include 'dbconnect.php';
 
-	$nama = sanitize($_POST['nama']);
+	$nama = mysql_real_escape_string(sanitize($_POST['nama']));
 	$email = $_POST['email'];
-	$komentar = sanitize($_POST['komentar']);
+	$komentar = mysql_real_escape_string(sanitize($_POST['komentar']));
 	$idPost = $_POST['idpost'];
 	$rawDate = new DateTime();
 	$tanggal = $rawDate->format('Y-m-d H:i:s');	
