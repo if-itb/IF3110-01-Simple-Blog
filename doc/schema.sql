@@ -30,7 +30,7 @@ CREATE  TABLE IF NOT EXISTS `simple_blog`.`komentar` (
   CONSTRAINT `fk_komentar_post`
     FOREIGN KEY (`id_post` )
     REFERENCES `simple_blog`.`post` (`id_post` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
