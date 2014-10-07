@@ -18,7 +18,7 @@
 			case 9: $month = 'September'; break;
 			case 10: $month = 'Oktober'; break;
 			case 11: $month = 'November'; break;
-			case 112: $month = 'Desember'; break;
+			case 12: $month = 'Desember'; break;
 			default: break;
 		}
 		return $splitDate[2].' '.$month.' '.$splitDate[0].' '.$splitTime[0].':'.$splitTime[1];
