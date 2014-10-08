@@ -15,7 +15,7 @@
   <article class="art simple post">
       
     <header class="art-header">
-      <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+      <div class="art-header-inner">
         <time class="art-time">15 Juli 2014</time>
         <h2 class="art-title">Apa itu Simple Blog?</h2>
         <p class="art-subtitle"></p>
