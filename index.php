@@ -2,6 +2,7 @@
 <html>
 <head>
 
+  <?php $title = 'Simple Blog'; ?>
   <?php include 'templates/head.php'; ?>
 
 </head>

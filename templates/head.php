@@ -25,4 +25,4 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title><?php echo isset($title) ? $title : 'Simple Blog'; ?></title>
