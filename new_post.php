@@ -54,14 +54,14 @@
         <h2>Tambah Post</h2>
 
         <div id="contact-area">
-          <form method="post" action="">
+          <form method="post" action="" onsubmit="return validatePost(this)">
             <input type="hidden" name="id" id="id" value="<?php echo isset($row) ? $row['post_id'] : '' ?>" id="EditMode">
 
             <label for="Judul">Judul:</label>
             <input type="text" name="Judul" id="Judul" value="<?php echo isset($row) ? $row['post_title'] : ''; ?>">
 
             <label for="Tanggal">Tanggal:</label>
-            <input type="text" name="Tanggal" id="Tanggal" value="<?php echo isset($row) ? $row['post_date'] : ''; ?>">
+            <input type="text" name="Tanggal" id="Tanggal" placeholder="dd-mm-yyyy" value="<?php echo isset($row) ? $row['post_date'] : ''; ?>">
             
             <label for="Konten">Konten:</label><br>
             <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo isset($row) ? $row['post_content'] : ''; ?></textarea>
