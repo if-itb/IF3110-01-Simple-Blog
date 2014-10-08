@@ -28,8 +28,16 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
-<title>Simple Blog | Tambah Post</title>
+<?php 
+    if(isset($_POST['post-id']))
+        $isEdit = true;
+    else
+        $isEdit = false;
+    if($isEdit)
+        echo "<title>Simple Blog | Edit Post</title>";
+    else
+        echo "<title>Simple Blog | Tambah Post</title>";
+?>
 
 
 </head>
@@ -39,10 +47,21 @@
 
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
 </nav>
+
+<?php 
+    if($isEdit){
+        $con = mysqli_connect("localhost", "root", "", "wbd");
+
+        if(mysqli_connect_errno()){
+            echo "Failed to connect database";
+        }
+
+        $query = "SELECT * FROM post WHERE id = " . $_POST['post-id'];
+        $result = mysqli_query($con, $query) or die(mysql_error());
+        $row = mysqli_fetch_assoc($result);
+    }
+?>
 
 <article class="art simple post">
     
@@ -51,18 +70,47 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <?php 
+                if($isEdit)
+                    echo "<h2>Edit Post</h2>";
+                else
+                    echo "<h2>Tambah Post</h2>";
+            ?>
+            
 
             <div id="contact-area">
-                <form method="post" action="insert.php">
+                <form method="post" action=
+                    <?php 
+                        if($isEdit)
+                            echo "'update.php'";
+                        else
+                            echo "'insert.php'";
+                    ?>>
+                    
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="title" id="Judul">
+                    <input type="text" name="title" id="Judul"
+                        <?php 
+                            if($isEdit)
+                                echo "value='".$row['title']."'";
+                        ?>>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="date" id="Tanggal">
-                    
+                    <input type="text" name="date" id="Tanggal"
+                        <?php 
+                            if($isEdit)
+                                echo "value='".$row['date']."'";
+                        ?>>
+
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="content" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="content" rows="20" cols="20" id="Konten"><?php 
+                        if($isEdit)
+                            echo $row['content']; ?>
+                    </textarea>
+                    <?php 
+                        if($isEdit){
+                            echo "<input type='hidden' name='post-id' value=".$_POST['post-id'].">";
+                        }
+                    ?>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>

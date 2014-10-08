@@ -30,13 +30,12 @@
 		$date = mysqli_real_escape_string($con, $_POST['date']);
 		$content = mysqli_real_escape_string($con, $_POST['content']);
 
-		$query = "INSERT INTO post (title, content, date)
-					VALUES ('$title', '$content', '$date')";
+		$query = "UPDATE post SET title = '" . $title . "', date = '" . $date . "', content = '" . $content . "' WHERE id = " . $_POST['post-id'];
 
 		if(!mysqli_query($con, $query)){
 			die('Error: ' . mysqli_error($con));
 		}else{
-			echo "Post successfully added";
+			echo "Post successfully edited";
 		}
 
 		mysqli_close($con);

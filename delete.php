@@ -26,17 +26,12 @@
 			echo "Failed to connect to mysql server";
 		}
 
-		$title = mysqli_real_escape_string($con, $_POST['title']);
-		$date = mysqli_real_escape_string($con, $_POST['date']);
-		$content = mysqli_real_escape_string($con, $_POST['content']);
-
-		$query = "INSERT INTO post (title, content, date)
-					VALUES ('$title', '$content', '$date')";
+		$query = "DELETE FROM post WHERE id=".$_POST['post-id'];
 
 		if(!mysqli_query($con, $query)){
 			die('Error: ' . mysqli_error($con));
 		}else{
-			echo "Post successfully added";
+			echo "Post successfully deleted";
 		}
 
 		mysqli_close($con);
