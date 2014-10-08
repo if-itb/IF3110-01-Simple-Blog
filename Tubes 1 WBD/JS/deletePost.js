@@ -18,3 +18,12 @@ function deletePostAjax(param, id) {
 	xmlhttp.open("GET","../PHP/deletePost.php?hidden="+id,true);
 	xmlhttp.send();
 }
+
+function validateDeletion() {
+/*	Post deletion confirmation */
+	var answer = confirm ("Are you sure want to delete this post?");
+	if (answer) {
+		return true;
+	}
+	else return false;
+}

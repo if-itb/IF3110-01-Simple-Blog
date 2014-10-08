@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 08, 2014 at 12:29 PM
+-- Generation Time: Oct 08, 2014 at 12:59 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -69,10 +69,9 @@ CREATE TABLE IF NOT EXISTS `post` (
 --
 
 INSERT INTO `post` (`id`, `title`, `datePost`, `timePost`, `content`) VALUES
-(5, 'Test', '2014-11-05', '09:44:04', 'testarea'),
 (6, 'post', '2014-11-06', '09:44:32', 'test'),
 (7, 'Ganteng', '2014-11-12', '05:48:28', 'A definite article indicates that its noun is a particular one (or ones) identifiable to the listener. It may be something that the speaker has already mentioned, or it may be something uniquely specified. The definite article in English, for both singular and plural nouns, is the.\r\n\r\nThe children know the fastest way home.\r\nThe sentence above refers to specific children and a specific way home; it contrasts with the much more general observation that:\r\n\r\nChildren know the fastest way home.\r\nThe latter sentence refers to children in general and their specific ways home. Likewise,\r\n\r\nGive me the book.\r\nrefers to a specific book whose identity is known or obvious to the listener; as such it has a markedly different meaning from\r\n\r\nGive me a book.\r\nwhich does not specify what book is to be given.\r\n\r\nThe definite article can also be used in English to indicate a specific class among other classes:\r\n\r\nThe cabbage white butterfly lays its eggs on members of the Brassica genus.\r\nHowever, recent developments show that definite articles are morphological elements linked to certain noun types due to lexicalization. Under this point of view, definiteness does not play a role in the selection of a definite article more than the lexical entry attached to the article. [3] [4]'),
-(9, 'HTML POST', '2014-10-05', '05:56:39', 'this is <br> HTML <br> post <br>');
+(8, 'Cinta', '2014-10-08', '12:59:11', 'test test test');
 
 --
 -- Constraints for dumped tables

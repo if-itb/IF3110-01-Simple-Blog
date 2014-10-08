@@ -20,7 +20,6 @@
 		<hr id="strongLine">
 		
 		<!--Body Part of the blog-->
-		<script src="../JS/validateDelete.js"> </script>
 		<script src="../JS/deletePost.js"> </script>
 		<div class="body">
 			<?php 
