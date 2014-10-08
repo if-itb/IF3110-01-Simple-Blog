@@ -1,8 +1,8 @@
-<?php require 'config.php'; ?>
+<?php require 'system/config.php'; ?>
 
 <?php
   if (isset($_GET['id'])) {     
-    include 'db.php';       
+    include 'system/db.php';       
     
     $id = (int) $_GET['id'];
     $query = "SELECT * FROM `posts` WHERE `post_id` = '$id'";
@@ -68,7 +68,7 @@
 
         <ul class="art-list-body" id="comments">
         </ul>
-        
+
       </div>
     </div>
 

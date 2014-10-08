@@ -1,4 +1,4 @@
-<?php require 'config.php'; ?>
+<?php require 'system/config.php'; ?>
 
 <?php 
   if (isset($_GET['id'])) {
@@ -32,7 +32,7 @@
           <nav class="art-list">
             <ul class="art-list-body">
               <?php
-                include 'db.php';
+                include 'system/db.php';
 
                 $query = "SELECT * FROM `posts` ORDER BY `post_date` DESC";
                 $result = mysqli_query($conn, $query);

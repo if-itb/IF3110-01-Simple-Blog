@@ -17,8 +17,6 @@ $CONFIG['env'] = 'development';
  */
 $CONFIG['siteurl'] = 'http://localhost/IF3110-01-Simple-Blog';
 
-$CONFIG['sitepath'] = realpath(dirname(__FILE__));
-
 /**
  * Database configuration
  */

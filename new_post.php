@@ -1,9 +1,9 @@
-<?php require 'config.php'; ?>
+<?php require 'system/config.php'; ?>
 
 <?php 
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include 'db.php';
+  include 'system/db.php';
 
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = mysql_real_escape_string($_POST['Judul']);
     $datetime = new DateTime($_POST['Tanggal']);
     $datetime = $datetime->format('Y-m-d H:i:s');
@@ -21,9 +21,7 @@
     die();
   }
 
-  if (isset($_GET['id'])) { 
-    include 'db.php';
-    
+  if (isset($_GET['id'])) {   
     $id = (int) $_GET['id'];   
     $query = "SELECT * FROM `posts` WHERE `post_id` = '$id'";
     $result = mysqli_query($conn, $query);

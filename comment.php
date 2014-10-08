@@ -1,7 +1,7 @@
-<?php require 'config.php'; ?>
+<?php require 'system/config.php'; ?>
 
 <?php 
-  include 'db.php';
+  include 'system/db.php';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = (int) $_POST['postid'];
