@@ -21,7 +21,7 @@ function addComment(comment, postId) {
     }
   }  
           
-  var parameters = "postid=" + postId + "&name=" + comment.Name + "&email=" + comment.Email + "&content=" + comment.Komentar.value;
+  var parameters = "postid=" + postId + "&name=" + comment.Name + "&email=" + comment.Email.value + "&content=" + comment.Komentar.value;
   xmlhttp.open("POST", "comment.php", true);
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");    
   xmlhttp.send(parameters);
@@ -33,6 +33,9 @@ function loadComment(postId) {
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
       document.getElementById("comments").innerHTML = xmlhttp.responseText;
+      document.getElementById("Nama").value = '';
+      document.getElementById("Email").value = '';
+      document.getElementById("Komentar").value = '';
     }
   }
           
