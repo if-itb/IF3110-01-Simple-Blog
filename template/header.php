@@ -20,7 +20,7 @@
 <meta property="og:image" content="{{! TODO: ADD GRAVATAR URL HERE }}">
 <meta property="og:site_name" content="Simple Blog">
 
-<link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
+<link rel="stylesheet" type="text/css" href="/if3110-01-simple-blog/assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
 <!--[if lt IE 9]>
@@ -29,9 +29,9 @@
 
 <title>Simple Blogsss | Tambah Post</title>
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="/if3110-01-simple-blog/"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
+        <li><a href="/if3110-01-simple-blog/view/newpost_form.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -76,6 +76,22 @@
       $output .= " Des ";
     }
     $output .= $input_split[0];
+    return $output;
+  }
+
+  function getID($ids){
+  $id =($ids);
+  $query = "SELECT judul,tanggal,konten FROM posting WHERE id='$id'";
+    $result = mysql_query($query);
+    if(!$result){
+        echo 'NOTHING';
+    }
+    $output = array();
+    while($row = mysql_fetch_row($result)){
+        array_push($output, $row[0]);
+        array_push($output, $row[1]);
+        array_push($output, $row[2]);
+    }
     return $output;
   }
 ?>

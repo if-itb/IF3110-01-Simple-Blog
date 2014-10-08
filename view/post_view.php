@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-<?php include 'blog/header.php'; ?>
+<?php include '../template/header.php'; ?>
 <?php 
-    $judul= $_GET['judul'];
-    $query = "SELECT tanggal,konten FROM posting WHERE judul='$judul'";
+    $id= $_GET['id'];
+    $query = "SELECT judul,tanggal,konten FROM posting WHERE id='$id'";
     $result = mysql_query($query);
     if(!$result){
         echo 'NOTHING';
     }
     while($row = mysql_fetch_row($result)){
-        $tanggal = $row[0];
-        $konten = $row[1];
+        $judul = $row[0];
+        $tanggal = $row[1];
+        $konten = $row[2];
     }
 ?>
 
@@ -70,40 +71,5 @@
 
 </article>
 
-<footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
-    <!-- <div class="footer-nav"><p></p></div> -->
-    <div class="psi">&Psi;</div>
-    <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
-    </aside>
-</footer>
-
-</div>
-
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
-
-</body>
+<?php include '../template/footer.php'; ?>
 </html>

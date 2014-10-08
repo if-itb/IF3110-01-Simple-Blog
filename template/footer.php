@@ -31,6 +31,17 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+
+  function delete_post(id){
+    var r = confirm("Apakah yakin ingin menghapus ?");
+    if (r==true){
+        window.location = "/if3110-01-simple-blog/function/delete.php?id="+id;
+    }
+    if (r==false){
+
+    }
+
+  }
 </script>
 
 

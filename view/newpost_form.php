@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php require 'blog/header.php'; ?>
+<?php require '../template/header.php'; ?>
 
 <body class="default">
 <div class="wrapper">
@@ -13,7 +13,7 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="blog/tambahpost.php">
+                <form method="post" action="../function/tambahpost.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
@@ -31,5 +31,5 @@
 
 </article>
 
-<?php include 'blog/footer.php' ;?>
+<?php include '../template/footer.php' ;?>
 </html>

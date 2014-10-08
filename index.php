@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include 'blog/header.php'; ?>
+<?php include 'template/header.php'; ?>
 <html>
 
 <body class="default">
@@ -28,16 +28,16 @@
         <nav class="art-list">
           <ul class="art-list-body">
             <?php 
-              for($i=1;$i<sizeof($id);$i++){?>
+              for($i=sizeof($id)-1;$i>0;$i--){?>
                 <li class="art-list-item">
                   <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.php?judul=<?php echo $judul[$i]?>"> <?php echo $judul[$i]; ?></a></h2>
+                    <h2 class="art-list-title"><a href="/if3110-01-simple-blog/view/post_view.php?id=<?php echo $id[$i]?>"> <?php echo $judul[$i]; ?></a></h2>
                     <div class="art-list-time"> <?php echo convertDate($tanggal[$i]) ?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                   </div>
                   <p> <?php echo $konten[$i] ?></p>
                   <p>
-                    <a href="#">Edit</a> | <a href="#">Hapus</a>
+                    <a href="/if3110-01-simple-blog/view/edit_form.php?id=<?php echo $id[$i]?>">Edit</a> | <a href="javascript:delete_post(<?php echo $id[$i]?>);">Hapus</a>
                   </p>
                 </li>
             <?php } ?>
@@ -58,5 +58,5 @@
     </div>
 </div>
 
-<?php include 'blog/footer.php'; ?>
+<?php include 'template/footer.php'; ?>
 </html>

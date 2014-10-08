@@ -1,5 +1,5 @@
 <?php 
-  include 'dbconnect.php';
+  include '../template/dbconnect.php';
   if( $_POST["Judul"] && $_POST["Tanggal"] && $_POST["Konten"] )
   {
   	$judul = mysql_real_escape_string($_POST["Judul"]);
@@ -9,10 +9,10 @@
   	if(!mysql_query($query)){
   		echo 'blablabla';
   	}
-    //header('Location: ../index.php');
+    header('Location: /if3110-01-simple-blog/index.php');
   }
   else{
   	echo "isi lengkap postingnya";
-  	header('Location: ../new_post.php');
+  	header('Location: /if3110-01-simple-blog/view/form_post.php');
   }
 ?>
