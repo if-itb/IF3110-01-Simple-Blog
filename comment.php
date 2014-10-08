@@ -15,10 +15,6 @@
 
     mysqli_query($conn, $query);
 
-    $response = '<li class="art-list-item"><div class="art-list-item-title-and-time"><h2 class="art-list-title"><a href="#">'.$name.'</a></h2><div class="art-list-time">'.$datetime.'</div></div><p>'.$content.'</p></li>';  
-
-    echo $response;
-
   } else {
     $id = (int) $_GET['postid'];
     $query = "SELECT * FROM `comments` WHERE `post_id`='$id' ORDER BY `comment_date` DESC"; 

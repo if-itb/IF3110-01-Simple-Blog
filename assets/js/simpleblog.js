@@ -12,8 +12,9 @@ function addComment(comment, postId) {
   var xmlhttp= window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 
   xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
-        alert(xmlhttp.responseText); // Here is the response
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      loadComment(postId);
+    }
   }  
           
   var parameters = "postid=" + postId + "&name=" + comment.Name + "&email=" + comment.Email + "&content=" + comment.Komentar.value;
