@@ -55,7 +55,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="loadComment(<?php echo $id ?>)">
 <div class="wrapper">
 
 <nav class="nav">
@@ -88,7 +88,6 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -98,26 +97,11 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
-                </form>
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="addComment(<?php echo $id ?>, getElementById('Nama').value, getElementById('Email').value, getElementById('Komentar').value)">
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+            <ul class="art-list-body" id="comment-area">
+                
             </ul>
         </div>
     </div>
@@ -157,6 +141,58 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+
+    function validateEmail(email) 
+    { 
+        var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        
+        if(regex.test(email))
+        {
+            return true;
+        } 
+        else
+        {
+            alert("Email yang anda masukkan salah.\nSilahkan perbaiki.");
+            return false;
+        }
+    } 
+      
+    function loadComment(postId)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if(xmlHttp.readyState==4 && xmlHttp.status==200)
+            {
+                document.getElementById("comment-area").innerHTML=xmlHttp.responseText;
+            }   
+        }
+
+        xmlHttp.open("GET", "get_comment.php?id="+postId, true);
+        xmlHttp.send(null);
+
+    }
+
+    
+    function addComment(postId, nama, email, komentar)
+    {
+        if(validateEmail(email))
+        {
+           var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if(xmlHttp.readyState==4 && xmlHttp.status==200)
+                {
+                    if(xmlHttp.responseText=="Berhasil")
+                    {
+                        loadComment(postId);
+                        alert("Komentar anda telah berhasil ditambahkan");
+                    }
+                }  
+            }
+            xmlHttp.open("POST", "add_comment.php");
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send("postid="+postId+"&nama="+nama+"&email="+email+"&komentar="+komentar);
+        }
+    }
 </script>
 
 </body>

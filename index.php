@@ -81,7 +81,7 @@
                   echo $konten;
                   echo "</p>";
                   echo "<p>";
-                    echo '<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="delete_post.php?id='.$row['id'].'">Hapus</a>';
+                    echo '<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="delete_post.php?id='.$row['id'].'" onclick="return confirm(\'Apakah Anda yakin menghapus post ini?\')">Hapus</a>';
                   echo "</p>";
               echo "</li>";
             }  

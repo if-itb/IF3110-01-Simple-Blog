@@ -64,7 +64,7 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validateTanggal(getElementById('Tanggal').value)">
                 </form>
             </div>
         </div>
@@ -105,6 +105,61 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+
+      function validateTanggal(tanggal) 
+      {
+        // Tanggal skrg
+        var today = new Date();
+        var dd = parseInt(today.getDate(),10);
+        var mm = parseInt(today.getMonth()+1,10);
+        var yyyy = parseInt(today.getFullYear(),10);
+
+        // Tanggal yg diinput
+        date = tanggal.split('/');
+        var hari = parseInt(date[0],10);
+        var bulan = parseInt(date[1],10);
+        var tahun = parseInt(date[2],10);
+
+        if(tahun>yyyy)
+        {
+            return true;
+        }
+        else
+        {
+            if(tahun===yyyy)
+            {
+                if(bulan>mm)
+                {
+                    return true;
+                }
+                else
+                {
+                    if(bulan===mm)
+                    {
+                        if((hari>dd) || (hari===dd))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            alert("Tanggal yang anda masukkan sudah lewat.\nSilahkan masukkan tanggal yang sesuai.");
+                            return false;
+                        }
+                    }
+                    else
+                    { 
+                        alert("Tanggal yang anda masukkan sudah lewat.\nSilahkan masukkan tanggal yang sesuai.");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                alert("Tanggal yang anda masukkan sudah lewat.\nSilahkan masukkan tanggal yang sesuai.");
+                return false;
+            }
+        }
+    }
 </script>
 
 </body>
