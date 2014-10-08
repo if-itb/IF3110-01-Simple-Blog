@@ -64,10 +64,9 @@
 	<div class=\"wrapper\">
 	
 	<nav class=\"nav\">
-	    <a style=\"border:none;\" id=\"logo\" href=\"index.php\"><h1>Simple<span>-</span>Blog</h1></a>
-	    <ul class=\"nav-primary\">
-	    </ul>
+    <a style=\"border:none;\" id=\"logo\" href=\"index.php\"><h1>Simple<span>-</span>Blog</h1></a>
 	</nav>
+	
 	
 	<article class=\"art simple post\">
 	    

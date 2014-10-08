@@ -84,13 +84,13 @@
 				mysqli_close($con);
           	?>
           	
-          	<!-- Sending data to javascript (edit & delete post) using this hidden form -->
+          	<!-- Sending data to javascript (edit, comment & delete post) using this hidden form -->
           	
           	<form name="post" method="post">
           		<input type="hidden" name="id" value="">
           	</form>
           	
-          	<!-- Sending data to javascript (edit & delete post) using this hidden form -->
+          	<!-- Sending data to javascript (edit, comment & delete post) using this hidden form -->
           	
           </ul>
         </nav>
@@ -132,6 +132,5 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
 </body>
 </html>

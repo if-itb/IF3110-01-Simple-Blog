@@ -44,7 +44,7 @@
 	$retrieved = $result['tanggal'];
 	$date = DateTime::createFromFormat('Y-m-d', $retrieved);
 	
-	//retrieve data from database (info_post)
+	//retrieve data from database (info_comment)
 	$query1 = "SELECT * FROM info_comment WHERE id = $id";
 	if(!($results1 = mysqli_query($link, $query1)))
 	{
@@ -57,7 +57,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="loadpost(<?php echo $result['id'] ?>)">
 <div class="wrapper">
 
 <nav class="nav">
@@ -85,7 +85,7 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form onsubmit="loadpost(<?php echo $result['id'] ?>)">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -95,25 +95,17 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="return updatedb()">
                 </form>
             </div>
-
-            <ul class="art-list-body">
-            	<?php 
-            		while($row = mysqli_fetch_assoc($results1))
-					{
-            	?>
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html"><?php echo $row['nama']; ?></a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p><?php echo $row['comment']; ?></p>
-                </li>
-                <?php 
-					} 
-				?>
+			<ul class="art-list-body">
+				
+				<div id="ajaxcontent">
+					
+					
+				
+				</div>
+				
             </ul>
         </div>
     </div>
@@ -149,6 +141,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/getdatabase.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

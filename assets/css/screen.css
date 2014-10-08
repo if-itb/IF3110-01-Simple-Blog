@@ -1,6 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
-@import url(http://fonts.googleapis.com/css?family=Questrial);
-
 /* Reset & Basics (Inspired by E. Meyers)
 ================================================== */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, address, cite, code, em, img, small, strong, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, embed, figure, figcaption, footer, header, hgroup, menu, nav, section, summary, time, audio, video {
@@ -161,6 +158,7 @@ a:hover {
 }
 #logo {
   float: left;
+  
 }
 .nav-primary {
   float: right;
@@ -292,7 +290,6 @@ div.cover > img {
   line-height: 1.5;
 }
 .art-body-inner a:hover {
-  border-bottom: 1px solid #F40034;
   padding-bottom:2px;
 }
 .art-body-inner ul,
@@ -375,6 +372,8 @@ div.cover > img {
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
           box-shadow: none;
+  position: relative;
+  top: 40px;
 }
 
 
