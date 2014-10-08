@@ -1,5 +1,5 @@
 <?php
 
-if (!isset($mysql) || !mysqli_ping($mysql)) {
-  $mysql = mysqli_connect($CONFIG['mysql']['host'], $CONFIG['mysql']['username'], $CONFIG['mysql']['password'], $CONFIG['mysql']['database']);
+if (!isset($conn) || !mysqli_ping($conn)) {
+  $conn = mysqli_connect($CONFIG['mysql']['host'], $CONFIG['mysql']['username'], $CONFIG['mysql']['password'], $CONFIG['mysql']['database']);
 }
