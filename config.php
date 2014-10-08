@@ -10,12 +10,14 @@
  *		testing
  *		production
  **/
-define('ENVIRONMENT', 'development');
+$CONFIG['env'] = 'development';
 
 /**
  * Alamat web home, tanpa tanda / di belakang
  */
-define('SITEURL', '//http://localhost/IF3110-01-Simple-Blog');
+$CONFIG['siteurl'] = '//http://localhost/IF3110-01-Simple-Blog';
+
+$CONFIG['sitepath'] = realpath(dirname(__FILE__));
 
 /**
  * Database configuration
