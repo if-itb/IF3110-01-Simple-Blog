@@ -5,6 +5,7 @@
 	$email = mysqli_escape_string($link, $_GET['email']);
 	$id = mysqli_escape_string($link, $_GET['id']);
 	$komentar = mysqli_escape_string($link, $_GET['komentar']);
+	date_default_timezone_set('Asia/Jakarta'); 
 	$tanggal = date("Y-m-d H:i:s");
 	//echo $nama . "<br>" . $email . "<br>" . $id . "<br>" . $komentar . "<br>"; 
 	
@@ -31,7 +32,12 @@
 	<li class="art-list-item">
 		<div class="art-list-item-title-and-time">
 			<h2 class="art-list-title"><?php echo $result['nama']; ?></h2>
-			<div class="art-list-time"><?php echo $result['tanggal']; ?></div>
+			<?php
+				//formatting tanggal
+				$date = date_create($result['tanggal']);
+				
+			 ?>
+			<div class="art-list-time"><?php echo date_format($date, 'g:ia \o\n l jS F Y'); ?></div>
 		</div>
 		<p><?php echo $result['comment']; ?></p>
 	</li>
