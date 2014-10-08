@@ -85,17 +85,18 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form onsubmit="loadpost(<?php echo $result['id'] ?>)">
+                <form method="" name="form_comment" id="form_comment" onsubmit="return false">
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+                    <input type="text" name="Nama" id="nama" required>
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+                    <input type="text" name="email" id="email" required>
+                    <div id='errormsg'></div>
                     
-                    <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <label for="Komentar"><br>Komentar:</label><br>
+                    <textarea name="Komentar" rows="20" cols="20" id="komentar" required></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="return updatedb()">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="validate(<?php echo $result['id'] ?>)">
                 </form>
             </div>
 			<ul class="art-list-body">

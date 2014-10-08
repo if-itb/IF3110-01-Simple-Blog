@@ -16,12 +16,15 @@
 	<li class="art-list-item">
 		<div class="art-list-item-title-and-time">
 			<h2 class="art-list-title"><?php echo $row['nama']; ?></h2>
-			<?php
-				//format output tanggal
-				$retrieved = $row['tanggal'];
-				$date = DateTime::createFromFormat('Y-m-d', $retrieved);
-			 ?>
-			<div class="art-list-time"><?php echo $date->format('l\, j F Y'); ?></div>
+			<?php 
+				//Format tanggal date and time
+				$date_now = date("Y-m-d H:i:s");
+				$date_from_db = $row['tanggal'];
+				$difference = $date_now - $date_from_db;
+				echo 'date_now = ' . $date_now . "<br> date from db = " . $date_from_db;
+				echo'<br><b>difference ='.$difference.'</b>';
+			?>
+			<div class="art-list-time"><?php echo $row['tanggal']; ?></div>
 		</div>
 		<p><?php echo $row['comment']; ?></p>
 	</li>
