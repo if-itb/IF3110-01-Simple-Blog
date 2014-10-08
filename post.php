@@ -52,7 +52,7 @@
         <h2>Komentar</h2>
 
         <div id="contact-area">
-          <form method="post" action="#">
+          <form method="post" action="" onsubmit="addComment(this,<?php echo $row['post_id']; ?>); return false">
             <label for="Nama">Nama:</label>
             <input type="text" name="Nama" id="Nama">
 
