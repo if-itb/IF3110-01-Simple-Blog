@@ -1,0 +1,201 @@
+@import 'normalize.less';
+
+@import 'mixin.less';
+@import 'font.less';
+
+a
+{
+    border-bottom: 1px solid transparent;
+    color: #aaa;
+    text-decoration: none;
+    transition: 0.5s;
+    
+    &:hover,
+    &:active
+    {
+        border-bottom-color: #aaa;
+    }
+}
+
+body > header
+{
+    .clear-margin();
+    padding: 40px 0;
+    width: 960px;
+    text-align: center;
+    
+    .header-title
+    {
+        .roboto-condensed(700);
+        .noselect();
+        font-size: 4em;
+        text-transform: uppercase;
+    }
+    
+    .header-subtitle
+    {
+        .roboto-condensed(300);
+        .noselect();
+        font-size: 1.5em;
+        text-transform: lowercase;
+    }
+}
+    
+body > nav
+{
+    .clear-margin();
+    background: #000;
+    color: #fff;
+    height: 50px;
+    overflow: hidden;
+    width: 960px;
+    
+    ul
+    {
+        .clear-margin();
+        height: 100%;
+        list-style-type: none;
+        
+        li
+        {
+            display: inline-block;
+            height: 50px;
+            
+            a
+            {
+                .roboto-condensed(700);
+                border: none;
+                color: #fff;
+                display: inline-block;
+                font-size: 16px;
+                height: 16px;
+                line-height: 16px;
+                padding: 17px;
+                text-decoration: none;
+                text-transform: uppercase;
+                transition: 0.5s;
+                
+                &:hover,
+                &:active
+                {
+                    background: #ccc;
+                    color: #000;
+                }
+            }
+        }
+    }
+    
+    .nav-left,
+    .nav-left li
+    {
+        float: left;
+    }
+    
+    .nav-right,
+    .nav-right li
+    {
+        float: right;
+    }
+}
+
+body > section
+{
+    .clear-margin();
+    width: 960px;
+    
+    & > article
+    {
+        margin: 40px auto;
+        width: 600px;
+        
+        & > header
+        {
+            h1
+            {
+                text-align: center;
+                
+                a
+                {
+                    color: #000;
+                    
+                    &:hover,
+                    &:active
+                    {
+                        border-bottom-color: currentColor;
+                        font-size: 1.2em;
+                    }
+                }
+            }
+            
+            .article-date
+            {
+                color: #888;
+                letter-spacing: 0.2em;
+                text-align: center;
+            }
+        }
+        
+        & > section
+        {
+            margin: 20px auto;
+            text-align: justify;
+        }
+        
+        & > footer
+        {
+            text-align: center;
+            
+            ul.actions
+            {
+                .clear-margin();
+                list-style-type: none;
+                
+                li
+                {
+                    display: inline-block;
+                    
+                    a
+                    {
+                        background: #000;
+                        border: none;
+                        color: #fff;
+                        display: inline-block;
+                        font-size: 0.8em;
+                        letter-spacing: 0.1em;
+                        padding: 0.5em 1em;
+                        text-transform: lowercase;
+                        transition: 0.5s;
+                        
+                        &:hover,
+                        &:active
+                        {
+                            background: #ccc;
+                            color: #000;
+                            font-size: 1em;
+                        }
+                    }
+                }
+            }
+        }
+        
+        &:nth-child(odd)
+        {
+            margin-left: 0;
+        }
+        
+        &:nth-child(even)
+        {
+            margin-right: 0;
+        }
+    }
+}
+
+body > footer
+{
+    .clear-margin();
+    border-top: 1px solid #ccc;
+    padding: 20px;
+    width: 960px;
+    font-size: 0.8em;
+    text-align: center;
+}

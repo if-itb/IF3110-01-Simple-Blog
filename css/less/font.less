@@ -1,0 +1,32 @@
+.roboto(@weight : 400)
+{
+    font-family: 'Roboto', 'Ubuntu', sans-serif;
+    font-weight: @weight;
+}
+
+.roboto-condensed(@weight : 400)
+{
+    font-family: 'Roboto Condensed', 'Ubuntu Condensed', sans-serif;
+    font-weight: @weight;
+}
+
+.inconsolata(@weight : 400)
+{
+    font-family: 'Inconsolata', 'Consolas', monospace;
+    font-weight: @weight;
+}
+
+html
+{
+    .roboto(400);
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    .roboto-condensed(700);
+}
+
+code, samp, kbd, pre
+{
+    .inconsolata(400);
+}
