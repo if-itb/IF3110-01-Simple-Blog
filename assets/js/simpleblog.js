@@ -16,7 +16,7 @@ function addComment(comment, postId) {
         alert(xmlhttp.responseText); // Here is the response
   }  
           
-  var parameters = "postid=" + postId + "&name=" + comment.Name + "&email=" + comment.Email + "&content=" + comment.Komentar;
+  var parameters = "postid=" + postId + "&name=" + comment.Name + "&email=" + comment.Email + "&content=" + comment.Komentar.value;
   xmlhttp.open("POST", "comment.php", true);
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");    
   xmlhttp.send(parameters);
