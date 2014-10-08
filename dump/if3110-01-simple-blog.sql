@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 08 Okt 2014 pada 06.20
+-- Generation Time: 08 Okt 2014 pada 06.30
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- Ketidakleluasaan untuk tabel `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_to_post` FOREIGN KEY (`comment_post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `comments_to_post` FOREIGN KEY (`comment_post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
