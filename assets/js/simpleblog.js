@@ -9,6 +9,10 @@ function deleteConfirmationBox(id) {
 }
 
 function addComment(comment, postId) {
+  if (!validateComment(comment)) {
+    return false;
+  }
+
   var xmlhttp= window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 
   xmlhttp.onreadystatechange = function() {
@@ -42,7 +46,6 @@ function validatePost(post) {
   if (!regex.test(post.Tanggal.value)) {
     alert("Format Tanggal Tidak Valid");
     return false;
-
   }
 
   var dd = post.Tanggal.value.split("-")[0];
@@ -60,5 +63,15 @@ function validatePost(post) {
     return false;
   }
 
+  return true;
+}
+
+function validateComment(comment) {
+  var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!regex.test(comment.Email.value)) {
+    alert("Email Yang Dimasukkan Tidak Valid");
+    return false;
+  }   
+  
   return true;
 }
