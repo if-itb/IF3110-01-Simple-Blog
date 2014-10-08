@@ -10,6 +10,7 @@
     $judul = mysqli_real_escape_string($link,$_POST["Judul"]);
 	$tanggal = mysqli_real_escape_string($link,$_POST["Tanggal"]);
 	$konten = mysqli_real_escape_string($link,$_POST["Konten"]);
+	$konten = str_replace("\n", "<br/>", $konten);
 
 	$sqlupdate="UPDATE my_db.posting SET JUDUL='$judul', TANGGAL='$tanggal', KONTEN='$konten' WHERE Posting.ID=$id";
 	if (!mysqli_query($link,$sqlupdate)) {

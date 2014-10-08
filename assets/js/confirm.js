@@ -7,3 +7,8 @@
       link.href = "deletepost.php?var="+id;
     }
   }
+
+  function checkformat(tanggal)
+  {
+  	
+  }

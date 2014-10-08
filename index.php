@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -63,13 +63,13 @@
                 for($it=0;$it<sizeof($row)-1;$it++){
                   echo '<li class="art-list-item">';
                     echo '<div class="art-list-item-title-and-time">';
-                      echo '<h2 class ="art-list-title"><a href="post.html">'.$row[$it][1].'</a></h2>';
+                      echo '<h2 class ="art-list-title"><a href="post.php?var='.$row[$it][0].'">'.$row[$it][1].'</a></h2>';
                       echo '<div class="art-list-time">'.$row[$it][2].'</div>';
                       echo '<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
                     echo '</div>';
-                    echo '<p>'.$row[$it][3].'&hellip;</p>';
+                    echo '<p>'.substr($row[$it][3],0,200).'&hellip;</p>';
                     echo '<p>';
-                      echo '<a href="editpost.php?var='.$row[$it][0].'">Edit</a> | <a id="p'.$row[$it][0].'" onclick="return hapus('.$row[$it][0].')" href>Hapus</a>';
+                      echo '<a href="editpost.php?var='.$row[$it][0].'">Edit</a> | <a id="d_'.$row[$it][0].'" onclick="return hapus('.$row[$it][0].')" href>Hapus</a>';
                   echo '</li>';
                 }
                 mysqli_close($link);

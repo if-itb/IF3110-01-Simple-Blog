@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
 </nav>
 
 <article class="art simple post">
@@ -55,7 +55,7 @@
                     $link=mysqli_connect("localhost","root","","my_db");
                     // Check connection
                     if (mysqli_connect_errno()) {
-                      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                      die ("Failed to connect to MySQL: " . mysqli_connect_error());
                     }
 
                     $id = $_GET['var'];
