@@ -31,6 +31,10 @@
                   <div class="art-list-item-title-and-time">
                       <h2 class="art-list-title"><a href="<?php echo 'post.php?id='.$row['post_id']; ?>"><?php echo $row['post_title']; ?></a></h2>
                       <div class="art-list-time"><?php echo $row['post_date']; ?></div>
+                      <?php if ($row['post_featured']) {
+                        echo '<div class="art-list-time"><span>&#10029;</span> Featured</div>';
+                      }
+                      ?>
                   </div>
                   <p><?php echo $row['post_content']; ?></p>
                   <p>
