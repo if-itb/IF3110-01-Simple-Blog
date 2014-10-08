@@ -61,6 +61,10 @@
         $konten = $konten->fetch_assoc();
         $konten = str_replace("\n", "<br/>", $konten);
 
+        echo $id;
+        $komentar = mysqli_query($link,"SELECT * FROM komentar ORDER BY tanggal DESC");
+        while($arr_komentar[] = mysqli_fetch_array($komentar));
+
         echo '
             <header class="art-header">
                 <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
@@ -80,7 +84,7 @@
                     <h2>Komentar</h2>
 
                     <div id="contact-area">
-                        <form method="post" action="komentar.php">
+                        <form method="post" action="komentar.php?var='.$id.'">
                             <label for="Nama">Nama:</label>
                             <input type="text" name="Nama" id="Nama">
             
@@ -93,27 +97,24 @@
                             <input type="submit" name="submit" value="Kirim" class="submit-button">
                         </form>
                     </div>
+        ';
 
+        for ($i=0;$i<sizeof($arr_komentar)-1;$i++) { 
+            echo '
                     <ul class="art-list-body">
                         <li class="art-list-item">
                             <div class="art-list-item-title-and-time">
-                                <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
+                                <h2 class="art-list-title"><a href="post.php">'.$arr_komentar[$i][1].'</a></h2>
                                 <div class="art-list-time">2 menit lalu</div>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                        </li>
-
-                        <li class="art-list-item">
-                            <div class="art-list-item-title-and-time">
-                                <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                                <div class="art-list-time">1 jam lalu</div>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                            <p>'.$arr_komentar[$i][2].' &hellip;</p>
                         </li>
                     </ul>
-                </div>
-            </div>
-        ';
+                ';
+        }
+                echo '</div>';
+            echo '</div>';
+        
 
     ?>
 
