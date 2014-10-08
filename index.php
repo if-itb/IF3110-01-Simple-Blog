@@ -29,7 +29,7 @@
 
               <li class="art-list-item">
                   <div class="art-list-item-title-and-time">
-                      <h2 class="art-list-title"><a href="<?php echo 'post.php'.$row['post_id']; ?>"><?php echo $row['post_title']; ?></a></h2>
+                      <h2 class="art-list-title"><a href="<?php echo 'post.php?id='.$row['post_id']; ?>"><?php echo $row['post_title']; ?></a></h2>
                       <div class="art-list-time"><?php echo $row['post_date']; ?></div>
                   </div>
                   <p><?php echo $row['post_content']; ?></p>

@@ -1,5 +1,24 @@
 <?php require 'config.php'; ?>
 
+<?php
+  if (isset($_GET['id'])) {     
+    include 'db.php';       
+    
+    $id = (int) $_GET['id'];
+    $query = "SELECT * FROM `posts` WHERE `post_id` = '$id'";
+    $result = mysqli_query($conn, $query);
+    if ($result->num_rows > 0) { 
+      $row = mysqli_fetch_array($result);
+    } else {
+      header("Location: ". $CONFIG['siteurl']."/index.php");
+      die();
+    }
+  } else {
+    header("Location: ". $CONFIG['siteurl']."/index.php");
+    die();
+  }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

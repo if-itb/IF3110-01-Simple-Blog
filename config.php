@@ -15,7 +15,7 @@ $CONFIG['env'] = 'development';
 /**
  * Alamat web home, tanpa tanda / di belakang
  */
-$CONFIG['siteurl'] = '//http://localhost/IF3110-01-Simple-Blog';
+$CONFIG['siteurl'] = 'http://localhost/IF3110-01-Simple-Blog';
 
 $CONFIG['sitepath'] = realpath(dirname(__FILE__));
 
