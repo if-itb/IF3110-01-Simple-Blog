@@ -47,7 +47,7 @@
 
   <article class="art simple post">
           
-    <h2 class="art-title">-</h2>
+    <h2 class="art-title"></h2>
 
     <div class="art-body">
       <div class="art-body-inner">
