@@ -3,8 +3,10 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST["id"];
     $judul = $_POST["Judul"];
-    $tanggal = trim($_POST["Tanggal"]);
+    $date = trim($_POST["Tanggal"]);
     $konten =$_POST["Konten"];  
+
+    $tanggal = date("Y-m-d", strtotime($date));
 
     include("db_connect.php");
     $query = 'UPDATE post SET judul="'.$judul.'", tanggal="'.$tanggal.'", konten="'.$konten.'" WHERE  id="'.$id.'"';
@@ -69,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -91,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
                 <form method="post" action="edit.php">
@@ -100,12 +102,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" name="Judul" id="Judul" value="<?php echo $post['judul']; ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $post['tanggal']; ?>">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo date("d-m-Y", strtotime($post['tanggal'])); ?>">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $post['konten']; ?></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validatePost()">
                 </form>
             </div>
         </div>
@@ -138,6 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/simpleblog.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

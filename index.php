@@ -72,7 +72,7 @@
                   </div>
                   <p><?php echo $konten;?></p>
                   <p>
-                    <a href="edit.php?id=<?php echo $id;?>">Edit</a> | <a href="#">Hapus</a>
+                    <a href="edit.php?id=<?php echo $id;?>">Edit</a> | <a href="javascript:void(0)" onclick="deleteConfirmation(<?php echo $id;?>)">Hapus</a>
                   </p>
               </li>
             <?php }
@@ -108,6 +108,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/simpleblog.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

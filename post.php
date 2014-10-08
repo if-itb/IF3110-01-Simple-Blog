@@ -52,7 +52,7 @@ if (mysql_num_rows($result) == 0) {
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<title>Simple Blog | <?php echo $post['judul']; ?></title>
 
 
 </head>
@@ -105,36 +105,26 @@ if (mysql_num_rows($result) == 0) {
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="#" onsubmit="return addComment()">
+                    <input type="hidden" id="id_post" name="id_post" value="<?php echo $post['id']; ?>" >
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
-        
+                    <span id="namaerror" style="margin-left: 115px;font-size: 15px;color: red;"></span><br>
+
                     <label for="Email">Email:</label>
                     <input type="text" name="Email" id="Email">
-                    
+                    <span id="emailerror" style="margin-left: 115px;font-size: 15px;color: red;"></span><br>
+
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <span id="komentarerror" style="margin-left: 115px;font-size: 15px;color: red;"></span><br>
 
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+            <ul class="art-list-body" id="comments-area">
+                
             </ul>
         </div>
     </div>
@@ -168,6 +158,10 @@ if (mysql_num_rows($result) == 0) {
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/simpleblog.js"></script>
+<script>
+  window.onload = loadComments();
+</script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
