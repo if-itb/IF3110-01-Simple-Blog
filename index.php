@@ -47,5 +47,7 @@
 
 </div>
 
+<?php include 'templates/foot.php'; ?>
+
 </body>
 </html>
