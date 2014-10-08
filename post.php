@@ -29,8 +29,19 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<?php 
+    $con = mysqli_connect("localhost", "root", "", "wbd");
 
+    if(mysqli_connect_errno()){
+        echo "<title>Database connection error</title>";
+    }
+    else{
+        $query = "SELECT * FROM post WHERE id = ".$_POST['post-id'];
+        $result = mysqli_query($con, $query) or die(mysqli_error());
+        $row = mysqli_fetch_assoc($result);
+        echo "<title>Simple Blog | ".$row['title']."</title>";
+    }
+ ?>
 
 </head>
 
@@ -48,8 +59,8 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?php echo $row['date']; ?></time>
+            <h2 class="art-title"><?php echo $row['title']; ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,8 +68,7 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <p><?php echo $row['content']; ?></p>
 
             <hr />
             

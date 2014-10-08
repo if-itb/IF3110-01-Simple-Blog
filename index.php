@@ -63,7 +63,12 @@
           ?>
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.php"><?php echo $record['title']; ?></a></h2>
+                    <h2 class="art-list-title">
+                      <form method="post" action="post.php">
+                      <input type="hidden" name="post-id" value=<?php echo $record['id']; ?>>
+                      <input type="submit" value="<?php echo $record['title'] ?>" class="submit-button">
+                      </form>
+                    </h2>
                     <div class="art-list-time"><?php echo $record['date']; ?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
