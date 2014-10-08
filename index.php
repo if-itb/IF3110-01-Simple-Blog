@@ -38,7 +38,7 @@
                   </div>
                   <p><?php echo $row['post_content']; ?></p>
                   <p>
-                    <a href="#">Edit</a> | <a href="#">Hapus</a>
+                    <a href="<?php echo 'new_post.php?id='.$row['post_id']; ?>">Edit</a> | <a href="#">Hapus</a>
                   </p>
               </li>
 
