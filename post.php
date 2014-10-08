@@ -36,7 +36,7 @@
         echo "<title>Database connection error</title>";
     }
     else{
-        $query = "SELECT * FROM post WHERE id = ".$_POST['post-id'];
+        $query = "SELECT * FROM post WHERE id = ".$_GET['post-id'];
         $result = mysqli_query($con, $query) or die(mysqli_error());
         $row = mysqli_fetch_assoc($result);
         echo "<title>Simple Blog | ".$row['title']."</title>";

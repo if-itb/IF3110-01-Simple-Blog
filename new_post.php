@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <?php 
-    if(isset($_POST['post-id']))
+    if(isset($_GET['post-id']))
         $isEdit = true;
     else
         $isEdit = false;
@@ -57,7 +57,7 @@
             echo "Failed to connect database";
         }
 
-        $query = "SELECT * FROM post WHERE id = " . $_POST['post-id'];
+        $query = "SELECT * FROM post WHERE id = " . $_GET['post-id'];
         $result = mysqli_query($con, $query) or die(mysql_error());
         $row = mysqli_fetch_assoc($result);
     }
@@ -108,7 +108,7 @@
                     </textarea>
                     <?php 
                         if($isEdit){
-                            echo "<input type='hidden' name='post-id' value=".$_POST['post-id'].">";
+                            echo "<input type='hidden' name='post-id' value=".$_GET['post-id'].">";
                         }
                     ?>
 

@@ -64,25 +64,16 @@
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title">
-                      <form method="post" action="post.php">
-                      <input type="hidden" name="post-id" value=<?php echo $record['id']; ?>>
-                      <input type="submit" value="<?php echo $record['title'] ?>" class="submit-button">
-                      </form>
+                      <a href="post.php?post-id=<?php echo $record['id']; ?>"><?php echo $record['title'] ?></a>
                     </h2>
                     <div class="art-list-time"><?php echo $record['date']; ?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
                 <p><?php echo $record['content']; ?> &hellip;</p>
                 <p>
-                  <form method="post" action="new_post.php" class="inline">
-                    <input type="hidden" name="post-id" value=<?php echo $record['id']; ?>>
-                    <input type="submit" value="Edit" class="submit-button">
-                  </form>
+                  <a href="new_post.php?post-id=<?php echo $record['id']; ?>">Edit</a>
                    | 
-                  <form method="post" action="delete.php" class="inline">
-                    <input type="hidden" name="post-id" value=<?php echo $record['id']; ?>>
-                    <input type="submit" value="Hapus" class="submit-button">
-                  </form>
+                  <a href="delete.php?post-id=<?php echo $record['id']; ?>">Hapus</a>
                 </p>
             </li>
             <?php } 

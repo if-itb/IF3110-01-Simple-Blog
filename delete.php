@@ -26,7 +26,7 @@
 			echo "Failed to connect to mysql server";
 		}
 
-		$query = "DELETE FROM post WHERE id=".$_POST['post-id'];
+		$query = "DELETE FROM post WHERE id=".$_GET['post-id'];
 
 		if(!mysqli_query($con, $query)){
 			die('Error: ' . mysqli_error($con));
