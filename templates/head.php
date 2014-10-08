@@ -22,7 +22,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
 <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 <title><?php echo isset($title) ? $title : 'Simple Blog'; ?></title>
