@@ -23,7 +23,7 @@
         <h2>Tambah Post</h2>
 
         <div id="contact-area">
-          <form method="post" action="#">
+          <form method="post" action="save_post.php">
             <label for="Judul">Judul:</label>
             <input type="text" name="Judul" id="Judul">
 
