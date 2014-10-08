@@ -44,7 +44,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="load_comment()"> <!--onload="load_comment()"-->
 <?php
 	$id=$_GET['id'];
 	$listpost = mysql_query("SELECT * FROM post WHERE id=".$id);
@@ -79,9 +79,12 @@
             <hr />
             
             <h2>Komentar</h2>
-
+			
+		
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="#" >
+					<input type="hidden" name="id_post" id="id_post" value="<?=$_GET['id']?>">
+					
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -94,8 +97,11 @@
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
-
-            <ul class="art-list-body">
+			
+			<ul class="art-list-body" id="isi_komentar">
+		
+			
+            
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
                         <h2 class="art-list-title"><a href="post.php">Jems</a></h2>
@@ -136,6 +142,32 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript">
+function load_comment()
+{
+	var id_post= encodeURIComponent(document.getElementById("id_post").value);
+	
+	var xmlhttp;
+	if(window.XMLHttpRequest)
+	{
+		xmlhttp=new XMLHttpRequest();
+	}else
+	{
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			document.getElementById("isi_komentar").innerHTML=xmlhttp.responseText;
+		}
+	}
+	
+	var param = id_post;
+	xmlhttp.open("GET", "load_comment.php?id="+param, true);
+	xmlhttp.send(null);
+}
+</script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
