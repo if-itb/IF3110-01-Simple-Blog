@@ -1,5 +1,4 @@
 <?php require 'config.php'; ?>
-<?php require 'db.php'; ?>
 
 <!DOCTYPE html>
 <html>
@@ -20,10 +19,12 @@
           <nav class="art-list">
             <ul class="art-list-body">
               <?php
+                include 'db.php';
+
                 $query = "SELECT * FROM `posts` ORDER BY `post_date` DESC";
                 $result = mysqli_query($conn, $query);
                 if ($result->num_rows > 0) {
-                while ($row = mysqli_fetch_array($result)) {
+                  while ($row = mysqli_fetch_array($result)) {
               ?>
 
               <li class="art-list-item">
@@ -37,7 +38,10 @@
                   </p>
               </li>
 
-              <?php }} ?>
+              <?php
+                } }
+                mysqli_free_result($result);
+              ?>
             </ul>
           </nav>
       </div>
