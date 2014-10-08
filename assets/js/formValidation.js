@@ -10,7 +10,7 @@ function Validation()
 	else
 	{
 		var tanggal2 = new Date();
-		var result = tanggal1 >= tanggal2;
+		var result = tanggal1 > tanggal2;
 		if(result)
 		{
 			var tanggal_reverse = tanggal.split("-").reverse().join("-");
@@ -30,7 +30,7 @@ function parseDate(str) {
   var tanggal3;
   if(m)
   {
-  	var tanggal3 = new Date(m[3],m[2]-1,m[1]+1);
+  	var tanggal3 = new Date(m[3],m[2]-1,m[1]-(-1));
   }
   else
   {
