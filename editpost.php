@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -39,45 +39,53 @@
 
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <?php
-                $link=mysqli_connect("localhost","root","","my_db");
-                // Check connection
-                if (mysqli_connect_errno()) {
-                  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-                }
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-                $result = mysqli_query($link,"SELECT * FROM Posting ORDER BY Posting.ID DESC");
-                //get data and set it into multidimensional array
-                while($row[] = mysqli_fetch_array($result));
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Tambah Post</h2>
 
-                //show data from $row to html page
-                for($it=0;$it<sizeof($row)-1;$it++){
-                  echo '<li class="art-list-item">';
-                    echo '<div class="art-list-item-title-and-time">';
-                      echo '<h2 class ="art-list-title"><a href="post.html">'.$row[$it][1].'</a></h2>';
-                      echo '<div class="art-list-time">'.$row[$it][2].'</div>';
-                      echo '<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
-                    echo '</div>';
-                    echo '<p>'.$row[$it][3].'&hellip;</p>';
-                    echo '<p>';
-                      echo '<a href="editpost.php?var='.$row[$it][0].'">Edit</a> | <a id="p'.$row[$it][0].'" onclick="return hapus('.$row[$it][0].')" href>Hapus</a>';
-                  echo '</li>';
-                }
-                mysqli_close($link);
-            ?>
-          </ul>
-        </nav>
+            <div id="contact-area">
+                <?php
+                    $link=mysqli_connect("localhost","root","","my_db");
+                    // Check connection
+                    if (mysqli_connect_errno()) {
+                      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+
+                    $id = $_GET['var'];
+                    $judul = mysqli_query($link,"SELECT JUDUL FROM Posting WHERE ID=$id");
+                    $judul = $judul->fetch_assoc();
+                    $tanggal = mysqli_query($link,"SELECT TANGGAL FROM Posting WHERE ID=$id");
+                    $tanggal = $tanggal->fetch_assoc();
+                    $konten = mysqli_query($link,"SELECT KONTEN FROM Posting WHERE ID=$id");
+                    $konten = $konten->fetch_assoc();
+
+                    echo '
+                        <form method="post" action="editdb.php?var='.$id.'">
+                            <label for="Judul">Judul:</label>
+                            <input type="text" name="Judul" id="Judul" value="'.$judul['JUDUL'].'">
+
+                            <label for="Tanggal">Tanggal:</label>
+                            <input type="text" name="Tanggal" id="Tanggal" value="'.$tanggal['TANGGAL'].'">
+                        
+                            <label for="Konten">Konten:</label><br>
+                            <textarea name="Konten" rows="20" cols="20" id="Konten">'.$konten['KONTEN'].'</textarea>
+
+                            <input type="submit" name="submit" value="Simpan" class="submit-button">
+                        </form>
+                    ';
+                ?>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -100,12 +108,10 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript" src="assets/js/modifypost.js"></script>
-<script type="text/javascript" src="assets/js/confirm.js"></script>
-
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

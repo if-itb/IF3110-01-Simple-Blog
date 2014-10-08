@@ -1,5 +1,5 @@
 <?php
-	header("Location:readDB.php");
+	header("Location:index.php");
 	$link = mysql_connect("localhost","root","");
 	if (!$link){
 		die("Not connected : ". mysql_error());
@@ -58,7 +58,7 @@
 	if (!mysqli_query($db_link,$sqlinsert)) {
 		die('Error: ' . mysqli_error($db_link));
 	}
-		echo "1 record added";
+
 	mysqli_close($db_link);
 	exit;
 ?>
