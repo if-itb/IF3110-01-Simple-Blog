@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 08 Okt 2014 pada 06.30
+-- Generation Time: 08 Okt 2014 pada 14.59
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -28,14 +28,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `comments` (
   `comment_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `comment_post_id` bigint(20) unsigned NOT NULL,
+  `post_id` bigint(20) unsigned NOT NULL,
   `comment_author` tinytext NOT NULL,
   `comment_author_email` varchar(100) NOT NULL,
   `comment_author_ip` varchar(100) NOT NULL,
   `comment_date` datetime NOT NULL,
+  `comment_content` text NOT NULL,
   PRIMARY KEY (`comment_id`),
-  KEY `comment_post_id` (`comment_post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `comment_post_id` (`post_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -51,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_featured` tinyint(1) NOT NULL,
   `post_modified` datetime NOT NULL,
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -61,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- Ketidakleluasaan untuk tabel `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_to_post` FOREIGN KEY (`comment_post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comments_to_post` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
