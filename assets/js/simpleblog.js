@@ -1,8 +1,8 @@
-function deleteConfirmationBox(postId) {
+function deleteConfirmationBox(id) {
 	var confirm = window.confirm("Apakah Anda yakin menghapus post ini?");
 	
-  if (confirm == true) {
-		window.location = "index.php?id=" + postId;
+  if (confirm) {
+		window.location = "index.php?id=" + id;
 	} else {
 		return false;
 	}

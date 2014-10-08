@@ -1,5 +1,18 @@
 <?php require 'config.php'; ?>
 
+<?php 
+  if (isset($_GET['id'])) {
+    include 'db.php';
+      
+    $id = (int) $_GET['id'];
+    $query = "DELETE FROM `posts` WHERE `post_id`='$id'";
+    mysqli_query($conn, $query);
+    
+    header("Location: ". $CONFIG['siteurl']."/index.php");
+    die();
+  }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
