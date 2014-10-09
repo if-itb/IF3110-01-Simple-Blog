@@ -1,13 +1,12 @@
 <?php
   require_once 'system/config.php'; 
   require_once 'models/post.php';
-  require_once 'system/datetime.php';
+  require_once 'helpers/datetime.php';
+  require_once 'helpers/url.php';
 
   if (isset($_GET['id'])) {
     deletePost((int) $_GET['id']);
-    
-    header("Location: ". $CONFIG['siteurl']."/index.php");
-    die();
+    redirect();
   }
 ?>
 

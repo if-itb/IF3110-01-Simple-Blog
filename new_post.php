@@ -1,6 +1,7 @@
 <?php
   require_once 'system/config.php';
   require_once 'models/post.php';
+  require_once 'helpers/url.php';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = mysql_real_escape_string($_POST['Judul']);
@@ -14,8 +15,7 @@
       updatePost((int) $_POST['id'], $title, $datetime, $content);
     }
     
-    header("Location: ". $CONFIG['siteurl']."/index.php");
-    die();
+    redirect();
   }
 
   if (isset($_GET['id'])) {   

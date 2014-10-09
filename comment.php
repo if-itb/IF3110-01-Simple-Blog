@@ -1,7 +1,7 @@
 <?php
   require_once 'system/config.php';
   require_once 'models/comment.php';
-  require_once 'system/datetime.php';
+  require_once 'helpers/datetime.php';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = (int) $_POST['postid'];
