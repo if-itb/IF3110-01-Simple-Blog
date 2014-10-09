@@ -12,11 +12,11 @@
 
   /* {SITEURL}/post/view/id */
   $result = readPost((int) $_GET['id']);
-  if ($result->num_rows <= 0) { 
-    include 'views/404.php';
+  if ($result) { 
+    $data = mysqli_fetch_array($result);
+    include 'views/post.php';
     die();
   }
 
-  $data = mysqli_fetch_array($result);
-  include 'views/post.php';
+  include 'views/404.php';
   die();
