@@ -15,5 +15,5 @@
   /* {SITEURL}/post/index */
   /* {SITEURL}/post/all */
   $result = readAllPosts();
-  include('views/home.php');
+  include('views/post_list.php');
   die();
