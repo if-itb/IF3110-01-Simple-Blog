@@ -1,6 +1,6 @@
 <?php
   
-  $route = empty($_GET['route'])) ? 'post' : $_GET['route'];
+  $route = empty($_GET['route']) ? 'post' : $_GET['route'];
   
   $parts = explode('/', $route);
   $CONTROLLER = $parts[0];
