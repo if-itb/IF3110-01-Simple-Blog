@@ -1,6 +1,7 @@
 <?php
   require_once 'system/config.php';
   require_once 'models/post.php';
+  require_once 'helpers/datetime.php';
   require_once 'helpers/url.php';
 
   /* {SITEURL}/post/new */
@@ -28,4 +29,4 @@
   }
 
   include 'views/new_post.php';
-  die(;
+  die();

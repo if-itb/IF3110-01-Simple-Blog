@@ -27,3 +27,7 @@
 
     return "Beberapa saat yang lalu";
   }
+
+  function dateValidifier($str) {
+    return strftime("%d-%m-%Y", strtotime($str));
+  }

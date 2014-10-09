@@ -28,7 +28,7 @@
             <input type="text" name="Judul" id="Judul" value="<?php echo isset($data) ? $data['post_title'] : ''; ?>">
 
             <label for="Tanggal">Tanggal:</label>
-            <input type="text" name="Tanggal" id="Tanggal" placeholder="dd-mm-yyyy" value="<?php echo isset($data) ? $data['post_date'] : ''; ?>">
+            <input type="text" name="Tanggal" id="Tanggal" placeholder="dd-mm-yyyy" value="<?php echo isset($data) ? dateValidifier($data['post_date']) : ''; ?>">
             
             <label for="Konten">Konten:</label><br>
             <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo isset($data) ? $data['post_content'] : ''; ?></textarea>
