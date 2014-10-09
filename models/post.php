@@ -14,7 +14,7 @@
   function readAllPosts() {
     $conn = getConnection();
 
-    $query = "SELECT * FROM `posts` ORDER BY `post_date` DESC";
+    $query = "SELECT post_id, post_title, post_date, post_content, post_featured FROM `posts` ORDER BY `post_date` DESC";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -25,7 +25,7 @@
   function readPost($id) { 
     $conn = getConnection();
 
-    $query = "SELECT * FROM `posts` WHERE `post_id` = ?";
+    $query = "SELECT post_id, post_title, post_date, post_content, post_featured  FROM `posts` WHERE `post_id` = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $id);
     $stmt->execute();
