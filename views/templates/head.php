@@ -20,7 +20,7 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo $CONFIG['siteurl'].'/assets/css/screen.css'; ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo $CONFIG['siteurl'].'/assets/css/simpleblog.css'; ?>" />
-<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="<?php echo $CONFIG['siteurl'].'/assets/img/favicon.ico' ?>">
 
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
