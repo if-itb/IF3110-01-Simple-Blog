@@ -1,9 +1,8 @@
 <?php
   require_once 'system/config.php'; 
   require_once 'models/post.php';
-?>
+  require_once 'system/datetime.php';
 
-<?php
   if (isset($_GET['id'])) {
     deletePost((int) $_GET['id']);
     
@@ -31,9 +30,8 @@
           <nav class="art-list">
             <ul class="art-list-body">
               <?php
-                $result = getAllPosts();
+                $result = readAllPosts();
                 if ($result->num_rows > 0) {
-                  include 'system/datetime.php';
                   while ($row = mysqli_fetch_array($result)) {
               ?>
 

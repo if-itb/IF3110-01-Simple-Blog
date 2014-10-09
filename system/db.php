@@ -1,4 +1,9 @@
 <?php
   require_once 'system/config.php';
 
-  $conn = mysqli_connect($CONFIG['mysql']['host'], $CONFIG['mysql']['username'], $CONFIG['mysql']['password'], $CONFIG['mysql']['database']);
+  function getConnection() {
+    if (!isset($GLOBALS['conn']) || !mysqli_ping($GLOBALS['conn'])) {
+      $GLOBALS['conn'] = mysqli_connect($GLOBALS['CONFIG']['mysql']['host'], $GLOBALS['CONFIG']['mysql']['username'], $GLOBALS['CONFIG']['mysql']['password'], $GLOBALS['CONFIG']['mysql']['database']);
+    }
+    return $GLOBALS['conn'];
+  }

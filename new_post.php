@@ -1,7 +1,6 @@
-<?php require 'system/config.php'; ?>
-
-<?php 
-  include 'system/db.php';
+<?php
+  require_once 'system/config.php';
+  require_once 'models/post.php';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = mysql_real_escape_string($_POST['Judul']);
@@ -10,21 +9,17 @@
     $content = mysql_real_escape_string($_POST['Konten']);
       
     if ($_POST['id'] == '') {
-      $query = "INSERT INTO `posts` (post_title, post_date, post_content) VALUES ('$title', '$datetime', '$content')";
+      createPost($title, $datetime, $content);
     } else {
-      $id = (int) $_POST['id'];
-      $query = "UPDATE `posts` SET `post_title`='$title',`post_date`='$datetime',`post_content`='$content' WHERE `post_id`='$id'";
+      updatePost((int) $_POST['id'], $title, $datetime, $content);
     }
-    mysqli_query($conn, $query);
     
     header("Location: ". $CONFIG['siteurl']."/index.php");
     die();
   }
 
   if (isset($_GET['id'])) {   
-    $id = (int) $_GET['id'];   
-    $query = "SELECT * FROM `posts` WHERE `post_id` = '$id'";
-    $result = mysqli_query($conn, $query);
+    $result = readPost((int) $_GET['id']);
     if ($result->num_rows > 0) {
       $row = mysqli_fetch_array($result); 
     }
