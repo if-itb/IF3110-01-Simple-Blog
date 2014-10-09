@@ -9,6 +9,7 @@
     $result = mysqli_query($conn, $query);
     
     if ($result->num_rows > 0) { 
+      include 'system/datetime.php';
       $row = mysqli_fetch_array($result);
     } else {
       header("Location: ". $CONFIG['siteurl']."/index.php");
@@ -38,7 +39,7 @@
       
     <header class="art-header">
       <div class="art-header-inner">
-        <time class="art-time"><?php echo $row['post_date'] ?></time>
+        <time class="art-time"><?php echo dateBeautifier($row['post_date']) ?></time>
         <h2 class="art-title"><?php echo $row['post_title'] ?></h2>
         <p class="art-subtitle"></p>
       </div>
