@@ -45,6 +45,21 @@ function loadComment(postId) {
 }
 
 function validatePost(post) {
+  if (isBlank(post.Judul.value)) {
+    alert("Judul Tidak Boleh Kosong");
+    return false;
+  }
+
+  if (isBlank(post.Tanggal.value)) {
+    alert("Tanggal Tidak Boleh Kosong");
+    return false;
+  }
+
+  if (isBlank(post.Konten.value)) {
+    alert("Konten Tidak Boleh Kosong");
+    return false;
+  } 
+
   var regex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/
   if (!regex.test(post.Tanggal.value)) {
     alert("Format Tanggal Tidak Valid");
