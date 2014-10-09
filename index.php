@@ -44,7 +44,7 @@
     <div class="wrapper">
 
       <nav class="nav">
-          <a style="border:none;" id="logo" href="index.html"><h1>AYE!</h1></a>
+          <a style="border:none;" id="logo" href="index.php"><h1>AYE!</h1></a>
           <ul class="nav-primary">
               <li><a href="new_post.html">+ Tambah Post</a></li>
           </ul>
@@ -59,13 +59,14 @@
                   ?>
                   <li class="art-list-item">
                       <div class="art-list-item-title-and-time">
-                          <h2 class="art-list-title"><a href="#"><?php echo $row['JUDUL']; ?></a></h2>
+                          <h2 class="art-list-title"><a href=<?php echo "post.php?id=$row[PID]" ?>><?php echo $row['JUDUL']; ?></a></h2>
                           <div class="art-list-time"><?php echo $row['TANGGAL']; ?></div>
                           <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                       </div>
                       <p><?php echo $row['KONTEN'];?> &hellip;</p>
                       <p>
-                        <a href="#">Edit</a> | <a href="#">Hapus</a>
+                        <a href=<?php echo "edit_post.php?id=$row[PID]" ?>>Edit</a> | 
+                        <a href=<?php echo "delete_post.php?id=$row[PID]" ?>>Hapus</a>
                       </p>
                   </li>
                   <?php } ?>
@@ -95,9 +96,6 @@
 
     </div>
 
-    <?php 
-    mysqli_free_result($result);
-    mysqli_close($con); ?>
 
     <script type="text/javascript" src="assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/fittext.js"></script>

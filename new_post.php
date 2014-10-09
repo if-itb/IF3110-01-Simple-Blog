@@ -1,19 +1,19 @@
 <?php
 
-$con = mysqli_connect("localhost","tolep","tolepop", "simpleblog"); 
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
+include 'DBConfig.php';
 
 $timestamp = strtotime($_POST['Tanggal']);
 $date = date('Y-m-d', $timestamp);
 
 
-mysqli_query($con,"INSERT INTO entries (JUDUL, TANGGAL, KONTEN)
+$query = mysql_query("INSERT INTO entries (JUDUL, TANGGAL, KONTEN)
 				   VALUES ('$_POST[Judul]',FROM_UNIXTIME($timestamp),'$_POST[Konten]')");
 
+header("Location: index.php");
+mysql_close($link);
 ?>
 
+<!-- 
   <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +44,7 @@ mysqli_query($con,"INSERT INTO entries (JUDUL, TANGGAL, KONTEN)
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
+<!--
 <title> AYE! | Tambah Post</title>
 
 
@@ -54,7 +54,7 @@ mysqli_query($con,"INSERT INTO entries (JUDUL, TANGGAL, KONTEN)
     <div class="wrapper">
 
         <nav class="nav">
-            <a style="border:none;" id="logo" href="index.html"><h1> AYE! </h1></a>
+            <a style="border:none;" id="logo" href="index.php"><h1> AYE! </h1></a>
             <ul class="nav-primary">
                 <li><a href="new_post.html">+ Tambah Post</a></li>
             </ul>
@@ -76,7 +76,6 @@ mysqli_query($con,"INSERT INTO entries (JUDUL, TANGGAL, KONTEN)
 
         <footer class="footer">
             <div class="back-to-top"><a href="">Back to top</a></div>
-            <!-- <div class="footer-nav"><p></p></div> -->
             <div class="psi">&Psi;</div>
             <aside class="offsite-links">
                 Asisten IF3110 /
@@ -110,9 +109,5 @@ mysqli_query($con,"INSERT INTO entries (JUDUL, TANGGAL, KONTEN)
           ga('create',ga_ua);ga('send','pageview');
     </script>
 
-<?php 
-
-mysqli_close($con);
-?>
 </body>
-</html>
+</html> -->
