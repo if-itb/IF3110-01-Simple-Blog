@@ -51,34 +51,9 @@
           	
           	<?php
           		//Load artikel
-          		$dbconnection = mysql_connect("localhost","root","akhfa","blog");
-                if (mysqli_connect_errno()) {
-                    echo "Failed to connect to MySQL: " . mysqli_connect_error();
-                }
-                mysql_select_db('blog',$dbconnection) or die(mysql_error());
-                $query = 'SELECT * FROM post';
-                $result = mysql_query ($query);
-                if(!$result){
-                    die('Could not get query: '.mysql_error());
-                }
-                while ($row = mysql_fetch_array($result, MYSQL_ASSOC))
-                {
-                    $id = $row['id'];
-                    $judul = $row['judul'];
-                    $tanggal = $row['tanggal'];
-                    //echo date_format($tanggal, l jS F Y);
-                    $konten = $row['konten'];
-                    echo '<li class="art-list-item">';
-                    echo '<div class="art-list-item-title-and-time">';
-                    echo 	'<h2 class="art-list-title"><a href="post.html">',$judul,'</a></h2>';    
-                    echo 	'<div class="art-list-time">',$tanggal,'</div>';   
-                    echo    	'<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
-                    echo '</div>';
-                    echo '<p>',$konten,'</p>';
-                    echo '<p><a href="#">Edit</a> | <a href="#">Hapus</a></p>';
-            	   echo '</li>';
-                }
-          	?>
+                include 'function.php';
+                Load_All_Article();
+            ?>
           	
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
