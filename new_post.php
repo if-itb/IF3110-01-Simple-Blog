@@ -31,14 +31,14 @@
 <head>
 
   <?php $title = 'Simple Blog | Tambah Post'; ?>
-  <?php include 'templates/head.php'; ?>
+  <?php include 'views/templates/head.php'; ?>
 
 </head>
 
 <body class="default">
 <div class="wrapper">
 
-  <?php include 'templates/header.php'; ?>
+  <?php include 'views/templates/header.php'; ?>
 
   <article class="art simple post">
           
@@ -69,11 +69,11 @@
 
   </article>
 
-  <?php include 'templates/footer.php'; ?>
+  <?php include 'views/templates/footer.php'; ?>
 
 </div>
 
-<?php include 'templates/foot.php'; ?>
+<?php include 'views/templates/foot.php'; ?>
 
 </body>
 </html>

@@ -16,14 +16,14 @@
 <head>
 
   <?php $title = 'Simple Blog'; ?>
-  <?php include 'templates/head.php'; ?>
+  <?php include 'views/templates/head.php'; ?>
 
 </head>
 
 <body class="default">
 <div class="wrapper">
 
-  <?php include 'templates/header.php'; ?>
+  <?php include 'views/templates/header.php'; ?>
 
   <div id="home">
       <div class="posts">
@@ -58,11 +58,11 @@
       </div>
   </div>
 
-  <?php include 'templates/footer.php'; ?>
+  <?php include 'views/templates/footer.php'; ?>
 
 </div>
 
-<?php include 'templates/foot.php'; ?>
+<?php include 'views/templates/foot.php'; ?>
 
 </body>
 </html>
