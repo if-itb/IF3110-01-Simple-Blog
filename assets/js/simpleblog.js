@@ -21,7 +21,7 @@ function addComment(comment, postId) {
     }
   }  
           
-  var parameters = "postid=" + postId + "&name=" + comment.Name + "&email=" + comment.Email.value + "&content=" + comment.Komentar.value;
+  var parameters = "postid=" + postId + "&name=" + comment.Nama.value + "&email=" + comment.Email.value + "&content=" + comment.Komentar.value;
   xmlhttp.open("POST", "comment.php", true);
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");    
   xmlhttp.send(parameters);
@@ -70,11 +70,30 @@ function validatePost(post) {
 }
 
 function validateComment(comment) {
+  if (isBlank(comment.Nama.value)) {
+    alert("Nama Tidak Boleh Kosong");
+    return false;
+  }
+
+  if (isBlank(comment.Email.value)) {
+    alert("Nama Tidak Boleh Kosong");
+    return false;
+  }
+
+  if (isBlank(comment.Komentar.value)) {
+    alert("Komentar Tidak Boleh Kosong");
+    return false;
+  } 
+
   var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!regex.test(comment.Email.value)) {
     alert("Email Yang Dimasukkan Tidak Valid");
     return false;
-  }   
+  } 
   
   return true;
+}
+
+function isBlank(str) {
+  return (!str || 0 === str.length || /^\s*$/.test(str));
 }
