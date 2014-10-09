@@ -16,6 +16,7 @@
     mysqli_query($conn, $query);
 
   } else {
+    include 'system/datetime.php';
     $id = (int) $_GET['postid'];
     $query = "SELECT * FROM `comments` WHERE `post_id`='$id' ORDER BY `comment_date` DESC"; 
     $result = mysqli_query($conn, $query);
@@ -23,7 +24,7 @@
     $response = '';
     if ($result->num_rows > 0) {
       while($row = mysqli_fetch_array($result)) {
-        $response .= '<li class="art-list-item"><div class="art-list-item-title-and-time"><h2 class="art-list-title"><a href="#">'.$row['comment_author'].'</a></h2><div class="art-list-time">'.$row['comment_date'].'</div></div><p>'.$row['comment_content'].'</p></li>';
+        $response .= '<li class="art-list-item"><div class="art-list-item-title-and-time"><h2 class="art-list-title"><a href="#">'.$row['comment_author'].'</a></h2><div class="art-list-time">'.datetimeBeautifier($row['comment_date']).'</div></div><p>'.$row['comment_content'].'</p></li>';
       } 
     }
     echo $response;      

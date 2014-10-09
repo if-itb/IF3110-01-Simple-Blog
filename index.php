@@ -1,8 +1,9 @@
 <?php require 'system/config.php'; ?>
 
 <?php 
+  include 'system/db.php';
+
   if (isset($_GET['id'])) {
-    include 'db.php';
       
     $id = (int) $_GET['id'];
     $query = "DELETE FROM `posts` WHERE `post_id`='$id'";
@@ -32,18 +33,17 @@
           <nav class="art-list">
             <ul class="art-list-body">
               <?php
-                include 'system/db.php';
-
                 $query = "SELECT * FROM `posts` ORDER BY `post_date` DESC";
                 $result = mysqli_query($conn, $query);
                 if ($result->num_rows > 0) {
+                  include 'system/datetime.php';
                   while ($row = mysqli_fetch_array($result)) {
               ?>
 
               <li class="art-list-item">
                   <div class="art-list-item-title-and-time">
                       <h2 class="art-list-title"><a href="<?php echo 'post.php?id='.$row['post_id']; ?>"><?php echo $row['post_title']; ?></a></h2>
-                      <div class="art-list-time"><?php echo $row['post_date']; ?></div>
+                      <div class="art-list-time"><?php echo dateBeautifier($row['post_date']); ?></div>
                       <?php if ($row['post_featured']) {
                         echo '<div class="art-list-time"><span>&#10029;</span> Featured</div>';
                       }

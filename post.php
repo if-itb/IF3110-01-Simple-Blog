@@ -1,19 +1,20 @@
 <?php require 'system/config.php'; ?>
 
 <?php
-  if (isset($_GET['id'])) {     
-    include 'system/db.php';       
-    
-    $id = (int) $_GET['id'];
-    $query = "SELECT * FROM `posts` WHERE `post_id` = '$id'";
-    $result = mysqli_query($conn, $query);
-    
-    if ($result->num_rows > 0) { 
-      $row = mysqli_fetch_array($result);
-    } else {
-      header("Location: ". $CONFIG['siteurl']."/index.php");
-      die();
-    }
+  if (!isset($_GET['id'])) {     
+    header("Location: ". $CONFIG['siteurl']."/index.php");
+    die();
+  }
+
+  include 'system/db.php';       
+  
+  $id = (int) $_GET['id'];
+  $query = "SELECT * FROM `posts` WHERE `post_id` = '$id'";
+  $result = mysqli_query($conn, $query);
+  
+  if ($result->num_rows > 0) { 
+    include 'system/datetime.php';
+    $row = mysqli_fetch_array($result);
   } else {
     header("Location: ". $CONFIG['siteurl']."/index.php");
     die();
@@ -24,7 +25,7 @@
 <html>
 <head>
 
-  <?php $title = 'Simple Blog | Apa itu Simple Blog?'; ?>
+  <?php $title = 'Simple Blog | '.$row['post_title']; ?>
   <?php include 'templates/head.php'; ?>
 
 </head>
@@ -38,7 +39,7 @@
       
     <header class="art-header">
       <div class="art-header-inner">
-        <time class="art-time"><?php echo $row['post_date'] ?></time>
+        <time class="art-time"><?php echo dateBeautifier($row['post_date']) ?></time>
         <h2 class="art-title"><?php echo $row['post_title'] ?></h2>
         <p class="art-subtitle"></p>
       </div>
