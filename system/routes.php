@@ -6,6 +6,8 @@
   $CONTROLLER = $parts[0];
   if (isset($parts[1])) {
     $ACTION = $parts[1];
+  } else {
+    $ACTION = 'index';
   }
 
   if (isset($parts[2])) {
