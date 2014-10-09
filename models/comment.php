@@ -1,6 +1,13 @@
 <?php
   require_once 'system/db.php';
 
+  function createComment($id, $name, $email, $content, $datetime) {
+    $conn = getConnection();
+      
+    $query = "INSERT INTO `comments` (comment_author, comment_author_email, comment_date, comment_content, post_id) VALUES ('$name', '$email', '$datetime', '$content', '$id')";
+    mysqli_query($conn, $query);
+  }
+
   function readAllComments($id) {
     $conn = getConnection();
 
@@ -15,11 +22,4 @@
     }
 
     return $response;
-  }
-
-  function createComment($id, $name, $email, $content, $datetime) {
-    $conn = getConnection();
-      
-    $query = "INSERT INTO `comments` (comment_author, comment_author_email, comment_date, comment_content, post_id) VALUES ('$name', '$email', '$datetime', '$content', '$id')";
-    mysqli_query($conn, $query);
   }

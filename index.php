@@ -4,11 +4,16 @@
   require_once 'helpers/datetime.php';
   require_once 'helpers/url.php';
 
+  /* {SITEURL}/post/delete/id */
   if (isset($_GET['id'])) {
     deletePost((int) $_GET['id']);
     redirect();
   }
 
+  /* {SITEURL}/ */
+  /* {SITEURL}/index/ */
+  /* {SITEURL}/post/index */
+  /* {SITEURL}/post/all */
   $result = readAllPosts();
   include('views/home.php');
   die();

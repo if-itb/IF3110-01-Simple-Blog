@@ -3,6 +3,7 @@
   require_once 'models/post.php';
   require_once 'helpers/url.php';
 
+  /* {SITEURL}/post/new */
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = mysql_real_escape_string($_POST['Judul']);
     $datetime = new DateTime($_POST['Tanggal']);
@@ -18,6 +19,7 @@
     redirect();
   }
 
+  /* {SITEURL}/post/edit/id */
   if (isset($_GET['id'])) {   
     $result = readPost((int) $_GET['id']);
     if ($result->num_rows > 0) {
@@ -26,4 +28,4 @@
   }
 
   include 'views/new_post.php';
-  die();
+  die(;

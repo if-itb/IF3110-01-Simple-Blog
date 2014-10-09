@@ -3,6 +3,7 @@
   require_once 'models/comment.php';
   require_once 'helpers/datetime.php';
 
+  /* {SITEURL}/comment/new */
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = (int) $_POST['postid'];
     $name = mysql_real_escape_string($_POST['name']);
@@ -13,6 +14,7 @@
 
     createComment($id, $name, $email, $content, $datetime);
 
+  /* {SITEURL}/comment/view/id */
   } else {
     echo readAllComments((int) $_GET['postid']);      
   }
