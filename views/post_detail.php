@@ -7,7 +7,11 @@
 
 </head>
 
-<body class="default" onload="loadComment(<?php echo $data['post_id']; ?>)">
+<?php
+  $url = $CONFIG['siteurl'].'/comment/list/'.$data['post_id'];
+  $url = "'".$url."'";
+?>
+<body class="default" onload="loadComment(<?php echo $url; ?>)">
 <div class="wrapper">
 
   <?php include 'views/templates/header.php'; ?>
@@ -31,7 +35,11 @@
         <h2>Komentar</h2>
 
         <div id="contact-area">
-          <form method="post" action="" onsubmit="addComment(this,<?php echo $data['post_id']; ?>); return false">
+          <?php
+            $url = $CONFIG['siteurl'].'/comment/new';
+            $url = "'".$url."'";
+          ?>
+          <form method="post" action="" onsubmit="addComment(<?php echo $url; ?>, this, <?php echo $data['post_id']; ?>); return false">
             <label for="Nama">Nama:</label>
             <input type="text" name="Nama" id="Nama">
 

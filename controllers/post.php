@@ -57,6 +57,5 @@
     redirect();
   }
 
-
   include 'views/404.php';
   die();

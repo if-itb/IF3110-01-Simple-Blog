@@ -8,7 +8,7 @@ function deleteConfirmationBox(url) {
 	}
 }
 
-function addComment(comment, postId) {
+function addComment(url, comment, postId) {
   if (!validateComment(comment)) {
     return false;
   }
@@ -17,17 +17,18 @@ function addComment(comment, postId) {
 
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      loadComment(postId);
+      var loadUrl = url.replace("new", "list") + "/" + postId;
+      loadComment(loadUrl);
     }
   }  
           
   var parameters = "postid=" + postId + "&name=" + comment.Nama.value + "&email=" + comment.Email.value + "&content=" + comment.Komentar.value;
-  xmlhttp.open("POST", "comment.php", true);
+  xmlhttp.open("POST", url, true);
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");    
   xmlhttp.send(parameters);
 }
 
-function loadComment(postId) {
+function loadComment(url) {
   var xmlhttp= window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 
   xmlhttp.onreadystatechange = function() {
@@ -39,8 +40,7 @@ function loadComment(postId) {
     }
   }
           
-  var parameters = "postid=" + postId;
-  xmlhttp.open("GET", "comment.php?" + parameters, true);    
+  xmlhttp.open("GET", url, true);    
   xmlhttp.send();
 }
 
