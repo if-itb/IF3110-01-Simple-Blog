@@ -55,6 +55,7 @@ function get_posts_list(){
 			$title = $row['judul'];
 			$date = $row['tanggal'];
 			$content = $row['konten'];
+			$content = str_replace("\n", " ", $content);
 			//penulisan pos ke database
 			echo 
 			'
@@ -93,6 +94,7 @@ function get_posts_list(){
 	
 	disconnect_db();
 }
+
 
 
 ?>

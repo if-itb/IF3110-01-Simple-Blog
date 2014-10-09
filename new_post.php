@@ -31,7 +31,6 @@
 
 <title>Simple Blog | New Post</title>
 
-
 </head>
 
 <body class="default">
@@ -58,7 +57,7 @@ include 'functions.php';
                 <h2>New Post</h2>
     
                 <div id="contact-area">
-                    <form method="post" action="post_processor.php?action=add">
+                    <form name="inputanpos" method="post" onSubmit="return validateForm()" action="post_processor.php?action=add">
                         <label for="Judul">Judul:</label>
                         <input type="text" name="Judul" id="Judul">
     
@@ -95,7 +94,8 @@ include 'functions.php';
         </aside>
     </footer>
 </div>
-		
+
+<script type="text/javascript" src="assets/js/validator.js"></script>		
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>

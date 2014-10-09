@@ -18,6 +18,7 @@
 		$nama = $row['nama'];
 		$timestamp = $row['timestamp'];
 		$comment = $row['komentar'];
+		$comment = str_replace("\n", "<br>", $comment);
 		echo
 		'<li class="art-list-item">
 			<div class="art-list-item-title-and-time">

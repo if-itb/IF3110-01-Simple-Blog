@@ -30,8 +30,6 @@
 <![endif]-->
 
 <title>Simple Blog | Edit Post</title>
-
-
 </head>
 
 <body class="default">
@@ -67,7 +65,7 @@ if (isset($_GET['pid'])){
 					<h2>Edit Post</h2>
 		
 					<div id="contact-area">
-						<form method="post" action="post_processor.php?action=edit">
+						<form name="inputanpos" method="post" onSubmit="return validateForm()" action="post_processor.php?action=edit">
                         	<input type="hidden" name="pid" value="<?php echo $pid;?>">
 							<label for="Judul">Judul:</label>
 							<input type="text" name="Judul" id="Judul" value="<?php echo $row['judul']?>">
@@ -117,7 +115,8 @@ else {
 ?>
 
 </div>
-		
+
+<script type="text/javascript" src="assets/js/validator.js"></script>
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
