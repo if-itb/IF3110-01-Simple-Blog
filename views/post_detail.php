@@ -28,7 +28,7 @@
 
     <div class="art-body">
       <div class="art-body-inner">
-        <hr class="featured-article" />
+        <hr class="<?php echo $data['post_featured'] ? 'featured-article' : ''; ?>" />
         <p><?php echo $data['post_content'] ?></p>
         <hr />
           
