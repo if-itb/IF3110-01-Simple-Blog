@@ -9,7 +9,6 @@
       $databaseHandler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       
       #Query
-      
       if(isset($_POST['Judul']) && isset($_POST['Tanggal']) && isset($_POST['Konten'])){
          $insertArticleQuery = "INSERT INTO article (article_title, article_date, article_content) VALUES (:title,:date,:content)";
          $articleHandler = $databaseHandler->prepare($insertArticleQuery);
