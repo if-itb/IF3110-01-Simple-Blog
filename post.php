@@ -16,5 +16,5 @@
   }
 
   $data = mysqli_fetch_array($result);
-  include 'views/post.php';
+  include 'views/post_detail.php';
   die();

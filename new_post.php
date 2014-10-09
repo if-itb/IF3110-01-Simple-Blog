@@ -25,5 +25,5 @@
     }
   }
 
-  include 'views/new_post.php';
+  include 'views/post_form.php';
   die();
