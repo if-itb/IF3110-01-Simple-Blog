@@ -1,13 +1,11 @@
-<?php require 'system/config.php'; ?>
+<?php
+  require_once 'system/config.php'; 
+  require_once 'models/post.php';
+?>
 
-<?php 
-  include 'system/db.php';
-
+<?php
   if (isset($_GET['id'])) {
-      
-    $id = (int) $_GET['id'];
-    $query = "DELETE FROM `posts` WHERE `post_id`='$id'";
-    mysqli_query($conn, $query);
+    deletePost((int) $_GET['id']);
     
     header("Location: ". $CONFIG['siteurl']."/index.php");
     die();
@@ -33,8 +31,7 @@
           <nav class="art-list">
             <ul class="art-list-body">
               <?php
-                $query = "SELECT * FROM `posts` ORDER BY `post_date` DESC";
-                $result = mysqli_query($conn, $query);
+                $result = getAllPosts();
                 if ($result->num_rows > 0) {
                   include 'system/datetime.php';
                   while ($row = mysqli_fetch_array($result)) {
@@ -57,7 +54,6 @@
 
               <?php
                 } }
-                mysqli_free_result($result);
               ?>
             </ul>
           </nav>
