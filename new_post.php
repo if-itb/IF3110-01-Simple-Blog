@@ -6,15 +6,13 @@
 
   /* {SITEURL}/post/new */
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = mysql_real_escape_string($_POST['Judul']);
     $datetime = new DateTime($_POST['Tanggal']);
     $datetime = $datetime->format('Y-m-d H:i:s');
-    $content = mysql_real_escape_string($_POST['Konten']);
       
     if ($_POST['id'] == '') {
-      createPost($title, $datetime, $content);
+      createPost($_POST['Judul'], $datetime, $_POST['Konten']);
     } else {
-      updatePost((int) $_POST['id'], $title, $datetime, $content);
+      updatePost((int) $_POST['id'], $_POST['Judul'], $datetime, $_POST['Konten']);
     }
     
     redirect();

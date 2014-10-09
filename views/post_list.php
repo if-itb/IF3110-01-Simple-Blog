@@ -17,7 +17,7 @@
           <nav class="art-list">
             <ul class="art-list-body">
               <?php
-                if ($result->num_rows > 0) {
+                if ($result) {
                   while ($row = mysqli_fetch_array($result)) {
               ?>
 

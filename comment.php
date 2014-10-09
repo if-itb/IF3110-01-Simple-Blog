@@ -5,14 +5,10 @@
 
   /* {SITEURL}/comment/new */
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = (int) $_POST['postid'];
-    $name = mysql_real_escape_string($_POST['name']);
-    $email = $_POST['email'];
-    $content = mysql_real_escape_string($_POST['content']);
     $datetime = new DateTime();
     $datetime = $datetime->format('Y-m-d H:i:s'); 
 
-    createComment($id, $name, $email, $content, $datetime);
+    createComment((int) $_POST['postid'], $_POST['name'], $_POST['email'], $_POST['content'], $datetime);
 
   /* {SITEURL}/comment/view/id */
   } else {
