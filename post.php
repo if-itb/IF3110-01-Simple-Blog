@@ -34,37 +34,42 @@
 
 </head>
 
-<body class="default">
-<div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
-</nav>
+<?php
 
-<article class="art simple post">
-    <?php
+//mengambil nilai id dari url
+$id = $_GET['var'];
+
+echo '<body class="default" onload="req_komentar('.$id.')">';
+echo '<div class="wrapper">
+
+        <nav class="nav">
+            <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+            <ul class="nav-primary">
+                <li><a href="new_post.html">+ Tambah Post</a></li>
+            </ul>
+        </nav>
+
+        <article class="art simple post">
+    ';
+        //koneksi ke database
         $link=mysqli_connect("localhost","root","","my_db");
-        // Check connection
         if (mysqli_connect_errno()) {
           die ("Failed to connect to MySQL: " . mysqli_connect_error());
         }
 
-        $id = $_GET['var'];
+        //mengambil judul, tanggal, dan konten dari database
         $judul = mysqli_query($link,"SELECT JUDUL FROM Posting WHERE ID=$id");
         $judul = $judul->fetch_assoc();
         $tanggal = mysqli_query($link,"SELECT TANGGAL FROM Posting WHERE ID=$id");
         $tanggal = $tanggal->fetch_assoc();
         $konten = mysqli_query($link,"SELECT KONTEN FROM Posting WHERE ID=$id");
         $konten = $konten->fetch_assoc();
+
+        //mengganti karakter "new line" dari '\n' menjadi <br/> agar "new line" dapat terlihat dari html
         $konten = str_replace("\n", "<br/>", $konten);
 
-        echo $id;
-        $komentar = mysqli_query($link,"SELECT * FROM komentar ORDER BY tanggal DESC");
-        while($arr_komentar[] = mysqli_fetch_array($komentar));
-
+        //print data dari database ke halaman html
         echo '
             <header class="art-header">
                 <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
@@ -82,39 +87,34 @@
                     <hr />
             
                     <h2>Komentar</h2>
-
                     <div id="contact-area">
-                        <form method="post" action="komentar.php?var='.$id.'">
+                        <form method="post" onSubmit="return false">
                             <label for="Nama">Nama:</label>
                             <input type="text" name="Nama" id="Nama">
             
                             <label for="Email">Email:</label>
-                            <input type="text" name="Email" id="Email">
+                            <input type="text" name="Email" id="Email" onchange="return checkemail()">
                         
                             <label for="Komentar">Komentar:</label><br>
                             <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                            <input type="submit" name="submit" value="Kirim" class="submit-button">
+                            <input type="submit" name="submit" value="Kirim" class="submit-button" onClick="ins_komentar('.$id.')">
                         </form>
                     </div>
+                    <hr/>
+                    <ul class="art-list-body">
+                        <div id="comment_here">
+
+                        </div>
+                    </ul>
+
         ';
 
-        for ($i=0;$i<sizeof($arr_komentar)-1;$i++) { 
-            echo '
-                    <ul class="art-list-body">
-                        <li class="art-list-item">
-                            <div class="art-list-item-title-and-time">
-                                <h2 class="art-list-title"><a href="post.php">'.$arr_komentar[$i][1].'</a></h2>
-                                <div class="art-list-time">2 menit lalu</div>
-                            </div>
-                            <p>'.$arr_komentar[$i][2].' &hellip;</p>
-                        </li>
-                    </ul>
-                ';
-        }
                 echo '</div>';
             echo '</div>';
         
+        //menutup koneksi ke database
+        mysqli_close($link);
 
     ?>
 
@@ -147,6 +147,8 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/posting.js"></script>
+<script type="text/javascript" src="assets/js/confrim.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

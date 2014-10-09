@@ -52,13 +52,15 @@
 
             <div id="contact-area">
                 <?php
+                    //koneksi ke database
                     $link=mysqli_connect("localhost","root","","my_db");
-                    // Check connection
                     if (mysqli_connect_errno()) {
                       die ("Failed to connect to MySQL: " . mysqli_connect_error());
                     }
 
+                    //mengambil nilai id dari url
                     $id = $_GET['var'];
+                    //mengambil judul, tanggal, konten dari database
                     $judul = mysqli_query($link,"SELECT JUDUL FROM Posting WHERE ID=$id");
                     $judul = $judul->fetch_assoc();
                     $tanggal = mysqli_query($link,"SELECT TANGGAL FROM Posting WHERE ID=$id");
@@ -66,6 +68,7 @@
                     $konten = mysqli_query($link,"SELECT KONTEN FROM Posting WHERE ID=$id");
                     $konten = $konten->fetch_assoc();
 
+                    //print ke halaman html
                     echo '
                         <form method="post" action="editdb.php?var='.$id.'">
                             <label for="Judul">Judul:</label>
@@ -80,6 +83,9 @@
                             <input type="submit" name="submit" value="Simpan" class="submit-button">
                         </form>
                     ';
+
+                    //menutup koneksi ke database
+                    mysqli_close($link);
                 ?>
             </div>
         </div>

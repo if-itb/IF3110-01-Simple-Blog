@@ -50,16 +50,16 @@
           <ul class="art-list-body">
             <?php
                 $link=mysqli_connect("localhost","root","","my_db");
-                // Check connection
+                // Cek koneksi ke database
                 if (mysqli_connect_errno()) {
                   echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 }
 
+                //ambil data ke dalam array row dari database
                 $result = mysqli_query($link,"SELECT * FROM Posting ORDER BY Posting.ID DESC");
-                //get data and set it into multidimensional array
                 while($row[] = mysqli_fetch_array($result));
 
-                //show data from $row to html page
+                //data dalam array diprint ke halaman html
                 for($it=0;$it<sizeof($row)-1;$it++){
                   echo '<li class="art-list-item">';
                     echo '<div class="art-list-item-title-and-time">';
@@ -72,6 +72,7 @@
                       echo '<a href="editpost.php?var='.$row[$it][0].'">Edit</a> | <a id="d_'.$row[$it][0].'" onclick="return hapus('.$row[$it][0].')" href>Hapus</a>';
                   echo '</li>';
                 }
+                //menutup koneksi
                 mysqli_close($link);
             ?>
           </ul>
@@ -105,6 +106,7 @@
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript" src="assets/js/modifypost.js"></script>
 <script type="text/javascript" src="assets/js/confirm.js"></script>
+<script type="text/javascript" src="assets/js/posting.j"></script>
 
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
