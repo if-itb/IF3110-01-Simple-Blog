@@ -52,6 +52,11 @@
     die();
   }
 
+  if ($ACTION == 'delete') {
+    deletePost((int) $PARAM);
+    redirect();
+  }
+
 
   include 'views/404.php';
   die();

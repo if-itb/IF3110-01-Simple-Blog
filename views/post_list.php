@@ -32,7 +32,11 @@
                   </div>
                   <p><?php echo $row['post_content']; ?></p>
                   <p>
-                    <a href="<?php echo $CONFIG['siteurl'].'/post/edit/'.$row['post_id']; ?>">Edit</a> | <a href="#" onclick="deleteConfirmationBox(<?php echo $row['post_id']; ?>)">Hapus</a>
+                    <?php
+                      $url = $CONFIG['siteurl'].'/post/delete/'.$row['post_id'];
+                      $url = "'".$url."'"
+                    ?>
+                    <a href="<?php echo $CONFIG['siteurl'].'/post/edit/'.$row['post_id']; ?>">Edit</a> | <a href="#" onclick="deleteConfirmationBox(<?php echo $url; ?>)">Hapus</a>
                   </p>
               </li>
 
