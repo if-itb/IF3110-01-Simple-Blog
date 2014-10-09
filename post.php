@@ -5,11 +5,16 @@
   require_once 'helpers/url.php';
 
   if (!isset($_GET['id'])) {     
-    redirect();
-  }   
-  
-  $result = readPost((int) $_GET['id']);
-  if ($result->num_rows > 0) { 
-    $row = mysqli_fetch_array($result);
-    include 'views/post.php';
+    include 'views/404.php';
+    die();
   }
+
+  $result = readPost((int) $_GET['id']);
+  if ($result->num_rows <= 0) { 
+    include 'views/404.php';
+    die();
+  }
+
+  $data = mysqli_fetch_array($result);
+  include 'views/post.php';
+  die();
