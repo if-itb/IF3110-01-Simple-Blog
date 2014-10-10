@@ -1,6 +1,6 @@
 <?php
 include "connect.php";
-//session_start();
+
 $id=$_GET['id']; 
 $judul=$_POST['Judul'];
 $tanggal=$_POST['Tanggal'];
@@ -12,7 +12,6 @@ if (!mysql_query($sql)) {
   die('Error: ' . mysql_error($con));
 }
 
-//mysql_query($sql);
 header ('Location: index.php');
 mysql_close($con);
 ?>

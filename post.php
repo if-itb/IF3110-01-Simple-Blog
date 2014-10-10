@@ -36,21 +36,12 @@
 	$id=$_GET['id'];
 	$listpost = mysql_query("SELECT * FROM post WHERE id=".$id);
 	
-	while($post = mysql_fetch_array($listpost)){?>
+	$post = mysql_fetch_array($listpost)?>
 					<title>Simple Blog | <?=$post['judul_post']?></title>
-				<?php
-				}
-?>
 
 </head>
 
-<body class="default" onload="load_comment()"> <!--onload="load_comment()"-->
-<?php
-	$id=$_GET['id'];
-	$listpost = mysql_query("SELECT * FROM post WHERE id=".$id);
-	
-	while($post = mysql_fetch_array($listpost)){
-	?>
+<body class="default" onload="load_comment()">
 <div class="wrapper">
 
 <nav class="nav">
@@ -99,24 +90,7 @@
             </div>
 			
 			<ul class="art-list-body" id="isi_komentar">
-		
 			
-            
-            <!--<li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>-->
             </ul>
         </div>
     </div>
@@ -153,6 +127,6 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-<?php } ?>
+
 </body>
 </html>

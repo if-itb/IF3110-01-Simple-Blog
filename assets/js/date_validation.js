@@ -99,11 +99,3 @@ function validatedate(inputText)
   }
   return r;
   }
-
-function invalid_button()
-{
-	//if (validatedate(document.form1.Tanggal)==false)
-	//{
-	document.getElementById("simpan").disabled = true;
-	//}else{document.getElementById("simpan").disabled = false;}
-}
