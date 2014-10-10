@@ -1,14 +1,13 @@
 <?php 
-    include 'DBConfig.php';
+    include_once 'DBConfig.php';
 	if(isset($_GET['id'])) {
         $id = $_GET['id'];
         $result = mysql_query("select * from entries where PID='$id'");
-        while($row = mysql_fetch_array($result))
-        {
-	      	$Judul = $row['JUDUL'];
-		    $Tanggal = $row['TANGGAL'];
-		    $Konten = $row['KONTEN'];
-	  	}
+        while($row = mysql_fetch_array($result)) {
+          	$Judul = $row['JUDUL'];
+    	    $Tanggal = $row['TANGGAL'];
+    	    $Konten = $row['KONTEN'];
+        }
     }
     else {
         echo "No id";
@@ -16,28 +15,25 @@
 ?>
 
 <?php
-	if(isset($_POST['Simpan']))
+	if(isset($_POST['simpan']))
 	{
+        $id = $_POST['id'];
 		$Judul=$_POST['Judul'];
 		$Tanggal=$_POST['Tanggal'];
 		$Konten=$_POST['Konten'];
-	    echo "isset simpan";
 	    if(empty($Judul) || empty($Tanggal) || empty($Konten))
 		{
-			//if name field is empty
 			if(empty($Judul))
 			{
 				echo "<font color='red'>Judul harus diisi.</font><br/>";
 			}
-			//if age field is empty
 			if(empty($Tanggal))
 			{
 				echo "<font color='red'>Tanggal harus diisi.</font><br/>";
 			}
-			//if email field is empty
 			if(empty($Konten))
 			{
-				echo "<font color='red'>Email harus diisi.</font><br/>";
+				echo "<font color='red'>Konten harus diisi.</font><br/>";
 			}			
 			
 		}	
@@ -45,12 +41,11 @@
 		{	
 			$timestamp = strtotime($Tanggal);
 			$date = date('Y-m-d', $timestamp);
-			//updating the table
-			$result=mysql_query("UPDATE entries SET JUDUL='$Judul',TANGGAL=FROM_UNIXTIME($timestamp),KONTEN='$Konten' WHERE id=$id");
-
-			//redirectig to the display page. In our case, it is index.php
-			header("Location: index.php");
-			mysql_close($link);
+            $fdate = "FROM_UNIXTIME($timestamp)";
+        	//$result=mysql_query("UPDATE `entries` SET `JUDUL`='$Judul',`TANGGAL`=FROM_UNIXTIME($timestamp),`KONTEN`='$Konten' WHERE PID='$id');
+            $result=mysql_query("UPDATE entries SET JUDUL='$Judul',TANGGAL='$Tanggal',KONTEN='$Konten' WHERE PID=$id");
+            header('Location: index.php');
+            mysql_close($link);
 		}
 	}
 ?>
@@ -88,7 +83,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title> AYE! | Tambah Post</title>
+<title> AYE! | Edit Post</title>
 
 
 </head>
@@ -110,20 +105,20 @@
 
             <div class="art-body">
                 <div class="art-body-inner">
-                    <h2>Tambah Post</h2>
+                    <h2>Edit Post</h2>
 
                     <div id="contact-area">
-                        <form method="post" action="edit_post.php">
+                        <form method="post" action="edit_post.php?">
                             <label for="Judul">Judul:</label>
-                            <input type="text" name="Judul" id="Judul" value=<?php echo $Judul;?>>
+                            <input type="text" name="Judul" id="Judul" value=<?php echo "'$Judul'";?>>
 
                             <label for="Tanggal">Tanggal:</label>
-                            <input type="text" name="Tanggal" id="Tanggal" value=<?php echo $Tanggal;?>>
+                            <input type="date" name="Tanggal" id="Tanggal" value=<?php echo $Tanggal;?>>
                             
                             <label for="Konten">Konten:</label><br>
-                            <textarea name="Konten" rows="20" cols="20" id="Konten" value=<?php echo $Konten;?>></textarea>
-
-                            <input type="submit" name="Simpan" value="Simpan" class="submit-button">
+                            <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $Konten;?></textarea>
+                            <input type="hidden" name="id" value=<?php echo $id;?>>  
+                            <input type="submit" name="simpan" value="simpan" class="submit-button">
                         </form>
                     </div>
                 </div>
