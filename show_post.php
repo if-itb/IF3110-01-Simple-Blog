@@ -35,7 +35,7 @@
 <body class="default">
 <div class="wrapper">
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -57,7 +57,7 @@
 
 				echo '
 					<center>
-					<table border=1 style="align:center">
+					<table border=1 style="align:center" >
 						<tr>
 							<td colspan="2" align="center">
 								<h4>'.$judul.'</h4>
@@ -81,26 +81,32 @@
 							</td>
 						</tr>
 						<tr>
+
 							<td colspan="2">
 								<hr/>
 								<div id="Komentar">
 								</div>
 								<hr/>
 								<div id="formKomentar">
-									<form method="post" action="" onSubmit="return PostKomentar(nama.value,email.value,pesan.value,id.value);">
-										Nama <input type="text" id="nama" name="nama" ><br/>
-										Email <input type="text" id="email" name="email" ><br/>
-										Pesan</br>
-											<textarea id="pesan" name="pesan" cols="84" rows="5"></textarea><br/>
-										<input type="hidden" id="tanggal" name="tanggal" value="'.date("Y-m-d").'">
-										<input type="hidden" id="id" name="id" value="'.$_GET['id'].'">
-										<input type="submit" name="postKomentar" value="Post Komentar">
+									<form method="post" action="post_komentar.php">
+										Nama <input type="text" id="pNama" name="nama"><br/>
+										Email <input type="text" id="pEmail" name="email" ><br/>
+										Pesan<br/>
+											<textarea id="pPesan" name="pesan" cols="84" rows="5"></textarea><br/>
+										<input type="hidden" id="pTanggal" name="tanggal" value="'.date("Y-m-d").'">
+										<input type="hidden" id="pId" name="id" value="'.$_GET['id'].'">
+										<input type="button" name="postKomentar" value="Post Komentar" onclick="return cekEmail();">
 									</form>
 								</div>
 							</td>
 						</tr>
 					</table>
+
 				</center>
+				<div id="terbaru" align="center">
+
+				</div>
+				<hr/>
 				';
 				$query	=	mysql_query("SELECT * from comments WHERE post_id_fk=$no ORDER BY com_date DESC");
 				while($hasil_eksekusi = mysql_fetch_array($query)){
@@ -109,12 +115,12 @@
 					$konten	=	$hasil_eksekusi['com_dis'];
 
 					echo '
-						<div align="center">
+						<div id="unit-komentar" align="center">
 							'.$name.'<br/>
 							'.$tanggal.'<br/>
 							'.$konten.'</br>
+							<hr/>
 						</div>
-						<hr/>
 					';
 
 				}
@@ -141,11 +147,59 @@
         
     </aside>
 </footer>
-
 </div>
+<script>
+function cekEmail() {
+	var x = document.getElementById("pEmail").value;
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        alert("Not a valid e-mail address");
+        return false;
+    }else{
+		PostKomentar();
+	}
+}
+function PostKomentar(){
+	var isinama = document.getElementById("pNama").value;
+	var isiemail = document.getElementById("pEmail").value;
+	var isipesan = document.getElementById("pPesan").value;
+	var isiid = document.getElementById("pId").value;
+	var xmlhttp=GetXmlHttpObject();
+	if(xmlhttp==null){
+		alert("Silahkan gunakan browser yang mendukung AJAX");
+		return;
+	}	
+	var url	=	"post_komentar.php";
+    var param="nama="+isinama+"&email="+isiemail+"&pesan="+isipesan+"&id="+isiid;
+	document.getElementById("terbaru").innerHTML = "Sedang memproses komentar";
+	var message = "<div id=unit-komentar align=center><br>" + isinama + "<br>" + isiemail + "<br>" + isipesan + "<hr></div>";
+	document.getElementById("terbaru").innerHTML = message;
+    xmlhttp.open("POST",url,true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.setRequestHeader("Content-length", param.length);
+    xmlhttp.setRequestHeader("Connection", "close");
+    xmlhttp.send(param);
+}
 
-<script type="text/javascript" src="assets/js/comment_handler.js"></script>
-<script type="text/javascript" src="assets/js/jquery-2.1.1.js"></script>
+function GetXmlHttpObject() {
+    var xmlhttp=null;
+    try {
+        // Firefox, Opera 8.0+, Safari
+        xmlhttp=new XMLHttpRequest();
+    }
+    catch (e) {
+        // Internet Explorer
+        try {
+            xmlhttp=new ActiveXObject("Msxml2.XMLHTTP");
+        }
+        catch (e) {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+    return xmlhttp;
+}
+</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

@@ -30,14 +30,13 @@
 <![endif]-->
 
 <title>Simple Blog</title>
-<script src="assets/js/jquery-2.1.1.js"></script>
 </head>
 
 <body class="default">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -49,7 +48,7 @@
           <ul class="art-list-body">
 			<?php
 				include("connect.php");
-				$query	=	mysql_query("SELECT * from post ORDER BY no");
+				$query	=	mysql_query("SELECT * from post ORDER BY tanggal DESC");
 				while($hasil_eksekusi = mysql_fetch_array($query)){
 					$nomor	=	$hasil_eksekusi['no'];
 					$judul	=	$hasil_eksekusi['judul'];
@@ -65,7 +64,7 @@
 							</div>
 							<p>'.$konten.'</p>
 							<p>
-							  <a href="edit_post.php?id='.$nomor.'">Edit</a> | <a href="delete.php?id='.$nomor.'">Hapus</a>
+							  <a href="edit_post.php?id='.$nomor.'">Edit</a> | <a href="#" onclick="return ConfirmDelete('.$nomor.');">Hapus</a>
 							</p>
 						</li>				
 						';
@@ -96,8 +95,16 @@
 </footer>
 
 </div>
-
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script>
+    function ConfirmDelete(nomor)
+    {
+      var x = confirm("Apakah Anda yakin menghapus post ini?");
+      if (x)
+          return window.location.assign('delete.php?id='+nomor);
+      else
+        return false;
+    }
+</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

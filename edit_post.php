@@ -37,19 +37,15 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+<nav class="nav" >
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Edit Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
-    <div class="art-body">
+<article class="art simple post" style="margin-top:50px;">
+        <div class="art-body" style="margin-top:70px">
         <div class="art-body-inner">
             <h2>Edit Post</h2>
 			<?php
@@ -63,6 +59,9 @@
 				$konten	=	$hasil_eksekusi['konten'];
 			echo '
             <div id="contact-area">
+				<script>
+					setTanggalSekarang();
+				</script>
                 <form method="post" action="update.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="judul" id="Judul" value="'.$judul.'">
@@ -73,7 +72,7 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="Konten">'.$konten.'</textarea>
 					<input type="hidden" name="nomor" value="'.$nomor.'">
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return cekInputan();">
                 </form>
             </div>
 			';
@@ -101,7 +100,6 @@
         
     </aside>
 </footer>
-
 </div>
 <script>
     var today = new Date();
@@ -116,7 +114,7 @@
     } 
     document.getElementById("Tanggal").value= yyyy + "-" + mm + "-" + dd;
 </script>
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/posting_handler.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
