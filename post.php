@@ -55,7 +55,7 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time"><?=$post['tanggal_post']?></time>
+            <time class="art-time"><?=printDate($post['tanggal_post'])?></time>
             <h2 class="art-title"><?=$post['judul_post']?></h2>
             <p class="art-subtitle"></p>
         </div>
