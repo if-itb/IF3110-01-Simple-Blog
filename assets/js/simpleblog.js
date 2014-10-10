@@ -54,18 +54,26 @@ function addComment() {
 		if (nama == '') {			
 			namaerror.innerHTML = "Nama tidak boleh kosong";
 			namavalidation = false;
-		} else { namaerror.innerHTML = ""; }
+			namaerror.removeAttribute("class");
+			namaerror.setAttribute("class","error");
+		} else { namaerror.innerHTML = ""; namaerror.removeAttribute("class");}
 		if (email == '') {
 			emailerror.innerHTML = "Email tidak boleh kosong";
 			emailvalidation = false;
+			emailerror.removeAttribute("class");
+			emailerror.setAttribute("class","error");
 		} else if (!validateEmail(email)) {
 			emailerror.innerHTML = "Email tidak valid";
 			emailvalidation = false;
-		} else { emailerror.innerHTML = ""; }
+			emailerror.removeAttribute("class");
+			emailerror.setAttribute("class","error");
+		} else { emailerror.innerHTML = ""; emailerror.removeAttribute("class");}
 		if (komentar == '') {
 			komentarerror.innerHTML = "Komentar tidak boleh kosong";
 			komentarvalidation = false;
-		} else { komentarerror.innerHTML = ""; }
+			komentarerror.removeAttribute("class");
+			komentarerror.setAttribute("class","error");
+		} else { komentarerror.innerHTML = ""; komentarerror.removeAttribute("class");}
 
 		//focus
 		if (!namavalidation) {
@@ -94,8 +102,11 @@ function addComment() {
 				document.getElementById("Email").value = '';
 				document.getElementById("Komentar").value = '';
 				document.getElementById("namaerror").innerHTML = "";
+				document.getElementById("namaerror").removeAttribute("class");
 				document.getElementById("emailerror").innerHTML = "";
+				document.getElementById("emailerror").removeAttribute("class");
 				document.getElementById("komentarerror").innerHTML = "";
+				document.getElementById("komentarerror").removeAttribute("class");
 				
 		    	var comments = document.getElementById('comments-area');
 				comments.innerHTML = httpRequest.responseText + comments.innerHTML;

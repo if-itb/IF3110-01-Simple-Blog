@@ -22,6 +22,7 @@ if (mysql_num_rows($result) == 0) {
 
 $title = "Simple Blog | " . $post['judul'];
 include("header.php");
+include("function.php");
 ?>
 
 
@@ -46,7 +47,7 @@ include("header.php");
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time"><?php echo $post['tanggal']; ?></time>
+            <time class="art-time"><?php echo printTanggal($post['tanggal']); ?></time>
             <h2 class="art-title"><?php echo $post['judul']; ?></h2>
             <p class="art-subtitle"></p>
         </div>
@@ -67,15 +68,15 @@ include("header.php");
                     <input type="hidden" id="id_post" name="id_post" value="<?php echo $post['id']; ?>" >
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
-                    <span id="namaerror" style="margin-left: 115px;font-size: 15px;color: red;"></span><br>
+                    <span id="namaerror" class=""></span><br>
 
                     <label for="Email">Email:</label>
                     <input type="text" name="Email" id="Email">
-                    <span id="emailerror" style="margin-left: 115px;font-size: 15px;color: red;"></span><br>
+                    <span id="emailerror" class=""></span><br>
 
-                    <label for="Komentar">Komentar:</label><br>
+                    <label for="Komentar">Komentar:</label>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
-                    <span id="komentarerror" style="margin-left: 115px;font-size: 15px;color: red;"></span><br>
+                    <span id="komentarerror" class=""></span><br>
 
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
