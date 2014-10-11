@@ -121,9 +121,10 @@ function checkEmail(){
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="hidden" name="post_id" id="post_id" value="<?php echo $row['post_id']?>">
+                    <input type="hidden" name="comment_date" id="comment_date" value="<?php echo "".date("Y-m-d") ?>">
                 </form>
-            </div>
-
+            </div> 
             <ul class="art-list-body">
                 <?php 
                     $session_post_id = $_GET['pc'];
