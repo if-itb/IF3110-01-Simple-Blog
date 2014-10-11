@@ -29,68 +29,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
-<script type="text/javascript">
-function cekData(){
-    if(new_post.Judul.value == ""){
-        alert("Judul harus diisi!");
-        return false;
-    }
-    else if(new_post.Tanggal.value == ""){
-        alert("Tanggal harus diisi!");
-        return false;
-    }
-    else if(new_post.Konten.value == ""){
-        alert("Konten post harus diisi!");
-        return false;
-    }
-    else if(checkDate() == false){
-        return false;
-    }
-    else{
-        return true;
-    }
-}
-
-function checkDate(){
-    var validformat=/^\d{4}\-\d{2}\-\d{2}$/ //Basic check for format validity
-    var returnval=false
-    if (!validformat.test(new_post.Tanggal.value)){
-        alert("Format tanggal harus YYYY-MM-DD")
-    }
-    else { //Detailed check for valid date ranges
-        var dayfield=new_post.Tanggal.value.split("-")[0]
-        var monthfield=new_post.Tanggal.value.split("-")[1]
-        var yearfield=new_post.Tanggal.value.split("-")[2]
-        
-        var date = new Date(dayfield,monthfield - 1,yearfield,0,0,0,0);
-
-        var dayobj = new Date()
-        var dd = dayobj.getDate();
-        var mm = dayobj.getMonth() + 1;
-        var yy = dayobj.getFullYear();
-        if(dd < 10){
-            dd='0'+dd
-        }
-        if(mm < 10){
-            mm='0'+mm
-        }
-        var date2 = new Date(yy,mm-1,dd,0,0,0,0)
-        if(Date.parse(date) < Date.parse(date2)){
-        alert("Tanggal harus hari ini atau setelah hari ini.")
-        }
-        else{
-            returnval=true
-        }
-    }
-    if (returnval==false){
-        new_post.Tanggal.select()
-    }
-    return returnval
-}
-
-</script>
 
 </head>
 
@@ -104,30 +44,36 @@ function checkDate(){
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
+                    <div class="art-list-time">15 Juli 2014</div>
+                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p>
+                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                </p>
+            </li>
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form name="new_post" action="new_post.php" method="post" onsubmit="return cekData();">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" value="YYYY-MM-DD">
-                    <br><label for="Konten">Konten:</label>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+            <li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
+                    <div class="art-list-time">11 Juli 2014</div>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p>
+                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                </p>
+            </li>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
