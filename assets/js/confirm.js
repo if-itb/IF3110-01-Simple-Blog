@@ -79,7 +79,6 @@
   function checkformatedit(id){
     //cek jika judul kosong atau tidak
     var judul = document.getElementById("Judul").value;
-    alert (document.getElementById("Tanggal").length);
     if (judul==""){
       //jika judul kosong
       document.getElementById("title_comment").innerHTML="Judul tidak boleh kosong!";

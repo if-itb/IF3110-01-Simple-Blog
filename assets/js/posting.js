@@ -72,6 +72,7 @@
 	 	{
 	 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	 		{
+	 			document.getElementById("email_comment").innerHTML="";
 	 			document.getElementById("Nama").value="";
 	 			document.getElementById("Komentar").value="";
 	 			document.getElementById("Email").value="";
