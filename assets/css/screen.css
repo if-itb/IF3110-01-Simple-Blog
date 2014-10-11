@@ -273,7 +273,7 @@ div.cover > img {
 
 /* Body */
 .art-body {
-  position: relative;
+  position: static;
   width: 100%;
   top: 85px;
   background: #fff;
@@ -859,4 +859,12 @@ label {
   margin-right: 15px;
   width: 100px;
   padding-top: 5px;
+}
+
+#Tanggal {
+  color:gray;
+}
+
+#date_comment{
+  
 }

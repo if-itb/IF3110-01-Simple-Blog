@@ -1,6 +1,6 @@
 <?php
 	//redirect ke halaman lain
-	header("Location:index.php");
+	//header("Location:index.php");
 
 	//koneksi ke database
 	$link=mysqli_connect("localhost","root","","my_db");
@@ -13,8 +13,9 @@
 
     //mengambil judul, tanggal, konten dari elemen id dari html
     $judul = mysqli_real_escape_string($link,$_POST["Judul"]);
-	$tanggal = mysqli_real_escape_string($link,$_POST["Tanggal"]);
+	$tanggal = "2014-11-10";
 	$konten = mysqli_real_escape_string($link,$_POST["Konten"]);
+	echo $tanggal;
 
 	//mengupdate data ke database
 	$sqlupdate="UPDATE my_db.posting SET JUDUL='$judul', TANGGAL='$tanggal', KONTEN='$konten' WHERE Posting.ID=$id";
@@ -24,5 +25,5 @@
 	
 	//menutup koneksi ke database
 	mysqli_close($link);
-    exit;
+    //exit;
 ?>

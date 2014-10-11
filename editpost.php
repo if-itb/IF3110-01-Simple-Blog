@@ -75,7 +75,7 @@
                             <input type="text" name="Judul" id="Judul" value="'.$judul['JUDUL'].'">
 
                             <label for="Tanggal">Tanggal:</label>
-                            <input type="text" name="Tanggal" id="Tanggal" value="'.$tanggal['TANGGAL'].'">
+                            <input type="text" name="Tanggal" id="tanggal" disabled value="'.$tanggal['TANGGAL'].'">
                         
                             <label for="Konten">Konten:</label><br>
                             <textarea name="Konten" rows="20" cols="20" id="Konten">'.$konten['KONTEN'].'</textarea>
