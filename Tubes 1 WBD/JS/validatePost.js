@@ -17,7 +17,7 @@ function validateForm() {
 		document.getElementById("postDate").style.borderColor="#FF0000";
 	}
 	else {
-		if (pattern.test(y)) {
+		if (pattern.test(y) && isMDOk(y) ) {
 			//compare with current date 
 			
 			var t = new Date();
@@ -48,4 +48,12 @@ function validateForm() {
 		alert(errMessage);
 	}
 	return value;
+}
+
+function isMDOk(txt) {
+/*	Validate month and day number */
+	if (((txt[5]=='0' && txt[6]!='0') || (txt[5]=='1' && txt[6]<'3')) && (txt[8]+txt[9] < "31")) {
+		return true;
+	}
+	else return false;
 }
