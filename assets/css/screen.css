@@ -273,6 +273,7 @@ div.cover > img {
 
 /* Body */
 .art-body {
+  margin-top:100px;
   position: relative;
   width: 100%;
   background: #fff;
