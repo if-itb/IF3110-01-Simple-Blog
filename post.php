@@ -77,7 +77,7 @@ function submitComment(pid,nama,email,komentar) {
 					document.getElementById("comments").innerHTML=xmlhttp.responseText;
 				}
 			}
-			xmlhttp.open("GET","comments.php?pid="+pid+"&nama="+nama+"&email="+email+"&komentar="+komentar,true);
+			xmlhttp.open("GET","comment_processor.php?pid="+pid+"&nama="+nama+"&email="+email+"&komentar="+komentar,true);
 			xmlhttp.send();
 			return false;
 		}
@@ -103,7 +103,7 @@ function showComments(pid) {
 	  document.getElementById("comments").innerHTML=xmlhttp.responseText;
 	}
   }
-  xmlhttp.open("GET","comments.php?pid="+pid,true);
+  xmlhttp.open("GET","comment_processor.php?pid="+pid,true);
   xmlhttp.send();
 }
 </script>
