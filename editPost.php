@@ -31,7 +31,6 @@
 
 <title>Simple Blog | Tambah Post</title>
 
-
 </head>
 
 <body class="default">
@@ -51,21 +50,31 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form action="savePost.php" onsubmit="return savePost()" method="post">
+
+            <?php
+                $con = mysqli_connect("localhost","root","","list_post");
+                    if(mysqli_connect_errno()) {
+                        echo "tes";
+                    }
+                $daftar_post=mysqli_query($con,"SELECT * FROM listpost WHERE id='".$_GET["id"]."'");
+                $row=mysqli_fetch_array($daftar_post);
+                
+                echo '<form action="updatePost.php?id='.$row['id'].'" onsubmit="return savePost()" method="post">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="'.$row['Judul'].'">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="yyyy-mm-dd">
+                    <input type="text" name="Tanggal" id="Tanggal" value="'.$row['Tanggal'].'">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" >'.$row['Konten'].'</textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
+                </form>';
+            ?>
             </div>
         </div>
     </div>
