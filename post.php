@@ -88,7 +88,7 @@ echo '<div class="wrapper">
             
                     <h2>Komentar</h2>
                     <div id="contact-area">
-                        <form method="post" id="form_comment" onSubmit="return checkemail('.$id.')">
+                        <form method="post" id="form_comment" onSubmit="return false">
                             <label for="Nama">Nama:</label>
                             <input type="text" name="Nama" id="Nama">
             
@@ -99,7 +99,7 @@ echo '<div class="wrapper">
                             <label for="Komentar">Komentar:</label>
                             <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                            <input type="submit" name="submit" value="Kirim" class="submit-button">
+                            <input type="submit" name="submit" value="Kirim" class="submit-button" onClick="ins_komentar('.$id.')">
                         </form>
                     </div>
                     <hr/>

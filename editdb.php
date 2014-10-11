@@ -12,7 +12,6 @@
 
     //mengambil judul, tanggal, konten dari elemen id dari html
     $judul = mysqli_real_escape_string($link,$_POST["Judul"]);
-    
 	$tanggal = mysqli_real_escape_string($link,$_POST["Tanggal"]);
 	$konten = mysqli_real_escape_string($link,$_POST["Konten"]);
 	echo $tanggal;
