@@ -40,7 +40,7 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -52,9 +52,13 @@
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
-
+			<?php 
+				if(!empty($_GET['message']) && $_GET['message'] == 'success')
+				{	echo '<h6>Berhasil menambah post!</h6>';
+					}
+			?>
             <div id="contact-area">
-                <form method="post" action="#">
+                <form action="input.php" method="post" >
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 

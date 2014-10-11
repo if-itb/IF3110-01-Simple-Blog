@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -38,39 +38,49 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
+                    <div class="art-list-time">15 Juli 2014</div>
+                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p>
+                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                </p>
+            </li>
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <?php include ('koneksi.php'); 
 
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+			$query = mysql_query("select * from tblblog order by tanggal desc");
+			
+			while ($data = mysql_fetch_array($query)){
+				echo	'<li class="art-list-item">';
+				echo	'<div class="art-list-item-title-and-time">';
+				echo		'<h2 class="art-list-title"><a href="post.php?id='.$data['id'].' ">'. $data["judul"] . '</a></h2>';
+				echo		'<div class="art-list-time">'. $data["tanggal"] . '</div>';
+				echo	'</div>';
+				echo	'<p>' . $data["konten"] . '</p>';
+				echo	'<p>';
+				echo	  '<a href="edit_post.php?id='.$data['id'].' ">Edit</a> | <a href="hapus.php?id='.$data['id'].' ">Hapus</a>';
+				echo	'</p>';
+				echo	'</li>';
+			}
+			?>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
