@@ -31,7 +31,6 @@
 
 <title>Simple Blog | Tambah Post</title>
 
-
 </head>
 
 <body class="default">
@@ -52,14 +51,13 @@
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
-
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="newpost.php" onsubmit="return checkForm(this);">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" placeholder="dd/mm/yyyy" id="Tanggal">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
@@ -97,7 +95,9 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="assets/js/postvalidation.js"></script>
+
+<!--<script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
   (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
@@ -106,7 +106,7 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
-</script>
+</script>-->
 
 </body>
 </html>
