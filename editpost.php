@@ -70,12 +70,13 @@
 
                     //print ke halaman html
                     echo '
-                        <form method="post" action="editdb.php?var='.$id.'">
+                        <form method="post" id="edit_form" onSubmit="return checkformatedit('.$id.')">
                             <label for="Judul">Judul:</label>
                             <input type="text" name="Judul" id="Judul" value="'.$judul['JUDUL'].'">
+                            <p id="title_comment"></p>
 
                             <label for="Tanggal">Tanggal:</label>
-                            <input type="text" name="Tanggal" id="tanggal" disabled value="'.$tanggal['TANGGAL'].'">
+                            <input type="text" name="Tanggal" id="Tanggal" disabled value="'.$tanggal['TANGGAL'].'">
                         
                             <label for="Konten">Konten:</label><br>
                             <textarea name="Konten" rows="20" cols="20" id="Konten">'.$konten['KONTEN'].'</textarea>
@@ -118,6 +119,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/confirm.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

@@ -12,18 +12,6 @@
     }
   }
 
-  function checkemail(email)
-  {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(email.match(re)){
-      document.getElementById("email_comment").innerHTML="Email Valid!";
-      document.getElementById("email_comment").style.color="#18FF21";
-    }else{
-      document.getElementById("email_comment").innerHTML="Not a valid email!";
-      document.getElementById("email_comment").style.color="#E60000";
-    }
-  }
-
   //fungsi untuk validasi format pada form tambah post
   function checkformat()
   {
@@ -91,6 +79,7 @@
   function checkformatedit(id){
     //cek jika judul kosong atau tidak
     var judul = document.getElementById("Judul").value;
+    alert (document.getElementById("Tanggal").length);
     if (judul==""){
       //jika judul kosong
       document.getElementById("title_comment").innerHTML="Judul tidak boleh kosong!";

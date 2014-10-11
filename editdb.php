@@ -1,7 +1,6 @@
 <?php
 	//redirect ke halaman lain
 	//header("Location:index.php");
-
 	//koneksi ke database
 	$link=mysqli_connect("localhost","root","","my_db");
     if (mysqli_connect_errno()) {
@@ -13,7 +12,8 @@
 
     //mengambil judul, tanggal, konten dari elemen id dari html
     $judul = mysqli_real_escape_string($link,$_POST["Judul"]);
-	$tanggal = "2014-11-10";
+    
+	$tanggal = mysqli_real_escape_string($link,$_POST["Tanggal"]);
 	$konten = mysqli_real_escape_string($link,$_POST["Konten"]);
 	echo $tanggal;
 

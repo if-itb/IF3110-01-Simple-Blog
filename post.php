@@ -88,18 +88,18 @@ echo '<div class="wrapper">
             
                     <h2>Komentar</h2>
                     <div id="contact-area">
-                        <form method="post" onSubmit="return false">
+                        <form method="post" id="form_comment" onSubmit="return checkemail('.$id.')">
                             <label for="Nama">Nama:</label>
                             <input type="text" name="Nama" id="Nama">
             
                             <label for="Email">Email:</label>
-                            <input type="text" name="Email" id="Email" onChange="checkemail(this.value)">
+                            <input type="text" name="Email" id="Email">
                             <p id="email_comment"></p>
                         
                             <label for="Komentar">Komentar:</label>
                             <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                            <input type="submit" name="submit" value="Kirim" class="submit-button" onClick="ins_komentar('.$id.')">
+                            <input type="submit" name="submit" value="Kirim" class="submit-button">
                         </form>
                     </div>
                     <hr/>
@@ -144,12 +144,10 @@ echo '<div class="wrapper">
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript" src="assets/js/posting.js"></script>
-<script type="text/javascript" src="assets/js/confirm.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
