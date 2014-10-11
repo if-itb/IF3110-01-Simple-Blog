@@ -25,7 +25,6 @@
 				
 				$time = date("H:i:s"); 
 				$result = mysqli_query($con, "INSERT INTO post VALUES ( ".($last["id"]+1).", '".$x."', '".$y."', '".$time."', '".$z."')");
-				//var_dump($result);
 			}
 			$url = '../VIEW/home.php';
 		}

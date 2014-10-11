@@ -16,13 +16,10 @@
 	else {		
 		$date = 2000+date("y")."-".date("m-d");
 		$time = date("H:i:s");
-		//echo $date;
-		//echo $time;
 		$newID = mysqli_query($con, "SELECT MAX(commentID) as 'id' FROM comment");
 		$last = mysqli_fetch_array($newID, MYSQL_ASSOC);
 		
 		$var = mysqli_query($con, "INSERT INTO comment VALUES (".($last["id"]+1)." ,".$id.", '".$x."', '".$y."', '".$z."', '".$date."', '".$time."')");
-		//var_dump($var);
 		if ($var) {
 			echo "ok";
 		}

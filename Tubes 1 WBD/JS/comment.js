@@ -49,7 +49,6 @@ function addComment() {
 			var response = xmlhttp.responseText;
 			if (response=="ok") {
 				commentAjax(); //display the comment
-				//alert("added");
 			}
 		}
 	}

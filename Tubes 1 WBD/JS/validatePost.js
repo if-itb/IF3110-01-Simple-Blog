@@ -31,7 +31,7 @@ function validateForm() {
 				d = "0" + d;
 			}
 			var str = (1900+t.getYear()) + "-" + m + "-" + d;
-			if (str > y) {
+			if ((str > y)) {
 				errMessage = " Date must be later or equal to current date";
 				value=false;
 			}
