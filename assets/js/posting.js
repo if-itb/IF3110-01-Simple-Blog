@@ -34,14 +34,27 @@
 	}
  }
 
+ function getTodayDate(){
+ 	var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+    var today = yyyy+'-'+mm+'-'+dd;
+    return today;
+ }
+
  //fungsi mengirim komentar dari use ke php
  function ins_komentar(id){
  	var email = document.getElementById("Email").value;
  	if (checkemail(email)){
-	  	var tanggal = "2014-11-10";//new Date().getDate();
-	 	//var bulan = new Date().getMonth();
-	 	//var tahun = new Date().getYear();
-	 	
+	 	var tanggal = getTodayDate();
 	 	//ajax
 	 	var xmlhttp;
 	 	var nama = document.getElementById("Nama").value;
