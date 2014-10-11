@@ -54,13 +54,15 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" id="form_submit" action="new_post.php">
+                <form method="post" id="form_submit" onSubmit="return checkformat()">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
+                    <p id="title_comment"></p>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" onChange="checkformat(this.value)">  
+                    <input type="text" name="Tanggal" id="Tanggal">  
                     <p id="date_comment"></p>
+
                     <label for="Konten">Konten:</label>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
                     

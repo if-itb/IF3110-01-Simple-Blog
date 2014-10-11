@@ -1,7 +1,6 @@
 <?php
 	//redirect ke halaman lain
 	header("Location:index.php");
-
 	//koneksi ke database
 	$db_link = mysqli_connect("localhost", "root", "", "my_db");
 	if (!$db_link) {
