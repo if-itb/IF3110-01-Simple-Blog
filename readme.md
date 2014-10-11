@@ -10,7 +10,7 @@ Gunakan template ini untuk membuat sebuah blog sederhana dengan menggunakan baha
 
 ## Spesifikasi
 
-### List Post
+### [DONE] List Post
 
 List Post merupakan halaman awal blog yang berisi daftar post yang sudah pernah dibuat. Setiap item pada list post mengandung `Judul`, `Tanggal`, `Konten`. Terdapat juga menu untuk mengedit dan menghapus item post tersebut.
 
@@ -22,7 +22,7 @@ Add Post merupakan halaman untuk menambahkan post baru.  Post baru memiliki form
 
 Mengedit post yang sudah pernah dibuat. Form yang ditampilkan sama seperti saat menambahkan form baru.
 
-### Delete Post
+### [DONE] Delete Post
 
 Menghapus post yang sudah pernah dibuat. Lakukan **konfimasi** dengan javascript untuk konfirmasi pengguna terhadap penghapusan post tersebut. Keluarkan konfirmasi berisi pesan berikut
 
