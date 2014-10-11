@@ -123,7 +123,7 @@ function showComments(pid) {
 <article class="art simple post">
     
     <header class="art-header">
-        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+        <div class="art-header-inner" style="margin-top: 100px; opacity: 1;">
             <time class="art-time"><?php echo $date;?></time>
             <h2 class="art-title"><?php echo $title;?></h2>
             <p class="art-subtitle"></p>
