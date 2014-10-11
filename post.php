@@ -31,16 +31,15 @@
 
 <title>Simple Blog | Apa itu Simple Blog?</title>
 
-
 </head>
 
 <body class="default">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -56,7 +55,7 @@
 
     $id_post = $_GET['id_post'];
     if (is_null($id_post)) {
-    	die("id_post not supplied you should supply the id post number as parameter");
+        die("id_post not supplied you should supply the id post number as parameter");
     }
 
     if (mysqli_connect_errno()) {
@@ -81,24 +80,26 @@
             <?=$row['konten']?>
 
             <hr />
-    		<?php
-		    }
-		    ?>        
+            <?php
+            }
+            ?>        
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <!-- //<form method="post"> -->
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+                    <input type="text" name="nama" id="nama">
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+                    <input type="text" name="email" id="email">
                     
                     <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <textarea name="komentar" rows="20" cols="20" id="komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
-                </form>
+                    <button name="submit" value="Kirim" class="submit-button" onclick="return button_submit();">
+                        Submit
+                    </button>
+                <!-- </form> -->
             </div>
 
             <ul class="art-list-body">
@@ -143,7 +144,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
@@ -156,6 +156,50 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+</script>
+<script type="text/javascript">
+function validate_email(var email){
+    var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    return pattern.test(email);
+}
+function validate_nama(var nama){
+    return (!nama || /^\s*$/.test(nama));
+}
+function validate_konten(var konten){
+    return (!konten || /^\s*$/.test(konten));
+}
+
+function button_submit(){
+    var nama = document.getElementsById('nama');
+    var email = document.getElementsById('email');
+    var konten = document.getElementsById('komentar');
+    alert(nama+email+konten);
+}
+
+
+var requestObj = false;
+
+if (window.XMLHttpRequest) {
+    requestObj = new XMLHttpRequest();
+} else if (window.ActiveXObject) {
+    requestObj = new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+function get(source, id)
+{
+    if (requestObj) {
+        var obj = document.querySelector('#'+id);
+        requestObj.open("GET", source);
+        requestObj.onreadystatechange = function ()
+        {
+            if (requestObj.readyState == 4 && requestObj.status == 200) {
+                obj.innerHTML = requestObj.responseText;
+            }
+        }
+        requestObj.send(null);
+    }
+}
+
 </script>
 
 </body>

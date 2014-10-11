@@ -1,3 +1,10 @@
+<?php
+if(isset($_POST['judul']) && isset($_POST['tanggal']) && isset($_POST['konten'])){
+    $judul =  $_POST['judul'];   
+    $tanggal =  $_POST['tanggal'];
+    $konten = $_POST['konten'];
+}else{
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +45,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -64,8 +71,9 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" onclick="validate();" class="submit-button">
                 </form>
+                <button onclick="return testlagi();">test lagi </button>
             </div>
         </div>
     </div>
@@ -93,7 +101,7 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="includes/utama.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
@@ -107,6 +115,57 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
+<script type="text/javascript">
 
+function validateFormatTanggal(str) {
+	var a = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+	return a.test(str);
+}
+
+function get_tgl_skrg(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+		dd='0'+dd
+	} 
+
+	if(mm<10) {
+		mm='0'+mm
+	} 
+
+	today = yyyy+'-'+mm+'-'+dd;
+	return today;
+}
+
+function validateWaktuTanggal(str){
+	var arr = str.split("-");
+	var input_tgl = new Date(arr[2]+"-"+arr[1]+"-"+arr[0]);
+	var skrang = new Date(get_tgl_skrg());
+	return +input_tgl >= + skrang;
+}
+
+
+function validate(){
+    var judul = document.getElementById("Judul").value;
+    var tanggal = document.getElementById("Tanggal").value;
+    var konten = document.getElementById("Konten").value;
+    if((judul != '' ) && (tanggal != '' ) && (konten != '' )){
+        if(validateFormatTanggal(tanggal)){
+            alert(judul+tanggal+konten);
+        }else{
+            alert("ga valid tanggalnya formatnya")
+            return false;
+        }
+    }else{
+        alert("kosong coy");
+        return false;
+    }
+    
+}
+</script>
 </body>
 </html>
+<?php }?>

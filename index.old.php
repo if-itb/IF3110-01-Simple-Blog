@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
+        <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -62,17 +62,17 @@
 
                 $result = mysqli_query($conection, "SELECT * from post");
                 while($row = mysqli_fetch_array($result)){
-                  echo '<li class="art-list-item">';
-                  echo '<div class="art-list-item-title-and-time">';
-                  echo '    <h2 class="art-list-title"><a href="post.php?id_post='.$row['id_post'].'">'.$row['judul'].'</a></h2>';
-                  echo '    <div class="art-list-time">'.$row['tanggal'].'</div>';
-                  echo '    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
-                  echo '</div>';
-                  echo '<p>'.$row['konten'].'&hellip;</p>';
-                  echo '<p>';
-                    echo '<a href="#">Edit</a> | <a href="#">Hapus</a>';
-                  echo '</p>';
-                  echo '</li>';
+                	echo '<li class="art-list-item">';
+	                echo '<div class="art-list-item-title-and-time">';
+	                echo '    <h2 class="art-list-title"><a href="post.php?id_post='.$row['id_post'].'">'.$row['judul'].'</a></h2>';
+	                echo '    <div class="art-list-time">'.$row['tanggal'].'</div>';
+	                echo '    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
+	                echo '</div>';
+	                echo '<p>'.$row['konten'].'&hellip;</p>';
+	                echo '<p>';
+	                  echo '<a href="#">Edit</a> | <a href="#">Hapus</a>';
+	                echo '</p>';
+	            		echo '</li>';
                 }
                 ?>
           </ul>
@@ -101,6 +101,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
