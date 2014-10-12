@@ -69,23 +69,22 @@
             $result = mysqli_query($con, "SELECT * FROM post") or die(mysql_error());
 
             while($record = mysqli_fetch_array($result)){
-          ?>
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title">
-                      <a href="post.php?post-id=<?php echo $record['id']; ?>"><?php echo $record['title'] ?></a>
-                    </h2>
-                    <div class="art-list-time"><?php echo $record['date']; ?></div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p><?php echo $record['content']; ?> &hellip;</p>
-                <p>
-                  <a href="new_post.php?post-id=<?php echo $record['id']; ?>">Edit</a>
-                   | 
-                  <a onclick="return confirmDialog()" href="delete.php?post-id=<?php echo $record['id']; ?>">Hapus</a>
-                </p>
-            </li>
-            <?php } 
+              echo '<li class="art-list-item">
+                  <div class="art-list-item-title-and-time">
+                      <h2 class="art-list-title">
+                        <a href="post.php?post-id='.$record['id'].'">'.$record['title'].'</a>
+                      </h2>
+                      <div class="art-list-time">'.$record['date'].'</div>
+                      <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                  </div>
+                  <p>'.$record['content'].' &hellip;</p>
+                  <p>
+                    <a href="new_post.php?post-id='.$record['id'].'">Edit</a>
+                     | 
+                    <a onclick="return confirmDialog()" href="delete.php?post-id='.$record['id'].'">Hapus</a>
+                  </p>
+              </li>';
+            } 
             mysqli_close($con) ?>
           </ul>
         </nav>

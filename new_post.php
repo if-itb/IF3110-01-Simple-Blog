@@ -31,6 +31,7 @@
 
 <script>
     function validateForm(){
+        // pengecekan tanggal input terhadap tanggal hari ini
         var todayDate = new Date(<?php echo time(); ?>*1000);
         var date = new Date(document.forms['newpost']['date'].value);
         date.setHours(23);
@@ -46,6 +47,7 @@
     }
 
     function valiDate(){
+        // validasi eksistensi tanggal (misal 31 februari)
         var date_array = document.forms['newpost']['date'].value.split("-");
         var date = new Date(document.forms['newpost']['date'].value);
         if(date.getDate() == date_array[2]){

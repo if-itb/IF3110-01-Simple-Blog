@@ -19,6 +19,7 @@
 <div id="home">
     <div class="posts">
     <nav class="art-list">
+	
 	<?php
 		$con = mysqli_connect("localhost", "root", "", "wbd");
 
@@ -43,6 +44,7 @@
 
 		mysqli_close($con);
 	?>
+	
 	<br>
 	<a href="post.php?post-id=<?php echo $postid; ?>">Back to post</a>
 	</nav>
