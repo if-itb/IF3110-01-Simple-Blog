@@ -67,7 +67,7 @@
 								echo "<div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>";
 							echo "</div>";
 							echo "<p>" .$konten. "</p>";
-							echo "<p> <a href=\"editpost.php?id_post=$id_post\">Edit</a> | <a href=\"delete.php?id_post=$id_post\">Hapus</a></p>";
+							echo "<p> <a href=\"editpost.php?id_post=$id_post\">Edit</a> | <a href=\"javascript:Delete($id_post);\">Hapus</a></p>";
 						echo "</li>";
 					}
 					mysql_close();
@@ -98,9 +98,9 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
+<script type="text/javascript" src="assets/js/confirm.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';

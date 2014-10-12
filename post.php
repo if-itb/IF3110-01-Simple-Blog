@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<?php
+	$id = $_GET['id_post'];
+	include('connectdb.php');
+	$query = mysql_query("SELECT * FROM post WHERE id_post = '$id'") or die(mysql_error());
+	$row = mysql_fetch_assoc($query);
+	$id_post = $row['id_post'];
+	$judul = $row['judul'];
+	$tanggal = $row['tanggal'];
+	$konten = $row['konten'];
+	mysql_close();
+?>
 <html>
 <head>
 
@@ -30,13 +41,7 @@
 <![endif]-->
 
 <?php
-	$id = $_GET['id_post'];
-	include('connectdb.php');
-	$query = mysql_query("SELECT * FROM post WHERE id_post = '$id'") or die(mysql_error());
-	$row = mysql_fetch_assoc($query);
-	$judul = $row['judul'];
 	echo "<title>Simple Blog | " .$judul. "</title>";
-	mysql_close();
 ?>
 
 </head>
@@ -53,14 +58,6 @@
 
 <article class="art simple post">
     <?php
-		$id = $_GET['id_post'];
-		include('connectdb.php');
-		$query = mysql_query("SELECT * FROM post WHERE id_post = '$id'") or die(mysql_error());
-		$row = mysql_fetch_assoc($query);
-		$id_post = $row['id_post'];
-		$judul = $row['judul'];
-		$tanggal = $row['tanggal'];
-		$konten = $row['konten'];
 		echo "<header class=\"art-header\">";
 			echo "<div class=\"art-header-inner\" style=\"margin-top: 0px; opacity: 1;\">";
 				echo "<time class=\"art-time\">" .$tanggal. "</time>";
@@ -74,7 +71,6 @@
 				echo "<hr class=\"featured-article\" />";
 				echo "<p>" .$konten. "</p>";
 				echo "<hr />";
-		mysql_close();
 	?>
     
             <h2>Komentar</h2>
@@ -137,7 +133,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

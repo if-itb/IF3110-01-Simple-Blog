@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<?php
+	$id = $_GET['id_post'];
+	include('connectdb.php');
+	$query = mysql_query("SELECT * FROM post WHERE id_post = '$id'") or die(mysql_error());
+	$row = mysql_fetch_assoc($query);
+	$id_post = $row['id_post'];
+	$judul = $row['judul'];
+	$tanggal = $row['tanggal'];
+	$konten = $row['konten'];
+	mysql_close();
+?>
+
 <html>
 <head>
 
@@ -29,7 +41,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -51,18 +63,18 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="inputpostdb.php">
+                <form method="post" action="editdb.php?id_post=<?php echo $id_post ?>">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $judul ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $tanggal ?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $konten ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -93,7 +105,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

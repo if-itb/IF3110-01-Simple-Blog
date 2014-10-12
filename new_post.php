@@ -54,12 +54,12 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="inputpostdb.php">
+                <form method="post" action="inputpostdb.php" onsubmit = "return Validation(this)">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value = "YYYY-MM-DD">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
@@ -93,10 +93,10 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/confirm.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
