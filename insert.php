@@ -47,6 +47,13 @@
 	</div>
 </div>
 
+<footer class="footer">
+    <div class="psi">&Psi;</div>
+    <aside class="offsite-links">
+        Gilang Julian S. / 13512045
+    </aside>
+</footer>
+
 </div>
 
 <script type="text/javascript" src="assets/js/fittext.js"></script>

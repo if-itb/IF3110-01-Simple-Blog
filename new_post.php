@@ -28,6 +28,33 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script>
+    function validateForm(){
+        var todayDate = new Date(<?php echo time(); ?>*1000);
+        var date = new Date(document.forms['newpost']['date'].value);
+        date.setHours(23);
+        date.setMinutes(59);
+        date.setSeconds(59);
+        if(date >= todayDate && valiDate()){
+            return true;
+        }
+        else{
+            alert("Invalid date");
+            return false;
+        }
+    }
+
+    function valiDate(){
+        var date_array = document.forms['newpost']['date'].value.split("-");
+        var date = new Date(document.forms['newpost']['date'].value);
+        if(date.getDate() == date_array[2]){
+            return true;
+        }
+        return false;
+    }
+</script>
+
 <?php 
     if(isset($_GET['post-id']))
         $isEdit = true;
@@ -44,6 +71,10 @@
 
 <body class="default">
 <div class="wrapper">
+
+<!-- Kalo br diilangin link di nav ga bisa di klik -->
+<br>
+<br>
 
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
@@ -79,7 +110,7 @@
             
 
             <div id="contact-area">
-                <form method="post" action=
+                <form method="post" name="newpost" onsubmit="return validateForm()" action=
                     <?php 
                         if($isEdit)
                             echo "'update.php'";
@@ -95,7 +126,7 @@
                         ?>>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="date" id="Tanggal"
+                    <input type="text" name="date" placeholder="YYYY-MM-DD" id="Tanggal"
                         <?php 
                             if($isEdit)
                                 echo "value='".$row['date']."'";
@@ -104,8 +135,8 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="content" rows="20" cols="20" id="Konten"><?php 
                         if($isEdit)
-                            echo $row['content']; ?>
-                    </textarea>
+                            echo $row['content']; ?></textarea>
+
                     <?php 
                         if($isEdit){
                             echo "<input type='hidden' name='post-id' value=".$_GET['post-id'].">";
@@ -121,21 +152,9 @@
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
-    <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
+        Gilang Julian S. / 13512045
     </aside>
 </footer>
 

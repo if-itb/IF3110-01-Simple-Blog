@@ -26,28 +26,28 @@
 			echo "Failed to connect to mysql server";
 		}
 
-		$query = "DELETE FROM post WHERE id=".$_GET['post-id'];
+		$postid = $_POST['post-id'];
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$content = $_POST['content'];
+		$date = date("Y-m-d");
+
+		$query = "INSERT INTO comment (post_id, name, email, content, date)
+					VALUES ('$postid', '$name', '$email', '$content', '$date')";
 
 		if(!mysqli_query($con, $query)){
 			die('Error: ' . mysqli_error($con));
 		}else{
-			echo "Post successfully deleted";
+			echo "Comment successfully added";
 		}
 
 		mysqli_close($con);
 	?>
 	<br>
-	<a href="index.php">Back to home</a>
+	<a href="post.php?post-id=<?php echo $postid; ?>">Back to post</a>
 	</nav>
 	</div>
 </div>
-
-<footer class="footer">
-    <div class="psi">&Psi;</div>
-    <aside class="offsite-links">
-        Gilang Julian S. / 13512045
-    </aside>
-</footer>
 
 </div>
 

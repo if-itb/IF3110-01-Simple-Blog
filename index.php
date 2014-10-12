@@ -29,15 +29,24 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
+<script>
+  function confirmDialog(){
+    var box = confirm("Apakah anda yakin akan menghapus post ini?");
+    if(box == true){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+</script>
+
 <title>Simple Blog</title>
 
 
 </head>
 
 <body class="default">
-<?php
-  echo date("d/m/Y");
-?>
 <div class="wrapper">
 
 <nav class="nav">
@@ -73,7 +82,7 @@
                 <p>
                   <a href="new_post.php?post-id=<?php echo $record['id']; ?>">Edit</a>
                    | 
-                  <a href="delete.php?post-id=<?php echo $record['id']; ?>">Hapus</a>
+                  <a onclick="return confirmDialog()" href="delete.php?post-id=<?php echo $record['id']; ?>">Hapus</a>
                 </p>
             </li>
             <?php } 
@@ -88,17 +97,7 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
+        Gilang Julian S. / 13512045
     </aside>
 </footer>
 

@@ -28,6 +28,49 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+<script>
+    function validateEmail(){
+        var email = document.forms['commentForm']['email'].value;
+        var regex = /[\w\d\._-]*@[\w\d]*\.\w*/;
+        if(regex.test(email)){
+            addComment();
+        }
+        else{
+            alert("Invalid email format!");
+            return false;
+        }
+    }
+
+    function addComment(){
+        var xmlhttp = getXMLHTTPObject();
+        var post_id = document.forms['commentForm']['post-id'].value;
+        var name = document.forms['commentForm']['name'].value;
+        var email = document.forms['commentForm']['email'].value;
+        var content = document.forms['commentForm']['content'].value;
+        var param = "post-id="+post_id+"&name="+name+"&email="+email+"&content="+content;
+        xmlhttp.onreadystatechange=function(){
+            alert(xmlhttp.responsetext);
+        }
+        xmlhttp.open("POST", "comment.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.setRequestHeader("Content-length", param.length);
+        xmlhttp.setRequestHeader("Connection", "close");
+        xmlhttp.send(param);
+
+    }
+
+    function getXMLHTTPObject(){
+        var xmlhttp;
+        if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+        }
+        else{// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return xmlhttp;
+    }
+</script>
+
 
 <?php 
     $con = mysqli_connect("localhost", "root", "", "wbd");
@@ -36,8 +79,9 @@
         echo "<title>Database connection error</title>";
     }
     else{
+        $postid = $_GET['post-id'];
         $query = "SELECT * FROM post WHERE id = ".$_GET['post-id'];
-        $result = mysqli_query($con, $query) or die(mysqli_error());
+        $result = mysqli_query($con, $query) or die(mysqli_error($con));
         $row = mysqli_fetch_assoc($result);
         echo "<title>Simple Blog | ".$row['title']."</title>";
     }
@@ -75,36 +119,36 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" name="commentForm">
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+                    <input type="text" name="name" id="name">
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+                    <input type="text" name="email" id="email">
                     
                     <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <textarea name="content" rows="20" cols="20" id="content"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="hidden" name="post-id" value="<?php echo $postid; ?>">
+
+                    <input type="button" name="submit" value="Kirim" class="submit-button" onclick="return validateEmail()">
                 </form>
             </div>
 
             <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+                <?php 
+                    while($record = mysqli_fetch_array($result)){
+                ?>
+                        <li class="art-list-item">
+                            <div class="art-list-item-title-and-time">
+                                <h2 class="art-list-title"><a href="post.php"><?php echo $record['name']; ?></a></h2>
+                                <div class="art-list-time"><?php echo $record['date']; ?></div>
+                            </div>
+                            <p><?php echo $record['content']; ?> &hellip;</p>
+                        </li>
+                <?php 
+                    } 
+                ?>
             </ul>
         </div>
     </div>
@@ -116,17 +160,7 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
+        Gilang Julian S. / 13512045
     </aside>
 </footer>
 
