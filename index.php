@@ -10,7 +10,7 @@ try{
    $databaseHandler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    
    #Query
-   $listArticleQuery = "SELECT * FROM article";
+   $listArticleQuery = "SELECT * FROM article ORDER BY article_id DESC";
    $queryHandler = $databaseHandler->prepare($listArticleQuery);
    $queryHandler->execute();
    
@@ -64,7 +64,7 @@ echo "<!DOCTYPE html>
 <div class=\"wrapper\">
 
 <nav class=\"nav\">
-    <a style=\"border:none;\" id=\"logo\" href=\"index.html\"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style=\"border:none;\" id=\"logo\" href=\"index.php\"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class=\"nav-primary\">
         <li><a href=\"new_post.html\">+ Tambah Post</a></li>
     </ul>
@@ -80,13 +80,22 @@ while($article = $queryHandler->fetch()){
    echo "           <li class=\"art-list-item\">
                 <div class=\"art-list-item-title-and-time\">
                     <h2 class=\"art-list-title\"><a href=\"post.php?id=$article[article_id]\">$article[article_title]</a></h2>
-                    <div class=\"art-list-time\">$article[article_date]</div>
+                    <div class=\"art-list-time\">";
+   echo date("j F Y",strtotime($article['article_date']));
+   echo"</div>
                 </div>
                 <p>";
-   echo substr($article['article_content'],300); 
-   echo "&hellip;</p>
+   $panjang = strlen($article['article_content']);
+   if($panjang>300){
+      echo substr($article['article_content'],0,250); 
+      echo "&hellip;";
+   } else{
+      echo $article['article_content'];
+   }
+   echo"
+   </p>
                 <p>
-                  <a href=\"update_post.php?update_id=$article[article_id]\">Edit</a> | <a href=\"delete_post_database.php?delete_id=$article[article_id]\">Hapus</a>
+                  <a href=\"update_post.php?update_id=$article[article_id]\">Edit</a> | <a href=\"delete_post_database.php?delete_id=$article[article_id]\" onclick=\"return deleteConfirm()\">Hapus</a>
                 </p>
             </li>";
 }
@@ -120,6 +129,7 @@ echo "         </ul>
 <script type=\"text/javascript\" src=\"assets/js/fittext.js\"></script>
 <script type=\"text/javascript\" src=\"assets/js/app.js\"></script>
 <script type=\"text/javascript\" src=\"assets/js/respond.min.js\"></script>
+<script type=\"text/javascript\" src=\"assets/js/validator.js\"></script>
 <script type=\"text/javascript\">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

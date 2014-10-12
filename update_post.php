@@ -21,6 +21,7 @@ try{
       if(! $articlePrevious = $queryHandler->fetch()){
          throw new Exception("The article is not exist");
       }
+      $articlePrevious['article_date'] = date("d-m-Y",strtotime($articlePrevious['article_date']));
    }else{
       throw new Exception("No update_id detected");
    }
@@ -69,7 +70,7 @@ try{
    <div class=\"wrapper\">
 
    <nav class=\"nav\">
-    <a style=\"border:none;\" id=\"logo\" href=\"index.html\"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style=\"border:none;\" id=\"logo\" href=\"index.php\"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class=\"nav-primary\">
         <li><a href=\"new_post.html\">+ Tambah Post</a></li>
     </ul>
@@ -85,13 +86,14 @@ try{
             <h2>Ubah Post</h2>
 
             <div id=\"contact-area\">
-                <form method=\"post\" action=\"update_post_database.php\">
+                <form method=\"post\" action=\"update_post_database.php\"  onsubmit=\"return formValidation();\">
                     <label for=\"Judul\">Judul:</label>
                     <input type=\"hidden\" name=\"Kode\" value=$articlePrevious[article_id]>
                     <input type=\"text\" name=\"Judul\" id=\"Judul\" value=$articlePrevious[article_title]>
 
                     <label for=\"Tanggal\">Tanggal:</label>
-                    <input type=\"text\" name=\"Tanggal\" id=\"Tanggal\" value=$articlePrevious[article_date]>
+                    <input type=\"text\" name=\"Tanggal\" id=\"Tanggal\" onchange=\"formValidation()\" value=$articlePrevious[article_date]>
+                    <span id=\"date-validation\" ></span>
                     
                     <label for=\"Konten\">Konten:</label><br>
                     <textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\">$articlePrevious[article_content]</textarea>
@@ -128,6 +130,7 @@ try{
    <script type=\"text/javascript\" src=\"assets/js/fittext.js\"></script>
    <script type=\"text/javascript\" src=\"assets/js/app.js\"></script>
    <script type=\"text/javascript\" src=\"assets/js/respond.min.js\"></script>
+   <script type=\"text/javascript\" src=\"assets/js/validator.js\"></script>
    <script type=\"text/javascript\">
    var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

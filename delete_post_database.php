@@ -19,6 +19,11 @@ try{
    
    #Close connection
    $databaseHandler = null;
+   
+   #Redirect
+   header("Location: index.php");
+   die();
+   
 }catch(PDOException $e){
    echo "Sorry, there is a problem now. Please come again later";
    file_put_contents('PDOErrors.txt', $e->getMessage(), FILE_APPEND);
