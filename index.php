@@ -33,7 +33,7 @@
 
   <?php
     include 'DBConfig.php';
-    $result = mysql_query("select * from entries",$link);
+    $result = mysql_query("SELECT * FROM entries ORDER BY TANGGAL DESC",$link);
 
   ?>
 
@@ -46,7 +46,7 @@
       <nav class="nav">
           <a style="border:none;" id="logo" href="index.php"><h1>AYE!</h1></a>
           <ul class="nav-primary">
-              <li><a href="new_post.html">+ Tambah Post</a></li>
+              <li><a href="new_post.php">+ Tambah Post</a></li>
           </ul>
       </nav>
 
@@ -66,7 +66,7 @@
                       <p><?php echo $row['KONTEN'];?> &hellip;</p>
                       <p>
                         <a href=<?php echo "edit_post.php?id=$row[PID]" ?>>Edit</a> | 
-                        <a href=<?php echo "delete_post.php?id=$row[PID]" ?>>Hapus</a>
+                        <a href=<?php echo"delete_post.php?id=$row[PID]"?> class="confirmation">Hapus</a>
                       </p>
                   </li>
                   <?php } ?>
@@ -110,6 +110,16 @@
           t.src='//www.google-analytics.com/analytics.js';
           z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
           ga('create',ga_ua);ga('send','pageview');
+    </script>
+
+    <script type="text/javascript">
+      var elems = document.getElementsByClassName('confirmation');
+      var confirmIt = function (e) {
+          if (!confirm('Yakin akan dihapus?')) e.preventDefault();
+      };
+      for (var i = 0, l = elems.length; i < l; i++) {
+          elems[i].addEventListener('click', confirmIt, false);
+      }
     </script>
 
   </body>
