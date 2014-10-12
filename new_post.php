@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -52,9 +52,9 @@
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
-
+            
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="coba.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
