@@ -72,14 +72,19 @@
 </head>
 
 <body class="default">
+<img src="assets/img/bg.png" class="background">
+<img src="assets/img/navbackground.png" class="navbackground">
 <div class="wrapper">
 
-<!-- Kalo br diilangin link di nav ga bisa di klik -->
-<br>
-<br>
-
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    
+    <div class="logologo">
+      <img src="assets/img/navicon.png" class="navicon">
+      <a id="logo" href="index.php"><img src="assets/img/icontext.png" class="icontext"></a>
+    </div>
+    <ul class="nav-primary">
+        <li><a href="new_post.php">+ Tambah Post</a></li>
+    </ul>
 </nav>
 
 <?php 

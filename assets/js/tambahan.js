@@ -16,9 +16,11 @@ function addComment(){
     var xmlhttp = getXMLHTTPObject();
     var post_id = document.forms['commentForm']['post-id'].value;
     var name = document.forms['commentForm']['name'].value;
+    var d = new Date();
+    var date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
     var email = document.forms['commentForm']['email'].value;
     var content = document.forms['commentForm']['content'].value;
-    var param = "post-id="+post_id+"&name="+name+"&email="+email+"&content="+content;
+    var param = "post-id="+post_id+"&name="+name+"&email="+email+"&content="+content+"&date="+date;
     xmlhttp.onreadystatechange=function(){
         if(xmlhttp.readyState == 4){
             loadComment();
@@ -46,7 +48,7 @@ function loadComment(){
     var post_id = document.forms['commentForm']['post-id'].value;
     var param = "post-id="+post_id;
     xmlhttp.onreadystatechange=function(){
-        if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+        if(xmlhttp.readyState == 4){
             document.getElementById("comment").innerHTML = xmlhttp.responseText;
         }
     }

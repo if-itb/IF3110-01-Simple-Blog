@@ -48,10 +48,16 @@
 </head>
 
 <body class="default">
+<img src="assets/img/bg.png" class="background">
+<img src="assets/img/navbackground.png" class="navbackground">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    
+    <div class="logologo">
+      <img src="assets/img/navicon.png" class="navicon">
+      <a id="logo" href="index.php"><img src="assets/img/icontext.png" class="icontext"></a>
+    </div>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
@@ -94,7 +100,7 @@
             </div>
 
             <div id="comment">
-                <script type="text/javascript">loadComment()</script>
+                
             </div>
         </div>
     </div>
@@ -116,6 +122,7 @@
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript" src="assets/js/tambahan.js"></script>
+<script type="text/javascript">loadComment()</script>
 
 </body>
 </html>
