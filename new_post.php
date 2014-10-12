@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 
@@ -38,9 +39,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -53,13 +54,13 @@
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
 
-            <div id="contact-area">
-                <form method="post" action="#">
+            <div id="contact-area">     
+                <form method="post" action="add_post.php" return="JavaScript:ValidasiTanggal('<?php echo $_POST['Tanggal']; ?>')">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" value="<?php echo date('Y-m-d'); ?>" id="Tanggal">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
@@ -109,3 +110,35 @@
 
 </body>
 </html>
+
+<script>
+function ValidasiTanggal(date){
+    var valid;
+    var year = input.value.split("-")[0];
+    var month = input.value.split("-")[1];
+    var day = input.value.split("-")[2];
+    var dateobj = new Date(year, month-1, day);
+    if(dateobj.getMonth()+1!=month || dateobj.getDate()!=day || dateobj.getFullYear()!=year){
+        alert("Masukan tanggal tidak valid.");
+        valid = false;
+    } else{
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yy = today.getFullYear();
+        if (yy<year){
+            alert("Masukan tanggal harus lebih besar atau sama dengan tanggal hari ini.");
+            valid = false;
+        } else if (mm<month){
+            alert("Masukan tanggal harus lebih besar atau sama dengan tanggal hari ini.");
+            valid = false;
+        } else if (dd<day){
+            alert("Masukan tanggal harus lebih besar atau sama dengan tanggal hari ini.");
+            valid = false;
+        } else{
+            valid = true;
+        }
+    }
+    return valid;
+}
+</script>
