@@ -53,7 +53,7 @@ function get_posts_list(){
 		while($row = mysqli_fetch_array($result)){
 			$pid = $row['id_post'];
 			$title = $row['judul'];
-			$date = $row['tanggal'];
+			$date = tanggalProcessor($row['tanggal']);
 			$content = $row['konten'];
 			$content = str_replace("\n", " ", $content);
 			//penulisan pos ke database
@@ -95,6 +95,56 @@ function get_posts_list(){
 	disconnect_db();
 }
 
+function tanggalProcessor($date){
+	$datePart = explode('-', $date);
+	$bulan;
+	switch($datePart[1]){
+		case 1 : $bulan = " Januari "; break;
+		case 2 : $bulan = " Februari "; break;
+		case 3 : $bulan = " Maret "; break;
+		case 4 : $bulan = " April "; break;
+		case 5 : $bulan = " Mei "; break;
+		case 6 : $bulan = " Juni "; break;
+		case 7 : $bulan = " Juli "; break;
+		case 8 : $bulan = " Agustus "; break;
+		case 9 : $bulan = " September "; break;
+		case 10 : $bulan = " Oktober "; break;
+		case 11 : $bulan = " November "; break;
+		case 12 : $bulan = " Desember "; break;
+	}
+	return $datePart[2].$bulan.$datePart[0];
+}
 
+function commentTimeProcessor($timestamp){
+	$dateTime = explode(' ', $timestamp);
+	
+	// cek date
+	$dateNow = date('Y-m-d');
+	if(strcmp($dateNow,$dateTime[0]) == 0){
+		date_default_timezone_set("Asia/Jakarta");
+		$timeNow = date('H:i:s');
+		$timePart = explode(':', $dateTime[1]);
+		$timeNowPart = explode(':', $timeNow);
+		if($timePart[0] == $timeNowPart[0]){
+			//echo " sama jam";
+			if($timePart[1] == $timeNowPart[1]){
+				return "beberapa detik yang lalu";
+			}
+			else{
+				//echo $timeNow;
+				//echo $dateTime[1];
+				return ($timeNowPart[1] - $timePart[1])." menit yang lalu";
+			}
+		}
+		else{
+			//echo $timeNow;
+			//echo $dateTime[1];
+			return ($timeNowPart[0] - $timePart[0])." jam yang lalu";
+		}
+	}
+	else{
+		return tanggalProcessor($dateTime[0]);
+	}
+}
 
 ?>

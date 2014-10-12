@@ -23,7 +23,7 @@
 		'<li class="art-list-item">
 			<div class="art-list-item-title-and-time">
 				<h2 class="art-list-title"><a href="post.php?pid=' . $pid . '">' . $nama . '</a></h2>
-				<div class="art-list-time">' . $timestamp . '</div>
+				<div class="art-list-time">' . commentTimeProcessor($timestamp) . '</div>
 			</div>
 			<p>' . $comment . '</p>
 		</li>

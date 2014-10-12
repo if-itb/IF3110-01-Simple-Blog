@@ -124,7 +124,7 @@ function showComments(pid) {
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 100px; opacity: 1;">
-            <time class="art-time"><?php echo $date;?></time>
+            <time class="art-time"><?php echo tanggalProcessor($date);?></time>
             <h2 class="art-title"><?php echo $title;?></h2>
             <p class="art-subtitle"></p>
         </div>
