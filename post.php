@@ -91,7 +91,7 @@ $post = loadPost($id);
                     </div>
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
-                    <input type="hidden" name="id" id="pageId" value="3">
+                    <input type="hidden" name="id" id="pageId" value=<?php echo '"'.$id.'"';?>>
 
                     <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="return sendKomentar();">
                 </form>
