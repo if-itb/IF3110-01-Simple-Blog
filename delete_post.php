@@ -1,6 +1,7 @@
 <?php
 if (isset($_POST['id']))
 {
+	require_once "db_config.php";
 	global $dbHost;
 	global $dbUsername;
 	global $dbPassword;
