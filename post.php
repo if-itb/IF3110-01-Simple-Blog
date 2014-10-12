@@ -34,6 +34,8 @@
         var regex = /[\w\d\._-]*@[\w\d]*\.\w*/;
         if(regex.test(email)){
             addComment();
+            resetForm();
+            alert("Comment successfully added");
         }
         else{
             alert("Invalid email format!");
@@ -49,12 +51,12 @@
         var content = document.forms['commentForm']['content'].value;
         var param = "post-id="+post_id+"&name="+name+"&email="+email+"&content="+content;
         xmlhttp.onreadystatechange=function(){
-            alert(xmlhttp.responsetext);
+            if(xmlhttp.readyState == 4){
+                loadComment();
+            }
         }
         xmlhttp.open("POST", "comment.php", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.setRequestHeader("Content-length", param.length);
-        xmlhttp.setRequestHeader("Connection", "close");
         xmlhttp.send(param);
 
     }
@@ -68,6 +70,26 @@
           xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
         return xmlhttp;
+    }
+
+    function loadComment(){
+        var xmlhttp = getXMLHTTPObject();
+        var post_id = document.forms['commentForm']['post-id'].value;
+        var param = "post-id="+post_id;
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                document.getElementById("comment").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("POST", "load_comment.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send(param);
+    }
+
+    function resetForm(){
+        document.forms['commentForm']['name'].value = "";
+        document.forms['commentForm']['email'].value = "";
+        document.forms['commentForm']['content'].value = "";
     }
 </script>
 
@@ -131,25 +153,13 @@
 
                     <input type="hidden" name="post-id" value="<?php echo $postid; ?>">
 
-                    <input type="button" name="submit" value="Kirim" class="submit-button" onclick="return validateEmail()">
+                    <input type="button" name="submit" value="Kirim" class="submit-button" onclick="validateEmail();">
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <?php 
-                    while($record = mysqli_fetch_array($result)){
-                ?>
-                        <li class="art-list-item">
-                            <div class="art-list-item-title-and-time">
-                                <h2 class="art-list-title"><a href="post.php"><?php echo $record['name']; ?></a></h2>
-                                <div class="art-list-time"><?php echo $record['date']; ?></div>
-                            </div>
-                            <p><?php echo $record['content']; ?> &hellip;</p>
-                        </li>
-                <?php 
-                    } 
-                ?>
-            </ul>
+            <div id="comment">
+                <script type="text/javascript">loadComment()</script>
+            </div>
         </div>
     </div>
 

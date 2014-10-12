@@ -1,6 +1,6 @@
 <?php
 	$con = mysqli_connect("localhost", "root", "", "wbd");
-	$query = "SELECT * FROM comment WHERE post_id = ".$_GET['post-id'];
+	$query = "SELECT * FROM comment WHERE post_id = ".$_POST['post-id'];
 	$result = mysqli_query($con, $query) or die(mysqli_error($con));
 	echo '<ul class="art-list-body">';
 	while($record = mysqli_fetch_array($result)){
@@ -10,7 +10,7 @@
                     <div class="art-list-time">'.$record['date'].'</div>
                 </div>
                 <p>'.$record['content'].'&hellip;</p>
-			</li>'
+			</li>';
 	}
 	echo '</ul>';
 ?>
