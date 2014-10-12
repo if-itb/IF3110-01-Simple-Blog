@@ -44,33 +44,41 @@
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
+<article class="art simple post">    
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
+			<?php
+				$postId = $_GET['postId'];
+				$con = mysqli_connect("localhost","root","","if3110-tugas1");
+				if (mysqli_connect_errno()) {
+					echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+				$result = mysqli_query($con, "SELECT * FROM post WHERE id_post = ".$postId);
+				// while ($row = mysqli_fetch_array($result)) {
+					$row = mysqli_fetch_array($result);
+					echo "<div id=\"contact-area\">";
+						echo "<form method=\"post\" action=\"update.php\">";
+							echo "<label for=\"Judul\">Judul:</label>";
+							echo "<input type=\"hidden\" name = \"PostId\" value = \"".$row['id_post']."\">";
+							echo "<input type=\"text\" name=\"Judul\" id=\"Judul\" value = \"".$row['judul']."\">";
 
-            <div id="contact-area">
-                <form method="post" onSubmit = "return checkDate(this.Tanggal)" action="wew.php">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
+							echo "<label for=\"Tanggal\">Tanggal:</label>";
+							echo "<input type=\"text\" name=\"Tanggal\" id=\"Tanggal\" value = \"".$row['tanggal_post']."\">";
+							
+							echo "<label for=\"Konten\">Konten:</label><br>";
+							echo "<textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\">".$row['konten']."</textarea>";
+							echo "<input type=\"submit\" name=\"submit\" value=\"Simpan\" class=\"submit-button\">";
+						echo "</form>";
+					echo "</div>";
+				// }
+			?>
         </div>
     </div>
 
 </article>
-
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
@@ -96,39 +104,14 @@
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
-	function checkDate(input){
-		var validformat=/^(\d{4})-(\d{1,2})-(\d{1,2})/
-		var retval=false
-		if (!validformat.test(input.value))
-			alert("Tanggal tidak valid")
-		else { //Detailed check for valid date ranges
-			var monthfield=input.value.split("-")[1]
-			var dayfield=input.value.split("-")[2]
-			var yearfield=input.value.split("-")[0]
-			var dayobj = new Date(yearfield, monthfield-1, dayfield)
-			if ((dayobj.getMonth()+1!=monthfield)||(dayobj.getDate()!=dayfield)||(dayobj.getFullYear()!=yearfield))
-				alert("Tanggal tidak valid")
-			else {
-				var today = new Date()
-				today.setHours(0)
-				today.setMinutes(0)
-				today.setSeconds(0)
-				today.setMilliseconds(0)
-				// console.log(dayobj)
-				// console.log(today)
-				if (dayobj < today) {
-					alert('tanggal harus lebih besar atau sama dengan hari ini');
-					retval = false
-				} else retval=true
-			}
-		}
-		if (retval==false) {
-			input.select()
-			input.setAttribute("style", "border-color: red;");
-		}
-		return retval
-	}
+  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
+  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
+      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
+      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
+      t.src='//www.google-analytics.com/analytics.js';
+      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
+      ga('create',ga_ua);ga('send','pageview');
 </script>
 
 </body>
