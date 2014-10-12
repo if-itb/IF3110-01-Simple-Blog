@@ -50,6 +50,7 @@ $posts = loadPosts();
     </ul>
 </nav>
 
+<script src="assets/js/post.js"></script>
 <div id="home">
     <div class="posts">
         <nav class="art-list">
@@ -66,7 +67,7 @@ $posts = loadPosts();
                 </div>
                 <p><?php echo $post["konten"];?>&hellip;</p>
                 <p>
-                  <a href=<?php echo '"new_post.php?id='.$post['id'].'"';?>>Edit</a> | <a href=<?php echo '"post.php?id='.$post['id'].'"';?>>Hapus</a>
+                  <a href=<?php echo '"new_post.php?id='.$post['id'].'"';?>>Edit</a> | <a href="#" onclick=<?php echo '"return deletePost('.$post['id'].');"';?>>Hapus</a>
                 </p>
             </li><!-- until this-->
             <?php
