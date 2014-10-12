@@ -49,7 +49,7 @@ if(isset($_GET['delpost'])){
 <script language="JavaScript" type="text/javascript">
   function delpost(id, title)
   {
-	  if (confirm("Are you sure you want to delete '" + title + "'"))
+	  if (confirm("Apakah Anda yakin menghapus post ini? '" + title + "'"))
 	  {
 	  	window.location.href = 'index.php?delpost=' + id;
 	  }
@@ -69,34 +69,37 @@ if(isset($_GET['delpost'])){
 </nav>
 
 <div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
-    </div>
+	<div>
+	<?php
+		try {
+			echo '<div class="posts">';
+				echo '<nav class="art-list">';
+					echo '<ul class="art-list-body">';
+						$stmt = $db->query('SELECT postID, postTitle, postDesc, postDate FROM blog_posts ORDER BY postID DESC');
+						while($row = $stmt->fetch()){
+							echo '<li class="art-list-item">';
+								echo '<div class="art-list-item-title-and-time">';
+									echo '<h2 class="art-list-title">
+									<a href="viewpost.php?id='.$row['postID'].'">'.$row['postTitle'].'</a></h2>';
+									echo '<div class="art-list-time">'.date('jS M Y H:i:s', strtotime($row['postDate'])).'</div>';
+								echo '</div>';	
+								echo '<p>'.$row['postDesc'].'</p>';				
+								echo '<p><a href="edit-post.php?id='.$row['postID'].'">Edit</a>';
+	?>
+								<a href="javascript:delpost('<?php echo $row['postID'];?>','<?php echo $row['postTitle'];?>')">|  Hapus</a></p>
+							
+		
+	<?php
+						echo '</li>';
+						}
+					echo '</ul>';
+				echo '</nav>';
+			echo '</div>';
+			} catch(PDOException $e) {
+			echo $e->getMessage();
+		}
+	?>
+	</div>
 </div>
 
 <footer class="footer">
