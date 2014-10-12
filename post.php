@@ -46,25 +46,44 @@ function cekData(){
         alert("Komentar post harus diisi!");
         return false;
     }
-    else if(checkEmail() == false){
-        return false;
-    }
     else{
-        return true;
+        checkEmail();
+        showComment();
+        return false;
     }
 }
 
 function checkEmail(){
-    var validformat=/^\w*@\w*.\w*$/ //Basic check for format validity
-    var returnval=false
+    var validformat=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!validformat.test(new_comment.Email.value)){
-        alert("Email anda salah!")
+        alert("Email anda salah!");
     }
-    else { 
-        returnval = true;
-    }
-    return returnval
 }
+
+function showComment() {
+    var nama = document.getElementById('Nama').value;
+    var email = document.getElementById('Email').value;
+    var komentar = document.getElementById('Komentar').value;
+    var post_id = document.getElementById('post_id').value;
+    var comment_date = document.getElementById('comment_date').value;
+    if (window.XMLHttpRequest) {
+       // code for IE7+, Firefox, Chrome, Opera, Safari
+       xmlhttp=new XMLHttpRequest();
+    } 
+    else { // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            document.getElementById("listKomentar").innerHTML=xmlhttp.responseText + document.getElementById("listKomentar").innerHTML;
+        }
+    }
+    xmlhttp.open("POST","new_comment.php",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("&post_id="+post_id+"&Nama="+nama+"&Email="+email+"&Komentar="+komentar+"&comment_date="+comment_date+"&post_id="+post_id);
+}
+
+</script>
 
 </script>
 
@@ -105,12 +124,14 @@ function checkEmail(){
 
             <hr />
 
-<?php mysqli_close($con); ?>
+        <?php mysqli_close($con); 
+            $session_post_id = $_GET['pc'];
+        ?>
 
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form name="new_comment" method="post" action="new_comment.php" onsubmit="return cekData();">
+                <form name="new_comment" method="post" onsubmit="cekData(); return false;">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -125,17 +146,16 @@ function checkEmail(){
                     <input type="hidden" name="comment_date" id="comment_date" value="<?php echo "".date("Y-m-d") ?>">
                 </form>
             </div> 
-            <ul class="art-list-body">
+            <ul class="art-list-body" id="listKomentar">
                 <?php 
-                    $session_post_id = $_GET['pc'];
                     // Create connection
                     $con=mysqli_connect("localhost","root","","wbd_db");
-                    $result = mysqli_query($con,"SELECT * FROM comment WHERE post_id = '$session_post_id'");
+                    $result = mysqli_query($con,"SELECT * FROM comment WHERE post_id = '$session_post_id' ORDER BY comment_id DESC");
                     while($row = mysqli_fetch_array($result)) {
                 ?>
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html"><?php echo $row['nama'] ?></a></h2>
+                        <h2 class="art-list-title"><a href="post.php"><?php echo $row['nama'] ?></a></h2>
                         <div class="art-list-time"><?php echo $row['comment_date'] ?></div>
                     </div>
                     <p><?php echo $row['komentar'] ?> &hellip;</p>
