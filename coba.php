@@ -9,10 +9,10 @@
     	$konten=mysqli_real_escape_string($con,$_POST['Konten']);
    	    $strSql= "insert into blogtable(judul,tanggal,konten) values ('$judul','$tanggal','$konten')";        
     	if (!mysqli_query($con,$strSql)){
-			header("Location:post.php");
+			header("Location:new_post.php"); 
 		}
 		else{
-			header("Location:index.php");
+			header("Location:index.php");            
 		}
     }
     mysqli_close($con);

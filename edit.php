@@ -10,10 +10,10 @@
         $id=$_GET['id'];
    	    $strSql= "update blogtable set judul='$judul', tanggal='$tanggal', konten='$konten' where no_post='$id'";
     	if (!mysqli_query($con,$strSql)){
-			header("Location:post.php");            
+			header("Location:new_post.php");            
 		}
 		else{
-			header("Location:index.php");
+			header("Location:index.php");            
 		}
     }
     mysqli_close($con);

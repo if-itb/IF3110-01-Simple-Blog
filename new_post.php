@@ -54,15 +54,15 @@
             <h2>Tambah Post</h2>
             
             <div id="contact-area">
-                <form method="post" action="coba.php">
+                <form name="formulir" method="post" action="coba.php" onSubmit="return validasi()">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" required>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <input type="date" name="Tanggal" id="Tanggal" required> 
+
+                    <label for="Konten">Konten:</label>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" required></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -93,19 +93,31 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
+    var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
+    (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
+          function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
+          t=h.createElement(o);z=h.getElementsByTagName(o)[0];
+          t.src='//www.google-analytics.com/analytics.js';
+          z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
+          ga('create',ga_ua);ga('send','pageview');
+
+    function validasi() {
+        var tgl=new Date();
+        tgl.setHours(0);
+        tgl.setMinutes(0);
+        tgl.setSeconds(0);
+        if (new Date(document.formulir.Tanggal.value) < tgl){
+            alert('Tanggal yang diinput harus lebih besar dari tanggal sekarang, format mm/dd/yyyy')
+            return false;
+        }
+        else return true;
+    }
+
 </script>
 
 </body>

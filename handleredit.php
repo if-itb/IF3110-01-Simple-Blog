@@ -67,15 +67,15 @@
             <h2>Tambah Post</h2>
             
             <div id="contact-area">
-                <form method="post" action="<?php echo 'edit.php?id='.$edit ?>">
+                <form name="formulir" method="post" action="<?php echo 'edit.php?id='.$edit ?>" onSubmit="return validasi()">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['judul'] ?>">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['judul'] ?>" required>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $row['tanggal'] ?>">
+                    <input type="date" name="Tanggal" id="Tanggal" value="<?php echo $row['tanggal'] ?>" required>
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['konten'] ?></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" required><?php echo $row['konten'] ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -105,3 +105,23 @@
 </footer>
 
 </div>
+
+<script type="text/javascript" src="assets/js/fittext.js"></script>
+<script type="text/javascript" src="assets/js/app.js"></script>
+<script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript">
+    function validasi() {
+        var tgl=new Date();
+        tgl.setHours(0);
+        tgl.setMinutes(0);
+        tgl.setSeconds(0);
+        if (new Date(document.formulir.Tanggal.value) < tgl){
+            alert('Tanggal yang diinput harus lebih besar dari tanggal sekarang, format mm/dd/yyyy')
+            return false;
+        }
+        else return true;
+    }
+</script>
+
+</body>
+</html>
