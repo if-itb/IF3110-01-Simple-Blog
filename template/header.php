@@ -81,7 +81,7 @@
 
   function getID($ids){
   $id =($ids);
-  $query = "SELECT judul,tanggal,konten FROM posting WHERE id='$id'";
+  $query = "SELECT judul,tanggal,konten,komentar FROM posting WHERE id='$id'";
     $result = mysql_query($query);
     if(!$result){
         echo 'NOTHING';
@@ -91,6 +91,22 @@
         array_push($output, $row[0]);
         array_push($output, $row[1]);
         array_push($output, $row[2]);
+        array_push($output, $row[3]);
+    }
+    return $output;
+  }
+
+  function getData($id){
+    $query = "SELECT nama,tanggal,komen FROM komentar WHERE id='$id'";
+    $result = mysql_query($query);
+    if(!$result){
+        echo 'Failed Query';
+    }
+    $output = array();
+    while($row = mysql_fetch_row($result)){
+      array_push($output, $row[0]);
+      array_push($output, $row[1]);
+      array_push($output, $row[2]);
     }
     return $output;
   }

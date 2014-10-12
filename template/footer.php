@@ -42,6 +42,94 @@
     }
 
   }
+
+  function loadXMLDoc(email){
+    // create XmlHTTP
+    var xmlhttp;
+    if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else{
+      throw new Error("Ajax is not supported by this browser!");
+    }
+
+    xmlhttp.onreadystatechange=function(){
+      if (xmlhttp.readyState==4 && xmlhttp.status==200){
+        document.getElementById("msg").innerHTML=xmlhttp.responseText;
+      }
+    }
+    xmlhttp.open("POST","/if3110-01-simple-blog/function/validateemail.php?email="+email,true);
+    xmlhttp.send();
+
+    document.getElementById("Komentar").style.marginTop="10px";
+    document.getElementById("komentar").style.paddingTop="30px";
+  }
+
+  function add_comment(email,nama,komentar,id_post){
+    var xmlhttp;
+    if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else{
+      throw new Error("Ajax is not supported by this browser!");
+    }
+
+    xmlhttp.onreadystatechange=function(){
+      if (xmlhttp.readyState==4 && xmlhttp.status==200){
+        document.getElementById("komen_baru").innerHTML=xmlhttp.responseText;
+        //document.getElementById("komen_view").style.visibility="hidden";
+      }
+    }
+    xmlhttp.open("GET","/if3110-01-simple-blog/function/tambahkomentar.php?email="+email+"&nama="+nama+"&komentar="+komentar+"&id_post="+id_post,true);
+    xmlhttp.send();
+  }
+
+  function validateDate(date){
+    var xmlhttp;
+    if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else{
+      throw new Error("Ajax is not supported by this browser!");
+    }
+
+    xmlhttp.onreadystatechange=function(){
+      if (xmlhttp.readyState==4 && xmlhttp.status==200){
+        document.getElementById("msg2").innerHTML=xmlhttp.responseText;
+        document.getElementById("konten").focus();
+      }
+    }
+    xmlhttp.open("GET","/if3110-01-simple-blog/function/validatedate.php?date="+date,true);
+    xmlhttp.send();
+  }
+
+  function validateForm(){
+    var judul = document.getElementById("Judul").value;
+    var tanggal = document.getElementById("Tanggal").value;
+    var konten = document.getElementById("Konten").value;
+    var validatedate = document.getElementById("msg2").innerHTML;
+    console .log(judul);
+    console.log(tanggal);
+    console.log(konten);
+    console.log(validatedate);
+
+    if(judul != "" && tanggal != "" && konten != "" && validatedate==""){
+        document.getElementById("submit").disabled = false;
+    }
+    else{
+      document.getElementById("submit").disabled = true;
+    }
+  }
+
 </script>
 
 
