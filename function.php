@@ -128,19 +128,16 @@
 	    echo 	'        <hr />';
     }
     
-    function add_comment($id, $nama, $email, $komentar, $tanggal)
+    function add_comment($id, $nama, $email, $komentar)
     {
         $con=get_con_mysqli();
-        //echo $komentar;
-        // Check connection
         if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
-        $tanggal = date($tanggal);
-        
-        mysqli_query($con,"INSERT INTO komentar (id, nama, email, tanggal, komentar)
-                            VALUES ('$id','$nama','$email', '$tanggal','$komentar')");
+        mysqli_query($con,"INSERT INTO komentar (idpost, nama, email, tanggal, komentar)
+                            VALUES ('$id','$nama','$email', now(),'$komentar')");
     
         close_connection($con);
     }
+    
 ?>

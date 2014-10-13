@@ -6,8 +6,6 @@
     $komentar   = mysql_real_escape_string ($_POST['Komentar']);
     $tanggal    = date($_POST["Tanggal"]);
     $location = 'Location: post.php?id='.$id;
-    //echo $location;
-    //echo $komentar;
-    add_comment($id, $nama, $email, $komentar, $tanggal);
+    add_comment($id, $nama, $email, $komentar);
     header($location);
 ?>
