@@ -88,7 +88,9 @@
 				while($row = mysqli_fetch_array($result)) {
 					echo "<li class=\"art-list-item\">";
 					echo "<div class=\"art-list-item-title-and-time\">";
-                    echo "<h2 class=\"art-list-title\">" . $row['JUDUL'] . "</h2>";
+                    echo "<h2 class=\"art-list-title\">" .
+							"<a href=\"view_post.php?id={$row['ID']}\">".$row['JUDUL']."</a>".
+							"</h2>";
                     echo "<div class=\"art-list-time\">" . $row['TANGGAL'] . "</div>";
 					echo "</div>";
 					echo "<p>".$row['ISI']."</p>";

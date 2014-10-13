@@ -29,7 +29,25 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<title><?php
+			$con=mysqli_connect("localhost","root","","blog_content");
+
+			// Check connection
+			if (mysqli_connect_errno()) {
+			  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+			}
+
+			// escape variables for security
+			$id = mysqli_real_escape_string($con, $_GET['id']);
+			$result = mysqli_query($con,"SELECT * FROM `blog` WHERE `ID` = $id");
+			if (!$result) {
+				printf("Error: %s\n", mysqli_error($con));
+				exit();
+			}
+			$row = mysqli_fetch_array($result);
+			echo "Simple Blog|".$row['JUDUL'];
+		?>
+</title>
 
 
 </head>
@@ -48,19 +66,18 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?php 
+										echo $GLOBALS['row']['TANGGAL'];
+									?>
+			</time>
+            <h2 class="art-title"><?php echo $GLOBALS['row']['JUDUL'];?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
 
     <div class="art-body">
         <div class="art-body-inner">
-            <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
-            <hr />
+            <p><?php echo $GLOBALS['row']['ISI'];?></p>
             
             <h2>Komentar</h2>
 
@@ -135,6 +152,8 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+<?php
+	mysqli_close($con);
+?>
 </body>
 </html>

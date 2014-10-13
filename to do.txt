@@ -1,8 +1,9 @@
 Beresin new_post -
-beresin view_post (tambahkan filter, sehingga post yang ditampilkan tidak memiliki tangal lebih besar dari sekarang) -
+beresin list_post (tambahkan filter, sehingga post yang ditampilkan tidak memiliki tangal lebih besar dari sekarang) -
 beresin delete post -
-edit post
+edit post -
 komentar
-sambungin view_post dengan edit post
-sambungin view_post dengan delete post -
+sambungin list_post dengan edit post -
+sambungin list_post dengan delete post -
 bikin validasi saat mau mendelete post
+bikin view_post -
