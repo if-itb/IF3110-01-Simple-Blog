@@ -78,6 +78,7 @@ function validateForm() {
 		if (!pattern.test(y)) {
 			val = false;
 			errMessage += " Wrong email format!";
+			document.getElementById("email").style.borderColor="#FF0000";
 		}
 		//else no change
 	}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 08, 2014 at 12:59 PM
+-- Generation Time: Oct 13, 2014 at 10:34 AM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -45,9 +45,10 @@ CREATE TABLE IF NOT EXISTS `comment` (
 --
 
 INSERT INTO `comment` (`commentID`, `postID`, `name`, `email`, `comment`, `date`, `time`) VALUES
-(1, 6, 'wira', 'wiragotama@gmail.com', 'hello <3', '2014-10-03', '09:46:47'),
-(3, 7, 'new', 'new@gmail.com', 'new', '2014-10-04', '06:07:57'),
-(4, 6, 'anonim', 'hahah@gmail.com', 'muachmuach', '2014-10-04', '06:08:20');
+(5, 7, 'wira', 'ganteng@gmail.com', 'hahaha', '2014-10-11', '08:37:59'),
+(6, 7, 'koji', 'kojitest@gmail.com', 'koji', '2014-10-12', '06:55:51'),
+(7, 9, 'cinta', 'cinta@gmail.com', 'hahaha', '2014-10-13', '10:32:07'),
+(8, 8, 'test', 'test@gmail.com', 'te3st', '2014-10-13', '10:34:11');
 
 -- --------------------------------------------------------
 
@@ -69,9 +70,9 @@ CREATE TABLE IF NOT EXISTS `post` (
 --
 
 INSERT INTO `post` (`id`, `title`, `datePost`, `timePost`, `content`) VALUES
-(6, 'post', '2014-11-06', '09:44:32', 'test'),
-(7, 'Ganteng', '2014-11-12', '05:48:28', 'A definite article indicates that its noun is a particular one (or ones) identifiable to the listener. It may be something that the speaker has already mentioned, or it may be something uniquely specified. The definite article in English, for both singular and plural nouns, is the.\r\n\r\nThe children know the fastest way home.\r\nThe sentence above refers to specific children and a specific way home; it contrasts with the much more general observation that:\r\n\r\nChildren know the fastest way home.\r\nThe latter sentence refers to children in general and their specific ways home. Likewise,\r\n\r\nGive me the book.\r\nrefers to a specific book whose identity is known or obvious to the listener; as such it has a markedly different meaning from\r\n\r\nGive me a book.\r\nwhich does not specify what book is to be given.\r\n\r\nThe definite article can also be used in English to indicate a specific class among other classes:\r\n\r\nThe cabbage white butterfly lays its eggs on members of the Brassica genus.\r\nHowever, recent developments show that definite articles are morphological elements linked to certain noun types due to lexicalization. Under this point of view, definiteness does not play a role in the selection of a definite article more than the lexical entry attached to the article. [3] [4]'),
-(8, 'Cinta', '2014-10-08', '12:59:11', 'test test test');
+(7, 'Ganteng', '2014-11-11', '06:55:36', 'A definite article indicates that its noun is a particular one (or ones) identifiable to the listener. It may be something that the speaker has already mentioned, or it may be something uniquely specified. The definite article in English, for both singular and plural nouns, is the.\r\n\r\nThe children know the fastest way home.\r\nThe sentence above refers to specific children and a specific way home; it contrasts with the much more general observation that:\r\n\r\nChildren know the fastest way home.\r\nThe latter sentence refers to children in general and their specific ways home. Likewise,\r\n\r\nGive me the book.\r\nrefers to a specific book whose identity is known or obvious to the listener; as such it has a markedly different meaning from\r\n\r\nGive me a book.\r\nwhich does not specify what book is to be given.\r\n\r\nThe definite article can also be used in English to indicate a specific class among other classes:\r\n\r\nThe cabbage white butterfly lays its eggs on members of the Brassica genus.\r\nHowever, recent developments show that definite articles are morphological elements linked to certain noun types due to lexicalization. Under this point of view, definiteness does not play a role in the selection of a definite article more than the lexical entry attached to the article. [3] [4]'),
+(8, 'Wira', '2014-10-12', '07:31:09', 'hahahahaha xxx'),
+(9, 'xixi', '2014-10-12', '07:31:06', 'hoho');
 
 --
 -- Constraints for dumped tables
