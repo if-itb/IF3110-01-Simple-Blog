@@ -34,7 +34,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="javascript:comment()">
 <?php
     $con=mysqli_connect("localhost","root","","list_post");
     if(mysqli_connect_errno()) {
@@ -72,8 +72,15 @@
             
             <h2>Komentar</h2>
 
+            
+
+            <ul class="art-list-body" id="commentList">
+                
+            </ul>
+
             <div id="contact-area">
-                <form method="post" action="#">
+                Komentar anda?
+                <form method="post" action="javascript:addComment()" onsubmit="return validateComment()">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -86,24 +93,6 @@
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
-
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
         </div>
     </div>
 
@@ -134,6 +123,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/comment.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
