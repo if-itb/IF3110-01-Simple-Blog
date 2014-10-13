@@ -16,7 +16,6 @@ html, body, .wrapper {
   min-height: 100%;
 }
 
-
 /* Body
 ================================================== */
 html, body {
@@ -221,7 +220,7 @@ div.cover > img {
 /*  Article
 ================================================== */
 .art {
-  margin-top: -131px;
+  /*margin-top: -131px; */
 }
 /* Header */
 .art-header {
@@ -412,6 +411,9 @@ div.cover > img {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #999;
+}
+.art-list-container {
+  margin: 0 0 28px 0;
 }
 .art-list-title a {
   color: #000;
