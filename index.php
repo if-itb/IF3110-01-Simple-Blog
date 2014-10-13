@@ -95,7 +95,8 @@
 					echo "</div>";
 					echo "<p>".$row['ISI']."</p>";
 					echo "<p> <a href=\"edit_post.php?id={$row['ID']}\">Edit</a> |";
-					echo "<a href=\"delete-post.php?id={$row['ID']}\">Hapus</a> </p>";
+					echo "<a href=\"delete-post.php?id={$row['ID']}\" 
+							onclick=\"return confirm('Anda yakin mau mendelete post ini?')\">Hapus</a> </p>";
 					echo "</li>";
 				}
 				
