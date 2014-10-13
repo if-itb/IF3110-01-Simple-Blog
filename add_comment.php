@@ -9,5 +9,5 @@
     //echo $location;
     //echo $komentar;
     add_comment($id, $nama, $email, $komentar, $tanggal);
-    //header($location);
+    header($location);
 ?>
