@@ -23,9 +23,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Yafi's<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="edit_post.php">+ Tambah Post</a></li>
+        <li><a href="manage_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -61,7 +61,8 @@
 </div>
 <?php require 'footer.php'; ?>
 <script type="text/javascript">
-    function validate(){ 
+    function validate(){
+
         var date = document.getElementById("Tanggal").value;
         if (checkDate(date)){
             return true;
@@ -70,15 +71,33 @@
         }
     }
 
+    function parseDate(str) {
+      var m = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      return (m) ? new Date(m[1] , m[2]-1, m[3],23,59,59) : null;
+    }
+
     function checkDate(dateText) {
+        var today = new Date();
+        //console.log(today);
         var match = dateText.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-        console.log(match);
+        //console.log(match);
+        
         if (match === null) {
+            alert("Format tanggal harus YYYY-MM-DD");
             return false;
         } else {
-            return true;
+            var inputdate = parseDate(dateText);
+            if (inputdate < today){
+                alert("tanggal harus lebih dari atau sama dengan "+(today.getYear()+1900)+"-"+(today.getMonth()+1)+"-"+today.getDate());
+                return false;
+            } else {
+                return true;
+            }
         }
+        
     }
+
+    
 </script>
 </body>
 </html>

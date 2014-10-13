@@ -7,7 +7,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Muhammad<span>-</span>Yafi</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Yafi's<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="manage_post.php">+ Tambah Post</a></li>
     </ul>

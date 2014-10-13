@@ -10,7 +10,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Yafi's<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="manage_post.php">+ Tambah Post</a></li>
     </ul>
@@ -68,7 +68,7 @@
 
     http.onreadystatechange = function(){
       if (http.readyState == 4 && http.status == 200){
-        console.log(http.responseText);
+        //console.log(http.responseText);
         document.getElementById('comments').innerHTML = http.responseText;
       }
     }
