@@ -96,32 +96,42 @@ function get_posts_list(){
 }
 
 function tanggalProcessor($date){
-	$datePart = explode('-', $date);
-	$bulan;
-	switch($datePart[1]){
-		case 1 : $bulan = " Januari "; break;
-		case 2 : $bulan = " Februari "; break;
-		case 3 : $bulan = " Maret "; break;
-		case 4 : $bulan = " April "; break;
-		case 5 : $bulan = " Mei "; break;
-		case 6 : $bulan = " Juni "; break;
-		case 7 : $bulan = " Juli "; break;
-		case 8 : $bulan = " Agustus "; break;
-		case 9 : $bulan = " September "; break;
-		case 10 : $bulan = " Oktober "; break;
-		case 11 : $bulan = " November "; break;
-		case 12 : $bulan = " Desember "; break;
+	date_default_timezone_set("Asia/Jakarta");
+	$dateNow = date('Y-m-d');
+	if(strcmp(date("n-Y",strtotime($dateNow)), date("n-Y",strtotime($date))) == 0 && date("d",strtotime($dateNow)) - date("d",strtotime($date)) <= 3){
+		if(date("d",strtotime($dateNow)) - date("d",strtotime($date)) == 0) return "Hari ini";
+		else return date("d",strtotime($dateNow)) - date("d",strtotime($date)) . " hari yang lalu";
 	}
-	return $datePart[2].$bulan.$datePart[0];
+	else{
+		$datePart = explode('-', $date);
+		$bulan;
+		switch($datePart[1]){
+			case 1 : $bulan = " Januari "; break;
+			case 2 : $bulan = " Februari "; break;
+			case 3 : $bulan = " Maret "; break;
+			case 4 : $bulan = " April "; break;
+			case 5 : $bulan = " Mei "; break;
+			case 6 : $bulan = " Juni "; break;
+			case 7 : $bulan = " Juli "; break;
+			case 8 : $bulan = " Agustus "; break;
+			case 9 : $bulan = " September "; break;
+			case 10 : $bulan = " Oktober "; break;
+			case 11 : $bulan = " November "; break;
+			case 12 : $bulan = " Desember "; break;
+		}
+		$datePart[2] = 1*$datePart[2]; //dijadikan integer
+		$datePart[0] = 1*$datePart[0]; //dijadikan integer
+		return $datePart[2].$bulan.$datePart[0];
+	}
 }
 
 function commentTimeProcessor($timestamp){
 	$dateTime = explode(' ', $timestamp);
 	
 	// cek date
+	date_default_timezone_set("Asia/Jakarta");
 	$dateNow = date('Y-m-d');
 	if(strcmp($dateNow,$dateTime[0]) == 0){
-		date_default_timezone_set("Asia/Jakarta");
 		$timeNow = date('H:i:s');
 		$timePart = explode(':', $dateTime[1]);
 		$timeNowPart = explode(':', $timeNow);
@@ -142,9 +152,13 @@ function commentTimeProcessor($timestamp){
 			return ($timeNowPart[0] - $timePart[0])." jam yang lalu";
 		}
 	}
+	else if(strcmp(date("n-Y",strtotime($dateNow)), date("n-Y",strtotime($dateTime[0]))) == 0 && date("d",strtotime($dateNow)) - date("d",strtotime($dateTime[0])) <= 3){
+		return date("d",strtotime($dateNow)) - date("d",strtotime($dateTime[0])) . " hari yang lalu";
+	}
 	else{
 		return tanggalProcessor($dateTime[0]);
 	}
 }
+
 
 ?>

@@ -1,8 +1,7 @@
 <?php include 'functions.php'; 
 connect_db("root","","if3110_simple_blog_db");
 $selectionQuery = "SELECT * FROM sb_posts WHERE id_post='" . $_GET['pid'] . "'";
-$result = run_query($selectionQuery);
-$row = mysqli_fetch_array($result);
+$row = mysqli_fetch_array(run_query($selectionQuery));
 $pid = $row['id_post'];
 $title = $row['judul'];
 $date = $row['tanggal'];
@@ -42,71 +41,7 @@ $content = $row['konten'];
 
 <title>Simple Blog | <?php echo $title; ?></title>
 
-<!--  AJAX function for comments -->
-<script>
-function submitComment(pid,nama,email,komentar) {
-	komentar = komentar.replace(/(\r\n|\n|\r)/gm, '%0A');
-	if(pid == ""){
-		alert('error, post id tidak didefinisi');
-		return false;
-	}
-	
-	// validasi nama
-	if(nama == ""){
-		alert('isi nama anda untuk berkomentar');
-		return false;
-	}
-	
-	// validasi komentar
-	if(komentar != ""){
-		// validasi email tidak kosong
-		if(email == ""){
-			alert('isi email anda untuk berkomentar');
-			return false;
-		}
-		// validasi email sesuai kaidah
-		else if(validateEmail(email)){
-			if (window.XMLHttpRequest) {
-				// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp=new XMLHttpRequest();
-			} else { // code for IE6, IE5
-				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-			}
-				xmlhttp.onreadystatechange=function() {
-				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-					document.getElementById("comments").innerHTML=xmlhttp.responseText;
-				}
-			}
-			xmlhttp.open("GET","comment_processor.php?pid="+pid+"&nama="+nama+"&email="+email+"&komentar="+komentar,true);
-			xmlhttp.send();
-			return false;
-		}
-		else{
-			alert("alamat email tidak valid");
-			return false;
-		}
-	}
-	else{
-		alert('komentar tidak boleh kosong');
-		return false;
-	}
-}
-function showComments(pid) {
-  if (window.XMLHttpRequest) {
-	// code for IE7+, Firefox, Chrome, Opera, Safari
-	xmlhttp=new XMLHttpRequest();
-  } else { // code for IE6, IE5
-	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function() {
-	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-	  document.getElementById("comments").innerHTML=xmlhttp.responseText;
-	}
-  }
-  xmlhttp.open("GET","comment_processor.php?pid="+pid,true);
-  xmlhttp.send();
-}
-</script>
+<script type="text/javascript" src="assets/js/commentAjax.js"></script>
 
 </head>
 
@@ -134,13 +69,13 @@ function showComments(pid) {
         <div class="art-body-inner">
             <hr class="featured-article" />
             <?php echo str_replace("\n", "<br>", $content);?>
-
+            <br /><br />
             <hr />
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#" onSubmit="return submitComment(<?php echo $pid; ?>,Nama.value,Email.value,Komentar.value)">
+                <form name="CommentForm" method="post" action="#" onSubmit="return submitComment(<?php echo $pid; ?>,Nama.value,Email.value,Komentar.value);">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
