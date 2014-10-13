@@ -1,0 +1,14 @@
+Post:
+	id
+	judul
+	tanggal
+	konten
+
+Komentar:
+	id
+	post_id
+	nama
+	email
+	tanggal
+	komentar
+
