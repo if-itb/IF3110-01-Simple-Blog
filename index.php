@@ -66,8 +66,17 @@
 								echo "<div class=\"art-list-time\">" .$tanggal. "</div>";
 								echo "<div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>";
 							echo "</div>";
-							echo "<p>" .$konten. "</p>";
-							echo "<p> <a href=\"editpost.php?id_post=$id_post\">Edit</a> | <a href=\"javascript:Delete($id_post);\">Hapus</a></p>";
+							$isipost = strip_tags($konten);
+							if(strlen($isipost) > 230){
+								$stringcut = substr($isipost, 0, 230);
+								$isipost = substr($stringcut, 0, strrpos($stringcut,' '));
+								echo $isipost."... <a href=\"post.php?id_post=$id_post\">Read More</a>";
+							}
+							else{
+								echo $isipost;
+							}
+							echo "<br>";
+							echo "<a href=\"editpost.php?id_post=$id_post\">Edit</a> | <a href=\"javascript:Delete($id_post);\">Hapus</a>";
 						echo "</li>";
 					}
 					mysql_close();
