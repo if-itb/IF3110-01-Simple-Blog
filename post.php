@@ -1,3 +1,11 @@
+<?php
+    if (isset($_REQUEST['id']))
+    {
+        require_once("model/post.php");
+        $post = new Post();
+        $data = $post->GetPost($_REQUEST['id']);
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +37,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<title>Simple Blog | <?php echo $data->judul; ?></title>
 
 
 </head>
@@ -38,18 +46,18 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
 
     <header class="art-header">
-        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+        <div class="art-header-inner" id="fade-title">
+            <time class="art-time"><?php echo $data->tanggal; ?></time>
+            <h2 class="art-title"><?php echo $data->judul; ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,8 +65,7 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <?php echo $data->konten; ?>
 
             <hr />
 
@@ -122,19 +129,20 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
+    function fade()
+    {
+        var ScrollTop = window.pageYOffset;
+        if (ScrollTop > 20)
+        {
+            document.getElementById("fade-title").style = "opacity:0;transition: opacity 0.25s ease-in-out;";
+        }
+        else
+        {
+            document.getElementById("fade-title").style = "opacity:1;transition: opacity 0.5s ease-in-out;";
+        }
+    }
+    var myVar = setInterval(function(){fade();},1);
 </script>
 
 </body>

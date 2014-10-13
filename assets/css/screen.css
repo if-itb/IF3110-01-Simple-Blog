@@ -622,10 +622,7 @@ padding: 0;
     display: inline-block;
   }
   .art-header-inner {
-    position: relative;
-    top: 0 !important; /* Important to override JS values */
-    margin-top: 240px !important; /* Important to override JS values */
-    opacity: 1 !important; /* Important to override JS values */
+
   }
   /* Articles no longer have fixed heights */
   .art-header {
@@ -858,4 +855,13 @@ label {
   margin-right: 15px;
   width: 100px;
   padding-top: 5px;
+}
+
+#loading {
+    text-align: center;
+    display: none;
+}
+
+#loading img{
+    height: 50px;
 }

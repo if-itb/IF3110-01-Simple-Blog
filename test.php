@@ -18,6 +18,6 @@ while($element = current($array)) {
 
 foreach($array as $id)
 {
-    echo $id;
+    echo $id
 }
 ?>

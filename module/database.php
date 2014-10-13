@@ -79,11 +79,11 @@
             {
                 if ($i < $count)
                 {
-                    $value .= "'".mysql_real_escape_string($val)."',";
+                    $value .= "'".$val."',";
                 }
                 else
                 {
-                    $value .= "'".mysql_real_escape_string($val)."')";
+                    $value .= "'".$val."')";
                 }
                 $i++;
             }
@@ -101,11 +101,11 @@
             {
                 if ($i < $count)
                 {
-                    $set .= key($data)."='".mysql_real_escape_string($element)."',";
+                    $set .= key($data)."='".$element."',";
                 }
                 else
                 {
-                    $set .= key($data)."='".mysql_real_escape_string($element)."'";
+                    $set .= key($data)."='".$element."'";
                 }
                 next($data);
                 $i++;

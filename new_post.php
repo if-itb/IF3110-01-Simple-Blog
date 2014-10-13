@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -54,17 +54,18 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="#" onsubmit="add_post();return false;">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" value="<?php echo date('Y-m-d'); ?>" name="Tanggal" id="Tanggal">
 
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input id="btn-submit" type="submit" name="submit" value="Simpan" class="submit-button" >
+                    <div id="loading"><img src="assets/img/loading.gif" alt=""></div>
                 </form>
             </div>
         </div>
@@ -92,21 +93,59 @@
 </footer>
 
 </div>
-
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
+    function add_post()
+    {
+        var judul = document.getElementById("Judul").value;
+        var tanggal = document.getElementById("Tanggal").value;
+        var konten = document.getElementById("Konten").value;
 
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
+        if ((judul != "") &&
+            (tanggal != "") &&
+            (konten != ""))
+        {
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState<4)
+                {
+                    document.getElementById("btn-submit").style="display:none";
+                    document.getElementById("loading").style="display:block";
+                }
+                else if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    if (xmlhttp.responseText == "true")
+                    {
+                        window.location = "index.php";
+                    }
+                    else
+                    {
+                        alert("Post gagal diproses");
+                        document.getElementById("loading").style="display:none";
+                        document.getElementById("btn-submit").style="display:block";
+                    }
+                }
+            }
+            xmlhttp.open("POST","controller/add_post.php",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send("judul="+judul+"&tanggal="+tanggal+"&konten="+konten);
+        }
+        else
+        {
+            alert("Input tidak valid");
+            document.getElementById("loading").style="display:none";
+            document.getElementById("btn-submit").style="display:block";
+        }
+    }
+    </script>
 
 </body>
 </html>
