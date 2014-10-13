@@ -28,9 +28,25 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+<?php
+    $con=mysqli_connect("localhost", "root", "chmod777", "blog");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " .mysqli_connect_error();
+    }
+    $id = $_GET['id'];
+    $result = mysqli_query($con, "SELECT * FROM post_table WHERE id=$id");
+    while ($row = mysqli_fetch_array($result)) {
+        $title=$row['title'];
+        $date=$row['date'];
+        $content=$row['content'];
+    }
+?>
 
-<title>Test Blog | Apa itu Simple Blog?</title>
-
+<title>
+    Simple Blog | <?php
+        echo $title;
+    ?>
+</title>
 
 </head>
 
@@ -38,9 +54,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -49,7 +65,7 @@
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
             <time class="art-time"></time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <h2 class="art-title"><?php echo $title ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,8 +73,9 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <?php
+                echo '<p>'.$content.'</p>';
+            ?>
 
             <hr />
 
@@ -79,10 +96,11 @@
                 </form>
             </div>
 
+
             <ul class="art-list-body">
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
+                        <h2 class="art-list-title"><a href="post.php">Jems</a></h2>
                         <div class="art-list-time">2 menit lalu</div>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
@@ -90,7 +108,7 @@
 
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
+                        <h2 class="art-list-title"><a href="post.php">Kave</a></h2>
                         <div class="art-list-time">1 jam lalu</div>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
@@ -134,6 +152,9 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+<?php
+    mysqli_close($con);
+?>
 </script>
 
 </body>
