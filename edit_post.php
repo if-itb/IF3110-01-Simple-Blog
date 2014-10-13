@@ -68,7 +68,7 @@ function connect_db()
         <div class="art-body-inner">
             <h2>Edit Post</h2>
 			<?php
-				$id = $_GET['ID'];
+				$id = $_POST['postIdEdit'];
 				$con = connect_db();
 				$sql_statement = "SELECT * FROM info_post WHERE ID=$id";
 				$results = mysqli_query($con, $sql_statement);

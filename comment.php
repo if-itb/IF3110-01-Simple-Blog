@@ -23,11 +23,6 @@
 		}
 	}
 	
-	function selisihWaktu($waktu)
-	{
-		
-	}
-	
 	$id = mysqli_real_escape_string($con, $_GET['ID']);
 	$nama = mysqli_real_escape_string($con, $_GET['Nama']);
 	$tanggal = date("Y-m-d");

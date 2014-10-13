@@ -66,21 +66,28 @@ function connect_db()
           <ul class="art-list-body">
 		  <?php
 				$con = connect_db();
-				$sql_statement = "SELECT * FROM info_post";
+				$sql_statement = "SELECT * FROM info_post ORDER BY tanggal DESC";
 				$results = mysqli_query($con, $sql_statement);
+				echo "
+					<form method='post' action='edit_post.php' id='hiddenFormEdit'>
+						<input type='hidden' name='postIdEdit' id='postIdEdit'>
+					</form>
+					<form method='post' action='post.php' id='hiddenFormPost'>
+						<input type='hidden' name='postIdPost' id='postIdPost'>
+					</form>
+				";
 				while($result=mysqli_fetch_array($results))
 				{
 					echo "
 					<li class='art-list-item'>
-						<input type='hidden' id='postId' value=".$result['ID'].">
 						<div class='art-list-item-title-and-time'>
-							<h2 class='art-list-title'><a href='post.php?ID=".$result['ID']."'>".$result['judul']."</a></h2>
+							<h2 class='art-list-title'><a href='#' onclick='formSubmitPost(".$result['ID'].")'>".$result['judul']."</a></h2>
 							<div class='art-list-time'>".$result['tanggal']."</div>
 							<div class='art-list-time'><span style='color:#F40034;'>&#10029;</span> Featured</div>
 						</div>
 						<p>".$result['konten']."&hellip;</p>
 						<p>
-						  <a href='edit_post.php?ID=".$result['ID']."'>Edit</a> | <a href='#' onclick='ConfirmDelete(".$result['ID'].")'>Hapus</a>
+						  <a href='#' onclick='formSubmitEdit(".$result['ID'].")'>Edit</a> | <a href='#' onclick='ConfirmDelete(".$result['ID'].")'>Hapus</a>
 						</p>
 					</li>";
 				}
@@ -125,7 +132,7 @@ function connect_db()
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-<script type="text/javascript" src="assets/js/validasi.js"></script>
+<script type="text/javascript" src="assets/js/index.js"></script>
 
 </body>
 </html>

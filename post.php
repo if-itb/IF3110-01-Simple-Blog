@@ -14,7 +14,7 @@ function connect_db()
 
 function select_db()
 {
-	$id = $_GET['ID'];
+	$id = $_POST['postIdPost'];
 	$con = connect_db();
 	$sql_statement = "SELECT * FROM info_post WHERE ID=$id";
 	$results = mysqli_query($con, $sql_statement);
@@ -68,7 +68,7 @@ function select_db()
 
 </head>
 
-<body class="default" onload="showComment(<?php echo $_GET['ID'] ?>)">
+<body class="default" onload="showComment(<?php echo $_POST['postIdPost'] ?>)">
 <div class="wrapper">
 
 <nav class="nav">
@@ -123,7 +123,7 @@ function select_db()
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="Comment(<?php echo $_GET['ID'] ?>)">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="Comment(<?php echo $_POST['postIdPost'] ?>)">
                 </form>
             </div>
 

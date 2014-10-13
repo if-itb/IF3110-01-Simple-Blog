@@ -57,9 +57,3 @@ function makeDay(Tanggal){
 	var hari = Tanggal.charAt(8) + Tanggal.charAt(9);
 	return parseInt(hari);
 }
-
-function ConfirmDelete(ID)
-{
-	if (confirm("Delete Account?"))
-		location.href='delete_post.php?ID=' + ID;
-}
