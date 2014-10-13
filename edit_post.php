@@ -37,9 +37,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -50,20 +50,29 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
             <div id="contact-area">
-                <form method="post" action="newpost.php" onsubmit="return checkForm(this);">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" placeholder="dd/mm/yyyy" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
+                <?php
+                    //Open connection to mysql
+                    $con=mysqli_connect("localhost","root","","simple_blog");
+                    //Connection error checking
+                    if (mysqli_connect_errno()){
+                        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+                    }
+                    else{
+                        $id = mysqli_real_escape_string($con, $_GET['id']);
+                        $sql = mysqli_query($con,"SELECT * FROM post WHERE post_id='$id'");
+                        $row = mysqli_fetch_array($sql);
+                        echo "<form method='post'action='editpost.php?id=$id' onsubmit='return checkForm(this);'>";
+                        echo "<label for='Judul'>Judul:</label>";
+                        echo "<input type='text' name='Judul' id='Judul' value='" . $row['judul'] . "'>";
+                        echo "<label for='Tanggal'>Tanggal:</label>";
+                        echo "<input type='text' name='Tanggal' placeholder='dd/mm/yyyy' id='Tanggal' value='" . $row['tanggal']. "'>";                                
+                        echo "<label for='Konten'>Konten:</label><br>";
+                        echo "<textarea name='Konten' rows='20' cols='20' id='Konten'>" . $row['konten'] . "</textarea>";
+                        echo "<input type='submit' name='submit' value='Simpan' class='submit-button'></form>";    
+                    }
+                ?>
             </div>
         </div>
     </div>
@@ -91,7 +100,7 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="assets/js/jquery.min.js"></script>-->
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

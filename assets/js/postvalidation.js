@@ -1,7 +1,7 @@
 function checkDate(field) { 
 	var allowBlank = true; 
 	var minDate = (new Date()).getDate();
-	var minMonth = (new Date()).getMonth() + 1;
+	var minMonth = (new Date()).getMonth()+1;
 	var minYear = (new Date()).getFullYear(); 
 	var today = minDate +"/" + minMonth + "/" + minYear;
 	var errorMsg = ""; 

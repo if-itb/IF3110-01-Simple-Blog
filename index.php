@@ -40,7 +40,7 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,28 +48,29 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+            <?php
+              //open connection to mysql
+              $con=mysqli_connect("localhost","root","","simple_blog");
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+              //Connection error checking
+              if (mysqli_connect_errno()){
+                echo "Failed to connect to MySQL: " . mysqli_connect_error();
+              }
+              else{
+                $sql = mysqli_query($con,"SELECT * FROM post ORDER BY post_id desc");
+                while($row = mysqli_fetch_array($sql)) {
+                  echo "<li class='art-list-item'>";
+                  echo "<div class='art-list-item-title-and-time'>";
+                  echo "<h2 class='art-list-title'><a href='post.php?id=". $row['post_id'] ."'>" . $row['judul'] . "</a></h2>";
+                  echo "<div class='art-list-time'>" . $row['tanggal'] . "</div>";
+                  echo "<div class='art-list-time'><span style='color:#F40034;'>&#10029;</span> Featured</div>";
+                  echo "</div>";
+                  echo "<p>" . $row['konten'] . "</p>";
+                  echo "<p> <a href='edit_post.php?id=". $row['post_id'] . "'>Edit</a> | <a href='deletepost.php?id=". $row['post_id'] ."' onclick='return confirmDelete()'>Hapus</a> ";
+                  echo "</li>";
+                }
+              }
+            ?>
           </ul>
         </nav>
     </div>
@@ -80,26 +81,17 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
+      <a href ="">&copy;2014 by Jonathan Sudibya (13512093)</a>        
     </aside>
 </footer>
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<!--<script type="text/javascript" src="assets/js/jquery.min.js"></script>-->
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/confirm.delete.js"></script>
 <!--<script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
