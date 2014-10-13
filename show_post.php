@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Deskripsi Blog">
-<meta name="author" content="Judul Blog">
+<meta name="description" content="Simple Blog">
+<meta name="author" content="Bangsatya">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="omfgitsasalmon">
 <meta name="twitter:title" content="Simple Blog">
-<meta name="twitter:description" content="Deskripsi Blog">
-<meta name="twitter:creator" content="Simple Blog">
+<meta name="twitter:description" content="Simple Blog">
+<meta name="twitter:creator" content="Bangsatya Blog">
 <meta name="twitter:image:src" content="{{! TODO: ADD GRAVATAR URL HERE }}">
 
 <meta property="og:type" content="article">
@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog of Bangsatya</title>
 </head>
 
 <body class="default">

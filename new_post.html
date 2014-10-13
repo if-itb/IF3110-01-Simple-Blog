@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Deskripsi Blog">
-<meta name="author" content="Judul Blog">
+<meta name="description" content="Simple Blog">
+<meta name="author" content="Bangsatya">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="omfgitsasalmon">
 <meta name="twitter:title" content="Simple Blog">
-<meta name="twitter:description" content="Deskripsi Blog">
-<meta name="twitter:creator" content="Simple Blog">
+<meta name="twitter:description" content="Simple Blog">
+<meta name="twitter:creator" content="Bangsatya Blog">
 <meta name="twitter:image:src" content="{{! TODO: ADD GRAVATAR URL HERE }}">
 
 <meta property="og:type" content="article">
@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog of Bangsatya | Tambah Post</title>
 
 
 </head>
@@ -52,14 +52,13 @@
             <div id="contact-area">
                 <form method="post" action="post.php">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="judul" id="Judul">
+                    <input type="text" name="judul" id="Judul"><br/>
+					Featured: <input type="radio" name="isFeatured" value="1">
 
                     <label>Tanggal:</label>
                     <input type="text" name="tanggal" id="Tanggal" value="">
-                    
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="Konten"></textarea>
-
                     <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return cekInputan();">
                 </form>
             </div>
