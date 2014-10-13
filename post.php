@@ -75,12 +75,8 @@
             
             <h2>Komentar</h2>
 
-            <ul class="art-list-body" id="komentar">
-                <! Isi komentar nanti disini yg dari javascript!>
-            </ul>
-
             <div id="contact-area">
-                <form method="post" action="javascript:addComment(<?php echo $id?>)">
+                <form method="post" action="javascript:addComment(<?php echo $id?>)" id="comment_form">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -94,6 +90,10 @@
                     <input type="submit" name="submit" value="submit" class="submit-button">
                 </form>
             </div>
+
+            <ul class="art-list-body" id="komentar">
+                <! Isi komentar nanti disini yg dari javascript!>
+            </ul>
         </div>
     </div>
 

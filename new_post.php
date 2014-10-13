@@ -40,26 +40,26 @@ if(isset($_POST['simpan'])) {
     $Tanggal=$_POST['Tanggal'];
     $Konten=$_POST['Konten'];
 
-    if(empty($Judul) || empty($Tanggal) || empty($Konten))
-    {
-        if(empty($Judul))
-        {
-            echo "<font color='red'>Judul harus diisi.</font><br/>";
-        }
-        if(empty($Tanggal))
-        {
-            echo "<font color='red'>Tanggal harus diisi.</font><br/>";
-        }
-        if(empty($Konten))
-        {
-            echo "<font color='red'>Konten harus diisi.</font><br/>";
-        }     
-    }         
-    else {
+    // if(empty($Judul) || empty($Tanggal) || empty($Konten))
+    // {
+    //     if(empty($Judul))
+    //     {
+    //         echo "<font color='red'>Judul harus diisi.</font><br/>";
+    //     }
+    //     if(empty($Tanggal))
+    //     {
+    //         echo "<font color='red'>Tanggal harus diisi.</font><br/>";
+    //     }
+    //     if(empty($Konten))
+    //     {
+    //         echo "<font color='red'>Konten harus diisi.</font><br/>";
+    //     }     
+    // }         
+    //else {
         $query = mysql_query("INSERT INTO entries (JUDUL, TANGGAL, KONTEN)
                        VALUES ('$_POST[Judul]','$_POST[Tanggal]','$_POST[Konten]')");
-        //header('Location: index.php');
-    }
+        header('Location: index.php');
+    //}
 }
 mysql_close($link);
 
@@ -87,7 +87,7 @@ mysql_close($link);
                     <h2>Tambah Post</h2>
 
                     <div id="contact-area">
-                        <form id="post" name="post" method="post" action="new_post.php" onsubmit="validateForm()">
+                        <form id="post" name="post" method="post" action="new_post.php" onsubmit="return validateForm()">
                             <label for="Judul">Judul:</label>
                             <input type="text" name="Judul" id="Judul">
 
@@ -113,7 +113,7 @@ mysql_close($link);
                 Asisten IF3110 /
                 <a class="rss-link" href="#rss">RSS</a> /
                 <br>
-                <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
+                <!-- <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> / -->
                 <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
                 <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
                 <br>
@@ -130,21 +130,23 @@ mysql_close($link);
         function validateForm() {
             var judul = document.getElementById("Judul").value;
             var konten = document.getElementById("Konten").value;
-            var date_input = document.getElementById("Tanggal").value;
+            var date_input = new Date(document.getElementById("Tanggal").value);
             var date_now = new Date();
-            console.log("date input : " + date_input.setHours(0,0,0,0));
-            console.log("date now : " + date_now.setHours(0,0,0,0));
+            console.log("date input : " + date_input);
+            console.log("date now : " + date_now);
             console.log("judul:  " + judul);
             console.log("konten: " + konten);
             if (judul == "" || konten == "" || date_input =="") {
                 alert("Semua form harus diisi");
+                return false;
             }
             else {
-                if (date_input.setHours(0,0,0,0) <date_now.setHours(0,0,0,0)) {
+                if (date_input.setHours(0,0,0,0) >= date_now.setHours(0,0,0,0)) {
                     return true;
                 }
                 else {
                     alert("Tanggal tidak boleh kurang dari hari ini");
+                    return false;
                 }
             }
         }

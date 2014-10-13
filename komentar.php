@@ -23,15 +23,10 @@ else if ($_GET['state']==2) {
     $PID=$id;
     $Tanggal = date('Y-m-d');
 
-    if ($Nama!="" || $Email!="" || $Komentar!="") {    
-        $query = mysql_query("INSERT INTO komentar (PID, NAMA, EMAIL, TANGGAL, KOMENTAR)
-                   VALUES ('$PID','$Nama','$Email', $Tanggal, '$Komentar')");
-        if ($query)
-            echo "submitted"; 
-    }
-    else {
-        echo "Form tidak boleh kosong";
-    }
+    $query = mysql_query("INSERT INTO komentar (PID, NAMA, EMAIL, TANGGAL, KOMENTAR)
+               VALUES ('$PID','$Nama','$Email', '$Tanggal', '$Komentar') ORDER BY TANGGAL");
+    if ($query)
+        echo "submitted"; 
 }
 
 mysql_close($link);

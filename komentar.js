@@ -38,23 +38,29 @@ function addComment(id){
     {// code for IE6, IE5
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
-    if (validateForm(Email)){ 
-        xmlhttp.onreadystatechange=function()
-        {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    
+    if (Nama && Email && Komentar){
+        if (validateForm(Email)){ 
+            xmlhttp.onreadystatechange=function()
             {
-                var text = xmlhttp.responseText;
-                if (text == "submitted") {
-                    showComment();
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    if (xmlhttp.responseText.localeCompare("submitted")) {
+                        showComment(id);
+                        document.getElementById("comment_form").reset();
+                    }
                 }
             }
+            xmlhttp.open("GET","komentar.php?state=2&id="+id+"&nama="+Nama+"&email="+Email+"&komentar="+Komentar,true);
+            xmlhttp.send();
         }
-        xmlhttp.open("GET","komentar.php?state=2&id="+id+"&nama="+Nama+"&email="+Email+"&komentar="+Komentar,true);
-        xmlhttp.send();
+        else {
+            alert("Format Email Salah");
+        }
     }
-    else {
-        document.getElementById("errmsg").innerHTML = "Format Email Salah";
-    }
+    else 
+        alert("Semua form harus diisi");
+
 }
 
 function validateForm(email) {
