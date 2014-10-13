@@ -35,6 +35,7 @@
 </head>
 
 <body class="default">
+<a name="top"></a>
 <div class="wrapper">
 
 <nav class="nav">
@@ -74,7 +75,7 @@ if (isset($response)){
 		</div>
 </div>
 <footer class="footer">
-		<div class="back-to-top"><a href="">Back to top</a></div>
+		<div class="back-to-top"><a href="#top">Back to top</a></div>
 		<!-- <div class="footer-nav"><p></p></div> -->
 		<div class="psi">&Psi;</div>
 		<aside class="offsite-links">
@@ -116,7 +117,7 @@ function EraseConfirm(post_ID){
 		erase = "erase.php?post_ID=" + post_ID;
 	}
 	else {
-		erase = "";
+		erase = "#";
 	}
 	
 	window.location = erase;

@@ -26,7 +26,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
 <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 <?php
@@ -39,13 +39,13 @@ echo "<title>Simple Blog | ";
 //$result = mysql_query('SELECT * FROM `post_ID` WHERE `post_ID` = $tempID') or die(mysql_error());
 $sql = "SELECT * FROM `post_ID` WHERE `post_ID` = '$_GET[post_ID]'";
 if (isset($_GET['post_ID'])){
-    $query = @mysql_query($sql);
+	$query = @mysql_query($sql);
 }
 
 if (mysql_num_rows($query) > 0){
-    $row = mysql_fetch_array($query);
-    echo $row['posted_title'];
-    //echo $result['post_title'];
+	$row = mysql_fetch_array($query);
+	echo $row['posted_title'];
+	//echo $result['post_title'];
 }
 echo "</title>";
 
@@ -55,92 +55,99 @@ echo "</head>
 <div class=\"wrapper\">
 
 <nav class=\"nav\">
-    <a style=\"border:none;\" id=\"logo\" href=\"index.php\"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class=\"nav-primary\">
-        <li><a href=\"new_post.html\">+ Tambah Post</a></li>
-    </ul>
+	<a style=\"border:none;\" id=\"logo\" href=\"index.php\"><h1>Simple<span>-</span>Blog</h1></a>
+	<ul class=\"nav-primary\">
+		<li><a href=\"new_post.html\">+ Tambah Post</a></li>
+	</ul>
 </nav>
 
 <article class=\"art simple post\">
-    
-    <header class=\"art-header\">
-        <div class=\"art-header-inner\" style=\"margin-top: 0px; opacity: 1;\">
+	
+	<header class=\"art-header\">
+		<div class=\"art-header-inner\" style=\"margin-top: 0px; opacity: 1;\">
 
 ";
 echo           " <time class=\"art-time\">". $row['posted_Date'] ."</time>";
 echo           " <h2 class=\"art-title\">". $row['posted_title']."</h2>";
 echo"            <p class=\"art-subtitle\"></p>
-        </div>
-    </header>
+		</div>
+	</header>
 
-    <div class=\"art-body\">
-        <div class=\"art-body-inner\">";
+	<div class=\"art-body\">
+		<div class=\"art-body-inner\">";
 if ($row['is_feat']){
-    echo "            <hr class=\"featured-article\" />";
+	echo "            <hr class=\"featured-article\" />";
 }
 echo $row['posted_body'];
-
-echo "            <hr />";
-echo "            <h2>Komentar</h2>
-
-            <div id=\"contact-area\">
-                <form method=\"post\" action=\"#\">
-                    <label for=\"Nama\">Nama:</label>
-                    <input type=\"text\" name=\"Nama\" id=\"Nama\">
-        
-                    <label for=\"Email\">Email:</label>
-                    <input type=\"text\" name=\"Email\" id=\"Email\">
-                    
-                    <label for=\"Komentar\">Komentar:</label><br>
-                    <textarea name=\"Komentar\" rows=\"20\" cols=\"20\" id=\"Komentar\"></textarea>
-
-                    <input type=\"submit\" name=\"submit\" value=\"Kirim\" class=\"submit-button\">
-                </form>
-            </div>
-
-
-
-            <ul class=\"art-list-body\">
-                <li class=\"art-list-item\">
-                    <div class=\"art-list-item-title-and-time\">
-                        <h2 class=\"art-list-title\"><a href=\"post.html\">Jems</a></h2>
-                        <div class=\"art-list-time\">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class=\"art-list-item\">
-                    <div class=\"art-list-item-title-and-time\">
-                        <h2 class=\"art-list-title\"><a href=\"post.html\">Kave</a></h2>
-                        <div class=\"art-list-time\">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
-        </div>
-    </div>";
 ?>
 
+<hr />
+<h2>Komentar</h2>
+			<div id="contact-area">
+				<form method="post" onsubmit="return false">
+					<label for="Nama">Nama:</label>
+					<input type="text" name="Nama" id="Nama">
+		
+					<label for="Email">Email:</label>
+					<input type="text" name="Email" id="Email">
+					
+					<label for="Komentar">Komentar:</label><br>
+					<textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+<?php>
+echo 					"<input type=\"submit\" name=\"submit\" value=\"Kirim\" class=\"submit-button\" onclick=\"SubmitComment(Nama, Email, Komentar, $_GET[post_ID])\">";
+?>					
+				</form>
+			</div>
 
+<ul class="art-list-body">
+<div id = "yangmaudiajaks">
+<?php
+include 'mysql.php';
+$tempID = $_GET['post_ID'];
+
+$result = mysql_query("SELECT * FROM `comment` WHERE `post_ID` = '$tempID' ORDER BY `comm_DT` ASC") or die(mysql_error());
+if (mysql_num_rows($result) > 0){
+	while ($row = mysql_fetch_array($result)){
+		echo "<li class=\"art-list-item\">";
+		echo "<div class=\"art-list-item-title-and-time\">";
+		echo	"<h2 class=\"art-list-title\">";
+		// link to mail + comment author name done
+		echo 	"<a href=\"mailto:$row[comm_email]\">$row[author]</a></h2>";
+		// time
+		echo	"<div class=\"art-list-time\">$row[comm_DT]</div>";
+		echo "</div>";
+		echo "<p>$row[comm_Body]";
+		// insert body here
+		echo "</li>";
+	}
+}
+else {
+	echo "No Comments";
+}
+?>
+</div>
+</ul>
+ </div>
+	</div>
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
-    <!-- <div class="footer-nav"><p></p></div> -->
-    <div class="psi">&Psi;</div>
-    <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
-    </aside>
+	<div class="back-to-top"><a href="">Back to top</a></div>
+	<!-- <div class="footer-nav"><p></p></div> -->
+	<div class="psi">&Psi;</div>
+	<aside class="offsite-links">
+		Asisten IF3110 /
+		<a class="rss-link" href="#rss">RSS</a> /
+		<br>
+		<a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
+		<a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
+		<a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
+		<br>
+		<a class="twitter-link" href="#">Renusa</a> /
+		<a class="twitter-link" href="#">Kelvin</a> /
+		<a class="twitter-link" href="#">Yanuar</a> /
+		
+	</aside>
 </footer>
 
 </div>
@@ -148,15 +155,34 @@ echo "            <h2>Komentar</h2>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/comment.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
   (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
+	  function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
+	  t=h.createElement(o);z=h.getElementsByTagName(o)[0];
+	  t.src='//www.google-analytics.com/analytics.js';
+	  z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
+	  ga('create',ga_ua);ga('send','pageview');
+
+
+function SubmitComment(name, email, comment){
+	if (VerifyEmail(email)){
+		//submit
+		var request = new XMLHttpRequest();
+
+	}
+	else {
+		alert("Invalid comment. Please fix~ :3");
+	}
+}
+
+function VerifyEmail(email){
+	var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return (emailRegex.test(email.value))
+}
+
 </script>
 
 </body>
