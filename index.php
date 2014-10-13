@@ -40,7 +40,7 @@
 
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
@@ -54,7 +54,7 @@
           <ul class="art-list-body">
 				<?php
 					include('connectdb.php');
-					$query = mysql_query("SELECT * FROM post ORDER BY id_post DESC") or die(mysql_error());
+					$query = mysql_query("SELECT * FROM post ORDER BY tanggal DESC") or die(mysql_error());
 					while($row = mysql_fetch_assoc($query)){
 						$id_post = $row['id_post'];
 						$judul = $row['judul'];

@@ -66,7 +66,7 @@
             <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="editdb.php?id_post=<?php echo $id_post ?>">
+                <form method="post" action="editdb.php?id_post=<?php echo $id_post ?>" onsubmit = "return Validation(this)">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul" value="<?php echo $judul ?>">
 
@@ -108,6 +108,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/confirm.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
