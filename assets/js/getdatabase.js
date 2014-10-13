@@ -11,6 +11,9 @@ function addcomment(id)
 		if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
 		{
 			content.innerHTML = xmlhttp.responseText;
+			document.getElementById("nama").value = "";
+			document.getElementById("email").value = "";
+			document.getElementById("komentar").value = "";
 		}
 	};
 
