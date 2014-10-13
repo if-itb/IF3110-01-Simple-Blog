@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function(){
 		request.open('POST', 'comment.php', true);
 
 		request.onload = function() {
+			if (list_komentar.innerHTML == '<li class="art-list-item"><h5>Belum ada komentar</h5></li>') {
+				list_komentar.innerHTML = '';
+			}
 			if (request.status >= 200 && request.status < 400){
 				// Success!
 				komentar = JSON.parse(request.responseText);

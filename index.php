@@ -50,6 +50,7 @@
 					<ul class="art-list-body">
 <?php
 	require_once(dirname(__FILE__).'/db_controller.php');
+	require_once(dirname(__FILE__).'/cutstring.php');
 
 	$db = new DB();
 	$allPosts = $db->getAllPosts();
@@ -72,10 +73,15 @@
 										<div class="art-list-time"><?php echo $post["tanggal"]; ?></div>
 										<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
 								</div>
-								<div><?php echo $post["konten"]; ?></div>
+								<div class="art-list-body"><?php if (count_chars($post["konten"]) > 200) {
+									echo truncate($post["konten"], 255);
+								} else {
+									echo $post["konten"]; 
+								} ?>
 								<p>
 									<a href="edit_post.php?id=<?php echo $post["id"]; ?>">Edit</a> | <a href="javascript:removePost(<?php echo $post["id"]; ?>)">Hapus</a>
 								</p>
+								</div>
 						</li>
 <?php
 		}
