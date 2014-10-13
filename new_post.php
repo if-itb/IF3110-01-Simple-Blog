@@ -54,12 +54,12 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form name="newPost" method="post" action="posting.php">
+                <form name="newPost" method="post" action="posting.php" onsubmit="javascript: return validate_date(this.Tanggal)">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="dd-mm-yyyy">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
