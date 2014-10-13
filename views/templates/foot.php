@@ -1,0 +1,1 @@
+<script type="text/javascript" src="<?php echo $CONFIG['siteurl'].'/assets/js/simpleblog.js'; ?>"></script>
