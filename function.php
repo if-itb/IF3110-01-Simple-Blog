@@ -43,8 +43,54 @@
             echo '</div>';
             echo '<p>',$konten,'</p>';
             echo '<p><a href="edit_post.php?id=',$id,'">Edit</a> | <a href="hapus_post.php?id=',$id,'">Hapus</a></p>';
+            echo '<p><button type="button">Edit</button> <button type="button" onclick="Confirm_Delete()">Delete</button><p>';
            echo '</li>';
         }
         close_connection($dbconnection);
     }
+
+    function Get_One_Article($id)
+    {
+        $dbconnection = get_con_mysqli();
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        $query = "SELECT * FROM post 
+                    WHERE id = '$id'";
+        $result = mysqli_query ($dbconnection, $query);
+        if(!$result){
+            die('Could not get query: '.mysql_error());
+        }
+        
+        while ($row = mysqli_fetch_array($result))
+        {
+            $judul = $row['judul'];
+            $tanggal = $row['tanggal'];
+            $konten = $row['konten'];
+        }
+        
+        //Menampilkan form
+        echo '<form method="post" action="new_post.php">';
+        echo    '<label for="Judul">Judul:</label>';
+        echo    '<input type="text" name="Judul" id="Judul" value="'.$judul.'"> </input>';
+        echo    '<label for="Tanggal">Tanggal:</label>';
+        echo    '<input type="date" name="Tanggal" id="Tanggal"> </input>';
+        echo    '<label for="Konten">Konten:</label><br>';
+        echo    '<textarea name="Konten" rows="20" cols="20" id="Konten">'.$konten.'</textarea>';
+
+        echo    '<input type="submit" name="submit" value="Simpan" class="submit-button"> </input>';
+        echo '</form>';
+        
+        close_connection($con);
+    }
+
+    function Hapus_Post($id)
+    {
+        $dbconnection = get_con_mysqli();
+        $query = 'DELETE FROM post WHERE id = '.$id;
+        //echo $id,$query;
+        mysqli_query($dbconnection, $query);
+        close_connection($dbconnection);
+    }
+    
 ?>
