@@ -28,8 +28,19 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
-<title>Simple Blog</title>
+<script src="assets/js/utility.js"></script>
+<script>
+function validateForm(){
+	var tanggalInput = document.forms["edit-post"]["Tanggal"].value
+	if (checkdate(tanggalInput) == false) {return false;}
+	var currentDate = new Date();
+	tanggalInput = stringToDate(tanggalInput);
+	var truth = !isDateLater(currentDate,tanggalInput);
+	if (truth == false) alert("Tanggal yang dimasukan harus lebih besar atau sama dengan sekarang")
+	return truth
+}
+</script>
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -44,65 +55,59 @@
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-			
-            <!--<li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"></div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>-->
-			<?php 
-				// Create connection
-				$con=mysqli_connect("localhost","root","","blog_content");
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Tambah Post</h2>
 
-				// Check connection
-				if (mysqli_connect_errno()) {
-				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-				}
-				
-				$result = mysqli_query($con,"SELECT * FROM `blog`");
-				if (!$result) {
-					printf("Error: %s\n", mysqli_error($con));
-					exit();
-				}
-				while($row = mysqli_fetch_array($result)) {
-					echo "<li class=\"art-list-item\">";
-					echo "<div class=\"art-list-item-title-and-time\">";
-                    echo "<h2 class=\"art-list-title\">" . $row['JUDUL'] . "</h2>";
-                    echo "<div class=\"art-list-time\">" . $row['TANGGAL'] . "</div>";
-					echo "</div>";
-					echo "<p>".$row['ISI']."</p>";
-					echo "<p> <a href=\"edit_post.php?id={$row['ID']}\">Edit</a> |";
-					echo "<a href=\"delete-post.php?id={$row['ID']}\">Hapus</a> </p>";
-					echo "</li>";
-				}
-				
-				mysqli_close($con);
-			?>
-          </ul>
-        </nav>
+            <div id="contact-area">
+                <form name="edit-post" method="post" onsubmit="return validateForm()" action="edit-post-sql.php">
+                    <?php
+						$con=mysqli_connect("localhost","root","","blog_content");
+
+						// Check connection
+						if (mysqli_connect_errno()) {
+						  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						}
+
+						// escape variables for security
+						$id = mysqli_real_escape_string($con, $_GET['id']);
+						$result = mysqli_query($con,"SELECT * FROM `blog` WHERE `ID` = $id");
+						if (!$result) {
+							printf("Error: %s\n", mysqli_error($con));
+							exit();
+						}
+						$row = mysqli_fetch_array($result);
+						
+						echo "<input type=\"hidden\" name=\"id\" value=\"{$id}\">";
+						echo "<label for=\"Judul\">Judul:</label>";
+						echo "<input type=\"text\" name=\"Judul\" id=\"Judul\" value=\"{$row['JUDUL']}\">";
+
+						//parsing tanggal dari mysql ke html
+						list($tahun, $bulan, $hari) = explode("-", $row['TANGGAL']);
+						$tanggal = $hari."/".$bulan."/".$tahun;
+						
+						echo "<label for=\"Tanggal\">Tanggal:</label>";
+						echo "<input type=\"text\" name=\"Tanggal\" id=\"Tanggal\" value=\"{$tanggal}\">";
+						
+						echo "<label for=\"Konten\">Konten:</label><br>";
+						echo "<textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\">{$row['ISI']}</textarea>";
+						
+						mysqli_close($con);
+						
+					?>
+
+                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -138,5 +143,6 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
+
 </body>
 </html>

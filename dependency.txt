@@ -1,4 +1,5 @@
 utility.js <- new_post.html
 add-post.php <- add-post.html
-index.php <- add-post.php, delete-post.php
+index.php <- add-post.php, delete-post.php , edit-post-sql.php , edit_post.php
 delete-post.php <- index.php
+edit-post-sql.php <- edit_post.php
