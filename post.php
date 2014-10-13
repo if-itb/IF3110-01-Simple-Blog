@@ -135,8 +135,5 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-<script type="text/javascript">
-			
-</script>
 </body>
 </html>

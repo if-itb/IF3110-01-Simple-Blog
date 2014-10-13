@@ -58,8 +58,10 @@
 					while($row = mysql_fetch_assoc($query)){
 						$id_post = $row['id_post'];
 						$judul = $row['judul'];
-						$tanggal = $row['tanggal'];
 						$konten = $row['konten'];
+						$query_date = mysql_query("SELECT DATE_FORMAT(`tanggal`,'%e %M %Y') AS showdate FROM post WHERE id_post = $id_post") or die(mysql_error());
+						$row2 = mysql_fetch_assoc($query_date);
+						$tanggal = $row2['showdate'];
 						echo "<li class=\"art-list-item\">";
 							echo "<div class=\"art-list-item-title-and-time\">";
 								echo "<h2 class=\"art-list-title\"><a href=\"post.php?id_post=$id_post\">" .$judul. "</a></h2>";
