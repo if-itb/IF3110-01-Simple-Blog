@@ -78,7 +78,7 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Tugas IF3110 / Simple-Blog
+        Tugas IF3110 / 
         <br>
         <a class="twitter-link" href="https://www.facebook.com/eldwin.christian.5">Eldwin Christian</a> / 13512002
         <br>
