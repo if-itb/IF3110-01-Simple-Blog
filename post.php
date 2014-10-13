@@ -49,27 +49,26 @@
     <?php
         include 'function.php';
         $id = $_GET['id'];
-        echo $id;
         Show_Post($id);
-    ?>
+    
             
-            <h2>Komentar</h2>
+        echo'    <h2>Komentar</h2>';
 
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+        echo'    <div id="contact-area">';
+        echo'        <form method="post" action="add_comment.php?id='.$id.'">';
+        echo'            <label for="Nama">Nama:</label>';
+        echo'            <input type="text" name="Nama" id="Nama">';
         
-                    <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+        echo'            <label for="Email">Email:</label>';
+        echo'            <input type="text" name="Email" id="Email">';
                     
-                    <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+        echo'            <label for="Komentar">Komentar:</label><br>';
+        echo'            <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>';
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
-                </form>
-            </div>
-
+        echo'            <input type="submit" name="submit" value="Kirim" class="submit-button">';
+        echo'        </form>';
+        echo'    </div>';
+    ?>
             <ul class="art-list-body">
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">

@@ -126,6 +126,21 @@
 	    echo 	'        <p>'.$konten.'</p>';
 
 	    echo 	'        <hr />';
-
+    }
+    
+    function add_comment($id, $nama, $email, $komentar, $tanggal)
+    {
+        $con=get_con_mysqli();
+        //echo $komentar;
+        // Check connection
+        if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        $tanggal = date($tanggal);
+        
+        mysqli_query($con,"INSERT INTO komentar (id, nama, email, tanggal, komentar)
+                            VALUES ('$id','$nama','$email', '$tanggal','$komentar')");
+    
+        close_connection($con);
     }
 ?>
