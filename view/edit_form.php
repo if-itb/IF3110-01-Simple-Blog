@@ -22,15 +22,16 @@
                     <input type="hidden" name="ID" id="ID" value="<?php echo $_GET['id'] ?>">
 
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" value="<?php echo $data[0]?>">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $data[0]?>" onkeyup="validateForm()">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="date" name="Tanggal" id="Tanggal" value="<?php echo $data[1] ?>">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"> <?php echo $data[2]?> </textarea>
+                    <input type="date" name="Tanggal" id="Tanggal" value="<?php echo $data[1] ?>" onchange="validateDate(this.value)">
+                    <div id="msg2"></div>
 
-                    <input type="submit" name="submit" value="Edit" class="submit-button">
+                    <label for="Konten">Konten:</label>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" onkeyup="validateForm()"> <?php echo $data[2]?> </textarea>
+
+                    <input type="submit" name="submit" id="submit" value="Edit" class="submit-button">
                 </form>
             </div>
         </div>

@@ -21,7 +21,7 @@
                     <input type="date" name="Tanggal" id="Tanggal" onchange="validateDate(this.value)">
                     <div id="msg2"></div>
 
-                    <label for="Konten" id="konten">Konten:</label>
+                    <label for="Konten">Konten:</label>
                     <textarea name="Konten" rows="20" cols="20" id="Konten" onkeyup="validateForm()"></textarea>
 
                     <input type="submit" name="submit" id="submit" value="Simpan" class="submit-button" disabled>
