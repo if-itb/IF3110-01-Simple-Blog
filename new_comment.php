@@ -26,11 +26,15 @@ if (!mysqli_query($con,$sql)) {
 $resultComment = mysqli_query($con,"SELECT * FROM Comments WHERE PID='$PID' order by CID DESC");
 
 while($rowComment = mysqli_fetch_array($resultComment)){
+	$now = new DateTime("now");
+	$date = new DateTime($rowComment['Waktu']);
+	$interval = date_diff($now, $date);
 	echo'
 		<li class="art-list-item">
 			<div class="art-list-item-title-and-time">
-				<h2 class="art-list-title"><a href="post.php">'.$rowComment['Nama'].'</a></h2>
+				<h2 class="art-list-title"><a href="mailto:'.$rowComment['Email'].'">'.$rowComment['Nama'].'</a></h2>
 				<div class="art-list-time">'.$rowComment['Waktu'].'</div>
+				<div class=\"art-list-time\">'.$interval->format('%a hari yang lalu').'</div>
 			</div>
 			<p>'.$rowComment['Komentar'].'&hellip;</p>
 		</li>
