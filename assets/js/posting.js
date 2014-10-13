@@ -58,7 +58,10 @@
 	 	//ajax
 	 	var xmlhttp;
 	 	var nama = document.getElementById("Nama").value;
-			var komentar = document.getElementById("Komentar").value;
+	 	if(nama==""){
+	 		nama="anonymous";
+	 	}
+		var komentar = document.getElementById("Komentar").value;
 	 	if (window.XMLHttpRequest)
 	 	{
 	 		xmlhttp=new XMLHttpRequest();

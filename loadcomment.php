@@ -9,7 +9,7 @@ if (!$link) {
 }
 
 //mengambil data dari database dan menaruh kedalam array "row"
-$result = mysqli_query($link,"SELECT * FROM komentar WHERE id=$id ORDER BY tanggal DESC");
+$result = mysqli_query($link,"SELECT * FROM komentar WHERE id=$id ORDER BY tanggal ASC");
 while($row[] = mysqli_fetch_array($result));
 
 //mencetak ke halaman html

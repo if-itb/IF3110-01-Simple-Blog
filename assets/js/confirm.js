@@ -17,14 +17,15 @@
   {
     //cek jika judul kosong atau tidak
     var judul = document.getElementById("Judul").value;
-    if (judul==""){
+    if (judul == ""){
       //jika judul kosong
       document.getElementById("title_comment").innerHTML="Judul tidak boleh kosong!";
       document.getElementById("title_comment").style.color="red";
       return false;
     }
     else if(judul!=""){ //jika judul tidak kosong, validasi tanggal
-      document.getElementById("title_comment").innerHTML="";
+      document.getElementById("title_comment").innerHTML="ok!";
+      document.getElementById("title_comment").style.color="green";
       var tanggal = document.getElementById("Tanggal").value;
       if (tanggal.length>10){ //jika yang diinput pada tanggal >10 maka salah format
         document.getElementById("date_comment").innerHTML="Format tanggal salah!";
@@ -35,7 +36,6 @@
         //regex untuk cek tanggal yang valid
         var re = /^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/;
 
-        var today = new Date();
         var date=tanggal.match(re); //matching input tanggal dengan regex
         
         if(!date){
@@ -50,10 +50,9 @@
         var dtDay=  date[0][8]+date[0][9];
 
         //memasukan hasil regex kedalam tipe Date
-        var in_date=new Date();
-        in_date.setDate(dtDay);
-        in_date.setMonth(dtMonth-1);
-        in_date.setYear(dtYear);
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        var in_date=new Date(dtYear,dtMonth-1,dtDay);
 
         if (in_date<today){ //jika input tanggal lebih kecil dari hari ini
           document.getElementById("date_comment").innerHTML="Tanggal tidak boleh lebih kecil dari hari ini";
@@ -67,7 +66,7 @@
         }
         else{ //jika input tanggal sama dengan hari ini
           document.getElementById("date_comment").innerHTML="ok!";
-          document.getElementById("date_comment").style.color="blue";
+          document.getElementById("date_comment").style.color="green";
           document.getElementById("form_submit").action = "new_post.php";
           return true;
         }

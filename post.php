@@ -90,7 +90,7 @@ echo '<div class="wrapper">
                     <div id="contact-area">
                         <form method="post" id="form_comment" onSubmit="return false">
                             <label for="Nama">Nama:</label>
-                            <input type="text" name="Nama" id="Nama">
+                            <input type="text" name="Nama" id="Nama" placeholder="Boleh kosong">
             
                             <label for="Email">Email:</label>
                             <input type="text" name="Email" id="Email">
