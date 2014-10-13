@@ -1,6 +1,6 @@
 <?php
 
-include("dateUI.php");
+include("UI.php");
 
 if (isset($_POST['title']) && isset($_POST['time']) && isset($_POST['paragraph'])) {
 	require_once __DIR__ . '/db_connect.php';

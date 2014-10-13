@@ -54,4 +54,15 @@ function timeAgo($time) {
 
 }
 
+function read_more($string, $id) {
+	$string = strip_tags($string);
+
+	if (strlen($string) > 250) {
+		$stringCut = substr($string, 0, 250);
+
+		$string = substr($stringCut, 0, strrpos($stringCut, " ")) . "... <a href=\"post.php?id=" . $id . "\">Read More</a>"; 
+	}
+	echo $string;
+}
+
 ?>

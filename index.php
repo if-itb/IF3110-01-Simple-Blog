@@ -49,17 +49,17 @@
 		<nav class="art-list">
 		  <ul class="art-list-body">
 			<?php include("get_all_posts.php");
-			include("dateUI.php");
+			include("UI.php");
 
 			foreach($posts['post'] as $p) { ?>
 			<li class="art-list-item">
 				<div class="art-list-item-title-and-time">
 				<h2 class="art-list-title"><a href=<?php echo("\"post.php?id=" . $p['id'] . "\""); ?>><?php echo($p['title']); ?></a></h2>
 				<div class="art-list-time" id="Tanggal"><?php echo(dateDBToText($p['time'])); ?></div>
-				<?php if ($p["featured"] != "0") { ?>
+				<?php if ($p['featured'] != "0") { ?>
 					<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
 				<?php } ?>
-				</div><p><?php $p["paragraph"] ?></p>
+				</div><p><?php echo(read_more($p['paragraph'], $p['id'])); ?></p>
 				<p>
 				  <a href=<?php echo("\"edit_post.php?id=" . $p['id'] . "\""); ?>>Edit</a> | <a href=<?php echo("\"delete_post.php?id=" . $p['id'] . "\""); ?> onClick="return deleteConfirmation();">Hapus</a>
 				</p>
@@ -99,16 +99,10 @@
 	<!-- <div class="footer-nav"><p></p></div> -->
 	<div class="psi">&Psi;</div>
 	<aside class="offsite-links">
-		Asisten IF3110 /
-		<a class="rss-link" href="#rss">RSS</a> /
+		IF3110 Pengembangan Aplikasi Berbasis Web /
 		<br>
-		<a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-		<a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-		<a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
+		<a class="twitter-link" href="http://twitter.com/christangga">Christ Angga Saputra - 13512019</a> /
 		<br>
-		<a class="twitter-link" href="#">Renusa</a> /
-		<a class="twitter-link" href="#">Kelvin</a> /
-		<a class="twitter-link" href="#">Yanuar</a> /
 		
 	</aside>
 </footer>
@@ -117,6 +111,9 @@
 
 <script type="text/javascript" src="assets/js/deleteConfirmation.js"></script>
 
+<!--
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+-->
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

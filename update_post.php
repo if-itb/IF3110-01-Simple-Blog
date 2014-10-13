@@ -1,6 +1,6 @@
 <?php
 
-include("dateUI.php");
+include("UI.php");
 
 if (isset($_POST['id']) && isset($_POST['title']) && isset($_POST['time']) && isset($_POST['paragraph'])) {
 	$id = $_POST['id'];

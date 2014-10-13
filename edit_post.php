@@ -34,7 +34,7 @@
 </head>
 
 <?php include("get_single_post.php");
-include("dateUI.php"); ?>
+include("UI.php"); ?>
 
 <body class="default">
 <div class="wrapper">
@@ -57,13 +57,13 @@ include("dateUI.php"); ?>
 
 			<div id="contact-area">
 				<form autocomplete="off" method="post" onsubmit="return dateValidation();" action="update_post.php">
-					<input type="hidden" name="id" value=<?php echo($_GET['id']); ?>>
+					<input type="hidden" name="id" value=<?php echo("\"" . $_GET['id'] . "\""); ?>>
 
 					<label for="title">Judul:</label>
-					<input type="text" name="title" id="Judul" value=<?php echo($post['title']); ?> required>
+					<input type="text" name="title" id="Judul" value=<?php echo("\"" . $post['title'] . "\""); ?> required>
 
 					<label for="time">Tanggal:</label>
-					<input type="text" name="time" id="Tanggal" placeholder="dd/mm/yyyy" value=<?php echo(dateDBToDDMMYYYY($post['time'])); ?>>
+					<input type="text" name="time" id="Tanggal" placeholder="dd/mm/yyyy" value=<?php echo("\"" . dateDBToDDMMYYYY($post['time']) . "\""); ?>>
 					
 					<label for="paragraph">Konten:</label><br>
 					<textarea name="paragraph" rows="20" cols="20" id="Konten" required><?php echo($post['paragraph']); ?></textarea>
@@ -81,16 +81,10 @@ include("dateUI.php"); ?>
 	<!-- <div class="footer-nav"><p></p></div> -->
 	<div class="psi">&Psi;</div>
 	<aside class="offsite-links">
-		Asisten IF3110 /
-		<a class="rss-link" href="#rss">RSS</a> /
+		IF3110 Pengembangan Aplikasi Berbasis Web /
 		<br>
-		<a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-		<a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-		<a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
+		<a class="twitter-link" href="http://twitter.com/christangga">Christ Angga Saputra - 13512019</a> /
 		<br>
-		<a class="twitter-link" href="#">Renusa</a> /
-		<a class="twitter-link" href="#">Kelvin</a> /
-		<a class="twitter-link" href="#">Yanuar</a> /
 		
 	</aside>
 </footer>
@@ -99,6 +93,9 @@ include("dateUI.php"); ?>
 
 <script type="text/javascript" src="assets/js/dateValidation.js"></script>
 
+<!--
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+-->
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
