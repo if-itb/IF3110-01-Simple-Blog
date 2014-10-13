@@ -16,6 +16,23 @@
         close_connection($con);
     }
     
+    function Edit_Post($idpost, $judul, $tanggal, $konten)
+    {
+        $con=get_con_mysqli();
+        // Check connection
+        if (mysqli_connect_errno()) {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        $tanggal = date($tanggal);
+        mysqli_query($con,"UPDATE post 
+                    SET judul = '$judul', 
+                        tanggal = '$tanggal',
+                        konten = '$konten'
+                    WHERE id = '$idpost'");
+    
+        close_connection($con);
+    }
+
     function Load_All_Article()
     {
         //Load artikel
@@ -69,7 +86,7 @@
         }
         
         //Menampilkan form
-        echo '<form method="post" action="new_post.php">';
+        echo    '<form method="post" action="edit_post_call_function.php?id='.$id.'">';
         echo    '<label for="Judul">Judul:</label>';
         echo    '<input type="text" name="Judul" id="Judul" value="'.$judul.'"> </input>';
         echo    '<label for="Tanggal">Tanggal:</label>';
