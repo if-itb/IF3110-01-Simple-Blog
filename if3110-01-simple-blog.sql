@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2014 at 02:41 PM
+-- Generation Time: Oct 13, 2014 at 02:58 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 --
 
 INSERT INTO `post` (`id`, `judul`, `tanggal`, `konten`) VALUES
-(13, 'Hello World!', '2014-10-13', '<p>Akhirnya setelah perjuangan keras selama berhari-hari, blog ini pun dapat diselesaikan. Terima kasih kepada Tuhan Yang Maha Esa dan segala pihak yang membantu dan mendukung pengerjaan blog ini. Terima kasih tidak lupa kami sampaikan kepada <a href="http://www.google.com">Google</a>, <a href="http://www.w3schools.com">W3Schools</a>, dan <a href="http://www.stackoverflow.com">Stackoverflow</a>.</p>\r\n\r\n<ul>\r\n<li style="list-style:none">Ahmad Zaky</li>\r\n<li style="list-style:none"><href="mailto:13512076@std.stei.itb.ac.id">13512076</a></li>\r\n<li style="list-style:none"><a href="http://github.com/azaky">Github</a></li>\r\n</ul>');
+(13, 'Hello World!', '2014-10-13', 'Akhirnya setelah perjuangan keras selama berhari-hari, blog ini pun dapat diselesaikan. Terima kasih kepada Tuhan Yang Maha Esa dan segala pihak yang membantu dan mendukung pengerjaan blog ini. Terima kasih tidak lupa kami sampaikan kepada Google, W3Schools, dan Stackoverflow.\r\n');
 
 --
 -- Constraints for dumped tables

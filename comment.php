@@ -8,9 +8,9 @@
 	}
 	else if (isset($_POST["post_comment"])) {
 		$post_id = $_POST["post_id"];
-		$nama = $_POST["nama"];
-		$email = $_POST["email"];
-		$komentar = $_POST["komentar"];
+		$nama = htmlentities($_POST["nama"]);
+		$email = htmlentities($_POST["email"]);
+		$komentar = htmlentities($_POST["komentar"]);
 		$newComment = $db->comment($post_id, $nama, $email, $komentar);
 		echo json_encode($newComment);
 	}

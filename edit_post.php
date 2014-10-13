@@ -4,9 +4,9 @@
 	$db = new DB();
 	if (isset($_POST["id"])) {
 		$id = $_POST["id"];
-		$judul = $_POST["judul"];
+		$judul = htmlentities($_POST["judul"]);
 		$tanggal = $_POST["tanggal"];
-		$konten = $_POST["konten"];
+		$konten = htmlentities($_POST["konten"]);
 		$db->setPost($id, $judul, $tanggal, $konten);
 		header("location: post.php?id=" . $id);
 		die;
