@@ -1,6 +1,25 @@
+<?php 
+/******************************************************************************************
+ * TUBES 1 WBD
+ * ------------
+ * NAMA		:	Andre Susanto
+ * NIM		:	135 12 028
+ ******************************************************************************************/
+
+require_once 'config.php';
+
+$id = req_handler($_GET['id']);
+$err = 0;
+
+if (! ($konten = db_fetch("SELECT * FROM `post` WHERE `id_post`='$id'"))){
+	$err = 1;
+	$konten['judul'] = "404";
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<base href="<?php echo $systemurl; ?>">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +48,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<title>Simple Blog | <?php echo $konten['judul']; ?></title>
 
 
 </head>
@@ -38,18 +57,17 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href=""><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new">+ Tambah Post</a></li>
     </ul>
 </nav>
-
+<?php if ($err){ ?>
 <article class="art simple post">
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <h2 class="art-title">404 - Not Found</h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,14 +75,32 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
-            <hr />
+            <p>Maaf, anda menuju pada URL yang salah. Silahkan periksa kembali URL anda!</p>
             
+        </div>
+    </div>
+
+</article>
+<?php }else{ ?>
+<article class="art simple post">
+    
+    <header class="art-header">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+            <time class="art-time"><?php echo date("j F Y",strtotime($konten['stamp'])); ?></time>
+            <h2 class="art-title"><?php echo $konten['judul']; ?></h2>
+            <p class="art-subtitle"></p>
+        </div>
+    </header>
+
+    <div class="art-body">
+        <div class="art-body-inner">
+            <hr class="featured-article" />
+            <?php echo $konten['konten']; ?>
+            
+            
+            <div id="contact-area">
             <h2>Komentar</h2>
 
-            <div id="contact-area">
                 <form method="post" action="#">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
@@ -100,9 +136,9 @@
     </div>
 
 </article>
-
+<?php } ?>
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
@@ -125,16 +161,6 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
 
 </body>
 </html>

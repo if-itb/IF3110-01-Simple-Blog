@@ -1,6 +1,18 @@
+<?php 
+/******************************************************************************************
+ * TUBES 1 WBD
+ * ------------
+ * NAMA		:	Andre Susanto
+ * NIM		:	135 12 028
+ ******************************************************************************************/
+
+require_once 'config.php';
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<base href="<?php echo $systemurl; ?>">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,9 +50,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href=""><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,28 +60,29 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
+          <?php 
+          	$konten = db_fetchs("SELECT * FROM `post` ORDER BY `stamp` DESC;");
+          	for ($i = 1; $i <= $konten[0]; $i++){
+          ?>
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                    <h2 class="art-list-title"><a href="read/<?php echo $konten[$i]['id_post']; ?>/<?php echo str_replace(' ','-',$konten[$i]['judul']); ?>"><?php echo $konten[$i]['judul']; ?></a></h2>
+                    <div class="art-list-time"><?php echo date("j F Y",strtotime($konten[$i]['stamp'])); ?></div>
+                    <!-- <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div> -->
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p><?php echo substr(strip_tags($konten[$i]['konten']), 0, 200); ?></p>
                 <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                  <a href="edit/<?php echo $konten[$i]['id_post']; ?>">Edit</a> | <a href="delete/<?php echo $konten[$i]['id_post']; ?>">Hapus</a>
                 </p>
             </li>
+		<?php }
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
+			if ($konten[0] == 0) {?>
+			<li class="art-list-item">
+                <p>Maaf, belum ada post di blog ini.</p>
+                
             </li>
+			<?php } ?>
           </ul>
         </nav>
     </div>
@@ -99,16 +112,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
 
 </body>
 </html>
