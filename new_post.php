@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -54,17 +54,18 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="form_posting" method="post" action="insert_post.php" onsubmit="return validasiTanggal();">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="YYYY-DD-MM">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
+					<input type="button" value="Kembali" class="submit-button" onclick="history.back(-1)" />
                 </form>
             </div>
         </div>
@@ -93,8 +94,12 @@
 
 </div>
 
+<!-- validasi tanggal -->
+
+<!-- end of validasi tanggal -->
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
+<script type="text/javascript" src="assets/js/validate_1.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
