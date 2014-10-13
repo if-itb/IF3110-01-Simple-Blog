@@ -11,16 +11,16 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="omfgitsasalmon">
-<meta name="twitter:title" content="Simple Blog">
+<meta name="twitter:title" content="Coretan Yoga">
 <meta name="twitter:description" content="Deskripsi Blog">
-<meta name="twitter:creator" content="Simple Blog">
+<meta name="twitter:creator" content="Coretan Yoga">
 <meta name="twitter:image:src" content="{{! TODO: ADD GRAVATAR URL HERE }}">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Simple Blog">
+<meta property="og:title" content="Coretan Yoga">
 <meta property="og:description" content="Deskripsi Blog">
 <meta property="og:image" content="{{! TODO: ADD GRAVATAR URL HERE }}">
-<meta property="og:site_name" content="Simple Blog">
+<meta property="og:site_name" content="Coretan Yoga">
 
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>rakhmatullah25 | Tambah Post</title>
 
 
 </head>
@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Coretan<span>-</span>Yoga</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -54,17 +54,19 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="Post" method="post" action="insert.php">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" aria-required="true" required="">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="date" name="Tanggal" value="" class="ss-q-date" dir="auto" id="Tanggal" aria-required="true" required="return IsValidDate(Tanggal)">
+                    <!-- <input type="text" name="Tanggal" id="Tanggal"> -->
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" aria-required="true" required=""></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return IsValidDate()">
+                    
                 </form>
             </div>
         </div>
@@ -77,22 +79,15 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
+        Tugas 1 IF3110 /
+        <a class="twitter-link" href="http://twitter.com/rakhmatullah25">Rakhmatullah Yoga Sutrisna</a>
         
     </aside>
 </footer>
 
 </div>
 
+<script type="text/javascript" src="function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
