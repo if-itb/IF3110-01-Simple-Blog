@@ -87,7 +87,7 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick = "CommentAjax(<?php echo $id_post; ?>)">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick = "Comment(<?php echo $id_post; ?>)">
                 </form>
             </div>
 

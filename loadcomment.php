@@ -6,10 +6,14 @@
 		$nama = $row['nama'];
 		$komentar = $row['komentar'];
 		$tanggal = $row['tanggal'];
+		$email = $row['email'];
 		echo "<li class=\"art-list-item\">";
 			echo "<div class=\"art-list-item-title-and-time\">";
-				echo "<h2 class=\"art-list-title\"><a href=\"post.php\">" .$nama. "</a></h2>";
-				echo "<div class=\"art-list-time\">" .$tanggal. "</div>";
+				echo "<h2 class=\"art-list-title\"><a href=\"mailto:" .$email. "\">" .$nama. "</a></h2>";
+				$now = new DateTime("now");
+				$date = new DateTime($tanggal);
+				$interval = date_diff($now, $date);
+				echo "<div class=\"art-list-time\">" .$interval->format('%a hari yang lalu'). "</div>";
 			echo "</div>";
 			echo "<p>" .$komentar. "</p>";
 		echo "</li>";

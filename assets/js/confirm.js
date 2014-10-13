@@ -115,7 +115,7 @@ function isEmailValid(email){
 	}
 }
 
-function CommentAjax(id_post) { 
+function Comment(id_post) { 
 	var xmlHttpObj;
 	if (window.XMLHttpRequest) {
 		xmlHttpObj = new XMLHttpRequest( );
