@@ -112,7 +112,7 @@ $(document).ready(function() {
 	
 	// Make punctuation smarter
 	jQuery.fn.smarten = (function() {
-	 
+	
 	  function smartenNode(node) {
 		if (node.nodeType === 3) {
 		  node.data = node.data
@@ -129,15 +129,15 @@ $(document).ready(function() {
 		  } while (node = node.nextSibling);
 		}
 	  }
-	 
+	
 	  return function() {
 		return this.each(function(){
 		  smartenNode(this);
 		});
 	  };
-	 
+	
 	}());
-	 
+	
 	// Instantiation
 	$('article').smarten();
 
