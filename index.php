@@ -48,11 +48,12 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
+			
+            <!--<li class="art-list-item">
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
                     <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                    <div class="art-list-time"></div>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
                 <p>
@@ -69,7 +70,34 @@
                 <p>
                   <a href="#">Edit</a> | <a href="#">Hapus</a>
                 </p>
-            </li>
+            </li>-->
+			<?php 
+				// Create connection
+				$con=mysqli_connect("localhost","root","","blog_content");
+
+				// Check connection
+				if (mysqli_connect_errno()) {
+				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+				
+				$result = mysqli_query($con,"SELECT * FROM `blog`");
+				if (!$result) {
+					printf("Error: %s\n", mysqli_error($con));
+					exit();
+				}
+				while($row = mysqli_fetch_array($result)) {
+					echo "<li class=\"art-list-item\">";
+					echo "<div class=\"art-list-item-title-and-time\">";
+                    echo "<h2 class=\"art-list-title\">" . $row['JUDUL'] . "</h2>";
+                    echo "<div class=\"art-list-time\">" . $row['TANGGAL'] . "</div>";
+					echo "</div>";
+					echo "<p>".$row['ISI']."</p>";
+					echo "<p> <a href=\"#\">Edit</a> | <a href=\"#\">Hapus</a> </p>";
+					echo "</li>";
+				}
+				
+				mysqli_close($con);
+			?>
           </ul>
         </nav>
     </div>
@@ -109,6 +137,5 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
 </body>
 </html>

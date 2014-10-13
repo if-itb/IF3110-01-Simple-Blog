@@ -1,5 +1,6 @@
-Beresin new_post
+Beresin new_post -
 beresin view_post (tambahkan filter, sehingga post yang ditampilkan tidak memiliki tangal lebih besar dari sekarang)
 beresin delete post
 edit post
 komentar
+sambungin view_post dengan edit post dan hapus
