@@ -45,7 +45,7 @@ if (mysqli_connect_errno()) {
 }
 
 // Retrieve data
-$result = mysqli_query($con,"SELECT * FROM Posts");
+$result = mysqli_query($con,"SELECT * FROM Posts order by PID DESC");
 
 while($row = mysqli_fetch_array($result)) {
 	$ID = $row['PID'];

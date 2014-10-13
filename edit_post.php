@@ -30,8 +30,7 @@
 <![endif]-->
 
 <title>Simple Blog | Edit Post</title>
-
-
+<?php $ID = $_GET['id']; ?>
 </head>
 
 <body class="default">
@@ -41,12 +40,11 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="edit_post.html">Edit Post</a></li>
+        <li><a href="edit_post.php?id=<?php echo $ID; ?>">Edit Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
-    
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
@@ -63,7 +61,6 @@
 					  echo "<br>";
 					}
 
-					$ID = $_GET['id'];
 					$result = mysqli_query($con,"SELECT Judul, Tanggal, Konten FROM Posts WHERE PID='$ID'");
 
 					while($row = mysqli_fetch_array($result)) {

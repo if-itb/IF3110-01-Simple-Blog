@@ -69,7 +69,6 @@ $row = mysqli_fetch_array($resultPost);
 		';
 	?>
     
-
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
@@ -210,6 +209,7 @@ mysqli_close($con);
 			}
 		}
 	}
+
 </script>
 </body>
 </html>
