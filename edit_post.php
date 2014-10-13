@@ -1,3 +1,10 @@
+<?php
+	$pid = $_GET["postid"];
+	mysql_connect("localhost","root","");
+	@mysql_select_db("simpleblog") or die( "Unable to select database");
+	$query = "SELECT * FROM post WHERE idpost=".$pid;
+	$result = mysql_query($query);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,15 +61,30 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" onsubmit="return validate();" action="post_handler.php?action=new&pid=0">
+                <form method="post" onsubmit="return validate();" action="post_handler.php?action=edit&pid=
+				<?php
+					echo $pid;
+				?>
+				">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+					<?php
+						$judul = mysql_result($result,0,"judul");
+						echo '<input type="text" name="Judul" id="Judul" value="'.$judul.'">';
+					?>
+                    
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="YYYY-MM-DD">
+					<?php
+						$tanggal = mysql_result($result,0,"tanggal");
+						echo '<input type="text" name="Tanggal" id="Tanggal" value="'.$tanggal.'">';
+					?>
+                    
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php
+						$konten = mysql_result($result,0,"konten");
+						echo $konten;
+					?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -78,6 +100,7 @@
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
         Riady 13512024
+        
     </aside>
 </footer>
 
@@ -98,7 +121,7 @@
       ga('create',ga_ua);ga('send','pageview');
 </script>
 <script>
-	function validateDate(){
+function validateDate(){
 		var valid = true;
 		var tgl = document.getElementById("Tanggal").value;
 		if(tgl.length<10){
