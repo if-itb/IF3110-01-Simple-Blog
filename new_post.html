@@ -28,7 +28,18 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
+<script src="assets/js/utility.js"></script>
+<script>
+function validateForm(){
+	var tanggalInput = document.forms["addArticle"]["Tanggal"].value
+	if (checkdate(tanggalInput) == false) {return false;}
+	var currentDate = new Date();
+	tanggalInput = stringToDate(tanggalInput);
+	var truth = !isDateLater(currentDate,tanggalInput);
+	if (truth == false) alert("Tanggal yang dimasukan harus lebih besar atau sama dengan sekarang")
+	return truth
+}
+</script>
 <title>Simple Blog | Tambah Post</title>
 
 
@@ -54,7 +65,7 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="add-post" method="post" onsubmit="validateForm()" action="#">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
