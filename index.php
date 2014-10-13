@@ -62,7 +62,7 @@
                 </div>
                 <p>'.nl2br($row['postcontent']).' &hellip;</p>
                 <p>
-                  <a href="edit_post.php?pid='.$row['pid'].'">Edit</a> | <a href="delete_post.php?pid='.$row['pid'].'">Hapus</a>
+                  <a href="edit_post.php?pid='.$row['pid'].'">Edit</a> | <a href="delete.php?pid='.$row['pid'].'" onclick="javascript:return confirm(\'Apakah Anda yakin ingin menghapus post ini?\')">Hapus</a>
                 </p>
             </li>';
               }
@@ -96,7 +96,7 @@
 
 </div>
 
-
+<script type="text/javascript" src="assets/js/konfirmasi.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
