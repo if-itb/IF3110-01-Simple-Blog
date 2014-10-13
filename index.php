@@ -58,19 +58,19 @@
                         die ('Error : ' .mysqli_error($con));
                     }
                     while ($row=mysqli_fetch_array($strSql)){
-                        echo "<li class='art-list-item'>";
-                            echo "<div class='art-list-item-title-and-time'>";
-                                echo "<h2 class='art-list-title'><a href='post.php'>" .$row['judul']. "</a></h2>";
-                                echo "<div class='art-list-time'>" .$row['tanggal']. "</div>";
-                                echo "<div class='art-list-time'><span style='color:#F40034;'>&#10029;</span>" .Featured. "</div>";
-                            echo "</div>";                            
-                            echo "<p>" .$row['konten']. "</p>";                            
-                            echo "<p>";
-                              $tes=$row['no_post'];
-                              echo "<a href='handleredit.php?id=$tes'>".Edit."</a> | <a href='delete.php?id=$tes' onClick=
-                              'return konfirmasi()'>".Hapus."</a>";
-                            echo "</p>";
-                        echo "</li>";
+                        $tes=$row['no_post'];
+                        echo "<li class='art-list-item'>
+                            <div class='art-list-item-title-and-time'>
+                                <h2 class='art-list-title'><a href='post.php?id=$tes'>" .$row['judul']. "</a></h2>
+                                <div class='art-list-time'>" .$row['tanggal']. "</div>
+                                <div class='art-list-time'><span style='color:#F40034;'>&#10029;</span>" .Featured. "</div>
+                            </div>                            
+                            <p>" .$row['konten']. "</p>                            
+                            <p>                              
+                            <a href='handleredit.php?id=$tes'>".Edit."</a> | <a href='delete.php?id=$tes' onClick=
+                              'return konfirmasi()'>".Hapus."</a>
+                            </p>
+                            </li>";
                     }
                     echo "</ul>";
                     mysqli_close($con);
