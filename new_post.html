@@ -26,7 +26,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
 <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 <title>Simple Blog | Tambah Post</title>
@@ -38,57 +38,57 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
+	<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+	<ul class="nav-primary">
+		<li><a href="new_post.html">+ Tambah Post</a></li>
+	</ul>
 </nav>
 
 <article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+	
+	
+	<h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+	<div class="art-body">
+		<div class="art-body-inner">
+			<h2>Tambah Post</h2>
 
-            <div id="contact-area">
-                <form method="post" action="new_post.php">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+			<div id="contact-area">
+				<form id="form1" method="post" onsubmit=checkValid(form1.Tanggal)>
+					<label for="Judul">Judul:</label>
+					<input type="text" name="Judul" id="Judul">
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+					<label for="Tanggal">Tanggal:</label>
+					<input type="text" name="Tanggal" id="Tanggal">
+					
+					<label for="Konten">Konten:</label><br>
+					<textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
-    </div>
+					<input type="submit" name="submit" value="Post" class="submit-button">
+				</form>
+			</div>
+		</div>
+	</div>
 
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
-    <!-- <div class="footer-nav"><p></p></div> -->
-    <div class="psi">&Psi;</div>
-    <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
-    </aside>
+	<div class="back-to-top"><a href="">Back to top</a></div>
+	<!-- <div class="footer-nav"><p></p></div> -->
+	<div class="psi">&Psi;</div>
+	<aside class="offsite-links">
+		Asisten IF3110 /
+		<a class="rss-link" href="#rss">RSS</a> /
+		<br>
+		<a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
+		<a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
+		<a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
+		<br>
+		<a class="twitter-link" href="#">Renusa</a> /
+		<a class="twitter-link" href="#">Kelvin</a> /
+		<a class="twitter-link" href="#">Yanuar</a> /
+		
+	</aside>
 </footer>
 
 </div>
@@ -100,27 +100,70 @@
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
   (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
+	  function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
+	  t=h.createElement(o);z=h.getElementsByTagName(o)[0];
+	  t.src='//www.google-analytics.com/analytics.js';
+	  z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
+	  ga('create',ga_ua);ga('send','pageview');
 
 
-<script type="text/javascript">
-var regex_ValidDate = /^\d{4}\/\-\d{2}\/\-\d{2}$/;
-function checkValid(inputDate){
-    if (!regex_ValidDate.test(inputDate.value) && inputDate.){
-        var monthfield=input.value.split("/")[0]
-        var dayfield=input.value.split("/")[1]
-        var yearfield=input.value.split("/")[2]
-    }
+var regex_ValidDate = /^\d{4}\/\d{2}\/\d{2}$/;
+function checkValid(inputDate) {
+	if (regex_ValidDate.test(inputDate.value)){
+		var yearfield = inputDate.split("/")[0];
+		var monthfield = inputDate.split("/")[1];
+		var dayfield = inputDate.split("/")[2];
+
+		if (checkValidValue(dayfield,monthfield,yearfield)){
+			if (checkDate(dayfield,monthfield,yearfield)){
+				alert('FAILMOVE');
+				form1.action = "new_post.php";
+			}
+			else {
+				alert('Invalid checkDate! Please input with the following format; yyyy/mm/dd');
+				form1.action = "#";
+				return false;
+			}
+		}
+		else {
+			alert('Invalid past value! Please input with the following format; yyyy/mm/dd');
+			form1.action = "#";
+			return false;
+		}
+	}
+	else {
+		alert('Invalid date input! Please input with the following format; yyyy/mm/dd');
+		form1.action = "#";
+		return false;
+	}
 }
-function checkDate(inputDate){
+function checkDate(dd,mm,yy){
+	var currentDate = Date();
+	var inputDate = Date(yy,mm-1,dd);
+	return (inputDate >= currentDate);
 
 }
+function checkValidValue(dayfield,monthfield,yearfield){
+	if (yearfield < 0 || dayfield < 1 || monthfield < 1){
+		return false;
+	}
+	else if (monthfield > 12){
+		return false;
+	}
+	else if (monthfield == 1 || monthfield == 3 || monthfield == 5 || monthfield == 7 || monthfield == 8 || monthfield == 10){
+		return (dayfield <= 31);
+	}
+	else if (monthfield == 2){
+		if (((!(yearfield % 4)) && yearfield % 100) || !(yearfield % 400)){ //kabisat
+			return (dayfield <= 29);
+		}  
+	}
+	else {
+		return (dayfield <= 30);
+	}
 
+
+}
 
 </script>
 </body>

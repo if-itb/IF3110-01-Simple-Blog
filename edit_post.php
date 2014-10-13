@@ -60,11 +60,12 @@ $tempID = $_GET['post_ID'];
 
 echo "<form method=\"post\" action=\"apply_post.php?post_ID=$tempID\">";
 
-$sql = "SELECT * FROM `post_ID` WHERE `post_ID` = '$_GET[post_ID]'";
+$sql1 = "SELECT * FROM `post_ID` WHERE `post_ID` = '$_GET[post_ID]'";
 if (isset($_GET['post_ID'])){
-    $query = @mysql_query($sql);
+    $query = @mysql_query($sql1);
 }
 
+mysql_close();
 if (mysql_num_rows($query) > 0){
     $row = mysql_fetch_array($query);
 }
