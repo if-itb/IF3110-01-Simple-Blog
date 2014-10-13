@@ -33,7 +33,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="LoadComments();">
 
 <?php
 $con=mysqli_connect("localhost", "root", "", "SimpleBlog");
@@ -94,21 +94,7 @@ $row = mysqli_fetch_array($resultPost);
             </div>
 
             <ul class="art-list-body" id="CommentList">
-				<?php
-					$resultComment = mysqli_query($con,"SELECT * FROM Comments WHERE PID='$ID' order by CID DESC");
-				
-					while($rowComment = mysqli_fetch_array($resultComment)) {
-					echo'
-							<li class="art-list-item">
-								<div class="art-list-item-title-and-time">
-									<h2 class="art-list-title"><a href="post.php">'.$rowComment['Nama'].'</a></h2>
-									<div class="art-list-time">'.$rowComment['Waktu'].'</div>
-								</div>
-								<p>'.$rowComment['Komentar'].'&hellip;</p>
-							</li>
-						';
-					}
-				?>
+
             </ul>
         </div>
     </div>
@@ -197,21 +183,33 @@ mysqli_close($con);
 			}
 		}
 	}
-</script>
 	
-<script type="text/javascript">
-function ValidasiEmail() {
-	var cek = true;
-	var x = document.forms["Comment"]["Email"].value;
-	var atpos = x.indexOf("@");
-	var dotpos = x.lastIndexOf(".");
-	if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
-		alert("Bukan alamat e-mail yang valid!!");
-		cek = false;
+	function LoadComments() {
+		// Create an XMLHttpRequest Object
+		if (window.XMLHttpRequest) {
+			xmlHttpObj = new XMLHttpRequest( );
+		} else {
+			try {
+				xmlHttpObj = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					xmlHttpObj = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {
+					xmlHttpObj = false;
+				}
+			}
+		}
+		var PID = <?php echo $ID ?>;
+		
+		// Create a function that will receive data sent from the server
+		xmlHttpObj.open("GET", "load_comment.php?PID=" + PID, true);
+		xmlHttpObj.send(null);
+		xmlHttpObj.onreadystatechange = function() {
+			if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
+				document.getElementById("CommentList").innerHTML=xmlHttpObj.responseText;
+			}
+		}
 	}
-	return cek;
-}
 </script>
-
 </body>
 </html>
