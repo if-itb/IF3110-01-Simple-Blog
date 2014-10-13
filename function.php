@@ -37,12 +37,12 @@
             $konten = $row['konten'];
             echo '<li class="art-list-item">';
             echo '<div class="art-list-item-title-and-time">';
-            echo 	'<h2 class="art-list-title"><a href="post.html">',$judul,'</a></h2>';    
-            echo 	'<div class="art-list-time">',$tanggal,'</div>';   
+            echo 	'<h2 class="art-list-title"><a href="post.php?id='.$id.'">'.$judul.'</a></h2>';    
+            echo 	'<div class="art-list-time">'.$tanggal.'</div>';   
             echo    	'<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
             echo '</div>';
-            echo '<p>',$konten,'</p>';
-            echo '<p><a href="edit_post.php?id=',$id,'">Edit</a> | <button type="button" onclick="Confirm_Delete('.$id.')">Hapus</button></p>';
+            echo '<p>'.$konten.'</p>';
+            echo '<p><a href="edit_post.php?id='.$id.'">Edit</a> | <button type="button" onclick="Confirm_Delete('.$id.')">Hapus</button></p>';
            echo '</li>';
         }
         close_connection($dbconnection);
@@ -91,5 +91,41 @@
         mysqli_query($dbconnection, $query);
         close_connection($dbconnection);
     }
-    
+
+    function Show_Post($id)
+    {
+        $dbconnection = get_con_mysqli();
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        $query = "SELECT * FROM post 
+                    WHERE id = '$id'";
+        $result = mysqli_query ($dbconnection, $query);
+        if(!$result){
+            die('Could not get query: '.mysql_error());
+        }
+        
+        while ($row = mysqli_fetch_array($result))
+        {
+            $judul = $row['judul'];
+            $tanggal = $row['tanggal'];
+            $konten = $row['konten'];
+        }
+  
+        echo 	'<header class="art-header">';
+        echo 	   '<div class="art-header-inner" style="margin-top: 0px; opacity: 1;">';
+        echo    	'  <time class="art-time">'.$tanggal.'</time>';
+        echo    	'    <h2 class="art-title">'.$judul.'</h2>';
+        echo    	'   <p class="art-subtitle"></p>';
+        echo    	'</div>';
+        echo 	'</header>';
+
+	    echo 	'<div class="art-body">';
+	    echo 	'    <div class="art-body-inner">';
+	    echo 	'       <hr class="featured-article" />';
+	    echo 	'        <p>'.$konten.'</p>';
+
+	    echo 	'        <hr />';
+
+    }
 ?>
