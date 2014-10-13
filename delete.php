@@ -2,17 +2,11 @@
 
 require 'database.php';
 
-$pid = null;
+$pid = 0;
 if (!empty($_GET['pid'])){
 	$pid = $_REQUEST['pid'];
 }
-if (null == $pid){
-	header("Location: index.php");
-}
-if (!empty($_POST)){
-	$title = $_POST['Judul'];
-	$date = $_POST['Tanggal'];
-	$content = $_POST['Konten'];
+
 	
 	$sambung = mysql_connect("localhost:3306","root","");
 	if (!$sambung) {
@@ -27,7 +21,7 @@ if (!empty($_POST)){
 	mysql_close($sambung);
 	header("Location: index.php");
 		
-}
+
 
 
 ?>
