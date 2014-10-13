@@ -49,7 +49,7 @@ function validate(id)
 		}
 		else
 		{
-			errormessage.innerHTML="Format email tidak valid";
+			errormessage.innerHTML="*Format email tidak valid";
 		}
 	}
 }
