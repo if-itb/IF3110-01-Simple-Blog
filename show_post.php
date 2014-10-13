@@ -88,7 +88,7 @@
 								</div>
 								<hr/>
 								<div id="formKomentar">
-									<form method="post" action="post_komentar.php">
+									<form method="post" action="#">
 										Nama <input type="text" id="pNama" name="nama"><br/>
 										Email <input type="text" id="pEmail" name="email" ><br/>
 										Pesan<br/>
@@ -113,7 +113,7 @@
 					$name	=	$hasil_eksekusi['com_name'];
 					$tanggal	=	$hasil_eksekusi['com_date'];
 					$konten	=	$hasil_eksekusi['com_dis'];
-
+				
 					echo '
 						<div id="unit-komentar" align="center">
 							'.$name.'<br/>
@@ -154,7 +154,7 @@ function cekEmail() {
     var atpos = x.indexOf("@");
     var dotpos = x.lastIndexOf(".");
     if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-        alert("Not a valid e-mail address");
+        alert("Email address salah");
         return false;
     }else{
 		PostKomentar();
@@ -165,6 +165,7 @@ function PostKomentar(){
 	var isiemail = document.getElementById("pEmail").value;
 	var isipesan = document.getElementById("pPesan").value;
 	var isiid = document.getElementById("pId").value;
+	var isitanggal	=	document.getElementById("pTanggal").value;
 	var xmlhttp=GetXmlHttpObject();
 	if(xmlhttp==null){
 		alert("Silahkan gunakan browser yang mendukung AJAX");
@@ -173,7 +174,7 @@ function PostKomentar(){
 	var url	=	"post_komentar.php";
     var param="nama="+isinama+"&email="+isiemail+"&pesan="+isipesan+"&id="+isiid;
 	document.getElementById("terbaru").innerHTML = "Sedang memproses komentar";
-	var message = "<div id=unit-komentar align=center><br>" + isinama + "<br>" + isiemail + "<br>" + isipesan + "<hr></div>";
+	var message = "<div id=unit-komentar align=center><br>" + isinama + "<br>" + isitanggal + "<br>" + isipesan + "<hr></div>";
 	document.getElementById("terbaru").innerHTML = message;
     xmlhttp.open("POST",url,true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

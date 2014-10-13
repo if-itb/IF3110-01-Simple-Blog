@@ -1,23 +1,23 @@
 List Post
  - melist post (ok)
-	judul, tanggal, konten
+	judul, tanggal, konten (ok)
  - menu edit dan delete (ok)
  
 Add Post
  - Judul Tanggal Konten (ok)
- - Validasi tanggal menggunakan java
+ - Validasi tanggal menggunakan java (ok)
  
 Edit Post
 - Judul tanggal konten (ok)
-- Validasi tanggal 
+- Validasi tanggal  (ok)
 
 Delete post (ok)
-- konfirmasi "Apakah Anda yakin menghapus post ini?"
+- konfirmasi "Apakah Anda yakin menghapus post ini?" (ok)
 
 View Post 
 - menampilkan Judul Tangal Konten (ok)
 - menampilkan form komentar (ok)
-	- validasi email menggunakan javascript
+	- validasi email menggunakan javascript (ok)
 - AJAX (oke)
  load list komentar (oke)
  menambah komentar baru  (ok)
