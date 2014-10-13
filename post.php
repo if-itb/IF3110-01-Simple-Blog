@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<title>Test Blog | Apa itu Simple Blog?</title>
 
 
 </head>
@@ -45,10 +45,10 @@
 </nav>
 
 <article class="art simple post">
-    
+
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
+            <time class="art-time"></time>
             <h2 class="art-title">Apa itu Simple Blog?</h2>
             <p class="art-subtitle"></p>
         </div>
@@ -61,17 +61,17 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
 
             <hr />
-            
+
             <h2>Komentar</h2>
 
             <div id="contact-area">
                 <form method="post" action="#">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
-        
+
                     <label for="Email">Email:</label>
                     <input type="text" name="Email" id="Email">
-                    
+
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
@@ -116,7 +116,7 @@
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
+
     </aside>
 </footer>
 

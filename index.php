@@ -29,8 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
-
+<title>Simple Blog</title>
 
 </head>
 
@@ -38,39 +37,40 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
-
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+           <?php
+            $con=mysqli_connect("localhost", "root", "chmod777", "blog");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " .mysqli_connect_error();
+            }
+            $result = mysqli_query($con, "SELECT * FROM post_table order by date desc");
+            while ($row = mysqli_fetch_array($result)) {
+                echo '<li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                <h2 class="art-list-title"><a href="post.php">'.$row["title"].'</a></h2>
+                <div class="art-list-time">'.$row["date"].'</div>
+                <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                </div>
+                <p>'.$row["content"].'</p>
+                <p>
+                <a href="#">Edit</a> | <a href="#">Hapus</a>
+                </p>
+                </li>';
+            }
+            mysqli_close($con);
+            ?>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -87,7 +87,7 @@
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
+
     </aside>
 </footer>
 
