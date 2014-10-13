@@ -26,6 +26,6 @@ if (!mysqli_query($con,$sql)) {
 
 mysqli_close($con);
 
-header("Location: index.html"); /* Redirect browser */
+header("Location: index.php"); /* Redirect browser */
 exit();
 ?>

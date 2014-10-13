@@ -92,7 +92,7 @@
                     echo "<div class=\"art-list-time\">" . $row['TANGGAL'] . "</div>";
 					echo "</div>";
 					echo "<p>".$row['ISI']."</p>";
-					echo "<p> <a href=\"#\">Edit</a> | <a href=\"#\">Hapus</a> </p>";
+					echo "<p> <a href=\"#\">Edit</a> | <a href=\"delete-post.php?id={$row['ID']}\">Hapus</a> </p>";
 					echo "</li>";
 				}
 				
