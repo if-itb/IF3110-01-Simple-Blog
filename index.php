@@ -90,7 +90,7 @@
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
+
     </aside>
 </footer>
 
