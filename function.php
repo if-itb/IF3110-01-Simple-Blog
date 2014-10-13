@@ -42,8 +42,7 @@
             echo    	'<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
             echo '</div>';
             echo '<p>',$konten,'</p>';
-            echo '<p><a href="edit_post.php?id=',$id,'">Edit</a> | <a href="hapus_post.php?id=',$id,'">Hapus</a></p>';
-            echo '<p><button type="button">Edit</button> <button type="button" onclick="Confirm_Delete()">Delete</button><p>';
+            echo '<p><a href="edit_post.php?id=',$id,'">Edit</a> | <button type="button" onclick="Confirm_Delete('.$id.')">Hapus</button></p>';
            echo '</li>';
         }
         close_connection($dbconnection);

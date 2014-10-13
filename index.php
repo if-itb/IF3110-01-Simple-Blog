@@ -105,6 +105,7 @@
 </div>
 
 <script type="text/javascript" src="assets/js/fittext.js"></script>
+<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">

@@ -54,26 +54,12 @@
             <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="new_post.php">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="date" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
+                
                 <?php
-                	//Pending dulu loadnya
-                	$con=mysqli_connect("localhost","root","akhfa","blog");
-					
-					if (mysqli_connect_errno()) {
-  						echo "Failed to connect to MySQL: " . mysqli_connect_error();
-					}
-					mysqli_query($con, $query)
+                    include 'function.php';
+                    $id = $_GET['id'];
+                    //echo $id;
+                    Get_One_Article($id);
                 ?>
             </div>
         </div>
