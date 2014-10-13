@@ -16,14 +16,15 @@ function showComment(id)
             document.getElementById("komentar").innerHTML=xmlhttp.responseText;
         }
     }
+    console.log("showComent");
     xmlhttp.open("GET","komentar.php?state=1&id="+id,true);
     xmlhttp.send();
 }
 
 function addComment(id){
-    var Nama = document.getElementById("Nama").value();
-    var Email = document.getElementById("Email").value();
-    var Komentar = document.getElementById("Komentar").value();
+    var Nama = document.getElementById("Nama").value;
+    var Email = document.getElementById("Email").value;
+    var Komentar = document.getElementById("Komentar").value;
     console.log("Nama: " + Nama);
     console.log("Email: " + Email);
     console.log("Komentar: " + Komentar);
@@ -37,20 +38,28 @@ function addComment(id){
     {// code for IE6, IE5
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlhttp.onreadystatechange=function()
-    {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    if (validateForm(Email)){ 
+        xmlhttp.onreadystatechange=function()
         {
-            var text = xmlhttp.responseText;
-            if (text == "submitted") {
-                showComment();
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                var text = xmlhttp.responseText;
+                if (text == "submitted") {
+                    showComment();
+                }
             }
         }
+        xmlhttp.open("GET","komentar.php?state=2&id="+id+"&nama="+Nama+"&email="+Email+"&komentar="+Komentar,true);
+        xmlhttp.send();
     }
-    xmlhttp.open("GET","komentar.php?state=2&id="+id+"&nama="+Nama+"&email="+Email+"&komentar="+Komentar,true);
-    xmlhttp.send();
+    else {
+        document.getElementById("errmsg").innerHTML = "Format Email Salah";
+    }
 }
 
-function validateForm() {
-    return true;
+function validateForm(email) {
+    console.log("email: " + email);
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    console.log(re.test(email));
+    return re.test(email);
 }

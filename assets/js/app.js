@@ -39,7 +39,7 @@ $(document).ready(function() {
   if(!isMobile) {
     $(window).scroll(function() {
       if(isLargeViewport()) {
-        slidingTitle();
+        //slidingTitle();
       }
     });
   }

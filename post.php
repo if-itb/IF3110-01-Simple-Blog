@@ -80,12 +80,13 @@
             </ul>
 
             <div id="contact-area">
-                <form method="post" action:"javascript:addComment(<?php echo $id?>)" onsubmit:"return validateForm()">
+                <form method="post" action="javascript:addComment(<?php echo $id?>)">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
                     <label for="Email">Email:</label>
                     <input type="text" name="Email" id="Email">
+                    <p size ="10px" id="errmsg"></p>
                     
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
@@ -119,7 +120,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
