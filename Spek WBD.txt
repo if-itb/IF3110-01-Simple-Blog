@@ -1,5 +1,4 @@
 Deskripsi
-
 Gunakan template ini untuk membuat sebuah blog sederhana dengan menggunakan bahasa pemrograman PHP.
 
 Spesifikasi
@@ -15,7 +14,6 @@ Mengedit post yang sudah pernah dibuat. Form yang ditampilkan sama seperti saat 
 Delete Post
 Menghapus post yang sudah pernah dibuat. Lakukan konfimasi dengan javascript untuk konfirmasi pengguna terhadap penghapusan post tersebut. Keluarkan konfirmasi berisi pesan berikut
 "Apakah Anda yakin menghapus post ini?"
-
 Jika pengguna memilih yes maka post terhapus, jika tidak maka post tidak jadi dihapus.
 
 View Post
@@ -23,7 +21,6 @@ Halaman View Post merupakan halaman untuk melihat suatu post. Pada halaman ini t
 
 Komentar
 Komentar berisi daftar komentar yang ditulis untuk post tertentu. Form komentar terdiri dari Nama, Email, dan Komentar, simpan juga tanggal dibuatnya komentar tersebut. Setiap item pada list komentar berisi Nama, Tanggal, Komentar.
-
 Lakukan validasi email pada form komentar dengan menggunakan javascript. Komentar dibuat dengan menggunakan AJAX. Pemanggilan AJAX dilakukan saat
 
     Load list komentar

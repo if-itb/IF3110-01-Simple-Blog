@@ -36,26 +36,12 @@
 
 <body class="default">
 
-<?php
-$con=mysqli_connect("localhost", "root", "", "SimpleBlog");
-// Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  echo "<br>";
-}
-
-$ID = $_GET['id'];
-$result = mysqli_query($con,"SELECT Judul, Tanggal, Konten FROM Posts WHERE PID='$ID'");
-
-while($row = mysqli_fetch_array($result)) {
-?>
-
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="9</"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">Edit Post</a></li>
+        <li><a href="edit_post.html">Edit Post</a></li>
     </ul>
 </nav>
 
@@ -64,20 +50,33 @@ while($row = mysqli_fetch_array($result)) {
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-    <div class="art-body">
+    <div class="artbody">
         <div class="art-body-inner">
             <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form name="Edit" method="post" action="save_edit_post.php?id=<?php echo $ID; ?>">
+					<?php
+					$con=mysqli_connect("localhost", "root", "", "SimpleBlog");
+					// Check connection
+					if (mysqli_connect_errno()) {
+					  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+					  echo "<br>";
+					}
+
+					$ID = $_GET['id'];
+					$result = mysqli_query($con,"SELECT Judul, Tanggal, Konten FROM Posts WHERE PID='$ID'");
+
+					while($row = mysqli_fetch_array($result)) {
+					?>
+                <form name="Edit" method="post" action="save_edit_post.php?id=<?php echo $ID; ?>" onsubmit="return ValidasiTanggal();">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['Judul']; ?>">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['Judul']; ?>" required>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $row['Tanggal']; ?>">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $row['Tanggal']; ?>" required>
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['Konten']; ?></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" required><?php echo $row['Konten']; ?> </textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -112,10 +111,34 @@ mysqli_close($con);
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript">
+	function ValidasiTanggal() {
+		var tgl = document.getElementById("Tanggal").value;
+		var cek = true;
+		if (tgl.length == 10 && tgl.match(/^\d{4}-\d{1,2}-\d{1,2}$/)) {
+			var tglDate = new Date(tgl);
+			var Now = new Date();
+			var YearNow = Now.getFullYear();
+			var MonthNow = Now.getMonth();
+			var DateNow = Now.getDate();
+			var Compare = YearNow + "-" + (MonthNow+1) + "-" + DateNow;
+			if((tglDate >= Now)||(Compare == tgl)) {
+				cek = true;
+			}
+			else {
+				cek = false;
+				alert("Jumlah karakter pada tanggal harus 10 dan sesuai format!!! Tanggal minimal adalah tanggal hari ini!!!");
+			}
+		} else {
+			cek = false;
+			alert("Jumlah karakter pada tanggal harus 10 dan sesuai format!!!");
+		}
+		return cek;
+	}
+</script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
