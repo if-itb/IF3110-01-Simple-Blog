@@ -54,7 +54,7 @@
           <ul class="art-list-body">
 				<?php
 					include('connectdb.php');
-					$query = mysql_query("SELECT * FROM post ORDER BY tanggal DESC") or die(mysql_error());
+					$query = mysql_query("SELECT * FROM post ORDER BY tanggal DESC, id_post DESC") or die(mysql_error());
 					while($row = mysql_fetch_assoc($query)){
 						$id_post = $row['id_post'];
 						$judul = $row['judul'];
