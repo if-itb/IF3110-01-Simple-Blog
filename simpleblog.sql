@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2014 at 02:09 AM
+-- Generation Time: Oct 13, 2014 at 12:04 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `post_id_fk` int(11) DEFAULT NULL,
   PRIMARY KEY (`com_id`),
   KEY `post_id_fk` (`post_id_fk`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `comments`
@@ -57,7 +57,10 @@ INSERT INTO `comments` (`com_id`, `com_name`, `com_email`, `com_date`, `com_dis`
 (25, 'Aryya Dwisatya Widigdha', 'a.dwisaty4@yahoo.com', '2014-10-10', 'Aryya', 1),
 (26, 'Aryya Dwisatya Widigdha', 'a.dwisaty4@yahoo.com', '2014-10-10', 'Komentar hasil validasi', 1),
 (27, 'AJAX', 'dasdsadas@dsadsadas.com', '2014-10-11', 'Komentar', 1),
-(28, 'dsdsadsa', 'dsadsadsa@sdsadsa.com', '2014-10-11', 'dsadsa', 15);
+(28, 'dsdsadsa', 'dsadsadsa@sdsadsa.com', '2014-10-11', 'dsadsa', 15),
+(29, 'Aryya', 'aryya@arc.itb.ac.id', '2014-10-13', 'Bila muncul, berarti sukses', 24),
+(30, 'Aryya Dwisatya Widigdha', 'aryya@arc.itb.ac.id', '2014-10-13', 'Komentar kedua', 24),
+(31, 'Dede', 'dede@arc.itb.ac.id', '2014-10-13', 'Ini komentar dari dede', 24);
 
 -- --------------------------------------------------------
 
@@ -70,23 +73,26 @@ CREATE TABLE IF NOT EXISTS `post` (
   `judul` text NOT NULL,
   `tanggal` date NOT NULL,
   `konten` text NOT NULL,
+  `isFeatured` int(1) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`no`, `judul`, `tanggal`, `konten`) VALUES
-(1, 'Posting Pertama (hasil update)', '2014-10-04', 'Ini hasil update lho'),
-(2, 'Posting pertama di TVST', '0000-00-00', 'Ini postingan pertama di TVST'),
-(13, 'dsds', '2014-10-09', 'dsadsa'),
-(14, 'Hasil validasi', '2014-10-10', 'Sudah bisa validasi tanggal'),
-(15, 'dsfd', '2014-10-09', 'fdsfdsf'),
-(16, 'Testing 3', '2014-10-08', ''),
-(19, 'dsadsad', '2014-10-10', 'dsadsa'),
-(20, 'dasdas', '2014-10-09', ''),
-(23, 'fdsfdsf', '2014-10-03', 'sdfsdfdsfsd');
+INSERT INTO `post` (`no`, `judul`, `tanggal`, `konten`, `isFeatured`) VALUES
+(1, 'Posting Pertama (hasil update)', '2014-10-04', 'Ini hasil update lho', 0),
+(2, 'Posting pertama di TVST', '0000-00-00', 'Ini postingan pertama di TVST', 0),
+(13, 'dsds', '2014-10-09', 'dsadsa', 0),
+(14, 'Hasil validasi', '2014-10-10', 'Sudah bisa validasi tanggal', 0),
+(15, 'dsfd', '2014-10-09', 'fdsfdsf', 0),
+(16, 'Testing 3', '2014-10-08', '', 0),
+(19, 'dsadsad', '2014-10-10', 'dsadsa', 0),
+(20, 'dasdas', '2014-10-09', '', 0),
+(23, 'fdsfdsf', '2014-10-03', 'sdfsdfdsfsd', 0),
+(24, 'Postingan di duktek', '2014-10-14', 'Ditulis di samping kiri Pandu dan kanan Dede', 0),
+(26, 'Featured duktek', '2014-10-13', 'Mantab', 1);
 
 --
 -- Constraints for dumped tables
