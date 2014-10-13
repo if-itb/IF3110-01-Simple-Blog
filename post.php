@@ -147,9 +147,3 @@ include 'phpfunction.php';
 
 </body>
 </html>
-
-<!-- AJAX -->
-
-<script type="text/javascript">
-
-</script>
