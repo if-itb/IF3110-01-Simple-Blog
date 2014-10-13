@@ -3,13 +3,16 @@
 global $isconnected;
 global $condb;
 
-function connect_db($username, $password, $dbname){
-	$GLOBALS['condb']=mysqli_connect("localhost",$username,$password,$dbname);
+function connect_db(){
+	include_once('sb-config.php');
+	$GLOBALS['condb']=mysqli_connect($config['host'],$config['username'],$config['password'],$config['dbname']);
 	
 	// Check connection
 	if (mysqli_connect_errno()) {
 	  	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		$GLOBALS['isconnected'] = false;
+		header('Location: databasenotfound.php');
+		die();	
 	}
 	else {
 		$GLOBALS['isconnected'] = true;
@@ -46,7 +49,7 @@ function get_comments($pid){
 }
 
 function get_posts_list(){
-	connect_db("root","","if3110_simple_blog_db");
+	connect_db();
 	$selectionQuery = "SELECT * FROM sb_posts ORDER BY tanggal DESC, id_post DESC";
 	$result = run_query($selectionQuery);
 	if($result){

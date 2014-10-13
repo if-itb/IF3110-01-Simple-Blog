@@ -38,6 +38,7 @@
 <?php
 // iclude functions.php
 include 'functions.php';
+date_default_timezone_set("Asia/Jakarta");
 // operasi
 ?>
     <nav class="nav">

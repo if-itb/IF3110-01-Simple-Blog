@@ -1,7 +1,7 @@
 <?php
 	include 'functions.php';
 
-	connect_db("root","","if3110_simple_blog_db");
+	connect_db();
 	$pid = $_GET['pid'];
 	
 	if(isset($_GET['nama']) && isset($_GET['email']) && isset($_GET['komentar'])){

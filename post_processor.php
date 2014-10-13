@@ -12,7 +12,7 @@ if ($_GET['action']=="edit" || $_GET['action']=="add"){
 	if(isset($_POST['Featured']))
 		$featured = "TRUE";
 	echo $featured;
-	connect_db("root","","if3110_simple_blog_db");
+	connect_db();
 	$row;
 	if($_GET['action']=="add"){ // menambahkan post
 		$insertQuery = "INSERT INTO sb_posts (judul, tanggal, konten, featured) VALUES ('" .
@@ -39,7 +39,7 @@ if ($_GET['action']=="edit" || $_GET['action']=="add"){
 
 else if($_GET['action']=="delete"){
 // menghapus post
-	connect_db("root","","if3110_simple_blog_db");
+	connect_db();
 	$query = "DELETE FROM sb_posts WHERE id_post=".$_GET['pid'];
 	if(run_query($query)){
 		echo 'post berhasil dihapus';

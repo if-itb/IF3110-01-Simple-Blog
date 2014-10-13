@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2014 at 04:10 AM
+-- Generation Time: Oct 13, 2014 at 10:22 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `if3110_simple_blog_db`
 --
+CREATE DATABASE IF NOT EXISTS `if3110_simple_blog_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `if3110_simple_blog_db`;
 
 -- --------------------------------------------------------
 
@@ -35,31 +37,26 @@ CREATE TABLE IF NOT EXISTS `sb_comments` (
   `id_post` int(4) NOT NULL,
   PRIMARY KEY (`id_komentar`),
   KEY `id_post` (`id_post`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
 -- Dumping data for table `sb_comments`
 --
 
 INSERT INTO `sb_comments` (`id_komentar`, `nama`, `email`, `komentar`, `timestamp`, `id_post`) VALUES
-(5, 'Ardi', 'ardi@ardi.com', 'kocak bro\nhaha', '2014-10-09 04:11:15', 42),
-(6, 'Riky', 'riky@riky.com', 'wah bisa lebih dari 30 kata kepotong', '2014-10-09 04:11:47', 27),
-(8, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'keren kan rik. . wkwk', '2014-10-11 20:01:08', 27),
-(9, 'Jelink', 'jeffhorus19@gmail.com', 'coba lagi', '2014-10-12 11:41:33', 27),
-(10, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'coba lagi ngecek jam', '2014-10-12 12:13:42', 27),
-(11, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'ngecek jam', '2014-10-12 12:20:46', 27),
-(12, 'Tegar', 'tegar@tegar.com', 'woi gimana caranya woi', '2014-10-12 12:21:48', 27),
-(14, 'Tutut', 'tutut@balap.hot', 'format komennya gimana?', '2014-10-13 01:52:53', 50),
-(15, 'Lingga', 'jeffhorus19@gmail.com', 'kayak gini nih', '2014-10-13 01:59:51', 50),
-(16, 'Tutut', 'tutut@balap.hot', 'oh gituuu', '2014-10-13 02:00:38', 50),
-(17, 'Lingga', 'jeffhorus19@gmail.com', 'keren keren wkwk', '2014-10-13 02:01:09', 50),
-(18, 'Lingga', 'jeffhorus19@gmail.com', 'masih ada yang ngebug', '2014-10-13 02:01:23', 50),
-(19, 'Lingga', 'jeffhorus19@gmail.com', 'jangan ngebuug', '2014-10-13 02:02:10', 50),
-(20, 'Lingga', 'jeffhorus19@gmail.com', 'test debug', '2014-10-13 02:02:46', 50),
-(21, 'Tutut', 'tutut@balap.hot', 'udah ga ngebug', '2014-10-13 02:03:19', 50),
-(22, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'mantap', '2014-10-13 02:03:27', 50),
-(23, 'Bagaskara', 'bagas@uchiha.com', 'ngapain nih rame amaaat???', '2014-10-13 02:04:06', 50),
-(24, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'iyalah keren gituh wkwk', '2014-10-13 02:04:21', 50);
+(25, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'Tradisi yang baik, harus dipertahankan. bravo pak SBY! sukses pak Jokowi!', '2014-10-13 13:40:38', 64),
+(26, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'semoga gak sekedar basa-basi', '2014-10-13 13:41:01', 63),
+(27, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'akhirnya kelar juga, hehe', '2014-10-13 19:24:38', 65),
+(28, 'Bagaskara', 'bagas@bagas.com', 'lebe lu ling', '2014-10-13 19:25:05', 64),
+(29, 'Ahmad', 'Ahmad@steroid.com', 'ada udang di balik batu nih', '2014-10-13 19:25:35', 63),
+(30, 'Kanya', 'kanya@tilil.com', 'Ahmad sayang, main yuk', '2014-10-13 19:25:56', 63),
+(31, 'Ahmad', 'ahmad@steroid.com', 'di chat aja, jangan di komen sini', '2014-10-13 19:26:10', 63),
+(32, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'pada ngapain dah -_-', '2014-10-13 19:26:20', 63),
+(33, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'sip-sip. . moga betah deh', '2014-10-13 19:26:44', 62),
+(34, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'semoga KPK tetap bertaring, gak takut sama para koruptor senayan.\nPak SBY semoga tetap bisa mendukung pemberantasan korupsi walau udah ga jadi presiden', '2014-10-13 19:27:26', 61),
+(35, 'Ardi', 'ardi@jomblo.com', 'Amin amin', '2014-10-13 19:27:53', 61),
+(36, 'Lutfi Fadlan', 'Lutfi@skip.com', 'jangan dikantongin doang pak namanya. . dimunculin dong wkwk', '2014-10-13 19:28:24', 61),
+(37, 'Jeffrey Lingga', 'jeffhorus19@gmail.com', 'sejauh ini gak ada yang eror, baguslah hehe', '2014-10-13 19:45:16', 66);
 
 -- --------------------------------------------------------
 
@@ -69,20 +66,24 @@ INSERT INTO `sb_comments` (`id_komentar`, `nama`, `email`, `komentar`, `timestam
 
 CREATE TABLE IF NOT EXISTS `sb_posts` (
   `id_post` int(4) NOT NULL AUTO_INCREMENT COMMENT 'primary key id post',
-  `judul` varchar(40) NOT NULL COMMENT 'judul post',
+  `judul` varchar(100) NOT NULL COMMENT 'judul post',
   `tanggal` date NOT NULL COMMENT 'tanggal publikasi post',
   `konten` text NOT NULL COMMENT 'isi post',
+  `featured` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_post`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=67 ;
 
 --
 -- Dumping data for table `sb_posts`
 --
 
-INSERT INTO `sb_posts` (`id_post`, `judul`, `tanggal`, `konten`) VALUES
-(27, 'Pos Kedua', '2014-10-12', 'Ini pos kedua dengan panjang file melebihi 30 kata.\r\nIni pos kedua dengan panjang file melebihi 30 kata.\r\nIni pos kedua dengan panjang file melebihi 30 kata.\r\nIni pos kedua dengan panjang file melebihi 30 kata.\r\nIni pos kedua dengan panjang file melebihi 30 kata.'),
-(42, 'Main Kata', '2014-10-05', 'Mari bermain kata, tapi jangan kebanyakan, soalnya kalau kebanyakan nanti ilang. ilang?? ilang gimana?? nih ku kasih contoh. Kalau kata dalam pos lebih dari 30 bisa gak muncul lho isinya. Kok bisa?? kalo ga percaya coba nih gw ulang lagi isi paragrafnya. Mari bermain kata, tapi jangan kebanyakan, soalnya kalau kebanyakan nanti ilang. ilang?? ilang gimana?? nih ku kasih contoh. Kalau kata dalam pos lebih dari 30 bisa gak muncul lho isinya. Kok bisa?? kalo ga percaya coba nih gw ulang lagi isi paragrafnya. '),
-(50, 'Pos Hari Ini', '2014-10-13', 'Harusnya hari ini');
+INSERT INTO `sb_posts` (`id_post`, `judul`, `tanggal`, `konten`, `featured`) VALUES
+(61, 'Pekan Ini SBY Pastikan Terima Pansel KPK', '2014-10-13', 'Jakarta - Panitia Seleksi calon pimpinan KPK sudah mengantongi dua nama yang akan diserahkan ke Presiden Susilo Bambang Yudhoyono (SBY). Presiden dipastikan akan menerima pansel pekan ini.\r\n\r\n"Kita tunggu saja. Sebelum akhir minggu," ujar Menkum HAM yang juga Ketua Pansel, Amir Syamsuddin di Istana Negara Jakarta, Senin (13/10/2014).\r\n\r\nAmir masih mengunci rapat-rapat dua nama pilihan Pansel yang bakal diserahkan ke SBY. Nama itu baru diumumkan setelah diterima oleh SBY.\r\n\r\n"Biarlah nanti setelah kami menyerahkan kepada presiden, tentunya baru diumumkan," lanjut Amir.\r\n\r\nPolitisi Partai Demokrat ini memastikan, dua nama yang dipilih sudah melalui tahapan seleksi panjang. Dia yakin dua nama ini adalah pilihan terbaik.\r\n\r\n"Bayangkan saja, dari semula 94, enam yang ditracking, dihasilkan dua yang terbaik," tutupnya.', 1),
+(62, 'Kross Lebih Mudah Beradaptasi di Madrid', '2014-10-13', 'Madrid - Toni Kroos menjadi salah satu pembelian Real Madrid di bursa musim panas tahun ini. Gelandang internasional Jerman itu menyebut kepindahan itu merupakan keputusan yang tepat karena dia lebih mudah beradaptasi. \r\n\r\nEl Real tak pernah menyebutkan secara rinci nominal pembelian Kroos dari Bayern pada pertengahan Juli tahun ini. Tapi diyakini pemain yang moncer di Piala Dunia 2014 Brasil itu didatangkan dengan biaya transfer senilai 20 juta poundsterling. \r\n\r\nSejatinya, Bayern juga masih menginginkan Kroos tinggal lebih lama. Namun, Kroos menolak tawaran perpanjangan kontrak tim yang sudah tujuh musim dibelanya itu. Bersama Madrid, pesepakbola 24 tahun itu menemukan apa yang dicari.\r\n\r\n"Aku beruntung bergabung dengan klub yang mempunyai standart tinggi. Di Munich kami berpedoman untuk tak sekadar meraih kemenangan di atas lapangan--tapi kamu harus memulai musim kompetisi untuk meraih titel. So, aku tak bisa beradaptasi dengan baik," kata Kroos seperti dikutip Daily Star. \r\n\r\n"Aku menikmati bermain di Madrid. Biar orang tak mempercayaiku, ini adalah sebuah klub dengan kekeluargaan yang tinggi. Aku merasa kalau orang-orang mempercayaiku. \r\n\r\n"Aku senang berkesempatan untuk mencoba sesuatu yang baru. Meskipun baru sebentar di sini, aku rasa ini sebuah keputusan yang tepat. \r\n\r\n"Madrid adalah klub istimewa dan tantangan yang aku cari setelah karier yang panjang di Bayern. Madrid, Bayern, Barcelona, dan Chelsea adalah empat tim terbesar saat ini, so aku hanya mau bertukar di antara klub-klub itu," beber dia. \r\n\r\nSejauh ini, Kroos menjadi starter dalam tujuh laga dan berkontribusi dengan membuat tiga assist.', 0),
+(63, 'Pimpinan MPR Temui Jokowi-JK', '2014-10-13', 'Ketua MPR Zulkifli Hasan menemui Jokowi-JK. Zulkifli datang dengan didampingi tiga wakilnya, yaitu Oesman Sapta Odang, Mahyuddin, dan EE Mangindaan. Sementara Wakil Ketua DPR Hidayat Nur Wahid tidak bisa hadir karena sedang menghadiri pertemuan Inter-Parliamentary Union (IPU) di Jenewa, Swiss. ', 1),
+(64, 'Istana Siapkan Serah Terima Jabatan Presiden', '2014-10-14', 'Jakarta - Seskab Dipo Alam mengatakan, istana telah menyiapkan prosesi serah terima jabatan antara Presiden Susilo Bambang Yudhoyono (SBY) dan Presiden terpilih Joko Widodo pada 20 Oktober nanti. Seperti apa mekanismenya?\r\n\r\n"Dulu memang ada rencana presiden menyambut (Jokowi-JK-red) di sini. Saya masih belum tahu skenario pastinya bagaimana," kata Dipo kepada wartawan di Istana Negara Jakarta, Senin (13/10/2014).\r\n\r\nDijelaskan Dipo, SBY akan datang ke pelantikan Jokowi-JK di Gedung DPR/MPR, Jakarta, 20 Oktober 2014 nanti. Setelah itu, SBY akan ke Istana untuk serah terima jabatan dengan Jokowi.\r\n\r\n"Kan beliau balik bukan sebagai presiden lagi, tapi sebagai yang pernah tinggal di sini (Istana Negara), beliau menghormati presiden yang baru," katanya.\r\n\r\nDipo berkata, dirinya belum bisa memastikan apakah Ani Yudhoyono dan para Menteri Kabinet Indonesia Bersatu II mendampingi SBY saat menyambut Jokowi. Namun menurutnya akan ada 7-10 tamu negara yang akan datang.\r\n\r\n"Ada 7 sampai 10 kepala negara datang untuk hormati Jokowi," imbuh Dipo tanpa merinci siapa-siapa saja yang akan datang dalam serah terima jabatan itu.\r\n\r\nDitambahkan Dipo, serah terima jabatan yang disiapkan Istana ini merupakan tradisi yang bagus. Dirinya berharap proses transisi SBY dan Jokowi nantinya akan berlangsung lancar.\r\n\r\n"Ini uluran yang sangat bagus, bahwa dalam sejarahnya presiden yang pertama kali dipilih langsung oleh rakyat bisa tuntas 10 tahun. Kedua, harus dibuat tradisi transisi, nggak perlu ramai-ramai, jadi niat presiden itu baik. Mbok yang berikan komentar-komentar, berikan apresiasi yang positif baik untuk SBY dan Jokowi," tuturnya.', 1),
+(65, 'Identitas Pembuat', '2014-10-20', 'Nama : Jeffrey Lingga Binangkit.\r\nNIM : 13512059.', 1),
+(66, 'Pos Hari Terakhir', '2014-10-14', 'semoga gak ada yang error. amin', 1);
 
 --
 -- Constraints for dumped tables

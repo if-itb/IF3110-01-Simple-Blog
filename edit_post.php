@@ -5,7 +5,7 @@ include 'functions.php';
 // operasi
 if (isset($_GET['pid'])){
 	$pid = $_GET['pid'];
-	connect_db("root","","if3110_simple_blog_db");
+	connect_db();
 	$selectionQuery = "SELECT * FROM sb_posts WHERE id_post=" . $pid;
 	$result = run_query($selectionQuery);
 ?>

@@ -1,13 +1,9 @@
 <?php include 'functions.php'; 
-connect_db();
-$selectionQuery = "SELECT * FROM sb_posts WHERE id_post='" . $_GET['pid'] . "'";
-$row = mysqli_fetch_array(run_query($selectionQuery));
-$pid = $row['id_post'];
-$title = $row['judul'];
-$date = $row['tanggal'];
-$content = $row['konten'];
-$featured = "";
-if($row['featured'] == 1) $featured = "featured-article ";
+  include_once('sb-config.php');
+  $GLOBALS['condb']=@mysqli_connect($config['host'],$config['username'],$config['password'],$config['dbname']);
+  
+  // Check connection
+  if (mysqli_connect_errno()) {
 ?>
 
 <!DOCTYPE html>
@@ -41,9 +37,7 @@ if($row['featured'] == 1) $featured = "featured-article ";
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Jeffrey Lingga | <?php echo $title; ?></title>
-
-<script type="text/javascript" src="assets/js/commentAjax.js"></script>
+<title>Jeffrey Lingga's Blog | Database Not Found</title>
 
 </head>
 
@@ -53,51 +47,29 @@ if($row['featured'] == 1) $featured = "featured-article ";
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Jeffrey<span>-</span>Lingga</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    <header class="art-header">
-        <div class="art-header-inner" style="margin-top: 100px; opacity: 1;">
-            <time class="art-time"><?php echo tanggalProcessor($date);?></time>
-            <h2 class="art-title"><?php echo $title;?></h2>
-            <p class="art-subtitle"></p>
-        </div>
-    </header>
-
-    <div class="art-body">
-        <div class="art-body-inner">
-            <hr class="<?php echo $featured; ?> article" />
-            <?php echo str_replace("\n", "<br>", $content);?>
-            <br /><br />
-            <hr />
-            
-            <h2>Komentar</h2>
-
-            <div id="contact-area">
-                <form name="CommentForm" method="post" action="#" onSubmit="return submitComment(<?php echo $pid; ?>,Nama.value,Email.value,Komentar.value);">
-                    <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
-        
-                    <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
-                    
-                    <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
-
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
-                </form>
-            </div>
-
-            <ul id="comments" class="art-list-body">
-            	<script>showComments("<?php echo $_GET['pid']; ?>");</script>
-            </ul>
-        </div>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <br><h3>Database tidak dapat diakses</h3>
+          Mohon ikuti langkah-langkah berikut untuk menggunakan blog ini :<br>
+          <ol>
+            <li>Pastikan sudah memiliki "if3110_simple_blog_db.sql", seharusnya sudah ada di folder yang sama dengan file ini. jika tidak ada download <a href="https://www.dropbox.com/s/h8cjj7hfcm34upx/if3110_simple_blog_db.sql?dl=1">di sini</a></li>
+            <li>Lakukan import "if3110_simple_blog_db.sql" ke dalam MySQL anda</li>
+            <li>Jika tetap tidak bisa, silakan buka file konfigurasi "sb-config.php" menggunakan text editor apapun, sesuaikan isi field-field variabel di file tersebut<br>
+              $config['host'] = isilah alamat host anda dalam tanda kutip satu, biasanya 'localhost';<br>
+              $config['username'] = isilah dengan nama user (dalam tanda kutip satu) yang memiliki privilage terhadap database "if3110_simple_blog_db.sql", biasanya 'root';<br>
+              $config['password'] = isilah dengan password user tadi dalam kutip satu, bila tidak mengeset password masukkan '';<br>
+              $config['dbname'] = 'if3110_simple_blog_db';<br>
+            </li>
+            <li>Jika masih terkendala dalam instalasi, silakan hubungi <a href="http://facebook.com/jeffreylingga">Jeffrey Lingga Binangkit</a>
+          </ol>
+          <br>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -120,7 +92,6 @@ if($row['featured'] == 1) $featured = "featured-article ";
 
 </div>
 
-<script type="text/javascript" src="assets/js/validator.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -131,6 +102,12 @@ if($row['featured'] == 1) $featured = "featured-article ";
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+<br>
 </body>
 </html>
+<?php }
+else{
+  header('Location: index.php');
+  die();  
+}
+?>
