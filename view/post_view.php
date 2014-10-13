@@ -22,7 +22,8 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <hr class="featured-article" />
+            <hr />
+            
             <?php echo $data[2]?>
 
             <hr />
@@ -32,32 +33,22 @@
             <div id="contact-area">
                 <form method="post">
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+                    <input type="text" name="Nama" id="Nama" onkeyup="validateForm2()">
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email" onblur="loadXMLDoc(this.value)">
+                    <input type="text" name="Email" id="Email" onkeyup="loadXMLDoc(this.value)" onblur="loadXMLDoc(this.value)">
                     <span id="msg"></span>
                     
                     <label for="Komentar" id="komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar" onkeyup="validateForm2()"></textarea>
 
-                    <input type="button" name="submit" value="Kirim" class="submit-button" onclick="add_comment(Email.value,Nama.value,Komentar.value,<?php echo $_GET['id'] ?>)">
+                    <input type="button" id="submit" name="submit" value="Kirim" class="submit-button" onclick="add_comment(Email.value,Nama.value,Komentar.value,<?php echo $_GET['id'] ?>)" disabled>
+                    <input type="button" id="see" value="Lihat Komentar" class="submit-button" onclick="lihat_komentar(<?php echo $_GET['id'] ?>)">
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item" id="komen_baru">
+            <ul class="art-list-body" id="komen">
 
-                </li>
-                <?php for($i=sizeof($split)-2;$i>1;$i--){ $currdata = getData($split[$i]);?>
-                <li class="art-list-item" id="komen_view">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><?php echo $currdata[0];?></h2>
-                        <div class="art-list-time"><?php echo $currdata[1];?></div>
-                    </div>
-                    <p><?php echo $currdata[2];?></p>
-                </li>
-                <?php }?>
             </ul>
         </div>
     </div>

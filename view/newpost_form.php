@@ -18,9 +18,9 @@
                     <input type="text" name="Judul" id="Judul" onkeyup="validateForm()">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="date" name="Tanggal" id="Tanggal" onchange="validateDate(this.value)" onblur="validateForm()">
+                    <input type="date" name="Tanggal" id="Tanggal" onchange="validateDate(this.value)">
                     <div id="msg2"></div>
-                   
+
                     <label for="Konten" id="konten">Konten:</label>
                     <textarea name="Konten" rows="20" cols="20" id="Konten" onkeyup="validateForm()"></textarea>
 
