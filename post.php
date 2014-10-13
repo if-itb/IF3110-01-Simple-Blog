@@ -70,6 +70,10 @@
         echo'    </div>';
     ?>
             <ul class="art-list-body">
+                
+                <!-- Load Commentar -->
+                <?php load_comment($id); ?>
+                
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
                         <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
@@ -85,6 +89,7 @@
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
                 </li>
+                
             </ul>
         </div>
     </div>
