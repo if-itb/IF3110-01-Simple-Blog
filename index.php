@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+
+<?php
+	$DBName = "SimpleBlog"
+	$DBHandler = new PDO("mysql:host=localhost;dbname=$DBName;");
+	
+	$ArticleList = "SELECT * FROM article ORDER BY article_id DESC";
+	$ArticleHandler = $DBHandler->prepare($ArticleList);
+	$ArticleHandler->execute();
+	$ArticleHandler->setFetchMode(PDO::FETCH_ASSOC);	
+?>
+
 <html>
 <head>
 
@@ -48,17 +59,29 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+		  
+			<?php
+				while($Article = $ArticleHandler->fetch()){
+					echo "
+					 <li class="art-list-item">
+					<div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href="post.php?id=$article[article_id]\">$article[article_title]</a></h2>
+					<div class="art-list-time">
+						echo date("j F Y",strtoftime($article['article_date']));
+					</div>
+						</div>
+						<p>$article['article_content']</p>
+						<p>
+						<a href="#">Edit</a> | <a href="#">Hapus</a>
+						</p>
+					</li>
+					";
+					echo 
+			?>
+            
+                    
+                    
+                
 
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
