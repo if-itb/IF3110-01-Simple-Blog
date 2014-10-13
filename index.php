@@ -25,9 +25,13 @@
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
                 <p><?=$post['konten'];?></p>
+                <form action='delete_post.php' method='post' onsubmit="return confirm('Apakah Anda yakin menghapus post ini?')">
                 <p>
-                  <a href='manage_post.php?id=<?=$post['id'];?>'>Edit</a> | <a onclick='hapusPost(<?=$post['id'];?>)'>Hapus</a>
+                  <a href='manage_post.php?id=<?=$post['id'];?>'>Edit</a> | 
+                    <input type="hidden" name="id" value="<?=$post['id'];?>"/>
+                    <button type="submit" style='border:0; background:none;'/>Hapus</button>
                 </p>
+                </form>
             </li>
        		<?php endforeach; ?>
           </ul>
@@ -35,24 +39,5 @@
     </div>
 </div>
 <?php require "footer.php"; ?>
-<script type="text/javascript">
-	function hapusPost(id){
-		if (confirm("Apakah Anda yakin menghapus post ini?")){
-			xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST","delete.php",true);
-			var params = JSON.stringify({"id" : id});
-
-			xmlhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
-			xmlhttp.setRequestHeader("Content-length", params.length);
-			xmlhttp.setRequestHeader("Connection", "close");
-
-			xmlhttp.onreadystatechange = function (){
-				if (xml.readyState == 4 && xmlhttp.status == 200){
-					document.getElementById(""+id).style.visible = "none";
-				}
-			}
-		}
-	}
-</script>
 </body>
 </html>

@@ -39,14 +39,14 @@
             <h2><?=isset($_GET['id'])?"Ubah":"Tambah";?> Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="#" onsubmit="return validate()">
                     <input type="hidden" name="id" value='<?=isset($_GET['id'])?$_GET['id']:0;?>'>
 
                     <label for="Judul">Judul:</label>
                     <input type="text" name="judul" id="Judul" value='<?=$post['judul'];?>'>
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="tanggal" id="Tanggal" value='<?=$post['tanggal'];?>'>
+                    <input type="text" name="tanggal" id="Tanggal" placeholder='YYYY-MM-DD' value='<?=$post['tanggal'];?>'>
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="Konten"><?=$post['konten'];?></textarea>
@@ -60,5 +60,25 @@
 </article>
 </div>
 <?php require 'footer.php'; ?>
+<script type="text/javascript">
+    function validate(){ 
+        var date = document.getElementById("Tanggal").value;
+        if (checkDate(date)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function checkDate(dateText) {
+        var match = dateText.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        console.log(match);
+        if (match === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
 </body>
 </html>

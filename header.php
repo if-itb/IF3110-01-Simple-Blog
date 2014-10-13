@@ -9,6 +9,8 @@
 <meta name="author" content="Muhammad Yafi's blog">
 
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/custom.css" />
+
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
 <!--[if lt IE 9]>

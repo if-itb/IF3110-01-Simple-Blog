@@ -60,4 +60,9 @@ function addComment($data){
 	mysql_query($sql);
 }
 
+function deletePost($id){
+	$sql = "DELETE FROM `post` WHERE `id`=$id";
+	mysql_query($sql);
+}
+
 ?>
