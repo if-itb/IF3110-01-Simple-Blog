@@ -32,16 +32,11 @@
 	</head>
 	
 	<body class="default">
-		<div class="wrapper">
-
-			<nav class="nav">
-				<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-				<ul class="nav-primary">
-					<li><a href="new_post.php">+ Tambah Post</a></li>
-				</ul>
-			</nav>
+		
+	<?php include 'header.php';?>
 
 
+<div class="wrapper">
 			<div id="home">
 				<div class="posts">
 					<nav class="art-list">
@@ -51,7 +46,7 @@
 							if (mysqli_connect_errno()) {
 								echo "Failed to connect to MySQL: " . mysqli_connect_error();
 							}
-							$result = mysqli_query($con, "SELECT * FROM post");
+							$result = mysqli_query($con, "SELECT * FROM post ORDER BY tanggal_post DESC");
 							
 							while($row = mysqli_fetch_array($result)) {
 								echo "<li class=\"art-list-item\">";
@@ -59,11 +54,14 @@
 								echo "<h2 class=\"art-list-title\"><a href=\"post.php?postId=".$row['id_post']."\">".$row['judul']."</a></h2>";
 								echo "<div class=\"art-list-time\">".$row['tanggal_post']."</div>";
 								echo "</div>";
-								//echo $row['id_post']. " " .$row['judul']. " " .$row['tanggal_post']. " " .$row['konten'];
-								echo "<p>".$row['konten']."</p>";
+								$isi_dr_db = $row['konten'];
+								//echo "<p> pjgnya ".strlen($row['konten']). "</p>";
+								echo "<p>".substr($isi_dr_db,0,300);
+								if (strlen($isi_dr_db) > 300) echo "...";
+								echo "</p>";
 								echo "<br>";
 								echo "<p>";
-								echo "<a href=\"edit_post.php?postId=".$row['id_post']."\">Edit</a> | <button onclick=\"onClickDelete(".$row['id_post'].")\">Hapus</button>";
+								echo "<a href=\"modify_post.php?postId=".$row['id_post']."\">Edit</a> | <button onclick=\"onClickDelete(".$row['id_post'].")\">Hapus</button>";
 								echo "</p>";
 								echo "</li>";
 							}

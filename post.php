@@ -35,19 +35,12 @@
 </head>
 
 <body class="default">
+<?php include 'header.php';?>
 <div class="wrapper">
-
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
-    </ul>
-</nav>
 
 <article class="art simple post">
     <div class="art-body">
         <div class="art-body-inner">
-			<h6 class = "art-body-inner"></h6>
 			<?php
 				$postId = $_GET['postId'];
 				$con = mysqli_connect("localhost","root","","if3110-tugas1");
@@ -141,7 +134,7 @@
 			  query_string[pair[0]].push(pair[1]);
 			}
 		}
-		showComment(null,3);
+		showComment(null,id);
 	})();
 	
 	function validateEmail(obj, id) {

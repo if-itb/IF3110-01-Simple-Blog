@@ -4,7 +4,9 @@
 	if (mysqli_connect_errno()) {
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
-	$result = mysqli_query($con, "SELECT * FROM komentar WHERE id_post =".$postId."");
+	$qry = "SELECT * FROM komentar WHERE id_post =".$postId." ORDER BY id_komentar DESC";
+	$result = mysqli_query($con, $qry);
+	//echo $qry;
 	while($row = mysqli_fetch_array($result)) {
 		echo "<li class=\"art-list-item\">";
 		echo "<div class=\"art-list-item-title-and-time\">";
