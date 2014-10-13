@@ -24,6 +24,9 @@ if (!empty($_POST)){
 		$valid = false;
 	}
 
+	
+
+
 	if ($valid){
 		$sambung = mysql_connect("localhost:3306","root","");
 		if (!$sambung) {
