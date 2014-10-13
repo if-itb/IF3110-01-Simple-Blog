@@ -2,7 +2,7 @@
 include 'mysql.php';
 $idpost = $_GET['id'];
 
-$delquery = "DELETE FROM post WHERE id_post = '".$idpost."' ";
+$delquery = "DELETE post, comments FROM post JOIN comments ON post.id_post=comments.id_post WHERE post.id_post = '".$idpost."' ";
 $sql = $con->query($delquery);
 ?>
 

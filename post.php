@@ -16,6 +16,8 @@ if($query->num_rows !=1){
     header('Location: index.php');
     exit();
 }
+
+include 'phpfunction.php';
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +56,7 @@ if($query->num_rows !=1){
 
 </head>
 
-<body class="default">
+<body class="default" onload=AJAXLoad(<?php echo $id; ?>)>
 <div class="wrapper">
 
 <nav class="nav">
@@ -70,7 +72,7 @@ if($query->num_rows !=1){
 
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
+            <time class="art-time"><?php echo StrTanggal($thepost->tanggal); ?></time>
             <h2 class="art-title"><?php echo $thepost->judul; ?></h2>
             <p class="art-subtitle"></p>
         </div>
@@ -85,7 +87,7 @@ if($query->num_rows !=1){
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" onsubmit="getXMLHTTPrequest('<?php echo $id ?>'); return false">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -99,23 +101,8 @@ if($query->num_rows !=1){
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.php">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
+            <div id="comments">
+            </div>
         </div>
     </div>
 
@@ -145,6 +132,8 @@ if($query->num_rows !=1){
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/jsfunction.js"></script>
+<script type="text/javascript" src="assets/js/ajaxfunction.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -158,3 +147,9 @@ if($query->num_rows !=1){
 
 </body>
 </html>
+
+<!-- AJAX -->
+
+<script type="text/javascript">
+
+</script>

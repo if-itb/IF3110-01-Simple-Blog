@@ -1,6 +1,7 @@
 <?php
 include 'mysql.php';
-$showquery = $con->prepare("SELECT id_post, judul, LEFT(konten, 100) AS konten, tanggal FROM post ORDER BY tanggal desc");
+include 'phpfunction.php';
+$showquery = $con->prepare("SELECT id_post, judul, LEFT(konten, 500) AS konten, tanggal FROM post ORDER BY tanggal DESC, id_post DESC");
 $showquery->execute();
 $showquery->bind_result($id_post, $judul, $konten, $tanggal);
 ?>
@@ -61,13 +62,13 @@ $showquery->bind_result($id_post, $judul, $konten, $tanggal);
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href=<?php echo"post.php?id=$id_post"?>><?php echo $judul; ?></a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
+                    <div class="art-list-time"><?php echo StrTanggal($tanggal); ?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
                 <p><?php echo $konten; ?> &hellip;</p>
                 <p>
                   <?php $deURL = "delete_post.php?id=".$id_post."" ?>
-                  <a href="#">Edit</a> | <a href="javascript:delete_post('<?php echo $deURL ?>')">Hapus</a>
+                  <a href=<?php echo "edit_post.php?id=$id_post"?>>Edit</a> | <a href="javascript:delete_post('<?php echo $deURL ?>')">Hapus</a>
                 </p>                
             </li>
             <?php endwhile?>
@@ -100,6 +101,7 @@ $showquery->bind_result($id_post, $judul, $konten, $tanggal);
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/jsfunction.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -113,14 +115,3 @@ $showquery->bind_result($id_post, $judul, $konten, $tanggal);
 
 </body>
 </html>
-
-<script>
-function delete_post(delURL){
-  var del = confirm("Apakah Anda yakin menghapus post ini?");
-  if (del == true)
-    document.location = delURL;
-  else
-    alert("Perintah hapus dibatalkan.");
-  return del;
-}
-</script>

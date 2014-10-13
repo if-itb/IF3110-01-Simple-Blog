@@ -50,12 +50,12 @@
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-    <div class="art-body">
+    <div class="artbody">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
 
             <div id="contact-area">     
-                <form method="post" action="add_post.php" return="JavaScript:ValidasiTanggal('<?php echo $_POST['Tanggal']; ?>')">
+                <form method="post" action="add_post.php" onsubmit="return ValidasiForm(this)">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
@@ -97,6 +97,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/jsfunction.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -110,35 +111,3 @@
 
 </body>
 </html>
-
-<script>
-function ValidasiTanggal(date){
-    var valid;
-    var year = input.value.split("-")[0];
-    var month = input.value.split("-")[1];
-    var day = input.value.split("-")[2];
-    var dateobj = new Date(year, month-1, day);
-    if(dateobj.getMonth()+1!=month || dateobj.getDate()!=day || dateobj.getFullYear()!=year){
-        alert("Masukan tanggal tidak valid.");
-        valid = false;
-    } else{
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yy = today.getFullYear();
-        if (yy<year){
-            alert("Masukan tanggal harus lebih besar atau sama dengan tanggal hari ini.");
-            valid = false;
-        } else if (mm<month){
-            alert("Masukan tanggal harus lebih besar atau sama dengan tanggal hari ini.");
-            valid = false;
-        } else if (dd<day){
-            alert("Masukan tanggal harus lebih besar atau sama dengan tanggal hari ini.");
-            valid = false;
-        } else{
-            valid = true;
-        }
-    }
-    return valid;
-}
-</script>
