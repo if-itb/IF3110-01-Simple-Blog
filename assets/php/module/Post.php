@@ -7,7 +7,6 @@ class Post extends Module {
 	
 	//assumption : there's no post with same title
 	const INDEX_FILENAME = "/index.json";
-	//const COMMENT_FILENAME = "/comment.json";
 	
 	//protected $post_list
 	protected $post_index;	//index file for post
@@ -28,16 +27,13 @@ class Post extends Module {
 	) {
 		parent::__construct($page);
 		
-		//$this->post_list = array();
 		$this->post_index = array();
 		$this->post_path = $post_path;
 		$this->index_path = $index_path;
-		//$this->data_mgr = "";
 		$this->is_preview = $is_preview;
 		$this->post_title = $post_title;
 		$this->post_date = $post_date;
 		
-		//load index
 		$args = array(
 			"path" => $index_path,
 			"fname" => self::INDEX_FILENAME
@@ -124,18 +120,6 @@ EOD;
 	//get list of post from file
 	public function get_list() {
 		$data_mgr = new PostDataManager($this->post_path, $this->index_path);
-		
-		//get data
-		/*$list = "";
-		$args = array(
-			"path" => $this->index_path,
-			"fname" => self::INDEX_FILENAME
-		);
-		$retval = "";
-		
-		$data_mgr->get_data($args, $list, $retval);
-		*/
-		
 		return $data_mgr->get_index();;
 	}
 	

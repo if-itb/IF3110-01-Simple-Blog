@@ -1,3 +1,6 @@
+/* script untuk mengecek tanggal dan konfirmasi saat
+ * menghapus post
+ */
 function confirmDelete() {
 	var retval = confirm("Anda yakin ingin menghapus post ini?");
 	return retval;

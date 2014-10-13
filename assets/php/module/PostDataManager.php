@@ -106,6 +106,7 @@ class PostDataManager {
 	
 	private function add_to_index($id, $post_title, $post_date, $content) {
 		
+		//generate some pseudorandom filename
 		$content_digest = substr($content, 0, 100);
 		if(strlen($content) > 100) {
 			$content_digest .= "...";
@@ -152,21 +153,12 @@ class PostDataManager {
 			return true;
 		}
 		
-		/*foreach($index as $date => $post_id) {
-			foreach($post_id as $key => $value) {
-				if($key == $id) {
-					unset($index[$date][$key]);
-					$this->put_index($index);
-					return true;
-				}
-			}
-		}*/
-		
 		return false;
 	}
 	
 	private function replace_entry($id, $old_post_title, $old_date, $new_post_title, $new_date, $content) {
 		
+		//create some content digest for previewing purpose
 		$content_digest = substr($content, 0, 100);
 		
 		if(strlen($content) > 100) {
@@ -175,8 +167,10 @@ class PostDataManager {
 		
 		$index = $this->get_index();
 		
+		//check for date
 		if(strcmp($old_date, $new_date) === 0) {
 			
+			//check for title
 			if(strcmp($old_post_title, $new_post_title) !== 0) {
 				$index[$old_date][$id]["title"] = $new_post_title;
 			}

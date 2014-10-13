@@ -11,9 +11,9 @@ class CommentDataManager {
 	
 	public function get_comment($cmnt_number) {
 		$path = $this->cmnt_path."/".$this->post_id.".comment";
+		
 		if(!file_exists($path)) {
 			//make a folder for a comment
-			//file_put_contents($file, "");
 			mkdir($path);
 			
 			//make a counter for comment
@@ -35,11 +35,7 @@ class CommentDataManager {
 	}
 	
 	public function add_comment($sender, $email, $date, $comment) {
-		//$data = $this->get_comment();
 		$cmnt_number = $this->increment_comment_count();
-		/*if($data === false) {
-			$data = array();
-		}*/
 		$item = array(
 			"sender" => $sender,
 			"email" => $email,

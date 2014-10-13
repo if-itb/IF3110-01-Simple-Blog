@@ -4,7 +4,6 @@ include_once("assets/php/module/PostDataManager.php");
 
 class BlogNewPostPage extends SimpleBlog {
 	
-	//default constructor, 
 	public function __construct() {
 		parent::__construct();
 	}

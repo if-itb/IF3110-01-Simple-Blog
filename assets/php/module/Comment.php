@@ -4,7 +4,7 @@ include_once("assets/php/base/Module.php");
 class Comment extends Module {
 	
 	protected $cmnt_path; //comment file path
-	protected $post_id;
+	protected $post_id;   //post id
 	
 	public function __construct($page, $path, $post_id) {
 		parent::__construct($page);
@@ -14,7 +14,6 @@ class Comment extends Module {
 	
 	public function get_content() {
 		$text_area = $this->get_text_area();
-		//$comment_list = $this->get_comment_list();
 		$comment = "";
 		
 		return <<<EOD
