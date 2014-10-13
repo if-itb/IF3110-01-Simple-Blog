@@ -8,6 +8,9 @@
 
 require_once 'config.php';
 
+if (($delete = req_handler('delete')) != ""){
+	if (db_execute("DELETE FROM `post` WHERE `id_post`='$delete';")) $delOK = 1;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,7 +63,8 @@ require_once 'config.php';
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-          <?php 
+          <?php if (isset($delOK)) { ?><font color="green">Post berhasil dihapus!</font> <?php } 
+          
           	$konten = db_fetchs("SELECT * FROM `post` ORDER BY `stamp` DESC;");
           	for ($i = 1; $i <= $konten[0]; $i++){
           ?>
@@ -72,7 +76,7 @@ require_once 'config.php';
                 </div>
                 <p><?php echo substr(strip_tags($konten[$i]['konten']), 0, 200); ?></p>
                 <p>
-                  <a href="edit/<?php echo $konten[$i]['id_post']; ?>">Edit</a> | <a href="delete/<?php echo $konten[$i]['id_post']; ?>">Hapus</a>
+                  <a href="edit/<?php echo $konten[$i]['id_post']; ?>">Edit</a> | <a href="javascript:void(0);" onclick="if (confirm('Apa anda yakin menghapus post ini?')) window.location='delete/<?php echo $konten[$i]['id_post']; ?>';">Hapus</a>
                 </p>
             </li>
 		<?php }

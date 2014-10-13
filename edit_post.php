@@ -8,13 +8,24 @@
 
 require_once 'config.php';
 
+$id = req_handler('id');
+$post = db_fetch("SELECT * FROM `post` WHERE id_post='$id'");
+
+if (!$post){
+	header("location:" . $systemurl);
+	exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$judul = req_handler('Judul');
 	$tgl = req_handler('Tanggal');
 	$konten = req_handler('Konten');
 	
-	if (db_execute("INSERT INTO `post` (`id_post`, `judul`, `konten`, `stamp`) VALUES (NULL, '$judul', '$konten', '$tgl');")) $ok = 1;
+	if (db_execute("UPDATE `post` SET `judul`='$judul', `konten`='$konten', `stamp`='$tgl' WHERE id_post='$post[id_post]'")) $ok = 1;
+}else{
+	$judul = $post['judul'];
+	$tgl = $post['stamp'];
+	$konten = $post['konten'];
 }
 
 ?>
@@ -64,11 +75,11 @@ function validasi(){
 	var tgl = /([0-9]+)-([0-9]+)-([0-9]+)/.test(document.getElementById("Tanggal").value);
 
 	if (tgl){
-		if (new Date(document.getElementById("Tanggal").value).getTime() + 86399000 < new Date().getTime()){
+		/*if (new Date(document.getElementById("Tanggal").value).getTime() + 86399000 < new Date().getTime()){
 			alert('Tanggal harus lebih besar atau sama dengan hari ini! ');
 			document.getElementById("Tanggal").focus();
 			return false;
-		}
+		}*/
 	}else{
 		alert('Tanggal harus menggunakan format YYYY-MM-DD!');
 		document.getElementById("Tanggal").focus();
@@ -107,18 +118,18 @@ function validasi(){
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-			<?php if (isset($ok)) { ?><font color="green">Post berhasil ditambahkan!</font> <?php } ?>
+            <h2>Edit Post</h2>
+			<?php if (isset($ok)) { ?><font color="green">Post berhasil diedit!</font> <?php } ?>
             <div id="contact-area">
-                <form method="post" action="new" onsubmit="return validasi();">
+                <form method="post" action="edit/<?php echo $id; ?>" onsubmit="return validasi();">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" placeholder="Judul artikel">
+                    <input type="text" name="Judul" value="<?php echo $judul; ?>" id="Judul" placeholder="Judul artikel">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="Tanggal, Format YYYY-MM-DD">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $tgl; ?>" placeholder="Tanggal, Format YYYY-MM-DD">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten" placeholder="Konten artikel ..."></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" placeholder="Konten artikel ..."><?php echo $konten; ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>

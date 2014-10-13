@@ -1,2 +1,8 @@
 RewriteEngine On
+
+RewriteRule ^new/?$ new_post.php [NC,L]
+RewriteRule ^delete/([0-9]+)/?$ index.php?delete=$1 [NC,L]
+RewriteRule ^edit/([0-9]+)/?$ edit_post.php?id=$1 [NC,L]
+RewriteRule ^cmt/([0-9]+)/?$ isi_komentar.php?id=$1 [NC,L]
 RewriteRule ^read/([0-9]+)/(.+)?$ post.php?id=$1 [NC,L]
+

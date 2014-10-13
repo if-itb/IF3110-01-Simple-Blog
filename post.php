@@ -8,7 +8,7 @@
 
 require_once 'config.php';
 
-$id = req_handler($_GET['id']);
+$id = req_handler('id');
 $err = 0;
 
 if (! ($konten = db_fetch("SELECT * FROM `post` WHERE `id_post`='$id'"))){
@@ -49,11 +49,54 @@ if (! ($konten = db_fetch("SELECT * FROM `post` WHERE `id_post`='$id'"))){
 <![endif]-->
 
 <title>Simple Blog | <?php echo $konten['judul']; ?></title>
+<?php if (!$err) { ?>
+<script type="text/javascript">
+<!--
+function refreshKomentar() {
+    var xmlhttp;
+    xmlhttp = new XMLHttpRequest();
+    
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 ) {
+           if(xmlhttp.status == 200){
+               document.getElementById("isi_komentar").innerHTML = xmlhttp.responseText;
+           }
+        }
+    }
 
+    xmlhttp.open("GET", "cmt/<?php echo $id; ?>", true);
+    xmlhttp.send();
+}
 
+function submitKomentar(){
+	var xmlhttp;
+    xmlhttp = new XMLHttpRequest();
+    
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 ) {
+           if(xmlhttp.status == 200){
+        	   document.getElementById("Nama").value = "";
+        	   document.getElementById("Email").value = "";
+        	   document.getElementById("Komentar").value = "";
+        	   document.getElementById("isi_komentar").innerHTML = xmlhttp.responseText;
+        	   document.getElementById("komentar_status").innerHTML = "<font color='green'>Komentar berhasil ditambahkan!</font>";
+               
+           }
+        }
+    }
+
+    xmlhttp.open("POST","cmt/<?php echo $id; ?>",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("nama="+encodeURI(document.getElementById("Nama").value)+"&email="+encodeURI(document.getElementById("Email").value)+"&komentar="+encodeURI(document.getElementById("Komentar").value));
+
+	return false;
+}
+-->
+</script>
+<?php } ?>
 </head>
 
-<body class="default">
+<body class="default" onload="refreshKomentar()">
 <div class="wrapper">
 
 <nav class="nav">
@@ -95,13 +138,19 @@ if (! ($konten = db_fetch("SELECT * FROM `post` WHERE `id_post`='$id'"))){
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <?php echo $konten['konten']; ?>
+            <?php echo str_replace("\n","\n<br/>", $konten['konten']); ?>
             
             
             <div id="contact-area">
             <h2>Komentar</h2>
-
-                <form method="post" action="#">
+            <hr/>
+ <ul id="isi_komentar" class="art-list-body">
+                
+            </ul>
+            <hr/><br/>
+            <div id="komentar_status"></div>
+                <form method="post" action="" onsubmit="return submitKomentar()">
+                	
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -115,23 +164,7 @@ if (! ($konten = db_fetch("SELECT * FROM `post` WHERE `id_post`='$id'"))){
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
+           
         </div>
     </div>
 

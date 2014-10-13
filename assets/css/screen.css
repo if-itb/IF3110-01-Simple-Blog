@@ -284,7 +284,8 @@ div.cover > img {
 .art-body-inner {
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
   max-width: 640px;
-  padding: 80px 0 50px;
+  padding: 0 0 50px;
+  margin-top: 180px;
   letter-spacing: 0.01rem;
   font-weight: 400;
   font-style: normal;
