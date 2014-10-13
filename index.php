@@ -85,7 +85,7 @@
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
         Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
+        <a class="rss-link" href="rss/rss.php">RSS</a> /
         <br>
         <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
         <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
