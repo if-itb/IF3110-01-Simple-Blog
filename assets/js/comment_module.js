@@ -162,7 +162,7 @@ function makeMarkup(sender, date, comment) {
 	
 	var comment = document.createTextNode(comment);
 	
-	div.appendChild(comment);
 	li.appendChild(div);
+	li.appendChild(comment);
 	document.getElementById("comment-list").appendChild(li);
 }

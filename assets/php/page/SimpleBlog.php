@@ -29,7 +29,6 @@ class SimpleBlog extends Page {
 	
 	public function get_js_common() {
 		return array(
-			"jquery.min.js",
 			"fittext.js",
 			"app.js",
 			"respond.min.js",
@@ -79,9 +78,6 @@ EOD;
 		);
 		
 		$this->js_linked_info = array(
-			"jquery.min.js" => array(
-				"loc_path" => self::path_js."/jquery.min.js"
-			),
 			"fittext.js" => array(
 				"loc_path" => self::path_js."/fittext.js"
 			),
