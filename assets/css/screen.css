@@ -1,6 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 @import url(http://fonts.googleapis.com/css?family=Questrial);
-
+*/
 /* Reset & Basics (Inspired by E. Meyers)
 ================================================== */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, address, cite, code, em, img, small, strong, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, embed, figure, figcaption, footer, header, hgroup, menu, nav, section, summary, time, audio, video {
@@ -225,7 +225,7 @@ div.cover > img {
 }
 /* Header */
 .art-header {
-  height: 900px;
+  height: 500px;
   /* Background image is defined in the post */
   background-position: top center;
   background-attachment: fixed;
@@ -233,7 +233,7 @@ div.cover > img {
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: fixed;
+  position: relative;
   top: 300px;
   left: 50%;
   margin-left: -490px;
@@ -250,7 +250,7 @@ div.cover > img {
   letter-spacing: 4px;
 }
 .art-title {
-  font-size: 100px;
+  font-size: 70px;
   line-height: .9;
   letter-spacing: -2px;
   width: 100%;
@@ -284,6 +284,7 @@ div.cover > img {
 .art-body-inner {
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
   max-width: 640px;
+  margin-top: 100px;
   padding: 80px 0 50px;
   letter-spacing: 0.01rem;
   font-weight: 400;
@@ -630,7 +631,7 @@ padding: 0;
   /* Articles no longer have fixed heights */
   .art-header {
     height: auto;
-    padding-bottom: 100px;
+    padding-bottom: 10px;
     background-size: cover !important;
     background-attachment: scroll;
   }

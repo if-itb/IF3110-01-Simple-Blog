@@ -1,3 +1,10 @@
+<?php
+if(!isset($_GET['id'])){
+	header('location:index.php');
+}
+$postid=$_GET['id'];
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +45,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -49,36 +56,66 @@ $db=mysqli_connect("Localhost","root","","wbdsimpleblog");
 if(mysqli_connect_errno()){
 	echo "Failed to connect to MySQL: ".mysqli_connect_error();
 }
+$posts=mysqli_query($db,"SELECT * FROM post WHERE pid=".$postid);
+if (!$posts) {
+	// error di query nya
+}
+else {
+	$post = $posts->fetch_assoc();
+}
 
-$result=mysqli_query($db,"SELECT * FROM post order by tanggal");
-?>
+echo
+'<article class="art simple post">    
+    <header class="art-header" style="position=absolute;">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+            <time class="art-time">'.$post['tanggal'].'</time>
+            <h2 class="art-title" >'.$post['judul'].'</h2>
+            <p class="art-subtitle"></p>
+        </div>
+    </header>
 
-	<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-<?php
-while($row=mysqli_fetch_array($result)){            
-	echo'   <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>'
-	}
-mysqli_close($db);
-?>	
-			</ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <hr class="featured-article" />
+            <p>'.$post['konten'].'</p>
+	<a href="new_post.php?id='.$postid.'">Edit</a>'; 
+  ?>
+            <hr />
+            
+            <h2>Komentar</h2>
+
+            <div id="contact-area">
+                <form method="post" action="#">
+                    <label for="Nama">Nama:</label>
+                    <input type="text" name="Nama" id="Nama">
+        
+                    <label for="Email">Email:</label>
+                    <input type="text" name="Email" id="Email">
+                    
+                    <label for="Komentar">Komentar:</label><br>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+
+                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                </form>
+            </div>
+
+            <ul class="art-list-body">
+				<?php
+				$comments=mysqli_query($db,"SELECT * FROM comment where pid=".$postid); 
+				while($row=mysqli_fetch_array($comments)){
+				echo'
+					<li class="art-list-item">
+						<div class="art-list-item-title-and-time">
+							<h2 class="art-list-title">'.$row["nama"].'</h2>
+							<div class="art-list-time">'.$row["tglkomen"].'</div>
+						</div>'.$row["komen"].'</li>';
+					}
+				?>
+            </ul>
+        </div>
     </div>
-</div>
 
-
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -98,9 +135,10 @@ mysqli_close($db);
         
     </aside>
 </footer>
-
+<?php mysqli_close($db);
+?>
 </div>
-
+<!--
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
@@ -115,6 +153,6 @@ mysqli_close($db);
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+-->
 </body>
 </html>

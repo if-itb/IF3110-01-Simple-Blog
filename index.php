@@ -40,7 +40,7 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -50,7 +50,7 @@ if(mysqli_connect_errno()){
 	echo "Failed to connect to MySQL: ".mysqli_connect_error();
 }
 
-$result=mysqli_query($db,"SELECT * FROM post order by tanggal");
+$result=mysqli_query($db,"SELECT * FROM post order by tanggal desc");
 ?>
 
 	<div id="home">
@@ -58,20 +58,18 @@ $result=mysqli_query($db,"SELECT * FROM post order by tanggal");
         <nav class="art-list">
           <ul class="art-list-body">
 <?php
-while($row=mysqli_fetch_array($result)){            
+while($row=mysqli_fetch_array($result)){
 	echo'   <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
+                    <h2 class="art-list-title"><a href="post.php?id='.$row['pid'].'">'.$row['judul'].'</a></h2>
+                    <div class="art-list-time">'.$row['tanggal'].'</div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                <p>'.$row['konten'].'<p>
+                  <a href="new_post.php?id='.$row['pid'].'">Edit</a> | <a href="deletepost.php?id='.$row['pid'].'">Hapus</a>
                 </p>
-            </li>'
+            </li>';
 	}
-mysqli_close($db);
 ?>	
 			</ul>
         </nav>
@@ -85,7 +83,9 @@ mysqli_close($db);
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+		By: <a class="twitter-link" href="http://twitter.com/ardiwii">Ardi Wicaksono/13512063</a>
+		<br>
+        Template by: Asisten IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
         <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
@@ -95,12 +95,14 @@ mysqli_close($db);
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
     </aside>
 </footer>
 
 </div>
-
+<?php
+mysqli_close($db);
+?>
+<!--
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
@@ -115,6 +117,6 @@ mysqli_close($db);
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+-->
 </body>
 </html>
