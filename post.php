@@ -1,3 +1,25 @@
+<?php
+if(!isset($_GET['id'])){
+    header('Location: index.php');
+    exit();
+} else
+    $id = $_GET['id'];
+
+include "mysql.php";
+
+if(!is_numeric($id))
+    header('Location: index.php');
+
+$select = "SELECT judul, tanggal, konten FROM post WHERE id_post='$id'";
+$query = $con->query($select);
+if($query->num_rows !=1){
+    header('Location: index.php');
+    exit();
+}
+
+include 'phpfunction.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,22 +56,24 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload=AJAXLoad(<?php echo $id; ?>)>
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
     
+    <?php $thepost = $query->fetch_object(); ?>
+
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?php echo StrTanggal($thepost->tanggal); ?></time>
+            <h2 class="art-title"><?php echo $thepost->judul; ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,15 +81,13 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
+            <p><?php echo $thepost->konten; ?></p>
             <hr />
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" onsubmit="getXMLHTTPrequest('<?php echo $id ?>'); return false">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -79,23 +101,8 @@
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
+            <div id="comments">
+            </div>
         </div>
     </div>
 
@@ -125,6 +132,8 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/jsfunction.js"></script>
+<script type="text/javascript" src="assets/js/ajaxfunction.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

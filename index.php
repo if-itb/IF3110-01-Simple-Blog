@@ -1,3 +1,11 @@
+<?php
+include 'mysql.php';
+include 'phpfunction.php';
+$showquery = $con->prepare("SELECT id_post, judul, LEFT(konten, 500) AS konten, tanggal FROM post ORDER BY tanggal DESC, id_post DESC");
+$showquery->execute();
+$showquery->bind_result($id_post, $judul, $konten, $tanggal);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +37,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -38,39 +46,36 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <?php
+            while ($showquery->fetch()):
+            ?>
+            <li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href=<?php echo"post.php?id=$id_post"?>><?php echo $judul; ?></a></h2>
+                    <div class="art-list-time"><?php echo StrTanggal($tanggal); ?></div>
+                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                </div>
+                <p><?php echo $konten; ?> &hellip;</p>
+                <p>
+                  <?php $deURL = "delete_post.php?id=".$id_post."" ?>
+                  <a href=<?php echo "edit_post.php?id=$id_post"?>>Edit</a> | <a href="javascript:delete_post('<?php echo $deURL ?>')">Hapus</a>
+                </p>                
+            </li>
+            <?php endwhile?>
+          </ul> 
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -96,6 +101,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/jsfunction.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
