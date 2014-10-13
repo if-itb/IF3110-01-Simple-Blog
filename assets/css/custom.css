@@ -1,0 +1,16 @@
+.art-header-inner {
+	position: relative;
+}
+
+.art-header {
+	height: 500px;
+}
+
+button {
+	font: inherit;
+	color: #F40034;
+}
+
+.art {
+	margin-top: auto;
+}
