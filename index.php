@@ -57,7 +57,7 @@
 ?>
 						<li class="art-list-item">
 								<div class="art-list-item-title-and-time">
-										<h2 class="art-list-title"><a href="post.php">Belum ada post</a></h2>
+										<h2 class="art-list-title">Belum ada post.<br></h2><a href="new_post.php">+ Tambah Baru</a>
 								</div>
 						</li>
 <?php
@@ -112,9 +112,6 @@
 		var response = confirm("Apakah Anda yakin menghapus post ini?");
 		if (response) {
 			window.location = "delete_post.php?id=" + id;
-		}
-		else {
-			// do nothing
 		}
 	}
 </script>
