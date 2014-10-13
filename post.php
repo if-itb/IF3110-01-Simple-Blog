@@ -6,6 +6,8 @@ $pid = $row['id_post'];
 $title = $row['judul'];
 $date = $row['tanggal'];
 $content = $row['konten'];
+$featured = "";
+if($row['featured'] == 1) $featured = "featured-article ";
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +41,7 @@ $content = $row['konten'];
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | <?php echo $title; ?></title>
+<title>Jeffrey Lingga | <?php echo $title; ?></title>
 
 <script type="text/javascript" src="assets/js/commentAjax.js"></script>
 
@@ -49,7 +51,7 @@ $content = $row['konten'];
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Jeffrey<span>-</span>Lingga</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
@@ -67,7 +69,7 @@ $content = $row['konten'];
 
     <div class="art-body">
         <div class="art-body-inner">
-            <hr class="featured-article" />
+            <hr class="<?php echo $featured; ?> article" />
             <?php echo str_replace("\n", "<br>", $content);?>
             <br /><br />
             <hr />

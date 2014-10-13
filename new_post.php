@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | New Post</title>
+<title>Jeffrey Lingga | New Post</title>
 
 </head>
 
@@ -41,7 +41,7 @@ include 'functions.php';
 // operasi
 ?>
     <nav class="nav">
-        <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+        <a style="border:none;" id="logo" href="index.php"><h1>Jeffrey<span>-</span>Lingga</h1></a>
         <ul class="nav-primary">
             <li><a href="new_post.php">+ Tambah Post</a></li>
         </ul>
@@ -59,10 +59,10 @@ include 'functions.php';
                 <div id="contact-area">
                     <form name="inputanpos" method="post" onSubmit="return validateForm()" action="post_processor.php?action=add">
                         <label for="Judul">Judul:</label>
-                        <input type="text" name="Judul" id="Judul">
-    
+                        <input type="text" name="Judul" id="Judul">  <input type="checkbox" name="Featured" id="Featured"> featured<br>
+                        
                         <label for="Tanggal">Tanggal:</label>
-                        <input type="text" name="Tanggal" id="Tanggal">
+                        <input type="text" name="Tanggal" id="Tanggal" value="<?php echo date('Y-m-d'); ?>">
                         
                         <label for="Konten">Konten:</label><br>
                         <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>

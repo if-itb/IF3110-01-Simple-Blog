@@ -1,5 +1,4 @@
 function submitComment(pid,nama,email,komentar) {
-	removeFormFields(); 
 	komentar = komentar.replace(/(\r\n|\n|\r)/gm, '%0A');
 	if(pid == ""){
 		alert('error, post id tidak didefinisi');
@@ -21,6 +20,7 @@ function submitComment(pid,nama,email,komentar) {
 		}
 		// validasi email sesuai kaidah
 		else if(validateEmail(email)){
+			removeFormFields(); 
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
 				xmlhttp=new XMLHttpRequest();

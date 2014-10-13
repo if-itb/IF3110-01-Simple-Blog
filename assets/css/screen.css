@@ -808,21 +808,23 @@ img.right {
   -moz-animation: le-fade .5s 0s 1 ease-out;
 }
 
-hr.featured-article {
+hr.article {
     padding: 0;
     border: none;
     border-top: medium double #bbb;
     color: #bbb;
     text-align: center;
 }
-hr.featured-article:after {
-    content: "✭ Featured Article ✭";
+hr.article:after {
     display: inline-block;
     position: relative; 
     top: -0.8em;  
     font-size: 1.2em;
     padding: 0 0.6em;
     background: white;
+}
+hr.featured-article:after {
+    content: "✭ Featured Article ✭";
 }
 
 /* FORM */
@@ -838,6 +840,18 @@ hr.featured-article:after {
   font-family: Helvetica, sans-serif;
   margin: 0px 0px 10px 0px;
   border: 2px solid #ccc;
+}
+
+#contact-area #Judul {
+  width:330px !important;
+}
+
+#contact-area #Featured {
+  width:30px !important;
+}
+
+#contact-area input.checkbox {
+  text-align: center !important;
 }
 
 #contact-area textarea {

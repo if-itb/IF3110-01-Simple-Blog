@@ -1,3 +1,15 @@
+<?php
+// iclude functions.php
+include 'functions.php';
+
+// operasi
+if (isset($_GET['pid'])){
+	$pid = $_GET['pid'];
+	connect_db("root","","if3110_simple_blog_db");
+	$selectionQuery = "SELECT * FROM sb_posts WHERE id_post=" . $pid;
+	$result = run_query($selectionQuery);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,27 +41,18 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Edit Post</title>
+<title>Jeffrey Lingga | Edit Post</title>
 </head>
 
 <body class="default">
 <div class="wrapper">
-<?php
-// iclude functions.php
-include 'functions.php';
-
-// operasi
-if (isset($_GET['pid'])){
-	$pid = $_GET['pid'];
-	connect_db("root","","if3110_simple_blog_db");
-	$selectionQuery = "SELECT * FROM sb_posts WHERE id_post=" . $pid;
-	$result = run_query($selectionQuery);
-	if($result){
-		$row = mysqli_fetch_array($result);
-		?>
+<?php if($result){ $row = mysqli_fetch_array($result); 
+	$valueFeatured = "";
+	if ($row['featured'] == 1) $valueFeatured=" checked";
+?>
 		
 		<nav class="nav">
-			<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+			<a style="border:none;" id="logo" href="index.php"><h1>Jeffrey<span>-</span>Lingga</h1></a>
 			<ul class="nav-primary">
 				<li><a href="new_post.php">+ Tambah Post</a></li>
 			</ul>
@@ -69,6 +72,7 @@ if (isset($_GET['pid'])){
                         	<input type="hidden" name="pid" value="<?php echo $pid;?>">
 							<label for="Judul">Judul:</label>
 							<input type="text" name="Judul" id="Judul" value="<?php echo $row['judul']?>">
+							<input type="checkbox" name="Featured" id="Featured" <?php echo $valueFeatured; ?>> featured<br>
 		
 							<label for="Tanggal">Tanggal:</label>
 							<input type="text" name="Tanggal" id="Tanggal" value="<?php echo $row['tanggal']?>">

@@ -31,7 +31,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Jeffrey Lingga's Blog</title>
 
 </head>
 
@@ -39,7 +39,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Jeffrey<span>-</span>Lingga</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>

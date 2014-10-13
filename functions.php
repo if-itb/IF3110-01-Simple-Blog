@@ -27,7 +27,7 @@ function disconnect_db(){
 }
 
 function get_comments($pid){
-	$selectionQuery = "SELECT * FROM sb_comments WHERE id_post='" . $pid . "' ORDER BY timestamp DESC";
+	$selectionQuery = "SELECT * FROM sb_comments WHERE id_post='" . $pid . "' ORDER BY timestamp DESC, id_post DESC";
 	$result = run_query($selectionQuery);
 	while($row = mysqli_fetch_array($result)){
 		$nama = $row['nama'];
@@ -47,7 +47,7 @@ function get_comments($pid){
 
 function get_posts_list(){
 	connect_db("root","","if3110_simple_blog_db");
-	$selectionQuery = "SELECT * FROM sb_posts ORDER BY tanggal DESC";
+	$selectionQuery = "SELECT * FROM sb_posts ORDER BY tanggal DESC, id_post DESC";
 	$result = run_query($selectionQuery);
 	if($result){
 		while($row = mysqli_fetch_array($result)){
@@ -64,8 +64,13 @@ function get_posts_list(){
 				<div class="art-list-item-title-and-time">
 					<h2 class="art-list-title"><a href="post.php?pid=' . $pid . '">' . $title . '</a></h2>
 					<div class="art-list-time">' . $date . '</div>
-					<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-				</div>
+					' . PHP_EOL;
+			if ($row['featured'] == 1) {
+				echo
+				'
+					<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>' . PHP_EOL;
+			}
+			echo'</div>
 				<p>';
 				if(str_word_count($content) > 30){
 					echo implode(' ', array_slice(explode(' ', $content), 0, 30)) . '&hellip;';
@@ -98,7 +103,7 @@ function get_posts_list(){
 function tanggalProcessor($date){
 	date_default_timezone_set("Asia/Jakarta");
 	$dateNow = date('Y-m-d');
-	if(strcmp(date("n-Y",strtotime($dateNow)), date("n-Y",strtotime($date))) == 0 && date("d",strtotime($dateNow)) - date("d",strtotime($date)) <= 3){
+	if(strcmp(date("n-Y",strtotime($dateNow)), date("n-Y",strtotime($date))) == 0 && date("d",strtotime($dateNow)) - date("d",strtotime($date)) <= 3  && date("d",strtotime($dateNow)) - date("d",strtotime($date)) >= 0){
 		if(date("d",strtotime($dateNow)) - date("d",strtotime($date)) == 0) return "Hari ini";
 		else return date("d",strtotime($dateNow)) - date("d",strtotime($date)) . " hari yang lalu";
 	}

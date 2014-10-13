@@ -8,17 +8,21 @@ if ($_GET['action']=="edit" || $_GET['action']=="add"){
 	$title = $_POST['Judul'];
 	$date = $_POST['Tanggal'];
 	$content = $_POST['Konten'];
+	$featured = "FALSE";
+	if(isset($_POST['Featured']))
+		$featured = "TRUE";
+	echo $featured;
 	connect_db("root","","if3110_simple_blog_db");
 	$row;
 	if($_GET['action']=="add"){ // menambahkan post
-		$insertQuery = "INSERT INTO sb_posts (judul, tanggal, konten) VALUES ('" .
-			$title . "', '" . $date . "', '" . $content . "')";
+		$insertQuery = "INSERT INTO sb_posts (judul, tanggal, konten, featured) VALUES ('" .
+			$title . "', '" . $date . "', '" . $content . "', " . $featured . ")";
 		$row = run_query($insertQuery);
 	}
 	else{ // mengedit post yang ada
 		$pid = $_POST['pid'];
 		$updateQuery = "UPDATE sb_posts SET judul = '" .
-			$title . "', tanggal = '" . $date . "', konten = '" . $content . "' WHERE id_post=" . $pid;
+			$title . "', tanggal = '" . $date . "', konten = '" . $content . "', featured = " . $featured . " WHERE id_post=" . $pid;
 		$row = run_query($updateQuery);
 	}
 	if($row != false){
