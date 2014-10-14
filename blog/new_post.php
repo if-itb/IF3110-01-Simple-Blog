@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Melvin's Blog | Tambah Post</title>
 
 
 </head>
@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Melvin's<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
@@ -76,16 +76,13 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
+        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga"></a> 
+        <a class="twitter-link" href="http://twitter.com/sonnylazuardi"></a> 
+        <a class="twitter-link" href="http://twitter.com/fathanpranaya"></a> 
         <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
+        <a class="twitter-link" href="#"></a>
+        <a class="twitter-link" href="#"></a> 
+        <a class="twitter-link" href="#"></a> 
         
     </aside>
 </footer>
