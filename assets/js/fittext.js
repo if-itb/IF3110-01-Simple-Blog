@@ -1,46 +1,62 @@
-/*global jQuery */
-/*! 
-* FitText.js 1.0
+/*!	
+* FitText.js 1.0 jQuery free version
 *
-* Copyright 2011, Dave Rupert http://daverupert.com
+* Copyright 2011, Dave Rupert http://daverupert.com 
 * Released under the WTFPL license 
 * http://sam.zoy.org/wtfpl/
+* Modified by Slawomir Kolodziej http://slawekk.info
 *
-* Date: Thu May 05 14:23:00 2011 -0600
+* Date: Tue Aug 09 2011 10:45:54 GMT+0200 (CEST)
 */
-$(document).ready(function() {
-
-(function( $ ){
+(function(){
+  var css = function (el, prop) {
+    return window.getComputedStyle ? getComputedStyle(el).getPropertyValue(prop) : el.currentStyle[prop];
+  };
   
-  $.fn.fitText = function( kompressor, options ) {
-     
-    // Setup options
-    var compressor = kompressor || 1,
-        settings = $.extend({
-          'minFontSize' : Number.NEGATIVE_INFINITY,
-          'maxFontSize' : Number.POSITIVE_INFINITY
-        }, options);
+  var addEvent = function (el, type, fn) {
+    if (el.addEventListener)
+      el.addEventListener(type, fn, false);
+		else
+			el.attachEvent('on'+type, fn);
+  };
   
-    return this.each(function(){
+  var extend = function(obj,ext){
+    for(key in ext)
+      if(ext.hasOwnProperty(key))
+        obj[key] = ext[key];
+    return obj;
+  };
 
-      // Store the object
-      var $this = $(this); 
-        
-      // Resizer() resizes items based on the object width divided by the compressor * 10
+  window.fitText = function (el, kompressor, options) {
+
+    var settings = extend({
+      'minFontSize' : -1/0,
+      'maxFontSize' : 1/0
+    },options);
+
+    var fit = function (el) {
+      var compressor = kompressor || 1;
+
       var resizer = function () {
-        $this.css('font-size', Math.max(Math.min($this.width() / (compressor*10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)));
+        el.style.fontSize = Math.max(Math.min(el.clientWidth / (compressor*10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)) + 'px';
       };
 
       // Call once to set.
       resizer();
-        
-      // Call on resize. Opera debounces their resize by default. 
-      $(window).on('resize', resizer);
-        
-    });
 
+      // Bind events
+      // If you have any js library which support Events, replace this part
+      // and remove addEvent function (or use original jQuery version)
+      addEvent(window, 'resize', resizer);
+    };
+
+    if (el.length)
+      for(var i=0; i<el.length; i++)
+        fit(el[i]);
+    else
+      fit(el);
+
+    // return set of elements
+    return el;
   };
-
-})( jQuery );
-
-});
+})();
