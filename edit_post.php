@@ -41,7 +41,6 @@
 
 <title>rakhmatullah25 | Edit Post</title>
 
-
 </head>
 
 <body class="default">
@@ -55,8 +54,7 @@
 </nav>
 
 <article class="art simple post">
-    
-    
+        
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
     <div class="art-body">
@@ -66,17 +64,12 @@
             <div id="contact-area">
                 <form name="Post" method="post" action="update.php?var=<?php echo $id?>">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" value="<?php echo $judul; ?>">
-
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $judul; ?>" aria-required="true" required="">
                     <label for="Tanggal">Tanggal:</label>
                     <input type="date" name="Tanggal" value="<?php echo $tanggal; ?>" class="ss-q-date" dir="auto" id="Tanggal" aria-required="true" required="">
-                    <!--<input type="text" name="Tanggal" id="Tanggal" value="<?php echo $tanggal; ?>">-->
-                    
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo htmlspecialchars($konten); ?></textarea>
-
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" aria-required="true" required=""><?php echo htmlspecialchars($konten); ?></textarea>
                     <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return IsValidDate()">
-                    
                 </form>
             </div>
         </div>
@@ -90,14 +83,14 @@
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
         Tugas 1 IF3110 /
-        <a class="twitter-link" href="http://twitter.com/rakhmatullah25">Rakhmatullah Yoga Sutrisna</a>
+        <a class="twitter-link" href="http://twitter.com/rakhmatullah25" target="_blank">Rakhmatullah Yoga Sutrisna</a>
         
     </aside>
 </footer>
 
 </div>
 
-<script type="text/javascript" src="function.js"></script>
+<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

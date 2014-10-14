@@ -38,8 +38,8 @@
         $konten = $hasil['Konten'];
     }
 ?>
-<title>rakhmatullah25 | <?php echo $judul ?></title>
 
+<title>rakhmatullah25 | <?php echo $judul ?></title>
 
 </head>
 
@@ -67,7 +67,6 @@
             <hr class="featured-article" />
             <p><?php echo $konten?></p>
             <p></p>
-
             <hr />
             
             <h2>Komentar</h2>
@@ -76,14 +75,11 @@
                 <form name="commentForm" method="post" id="commentForm" action="#" onsubmit="return false">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama" aria-required="true" required="">
-        
                     <label for="Email">Email:</label>
                     <input type="text" name="Email" id="Email" aria-required="true" required="">
-                    
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar" aria-required="true" required=""></textarea>
                     <input name="id" id="id" type="hidden" value="<?php echo $id;?>">
-
                     <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="comment()">
                 </form>
             </div>
@@ -105,14 +101,14 @@
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
         Tugas 1 IF3110 /
-        <a class="twitter-link" href="http://twitter.com/rakhmatullah25">Rakhmatullah Yoga Sutrisna</a>
+        <a class="twitter-link" href="http://twitter.com/rakhmatullah25" target="_blank">Rakhmatullah Yoga Sutrisna</a>
         
     </aside>
 </footer>
 
 </div>
 
-<script type="text/javascript" src="function.js"></script>
+<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

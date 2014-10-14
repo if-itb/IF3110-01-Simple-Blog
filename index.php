@@ -59,14 +59,8 @@
                       <h2 class="art-list-title"><a href="post.php?var=<?php echo $key['ID']?>"><?php $string = $key['Judul'];
                   $string = strip_tags($string);
                   if (strlen($string) > 25) {
-
-                      // truncate string
                       $stringCut = substr($string, 0, 25);
-
-                      // make sure it ends in a word so assassinate doesn't become ass...
                       $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'... '; 
-                      
-                      
                   }
                   echo $string?></a></h2>
                       <div class="art-list-time"><?php echo $key['Tanggal'] ?></div>
@@ -75,11 +69,7 @@
                   $string = $key['Konten'];
                   $string = strip_tags($string);
                   if (strlen($string) > 200) {
-
-                      // truncate string
                       $stringCut = substr($string, 0, 200);
-
-                      // make sure it ends in a word so assassinate doesn't become ass...
                       $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'... '; 
                       echo $string;?>
                       <a href="post.php?var=<?php echo $key['ID']?>">Read More</a><?php
@@ -89,8 +79,7 @@
                   }
                    
                   ?></p>
-                  <p>
-                    
+                  <p>                    
                     <a href="edit_post.php?var=<?php echo $key['ID']?>">Edit</a> | <a href="delete.php?var=<?php echo $key['ID']?>" onclick="return confirmDelete()">Hapus</a>
                   </p>
               </li>
@@ -108,14 +97,14 @@
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
         Tugas 1 IF3110 /
-        <a class="twitter-link" href="http://twitter.com/rakhmatullah25">Rakhmatullah Yoga Sutrisna</a>
+        <a class="twitter-link" href="http://twitter.com/rakhmatullah25" target="_blank">Rakhmatullah Yoga Sutrisna</a>
         
     </aside>
 </footer>
 
 </div>
 
-<script type="text/javascript" src="function.js"></script>
+<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
