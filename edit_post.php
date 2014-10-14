@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -38,11 +38,37 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Edit Post</a></li>
     </ul>
 </nav>
+
+<?php
+    extract($_GET);
+
+    // Connect to DB  
+    $dbhost = "localhost";
+    $dbusername = "root";
+    $dbpassword = "";
+    $dbname = "db_simpleblog";
+    $conn = mysqli_connect($dbhost, $dbusername, $dbpassword, $dbname);
+
+    // Check connection
+    if (mysqli_connect_errno()) 
+    {
+      echo "Failed to connect to MySQL: ". mysqli_connect_error();
+    }
+
+    // Fetch post from DB
+    $query = "SELECT * FROM post WHERE id=$id";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result);
+
+    // Date formatting
+    $time = strtotime($row['tanggal']);
+    $date = date("d/m/Y", $time);
+?>
 
 <article class="art simple post">
     
@@ -51,20 +77,21 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="process_edit_post.php">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['judul']; ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $date; ?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['konten']; ?></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validateTanggal(getElementById('Tanggal').value)">
                 </form>
             </div>
         </div>
@@ -93,6 +120,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
@@ -105,6 +133,61 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+
+      function validateTanggal(tanggal) 
+      {
+        // Tanggal skrg
+        var today = new Date();
+        var dd = parseInt(today.getDate(),10);
+        var mm = parseInt(today.getMonth()+1,10);
+        var yyyy = parseInt(today.getFullYear(),10);
+
+        // Tanggal yg diinput
+        date = tanggal.split('/');
+        var hari = parseInt(date[0],10);
+        var bulan = parseInt(date[1],10);
+        var tahun = parseInt(date[2],10);
+
+        if(tahun>yyyy)
+        {
+            return true;
+        }
+        else
+        {
+            if(tahun===yyyy)
+            {
+                if(bulan>mm)
+                {
+                    return true;
+                }
+                else
+                {
+                    if(bulan===mm)
+                    {
+                        if((hari>dd) || (hari===dd))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            alert("Tanggal yang anda masukkan sudah lewat.\nSilahkan masukkan tanggal yang sesuai.");
+                            return false;
+                        }
+                    }
+                    else
+                    { 
+                        alert("Tanggal yang anda masukkan sudah lewat.\nSilahkan masukkan tanggal yang sesuai.");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                alert("Tanggal yang anda masukkan sudah lewat.\nSilahkan masukkan tanggal yang sesuai.");
+                return false;
+            }
+        }
+    }
 </script>
 
 </body>
