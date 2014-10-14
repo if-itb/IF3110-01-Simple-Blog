@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -38,42 +38,58 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+<?php
+$con=mysqli_connect("localhost","root","","cilvia_simpleblog");
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+$id = $_GET['id'];
+
+$result = mysqli_query($con,"SELECT * FROM list_post WHERE PostID=$id");
+if (!$result) {
+   die(mysql_error());
+}
+
+$row = mysqli_fetch_array($result);
+
+?>
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Edit Post</h2>
+					
+            <div id="contact-area">
+			<?php
+				echo '<form method="post" action="edit.php?id='.$id.'">'
+			?>
+				    <label for="Judul">Judul:</label>
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['judul'];?>">
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $row['tanggal'];?>" disabled>
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['konten'];?></textarea>
+
+                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -96,7 +112,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

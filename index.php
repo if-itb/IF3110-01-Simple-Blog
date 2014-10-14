@@ -29,12 +29,13 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
 
 <body class="default">
+
 <div class="wrapper">
 
 <nav class="nav">
@@ -44,33 +45,47 @@
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+			<?php
+				$con=mysqli_connect("localhost","root","","cilvia_simpleblog");
+				// Check connection
+				if (mysqli_connect_errno()) {
+				  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				}
+				
+				$result = mysqli_query($con,"SELECT * FROM list_post ORDER BY PostID DESC");
+				if (!$result) {
+				   die(mysql_error());
+				}
+				
+				while($row = mysqli_fetch_array($result)) {
+				  if(strlen($row['konten'])>200){
+					$Konten = substr($row['konten'], 0, 200) . "...";
+				  } else {
+					$Konten = $row['konten'];
+				  }
+				  echo '<li class="art-list-item">
+							<div class="art-list-item-title-and-time">
+								<h2 class="art-list-title"><a href="post.php?id='.$row['PostID'].'">' . $row['judul'] . '</a></h2>
+								<div class="art-list-time">' . $row['tanggal'] . '</div>
+								<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+							</div>
+							<p>' . $Konten . '</p>
+							<p>
+							  <a href="edit_post.php?id='.$row['PostID'].'">Edit</a> | <a href="delete.php?id='.$row['PostID'].'" onclick="return confirm(\'Apakah Anda yakin menghapus post ini?\')">Hapus</a>
+							</p>
+						</li>';
+				}
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="new_post.php" onsubmit="return validasiTanggal()">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="YYYY-MM-DD">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+				mysqli_close($con);
+			?>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -105,35 +120,6 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
-</script>
-<script>
-function validasiTanggal(){
-  var judul = encodeURIComponent(document.getElementById("Judul").value);
-  var konten = encodeURIComponent(document.getElementById("Konten").value);
-  if(judul != "" && konten != ""){
-	var tanggal = document.getElementById("Tanggal").value;
-	
-	if(tanggal == "" || tanggal==null){
-		alert("Tanggal harap diisi"); 
-		return false;
-	} else {
-		if(tanggal.match(/^\d{4}-\d{2}-\d{2}$/)){
-			var now = new Date();
-			now.setHours(0,0,0,0);
-			tanggal = new Date(tanggal);
-			if(tanggal>=now){return true;}
-			else{alert("Input tanggal salah"); return false;}
-		} else {
-			alert("Format tanggal salah");
-			return false;
-		}
-	}
-  } else {
-	alert("Judul atau konten harap diisi");
-	return false;
-  }
-	
-}
 </script>
 
 </body>

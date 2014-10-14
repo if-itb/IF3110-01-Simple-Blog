@@ -28,13 +28,29 @@
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+    
+<?php
+$con=mysqli_connect("localhost","root","","cilvia_simpleblog");
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+$pid = $_GET['id'];
 
+$result = mysqli_query($con,"SELECT * FROM list_post WHERE PostID='$pid'");						
+if (!$result) {
+   die(mysql_error());
+}
+
+$row = mysqli_fetch_array($result);
+
+echo '<title>Simple Blog | '.$row['judul'].'</title>';
+?>
 
 </head>
 
-<body class="default">
+<body class="default" onload="loadComment()">
 <div class="wrapper">
 
 <nav class="nav">
@@ -45,11 +61,13 @@
 </nav>
 
 <article class="art simple post">
-    
-    <header class="art-header">
+
+
+<?php
+	echo '<header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time">' . $row['tanggal'] . '</time>
+            <h2 class="art-title">' . $row['judul'] . '</h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,15 +75,15 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <p>'.$row['konten'].'</p>
+            <hr />';
 
-            <hr />
+?>
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" onsubmit="return submitComment()">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -80,25 +98,11 @@
             </div>
 
             <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+			<div  id="Komen">
+			</div>
             </ul>
         </div>
     </div>
-
 </article>
 
 <footer class="footer">
@@ -122,10 +126,10 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<!--<script type="text/javascript" src="assets/js/fungsi.js"></script>-->
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -135,6 +139,69 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+</script>
+<script>
+function submitComment() {
+	if (validasiEmail()){
+		var xmlhttp;
+		if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  
+		} else {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		var pid = <?php echo $pid; ?>;
+		var nama = encodeURIComponent(document.getElementById("Nama").value);
+		var email = encodeURIComponent(document.getElementById("Email").value);
+		var komentar = encodeURIComponent(document.getElementById("Komentar").value);
+		if (nama != "" && komentar != ""){
+			xmlhttp.open("GET","submit_comment.php?pid="+pid+"&nama="+nama+"&email="+email+"&komentar="+komentar,true);
+			xmlhttp.send();
+			xmlhttp.onreadystatechange=function(){
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200){
+				document.getElementById("Komen").innerHTML=xmlhttp.responseText;
+				document.getElementById("Nama").innerHTML = "";
+				document.getElementById("Email").innerHTML = "";
+				document.getElementById("Komentar").innerHTML = "";
+			  }
+			}
+		} else {
+			alert("nama atau komentar harap diisi");
+		}
+	} else {
+		alert("input email salah");
+	}
+	return false;
+}
+function loadComment(){
+	var xmlhttp;
+	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+	  xmlhttp=new XMLHttpRequest();
+	  
+	} else {// code for IE6, IE5
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	var pid = <?php echo $pid; ?>;
+	xmlhttp.open("GET","load_comment.php?pid="+pid,true);
+	xmlhttp.send();
+	xmlhttp.onreadystatechange=function(){
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		document.getElementById("Komen").innerHTML=xmlhttp.responseText;
+	  }
+	}
+	return false;
+}
+function validasiEmail(){
+	var email = document.getElementById("Email").value;
+	
+	var pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	if(email.match(pattern)){
+		return true;
+	} else {
+		return false;
+	}
+	
+}
 </script>
 
 </body>
