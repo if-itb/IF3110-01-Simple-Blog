@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<?php
+	mysql_connect("localhost", "root", "");
+	mysql_select_db("simpleblog");
+?>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,35 +44,33 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
-
+<?php
+	$sql = mysql_query("SELECT * FROM post ORDER BY id DESC");
+	while($row = mysql_fetch_array($sql)){
+		$id = $row['id'];
+		$judul = $row['judul'];
+		$konten = $row['konten'];
+		$tanggal = $row['tanggal'];
+?>
 <div id="home">
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
+                    <h2 class="art-list-title"><a href="post.php?postid=<?php echo $id; ?>"><?php echo $judul;?></a></h2>
+                    <div class="art-list-time"><?php echo $tanggal;?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p><?php echo $konten ?></p>
                 <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                  <a href="editpost.php?postid=<?php echo $id; ?>">Edit</a> | <a href="delpost.php?postid=<?php echo $id; ?>" onclick="return confirmdel()">Hapus</a>
                 </p>
             </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
+			<?php } ?>
             </li>
           </ul>
         </nav>
@@ -77,6 +79,7 @@
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
+	
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
@@ -103,12 +106,23 @@
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
   (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
+      function(){(g[s].q=g[s].q||[]).<push(arguments)});g[s].s=+new Date;
       t=h.createElement(o);z=h.getElementsByTagName(o)[0];
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+<script type="text/javascript">
+function confirmdel(){
+	var retVal = confirm("Do you want to delete?");
+   if( retVal == true ){
+      alert("User wants to delete!");
+	  return true;
+   }else{
+      alert("User does not want to delete!");
+	  return false;
+   }
+}
+</script>
 </body>
 </html>
