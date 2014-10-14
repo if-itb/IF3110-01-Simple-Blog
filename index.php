@@ -29,7 +29,7 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Azaky Blog</title>
 
 
 </head>
@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-		<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+		<a style="border:none;" id="logo" href="index.php"><h1>Azaky<span>-</span>Blog</h1></a>
 		<ul class="nav-primary">
 				<li><a href="new_post.php">+ Tambah Post</a></li>
 		</ul>
@@ -68,14 +68,19 @@
 ?>
 						<li class="art-list-item">
 								<div class="art-list-item-title-and-time">
-										<h2 class="art-list-title"><a href="post.php?id=<?php echo $post["id"]; ?>"><?php echo $post["judul"]; ?></a></h2>
+										<h2 class="art-list-title"><a href="post.php?id=<?php echo $post["id"]; ?>"><?php if (strlen($post["judul"]) > 25) {
+											echo htmlentities(substr($post["judul"], 0, 25)) . " ...";
+										}
+										else {
+											echo htmlentities($post["judul"]);
+										} ?></a></h2>
 										<div class="art-list-time"><?php echo $post["tanggal"]; ?></div>
 										<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
 								</div>
-								<div class="art-list-body"><p><?php if (count_chars($post["konten"]) > 255) {
-									echo substr($post["konten"], 0, 255) . " ...";
+								<div class="art-list-body"><p><?php if (strlen($post["konten"]) > 255) {
+									echo htmlentities(substr($post["konten"], 0, 255)) . ' <a href="post.php?id=' . $post["id"] . '">... See More</a>';
 								} else {
-									echo $post["konten"]; 
+									echo htmlentities($post["konten"]); 
 								} ?></p>
 								<p>
 									<a href="edit_post.php?id=<?php echo $post["id"]; ?>">Edit</a> | <a href="javascript:removePost(<?php echo $post["id"]; ?>)">Hapus</a>
@@ -92,21 +97,11 @@
 </div>
 
 <footer class="footer">
-		<div class="back-to-top"><a href="">Back to top</a></div>
-		<!-- <div class="footer-nav"><p></p></div> -->
+		<div class="back-to-top"><a href="#">Back to top</a></div>
 		<div class="psi">&Psi;</div>
 		<aside class="offsite-links">
-				Asisten IF3110 /
-				<a class="rss-link" href="#rss">RSS</a> /
-				<br>
-				<a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-				<a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-				<a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-				<br>
-				<a class="twitter-link" href="#">Renusa</a> /
-				<a class="twitter-link" href="#">Kelvin</a> /
-				<a class="twitter-link" href="#">Yanuar</a> /
-				
+			Ahmad Zaky | <a href="mailto:13512076@std.stei.itb.ac.id">13512076</a></br>
+			<a class="twitter-link" href="http://github.com/azaky">GitHub</a>
 		</aside>
 </footer>
 

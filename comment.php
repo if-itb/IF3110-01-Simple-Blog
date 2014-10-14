@@ -8,10 +8,13 @@
 	}
 	else if (isset($_POST["post_comment"])) {
 		$post_id = $_POST["post_id"];
-		$nama = htmlentities($_POST["nama"]);
-		$email = htmlentities($_POST["email"]);
-		$komentar = htmlentities($_POST["komentar"]);
+		$nama = $_POST["nama"];
+		$email = $_POST["email"];
+		$komentar = $_POST["komentar"];
 		$newComment = $db->comment($post_id, $nama, $email, $komentar);
+		$newComment["nama"] = htmlentities($newComment["nama"]);
+		$newComment["email"] = htmlentities($newComment["email"]);
+		$newComment["komentar"] = htmlentities($newComment["komentar"]);
 		echo json_encode($newComment);
 	}
 ?>

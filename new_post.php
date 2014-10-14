@@ -3,9 +3,9 @@
 	
 	$db = new DB();
 	if (isset($_POST["judul"])) {
-		$judul = htmlentities($_POST["judul"]);
+		$judul = $_POST["judul"];
 		$tanggal = $_POST["tanggal"];
-		$konten = htmlentities($_POST["konten"]);
+		$konten = $_POST["konten"];
 		$id = $db->post($judul, $tanggal, $konten);
 		header("location: post.php?id=" . $id);
 	}
@@ -43,7 +43,7 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Azaky Blog | Tambah Post</title>
 
 </head>
 
@@ -51,7 +51,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-	<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+	<a style="border:none;" id="logo" href="index.php"><h1>Azaky<span>-</span>Blog</h1></a>
 	<ul class="nav-primary">
 		<li><a href="new_post.php">+ Tambah Post</a></li>
 	</ul>
@@ -86,22 +86,12 @@
 </article>
 
 <footer class="footer">
-	<div class="back-to-top"><a href="">Back to top</a></div>
-	<!-- <div class="footer-nav"><p></p></div> -->
-	<div class="psi">&Psi;</div>
-	<aside class="offsite-links">
-		Asisten IF3110 /
-		<a class="rss-link" href="#rss">RSS</a> /
-		<br>
-		<a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-		<a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-		<a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-		<br>
-		<a class="twitter-link" href="#">Renusa</a> /
-		<a class="twitter-link" href="#">Kelvin</a> /
-		<a class="twitter-link" href="#">Yanuar</a> /
-		
-	</aside>
+		<div class="back-to-top"><a href="#">Back to top</a></div>
+		<div class="psi">&Psi;</div>
+		<aside class="offsite-links">
+			Ahmad Zaky | <a href="mailto:13512076@std.stei.itb.ac.id">13512076</a></br>
+			<a class="twitter-link" href="http://github.com/azaky">GitHub</a>
+		</aside>
 </footer>
 
 </div>

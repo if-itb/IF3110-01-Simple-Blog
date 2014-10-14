@@ -43,7 +43,7 @@
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | <?php echo $post["judul"]; ?></title>
+<title>Azaky Blog | <?php echo htmlentities($post["judul"]); ?></title>
 
 
 </head>
@@ -52,7 +52,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-	<a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+	<a style="border:none;" id="logo" href="index.php"><h1>Azaky<span>-</span>Blog</h1></a>
 	<ul class="nav-primary">
 		<li><a href="new_post.php">+ Tambah Post</a></li>
 	</ul>
@@ -63,7 +63,7 @@
 	<header class="art-header">
 		<div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
 			<time class="art-time"><?php echo $post["tanggal"]; ?></time>
-			<h2 class="art-title"><?php echo $post["judul"]; ?></h2>
+			<h2 class="art-title"><?php echo htmlentities($post["judul"]); ?></h2>
 			<p class="art-subtitle"></p>
 		</div>
 	</header>
@@ -71,7 +71,7 @@
 	<div class="art-body">
 		<div class="art-body-inner">
 			<hr class="featured-article" />
-			<div><?php echo $post["konten"]; ?></div>
+			<div><?php echo htmlentities($post["konten"]); ?></div>
 
 			<hr />
 			
@@ -102,22 +102,12 @@
 </article>
 
 <footer class="footer">
-	<div class="back-to-top"><a href="">Back to top</a></div>
-	<!-- <div class="footer-nav"><p></p></div> -->
-	<div class="psi">&Psi;</div>
-	<aside class="offsite-links">
-		Asisten IF3110 /
-		<a class="rss-link" href="#rss">RSS</a> /
-		<br>
-		<a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-		<a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-		<a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-		<br>
-		<a class="twitter-link" href="#">Renusa</a> /
-		<a class="twitter-link" href="#">Kelvin</a> /
-		<a class="twitter-link" href="#">Yanuar</a> /
-		
-	</aside>
+		<div class="back-to-top"><a href="#">Back to top</a></div>
+		<div class="psi">&Psi;</div>
+		<aside class="offsite-links">
+			Ahmad Zaky | <a href="mailto:13512076@std.stei.itb.ac.id">13512076</a></br>
+			<a class="twitter-link" href="http://github.com/azaky">GitHub</a>
+		</aside>
 </footer>
 
 </div>
