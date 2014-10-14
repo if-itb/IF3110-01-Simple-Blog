@@ -41,7 +41,7 @@
 
 </head>
 
-<body class="default" onload="load_comment()">
+<body class="default" onload="load_comment()"> <!--onload="load_comment()"-->
 <div class="wrapper">
 
 <nav class="nav">
@@ -85,7 +85,7 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="save_comment()"> <!-- -->
+                    <input type="submit" name="submit" id="submit" value="Kirim" class="submit-button" onclick="return save_comment()"> <!-- -->
                 </form>
             </div>
 			
@@ -112,10 +112,10 @@
 
 </div>
 
-
+<!--
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/respond.min.js"></script> -->
 <script type="text/javascript" src="assets/js/comment.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';

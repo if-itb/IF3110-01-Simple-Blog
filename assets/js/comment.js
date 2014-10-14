@@ -1,3 +1,4 @@
+//window.onload=load_comment();
 function load_comment()
 {
 	var id_post= encodeURIComponent(document.getElementById("id_post").value);
@@ -20,7 +21,7 @@ function load_comment()
 	
 	var param = id_post;
 	xmlhttp.open("GET", "load_comment.php?id="+param, true);
-	xmlhttp.send(null);
+	xmlhttp.send();
 }
 function isEmpty(teks)
 {
@@ -57,6 +58,7 @@ function save_comment()
 	var email= encodeURIComponent(document.getElementById("Email").value);
 	var komentar= encodeURIComponent(document.getElementById("Komentar").value);
 	
+	
 	//alert(email);
 	if (validate_comment(nama, email, komentar)==true)
 	{//return false;}
@@ -69,26 +71,31 @@ function save_comment()
 	{
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
+	
+	var param = "id=" + id_post + "&nama=" + nama + "&email=" + email + "&komentar=" + komentar;
+	
 	xmlhttp.onreadystatechange = function()
 	{
 	//alert ("status"+xmlhttp.status);
 	//alert ("ready state"+xmlhttp.readyState);
+	console.log("ready state "+xmlhttp.readyState);
+	console.log("status "+xmlhttp.status);
 
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			
-			savedComments = document.getElementById("isi_komentar").innerHTML;
-			document.getElementById("isi_komentar").innerHTML = savedComments + xmlhttp.responseText;
+			var savedComments = document.getElementById("isi_komentar").innerHTML;
+			document.getElementById("isi_komentar").innerHTML = xmlhttp.responseText + savedComments;
 			
 			document.getElementById("Nama").value='';
 			document.getElementById("Email").value='';
 			document.getElementById("Komentar").value='';
-		}
+		}else{console.error(xmlhttp.statusText);}
 	}
-	var param = "id=" + id_post + "&nama=" + nama + "&email=" + email + "&komentar=" + komentar;
-	xmlhttp.open("POST", "save_comment.php", true);
+	xmlhttp.open('POST', 'save_comment.php');
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send(param);
+	return false;
 	//alert("ready");
 	}//else{return false;}
 }
@@ -99,13 +106,13 @@ function validateEmail(teks)
 	var format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	if (teks.value.match(format))
 	{
-		document.form2.Email.focus();
-		//document.getElementById("submit").disabled=false;
+		//document.form2.Email.focus();
+		document.getElementById("submit").disabled=false;
 		return true;
 	}
 	else
 	{
-		document.form2.Email.focus();
+		document.getElementById("Email").focus();
 		alert('Format email salah!');
 		document.getElementById("submit").disabled=true;
 		return false;
