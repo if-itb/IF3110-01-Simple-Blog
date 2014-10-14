@@ -20,7 +20,7 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="new_post_helper.php">
+                <form method="post" name="formPost" action="new_post_helper.php" onsubmit="return validate();">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul" value=''>
 
@@ -41,6 +41,34 @@
 <?php require "footer.php"; ?>
 
 </div>
+
+<script>
+  
+Date.prototype.lessThan = function (d) {
+  if (this.getFullYear() != d.getFullYear()) {
+    return this.getFullYear() < d.getFullYear();
+  }
+  if (this.getMonth() != d.getMonth()) {
+    return this.getMonth() < d.getMonth();
+  }
+  return this.getDate() < d.getDate();
+}
+
+function validate(){
+    tanggal = document.getElementById("Tanggal");
+    dateInput = new Date(tanggal.value);
+    if (dateInput.lessThan(new Date())) {
+      alert("Tanggalnya masih salah bro");
+      tanggal.focus();
+      return false;
+    }else{
+      return true;
+    }
+  
+}
+
+
+</script>
 
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
