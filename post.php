@@ -62,8 +62,7 @@
         
         echo'            <label for="Email">Email:</label>';
         echo'            <input type="text" name="Email" id="Email">';
-        echo'            <p id="komentar_email"></p>';
-
+        
         echo'            <label for="Komentar">Komentar:</label><br>';
         echo'            <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>';
 

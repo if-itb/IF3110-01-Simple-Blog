@@ -180,7 +180,7 @@
             
             echo '<li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">'.$nama.'</a></h2>
+                        <h2 class="art-list-title"><a href="post.html?id='.$idpost.'">'.$nama.'</a></h2>
                         <div class="art-list-time">'.time_ago($tanggal).'</div>
                     </div>
                     <p>'.$komentar.' &hellip;</p>

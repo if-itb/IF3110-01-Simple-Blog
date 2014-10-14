@@ -8,8 +8,8 @@ function Confirm_Delete(id) {
  function checkemail(email){
  	var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if(!email.match(regex)){
-		document.getElementById("komentar_email").innerHTML="Email tidak valid!";
-  		document.getElementById("komentar_email").style.color="red";
+		//document.getElementById("komentar_email").innerHTML="Email tidak valid!";
+  		//document.getElementById("komentar_email").style.color="red";
 		return false;
 	}
 	else{
@@ -54,7 +54,7 @@ function Confirm_Delete(id) {
 	 	xmlhttp.send("id="+idpost+"&nama="+nama+"&komentar="+komentar+"&email="+email);
  	}
  	else{
-        return false;
- 		//alert("Email yang anda masukkan salah. Coba Lagi");
+        //return false;
+ 		alert("Email yang anda masukkan salah. Coba Lagi");
  	}
  }
