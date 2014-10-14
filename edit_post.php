@@ -1,3 +1,25 @@
+<?php
+	include("connect_db.php");
+
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		$query = mysql_query("
+			SELECT * 
+			FROM post 
+			WHERE id = '$id'
+		") or ("Ada masalah pada pengeditan post");
+
+		while($row = mysql_fetch_object($query)){
+			$id = $row->id;
+			$judul = $row->Judul;
+			$konten = $row->Konten;
+			$tanggal = $row->Tanggal;
+		}
+		session_start();
+		$_SESSION["id"] = $id;
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +51,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -38,31 +60,30 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ 13512006 +</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
     
-    
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="edit_post_process.php" onsubmit="return validation(this)">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $judul ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $tanggal ?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $konten ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -73,7 +94,7 @@
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="index.php">Back to Home</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
@@ -93,6 +114,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
