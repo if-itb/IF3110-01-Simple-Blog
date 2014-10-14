@@ -1,6 +1,27 @@
+<?php 
+/******************************************************************************************
+ * TUBES 1 WBD
+ * ------------
+ * NAMA		:	Andre Susanto
+ * NIM		:	135 12 028
+ ******************************************************************************************/
+
+require_once 'config.php';
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$judul = req_handler('Judul');
+	$tgl = req_handler('Tanggal');
+	$konten = req_handler('Konten');
+	
+	if (db_execute("INSERT INTO `post` (`id_post`, `judul`, `konten`, `stamp`) VALUES (NULL, '$judul', '$konten', '$tgl');")) $ok = 1;
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<base href="<?php echo $systemurl; ?>">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,8 +50,43 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Tambah Post</title>
 
+<script type="text/javascript">
+<!--
+function validasi(){
+	if (document.getElementById("Judul").value == ""){
+		alert ('Judul tidak boleh kosong!');
+		document.getElementById("Judul").focus();
+		return false;
+	}
+	
+	var tgl = /([0-9]+)-([0-9]+)-([0-9]+)/.test(document.getElementById("Tanggal").value);
+
+	if (tgl){
+		if (new Date(document.getElementById("Tanggal").value).getTime() + 86399000 < new Date().getTime()){
+			alert('Tanggal harus lebih besar atau sama dengan hari ini! ');
+			document.getElementById("Tanggal").focus();
+			return false;
+		}
+	}else{
+		alert('Tanggal harus menggunakan format YYYY-MM-DD!');
+		document.getElementById("Tanggal").focus();
+		return false;
+	}
+
+	if (document.getElementById("Konten").value == ""){
+		alert ('Konten tidak boleh kosong!');
+		document.getElementById("Konten").focus();
+		return false;
+	}
+
+
+	return true;
+	
+}
+-->
+</script>
 
 </head>
 
@@ -38,42 +94,39 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href=""><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Tambah Post</h2>
+			<?php if (isset($ok)) { ?><font color="green">Post berhasil ditambahkan!</font> <?php } ?>
+            <div id="contact-area">
+                <form method="post" action="new" onsubmit="return validasi();">
+                    <label for="Judul">Judul:</label>
+                    <input type="text" name="Judul" id="Judul" placeholder="Judul artikel">
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="Tanggal, Format YYYY-MM-DD">
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" placeholder="Konten artikel ..."></textarea>
+
+                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>

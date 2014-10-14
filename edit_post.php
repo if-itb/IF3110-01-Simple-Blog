@@ -1,6 +1,38 @@
+<?php 
+/******************************************************************************************
+ * TUBES 1 WBD
+ * ------------
+ * NAMA		:	Andre Susanto
+ * NIM		:	135 12 028
+ ******************************************************************************************/
+
+require_once 'config.php';
+
+$id = req_handler('id');
+$post = db_fetch("SELECT * FROM `post` WHERE id_post='$id'");
+
+if (!$post){
+	header("location:" . $systemurl);
+	exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$judul = req_handler('Judul');
+	$tgl = req_handler('Tanggal');
+	$konten = req_handler('Konten');
+	
+	if (db_execute("UPDATE `post` SET `judul`='$judul', `konten`='$konten', `stamp`='$tgl' WHERE id_post='$post[id_post]'")) $ok = 1;
+}else{
+	$judul = $post['judul'];
+	$tgl = $post['stamp'];
+	$konten = $post['konten'];
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<base href="<?php echo $systemurl; ?>">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,6 +63,41 @@
 
 <title>Simple Blog | Tambah Post</title>
 
+<script type="text/javascript">
+<!--
+function validasi(){
+	if (document.getElementById("Judul").value == ""){
+		alert ('Judul tidak boleh kosong!');
+		document.getElementById("Judul").focus();
+		return false;
+	}
+	
+	var tgl = /([0-9]+)-([0-9]+)-([0-9]+)/.test(document.getElementById("Tanggal").value);
+
+	if (tgl){
+		/*if (new Date(document.getElementById("Tanggal").value).getTime() + 86399000 < new Date().getTime()){
+			alert('Tanggal harus lebih besar atau sama dengan hari ini! ');
+			document.getElementById("Tanggal").focus();
+			return false;
+		}*/
+	}else{
+		alert('Tanggal harus menggunakan format YYYY-MM-DD!');
+		document.getElementById("Tanggal").focus();
+		return false;
+	}
+
+	if (document.getElementById("Konten").value == ""){
+		alert ('Konten tidak boleh kosong!');
+		document.getElementById("Konten").focus();
+		return false;
+	}
+
+
+	return true;
+	
+}
+-->
+</script>
 
 </head>
 
@@ -38,9 +105,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href=""><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        
     </ul>
 </nav>
 
@@ -51,18 +118,18 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
+            <h2>Edit Post</h2>
+			<?php if (isset($ok)) { ?><font color="green">Post berhasil diedit!</font> <?php } ?>
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="edit/<?php echo $id; ?>" onsubmit="return validasi();">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" value="<?php echo $judul; ?>" id="Judul" placeholder="Judul artikel">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $tgl; ?>" placeholder="Tanggal, Format YYYY-MM-DD">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" placeholder="Konten artikel ..."><?php echo $konten; ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
