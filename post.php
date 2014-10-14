@@ -29,51 +29,66 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>AkhFa Blog | Apa itu AkhFa Blog?</title>
 
 
 </head>
-
-<body class="default">
+<?php
+    $idpost = $_GET['id'];
+    //$echo 'idpost = '.$idpost;
+    echo '<body class="default" onload="load_komentar('.$idpost.')">';
+?>
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>AkhFa<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    <?php
+        include 'function.php';
+        $id = $_GET['id'];
+        Show_Post($id);
+    
+            
+        echo'    <h2>Komentar</h2>';
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
+        echo'    <div id="contact-area">';
+        echo'        <form method="post" onSubmit="return false">';
+        //echo'        <form method="post" action="add_comment.php?id='.$id.'">';
+        echo'            <label for="Nama">Nama:</label>';
+        echo'            <input type="text" name="Nama" id="Nama">';
+        
+        echo'            <label for="Email">Email:</label>';
+        echo'            <input type="text" name="Email" id="Email">';
+        
+        echo'            <label for="Komentar">Komentar:</label><br>';
+        echo'            <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>';
+
+        //echo'            <input type="submit" name="submit" value="Kirim" class="submit-button">';
+        echo'            <input type="submit" name="submit" value="Kirim" class="submit-button" onClick="insert_komentar('.$id.')">';
+
+        echo'        </form>';
+        echo'    </div>';
+    ?>
+            <ul class="art-list-body">
+                
+                <div id="comment_here">
+
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+                        
+                <!-- Load Commentar -->
+                <?php //load_comment($id); ?>
+                
+            </ul>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -96,6 +111,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
