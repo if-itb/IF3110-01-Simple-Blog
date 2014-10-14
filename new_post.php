@@ -66,7 +66,7 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" id="simpan" name="submit" value="Simpan" class="submit-button" >
+                    <input type="submit" id="simpan" name="submit" value="Simpan" class="submit-button" onclick="return validasi()" >
                 </form>
             </div>
         </div>

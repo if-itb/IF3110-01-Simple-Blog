@@ -99,3 +99,24 @@ function validatedate(inputText)
   }
   return r;
   }
+  
+  function isEmpty(teks)
+{
+	if (teks.length<=0 || teks==null)
+	{
+		return true;
+	}
+	return false;
+}
+
+function validasi()
+{
+	var judul = document.getElementById("Judul").value;
+	
+	if (isEmpty(judul)){
+		alert('Judul tidak boleh kosong!');
+		document.getElementById("Judul").focus();
+		return false;
+	}
+	return true;
+}
