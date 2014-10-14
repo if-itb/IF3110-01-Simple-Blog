@@ -53,7 +53,7 @@ Hand-Coded in the Aestaria and Quadsitron.
 <body onunload=''>
 	<div class='center'>
 		<nav>
-			<a class='menu' <?php if ($selectedID == 1) {echo 'id="selectedMenu" '; } ?>href='index.php'><div class='menu'>Posts</div><div class='desc'>List em all!</div></a>
+			<a class='menu' <?php if ($selectedID == 1) {echo 'id="selectedMenu" '; } ?>href='index.php'><div class='menu'>Articles</div><div class='desc'>List em all!</div></a>
 			<a class='menu' <?php if ($selectedID == 2) {echo 'id="selectedMenu" '; } ?>href='editor.php'><div class='menu'>Editor</div><div class='desc'>Make a new post!</div></a>
 			<div class='menuCenter'><div class='ridecon'></div></div>
 			<a class='menu' <?php if ($selectedID == 3) {echo 'id="selectedMenu" '; } ?>href='view.php'><div class='menu'>View</div><div class='desc'>View a post</div></a>

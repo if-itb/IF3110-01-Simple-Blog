@@ -83,13 +83,37 @@ Hand-Coded in the Aestaria and Quadsitron.
 <body onunload=''>
 	<div class='center'>
 		<nav>
-			<a class='menu' <?php if ($selectedID == 1) {echo 'id="selectedMenu" '; } ?>href='index.php'><div class='menu'>Posts</div><div class='desc'>List em all!</div></a>
+			<a class='menu' <?php if ($selectedID == 1) {echo 'id="selectedMenu" '; } ?>href='index.php'><div class='menu'>Articles</div><div class='desc'>List em all!</div></a>
 			<a class='menu' <?php if ($selectedID == 2) {echo 'id="selectedMenu" '; } ?>href='editor.php'><div class='menu'>Editor</div><div class='desc'>Make a new post!</div></a>
 			<div class='menuCenter'><div class='ridecon'></div></div>
 			<a class='menu' <?php if ($selectedID == 3) {echo 'id="selectedMenu" '; } ?>href='view.php'><div class='menu'>View</div><div class='desc'>View a post</div></a>
 			<a class='menu' <?php if ($selectedID == 4) {echo 'id="selectedMenu" '; } ?>href='http://dalva24.com'><div class='menu'>My Site</div><div class='desc'>Visit the original</div></a>
 		</nav>
 		<main>
+			
+<script>
+	//validator
+	function checkdate(){
+		var input = document.getElementById("DateIn");
+		var validformat=/^\d{4}-\d{2}-\d{2}$/; //Basic check for format validity
+		var returnval=false;
+		if (!validformat.test(input.value)) {
+			alert("Invalid Date Format. Please correct and submit again.");
+		} else { //Detailed check for valid date ranges
+			var yearfield=input.value.split("-")[1];
+			var monthfield=input.value.split("-")[2];
+			var dayfield=input.value.split("-")[3];
+			var enteredDate = new Date(yearfield, monthfield-1, dayfield);
+			var today = new Date();
+			if (enteredDate.setHours(0,0,0,0) < today.setHours(0,0,0,0)) {
+				alert("Invalid date: the entered date is earlier than today.");
+			} else {
+				returnval=true;
+			}
+		}
+		return returnval;
+	}
+</script>
 			
 <?php
 $contentheight = "460px";
@@ -100,12 +124,12 @@ Edit stuff here!
 </div>
 <div style='height:<?php echo $contentheight ?>' class='content3' >
 	<div class='title'></div>
-	<form id="mainForm" action="editor.php" method="post" enctype="multipart/form-data" onsubmit="checkdate(this)">
-		<div class="entry" style="width:320px;"><div class="formtext" id="Name">Title</div><input id="TitleIn" name="title" type="text" value="<?php echo $initialTitle; ?>"/></div>
-		<div class="entry" style="width:320px;"><div class="formtext" id="Date">Date</div><input id="DateIn" name="date" type="text"/></div>
-		<div class="entry" style="width:100%;"><div class="formtext" id="Message">Message</div><textarea class="msg" name="content"><?php echo $initialContent; ?></textarea></div>
+	<form id="mainForm" action="editor.php" method="post" enctype="multipart/form-data" onsubmit="return checkdate()">
+		<div class="entry" style="width:320px;"><div class="formtext" id="Name">Title</div><input id="TitleIn" name="title" type="text" required value="<?php echo $initialTitle; ?>"/></div>
+		<div class="entry" style="width:320px;"><div class="formtext" id="Date">Date</div><input id="DateIn" name="date" required type="text"/></div>
+		<div class="entry" style="width:100%;"><div class="formtext" id="Message">Message</div><textarea class="msg" name="content" required><?php echo $initialContent; ?></textarea></div>
 		<input id="ID" name="id" type="hidden" value="<?php echo $initialID; ?>"/>
-		<div class="button"><input id="submitButton" class="button" name="Submit" value="Submit" type="submit"/></div>
+		<div class="button"><input id="submitButton" class="button" name="submit" value="Submit" type="submit"/></div>
 	</form>
 </div>
 			
@@ -113,30 +137,6 @@ Edit stuff here!
 	//Autofill date
 	var date = new Date();
 	document.getElementById("DateIn").setAttribute("value", date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate());
-	
-	//validator
-	function checkdate(input){
-		var validformat=/^\d{4}-\d{2}-\d{2}$/; //Basic check for format validity
-		alert("in " + input.date.value);
-		var returnval=false;
-		if (!validformat.test(input.date.value)) {
-			alert("Invalid Date Format. Please correct and submit again.");
-		} else { //Detailed check for valid date ranges
-			var yearfield=input.date.value.split("-")[1];
-			var monthfield=input.date.value.split("-")[2];
-			var dayfield=input.date.value.split("-")[3];
-			var enteredDate = new Date(yearfield, monthfield-1, dayfield);
-			var today = new Date();
-			if ((enteredDate.getMonth()+1!==monthfield)||(enteredDate.getDate()!==dayfield)||(enteredDate.getFullYear()!==yearfield)) {
-				alert("Invalid Day, Month, or Year range detected. Please correct and submit again.");
-			} else if (enteredDate < today) {
-				alert("Invalid date: the entered date is earlier than today.");
-			} else {
-				returnval=true;
-			}
-		}
-		return returnval;
-	}
 
 </script>
 			

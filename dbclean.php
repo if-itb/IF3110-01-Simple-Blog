@@ -12,11 +12,12 @@ and open the template in the editor.
     <body>
 		Cleaning Database...
 		<?php 
+		/*
 			$dbh = new PDO( "mysql:dbname=simpleblog;host=localhost", "simpleblog", "simpleblog" );
 			$deletor = $dbh->prepare("SELECT * FROM comments WHERE PID=?");
 			$curComments->execute();
-		
+		*/
 		?>
-		Database cleaned and renewed.
+		Database Cleaning is not implemented.
     </body>
 </html>
