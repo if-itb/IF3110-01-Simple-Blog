@@ -60,7 +60,7 @@ if(!mysql_num_rows($result)) {
 			<ul class="art-list-body">
 				<li class="art-list-item">
 					<div class="art-list-item-title-and-time">
-						<h2 class="art-list-title"><a href="post.php">'.$row['title'].'</a></h2>
+						<h2 class="art-list-title"><a href="post.php?id='.$row['id'].'">'.$row['title'].'</a></h2>
 						<div class="art-list-time">'.$row['date'].'</div>
 						<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
 					</div>
