@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Ini blok ----- nya tina</title>
+<title>Simple Blog</title>
 
 <?php
 
@@ -70,7 +70,7 @@ $stm->execute();
                     <h2 class="art-list-title"><a href=<?php echo "'post.php?id=" . $row['ID'] . "'"; ?>><?php echo $row['Judul']; ?></a></h2>
                     <div class="art-list-time"><?php echo $row['Tanggal']; ?></div>
                 </div>
-                <p><?php echo $row['Konten']; ?></p>
+                <p><?php echo nl2br($row['Konten']); ?></p>
                 <p>
                     <a href=<?php echo "'editor.php?id=" . $row['ID'] . "'"; ?>>Edit</a> | <a href='#' onclick=<?php echo "'delAsk(" . $row['ID'] . ")'"; ?>>Hapus</a> | 
                     <form class='hidden' action='index.php' method='post' id=<?php echo "'delete" . $row['ID'] . "'"; ?>>
@@ -80,7 +80,7 @@ $stm->execute();
               <?php endwhile; ?>
               <script>
                   function delAsk(id) {
-                      var yes = confirm("Are you sure you want to delete this post?");
+                      var yes = confirm("Apakah Anda yakin menghapus post ini?");
                       if (yes) {
                           document.getElementById("delete" + id).submit();
                       }
@@ -98,7 +98,7 @@ $stm->execute();
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&psi;</div>
     <aside class="offsite-links">
-        Arieza Nadya / Tina Tunati
+        Tina
         
     </aside>
 </footer>
