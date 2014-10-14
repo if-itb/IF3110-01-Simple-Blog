@@ -64,7 +64,7 @@ $con = mysqli_connect("localhost","root","","tugaswbd1");
 <body class="default">
 <div class="wrapper">
 
-<img src="assets/img/Subtle_Ocean.jpg" class="background">
+<img src="assets/img/Tint-Harmony.png" class="background">
 
 <nav class="nav">
     <a style="border:none;" id="logo"  class="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
@@ -107,17 +107,6 @@ $con = mysqli_connect("localhost","root","","tugaswbd1");
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
     </aside>
 </footer>
 
