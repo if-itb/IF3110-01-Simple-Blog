@@ -78,7 +78,7 @@ if (isset($_GET['id']))
     
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
+    <script src="assets/js/post.js"></script>
     <div class="art-body">
         <div class="art-body-inner">
             <h2><?php if(isset($_GET['id'])) {echo "Edit Post";} else { echo "Tambah Post";}?></h2>
@@ -91,11 +91,12 @@ if (isset($_GET['id']))
 
                     <label for="Tanggal">Tanggal:</label>
                     <input type="text" name="Tanggal" id="Tanggal" <?php if(isset($post)) echo 'value="'.date("d-m-Y", strtotime($post['tanggal'])).'"';?>>
-                    
+                    <div id="errorMessage">
+                    </div>
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten" ><?php if(isset($post)) echo $post['konten'];?></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return checkDate();">
                 </form>
             </div>
         </div>

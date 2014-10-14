@@ -17,6 +17,7 @@ function validate()
 
 }
 
+
 function tambahKomentar(nama, tanggal, komentar)
 {
 	var ajaxComment = document.getElementById("ajaxComment");

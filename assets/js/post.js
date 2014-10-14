@@ -1,6 +1,6 @@
 function deletePost(id)
 {
-	if (confirm("Are you sure to delete this post?"))
+	if (confirm("Apakah Anda yakin menghapus post ini?"))
 	{
 		var xmlHtppObj = new XMLHttpRequest();
 		xmlHtppObj.open("POST", "delete_post.php", true);
@@ -17,4 +17,32 @@ function deletePost(id)
 	}
 
 	return false;
+}
+
+function checkDate()
+{
+	var re = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+	var dateField = document.getElementById("Tanggal");
+	var errorMessage = document.getElementById("errorMessage");
+	if ((re.test(dateField.value)) && (dateField.value != ''))
+	{
+		dateString = dateField.value.split("-");
+
+		date = new Date(dateString[2], dateString[1] - 1, dateString[0], 23, 59, 59);
+		currentDate = new Date();
+
+		if (date <= currentDate)
+		{
+			errorMessage.innerHTML = "Tanggal harus lebih baru atau sama dengan hari ini";
+			return false;
+		} else {
+			errorMessage.innerHTML = "";
+			return true;
+		}
+
+	}else {
+		
+		errorMessage.innerHTML = "Format tanggal adalah DD/MM/YYYY";
+		return false;
+	}
 }
