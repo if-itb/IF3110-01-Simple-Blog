@@ -29,7 +29,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title><?php if(!$_GET) echo "Simple Blog | Tambah Post"; else echo "Simple Blog | Edit Post"; ?></title>
+<?php include 'functions.php'; ?>
 
 
 </head>
@@ -38,9 +39,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -51,21 +52,43 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2><?php if(!$_GET) echo "Tambah Post"; else echo "Edit Post"; ?></h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
+            	<?php
+					if(!$_GET){
+						echo" <form method=\"post\" action=\"add_post.php\" onsubmit=\"return ValidateForm()\">
+							<label for=\"Judul\">Judul:</label>
+							<input type=\"text\" name=\"Judul\" id=\"Judul\" >
+		
+							<label for=\"Tanggal\">Tanggal:</label>
+							<input type=\"date\" name=\"Tanggal\" id=\"Tanggal\">
+							
+							<label for=\"Konten\">Konten:</label><br>
+							<textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\"></textarea>
+		
+							<input type=\"submit\" name=\"submit\" value=\"Simpan\" class=\"submit-button\">
+						</form>";
+					}else{
+						$ID = $_GET['ID'];
+						$Post = FetchPostFromDatabase($ID);
+						$Judul = $Post->GetTitle();
+						$Tanggal = $Post->GetDate();
+						$Konten = $Post->GetContent();
+						echo" <form method=\"post\" action=\"edit_post.php?ID=$ID\" onsubmit=\"return IsInputValid()\">
+							<label for=\"Judul\">Judul:</label>
+							<input type=\"text\" name=\"Judul\" id=\"Judul\" value=\"$Judul\">
+		
+							<label for=\"Tanggal\">Tanggal:</label>
+							<input type=\"date\" name=\"Tanggal\" id=\"Tanggal\" placeholder=\"YYYY-MM-DD\" value=\"$Tanggal\">
+							
+							<label for=\"Konten\">Konten:</label><br>
+							<textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\">$Konten</textarea>
+		
+							<input type=\"submit\" name=\"submit\" value=\"Simpan\" class=\"submit-button\">
+						</form>";
+					}
+				?>
             </div>
         </div>
     </div>
@@ -93,7 +116,7 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/functions.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

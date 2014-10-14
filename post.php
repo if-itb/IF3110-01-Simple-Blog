@@ -29,51 +29,89 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
-
+<title>
+	<?php
+		if($_GET){
+			echo "Simple Blog | " . $_GET['Title'];
+			$ID = $_GET['ID'];
+		}else{
+			echo "Simple Blog";
+		}
+	?>
+</title>
+<?php include 'functions.php'; ?>
 
 </head>
 
-<body class="default">
+<body class="default" onload="LoadCommentList(<?php if($_GET) echo $ID ?>)">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    <header class="art-header">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+            <time class="art-time">
+            	<?php
+					if($_GET){
+						$Post = FetchPostFromDatabase($ID);
+						echo $Post->GetDate();
+					}
+				?>
+            </time>
+            <h2 class="art-title">
+            	<?php
+					if($_GET){
+						echo $Post->GetTitle();
+					}
+				?>
+            </h2>
+            <p class="art-subtitle"></p>
+        </div>
+    </header>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <hr class="featured-article" />
+            
+            <?php
+				if($_GET){
+					echo $Post->GetContent();	
+				}
+			?>
+
+            <hr />
+            
+            <h2>Komentar</h2>
+
+            <div id="contact-area">
+                <form method="post" onsubmit="return AddComment(<?php if($_GET) echo $ID ?>)">
+                    <label for="Nama">Nama:</label>
+                    <input type="text" name="Nama" id="Nama">
+        
+                    <label for="Email">Email:</label>
+                    <input type="text" name="Email" id="Email">
+                    
+                    <label for="Komentar">Komentar:</label><br>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+
+                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                </form>
+            </div>
+
+            <ul class="art-list-body" id="comment-list">
+            
+            </ul>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -96,7 +134,8 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/ajax.js"></script>
+<script type="text/javascript" src="assets/js/functions.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
