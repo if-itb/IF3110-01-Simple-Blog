@@ -25,7 +25,7 @@
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
-<!--[if lt IE 9]>
+<!--[if lt IE 9f]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Add New Post</a></li>
     </ul>
 </nav>
 
@@ -48,28 +48,35 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+            
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+            <?php
+                //make connection
+                $con = mysqli_connect("localhost", "root", "", "simpleblog");
+
+                if (!mysqli_connect_errno()) {
+                    $result = mysqli_query($con, "SELECT * FROM post ORDER BY date DESC, id DESC");
+
+                    while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+                       echo  "<li class=\"art-list-item\">";
+                        echo  "<div class=\"art-list-item-title-and-time\">";
+                        echo  "<h2 class=\"art-list-title\"><a href=\"post.php?id=".$row["id"]."\">".$row["title"]."</a></h2>";
+                        echo  "<div class=\"art-list-time\">".$row["date"]."</div>";
+                        echo  "<div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>\"";
+                        echo  "</div>";
+                        echo  "<p>".$row["content"]." &hellip;</p>";
+                        echo  "<p>";
+                        echo  "<a href=\"EditPost.php?id=".$row["id"]."\">Edit</a> | <a onclick='return validateDeletion();' href=\"DeletePost.php?id=".$row["id"]."\">Delete</a>\"";
+                        echo  "</p>";
+                      echo  "</li>";
+
+                    }
+                    mysqli_close($con);
+                
+                }
+            ?>
+            
+
           </ul>
         </nav>
     </div>
@@ -108,6 +115,18 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+</script>
+<script>
+function validateDeletion() {
+/*  Post deletion confirmation */
+  var answer = confirm ("Are you sure want to delete this comment?");
+  console.log(answer);
+  if (answer) {
+    return true;
+  }  else{ 
+    return false;
+  }
+}
 </script>
 
 </body>
