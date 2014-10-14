@@ -103,6 +103,9 @@
             </footer>
 
         </div>
+        <?php
+            mysqli_close($con);
+        ?>
         <script type="text/javascript">
             function checkdate() {
                 var date = document.forms["submission"]["Tanggal"].value;
