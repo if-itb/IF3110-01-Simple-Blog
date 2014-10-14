@@ -35,6 +35,27 @@
 </head>
 
 <body class="default">
+
+<?php
+    //melakukan pengecekan dan pembangkitan session
+    //pengaktifan sesi
+    if(session_status() != PHP_SESSION_ACTIVE) {
+        session_start();
+    } else {
+        echo "Session tidak dapat diaktifkan";
+    }
+
+    unset($_SESSION["index"]);
+
+    //melakukan koneksi kedalam database post dan comment yang telah dibuat
+    $connectBlogDatabase = mysqli_connect("localhost", "root", "", "simpleblog");
+
+    //mengecek apakah koneksi berjalan dengan baik, jika tidak, menampilkan pesan error
+    if(mysqli_connect_errno()) {
+        echo "Gagal Koneksi : ".mysqli_connect_error();   
+    }
+?>
+    
 <div class="wrapper">
 
 <nav class="nav">
@@ -46,38 +67,46 @@
 
 <div id="home">
     <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+        <nav class="art-list">		
+            <ul class="art-list-body">
+            
+                <?php
+                    //set query untuk pengambilan data
+                    $queryData = mysqli_query($connectBlogDatabase, "SELECT * FROM postdata");
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
+                    //melakukan looping untuk menampilkan setiap post
+                    while ($arrayData = mysqli_fetch_array($queryData)) {
+                    
+                        //css untuk setiap post
+                        echo "<li class=\"art-list-item\">";
+
+                            //tanggal
+                            echo "<div class=\"art-list-item-title-and-time\">";
+                                echo "<h2 class=\"art-list-title\"><a href=\"post.html?index=".$arrayData['ID']."\">".$arrayData['Judul']."</a></h2>";
+                                echo "<div class=\"art-list-time\">".$arrayData['Tanggal']."</div>";
+                                echo "<div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>";
+                            echo "</div>";
+                                
+                            //konten utama
+                            echo "<p>".$arrayData['Konten']."</p>";
+                
+                            //link edit dan hapus
+                            echo "<p>";
+                                echo "<a href=\"new_post.html?index=".$arrayData['ID']."\">Edit</a> | <a href=\"assets/php/deletePost.php?index=".$arrayData['ID']."\" onclick=\"return confirm('Apakah anda yakin untuk menghapus ?')\";>Hapus</a>";
+                            echo "</p>";
+
+                        echo "</li>";
+                    }
+                ?>
+              
+            </ul>
         </nav>
     </div>
 </div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
-    <!-- <div class="footer-nav"><p></p></div> -->
+	<!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
         Asisten IF3110 /
