@@ -1,9 +1,3 @@
-<?php 
-session_start();
-
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +29,7 @@ session_start();
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Ubah Post</title>
 
 
 </head>
@@ -58,21 +52,56 @@ session_start();
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
+<?php
+$iPost = $_GET['iPost'];
 
-            <div id="contact-area">
-                <form name="form1" method="post" onsubmit="return validateDate();" action="savepost.php" >                
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+include "db-connector.php";
 
-                    <label for="Tanggal" >Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="yyyy-mm-dd">
+            echo '<div id="contact-area">';
+                echo '<form name="form1" method="post" onsubmit="return validateDate();" action="update.php?iPost='.$iPost.'">';           
+                    echo '<label for="Judul">Judul:</label>';
+                    echo '<input type="text" name="Judul" id="Judul" value="';
+
+                    $query_title = "select title from post_content where id= $iPost";
+                    $qhasil = mysql_query($query_title,$db) or die(mysql_error()); //hasil semua row
+                    $jumlah_rows = mysql_num_rows($qhasil); // ngitung jumlah row                   
+                    while($tdata = mysql_fetch_assoc($qhasil)) // 
+                    {
+                        echo $tdata['title'];
+                    }
+
+                    echo'">';
+
+                    echo '<label for="Tanggal" >Tanggal:</label>';
+                    echo '<input type="text" name="Tanggal" id="Tanggal" placeholder="yyyy-mm-dd" value="';
+
+                    $query_title = "select date from post_content where id= $iPost";
+                       $qhasil = mysql_query($query_title,$db) or die(mysql_error()); //hasil semua row
+                       $jumlah_rows = mysql_num_rows($qhasil); // ngitung jumlah row
+                       while($tdata = mysql_fetch_assoc($qhasil)) // 
+                       {
+                         echo $tdata['date'];
+                       }
+
+                    echo '">';
                     
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    echo '<label for="Konten">Konten:</label><br>';
+                    echo '<textarea name="Konten" rows="20" cols="20" id="Konten">'; 
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button" >
-                </form>
-            </div>
+                    $query_title = "select content from post_content where id= $iPost";
+                    $qhasil = mysql_query($query_title,$db) or die(mysql_error()); //hasil semua row
+                    $jumlah_rows = mysql_num_rows($qhasil); // ngitung jumlah row                   
+                    while($tdata = mysql_fetch_assoc($qhasil)) // 
+                    {
+                        echo $tdata['content'];
+                    }
+
+                    echo '</textarea>';
+
+                    echo '<input type="submit" name="submit" value="Simpan" class="submit-button">';
+                echo '</form>';
+            echo '</div>';
+?>
         </div>
     </div>
 
@@ -112,10 +141,8 @@ session_start();
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
-</script>
 
-<script type="text/javascript">
-    function validateDate(){
+  function validateDate(){
       var x = document.forms["form1"]["Tanggal"].value;
       var ok = true;
        //cek angka
@@ -134,9 +161,8 @@ session_start();
             }
        } else {    
             ok = false;
-       }
-       
-       if(ok==false){
+       }       
+       if(!ok){
             alert("invalid date format!");
        }
        return ok;
