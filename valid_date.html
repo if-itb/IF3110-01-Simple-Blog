@@ -1,0 +1,44 @@
+
+<html>
+<head>
+<title>Validasi Data Melalui onsubmit</title>
+<script type="text/javascript">
+
+
+//cek tanggal nge-post bukan lampau
+function checkdate()
+{ var validformat=/^\d{4}\/\d{2}\/\d{2}$/ //Basic check for formatvalidity
+var returnval=false
+if (!validformat.test(formTes.benar.value))
+alert("Invalid Date Format. Please correct and submit again.")
+else
+{ //Detailed check for valid date ranges
+var yearfield=formTes.benar.value.split("/")[0]
+var monthfield=formTes.benar.value.split("/")[1]
+var dayfield=formTes.benar.value.split("/")[2]
+var dayobj = new Date(yearfield, monthfield-1, dayfield)
+if(((dayobj.getFullYear()!=yearfield) dayobj.getMonth()+1!=monthfield)||(dayobj.getDate()!=dayfield))
+alert("Invalid Day, Month, or Year range detected. Please correct and submit again.")
+else
+returnval=true
+}
+if (returnval==false) formTes.lahir.select()
+return returnval
+}
+</script>
+</head>
+<body>
+<form name="formTes" action="tesform.html" method="get" onsubmit="return
+cekData();">
+<table>
+<tr><td>Tgl Lahir:</td><td><input type="text" name="lahir" /> <b>Valid date
+format:</b> dd/mm/yyyy</td>
+<tr><td>e-mail:</td><td><input type="text"
+name="email" /></td>
+<tr><td colspan="2"><input name="kirim" type="submit" value="Kirim" />
+<button type="submit" name="button1" onclick="confirm_clear();">Clear</button>
+</td></tr>
+</table>
+</form>
+</body>
+</html>
