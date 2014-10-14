@@ -1,3 +1,89 @@
+<?php 
+/*
+    require 'database.php';
+    $id = null;
+    if ( !empty($_GET['id'])) {
+        $id = $_REQUEST['id'];
+    }
+     
+    if ( null==$id ) {
+        header("Location: index.php");
+    } else {
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM post where id = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($id));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        Database::disconnect();
+    } */
+
+    require 'database.php';
+ 
+    $id = null;
+    if ( !empty($_GET['id'])) {
+        $id = $_REQUEST['id'];
+    }
+     
+    if ( null==$id ) {
+        header("Location: index.php");
+    }
+     
+    if ( !empty($_POST)) {
+        // keep track validation errors
+        $judulError = null;
+        $judulError = null;
+        $judulError = null;
+         
+        // keep track post values
+        $judul = $_POST['judul'];
+        $tanggal = $_POST['tanggal'];
+        $konten = $_POST['konten'];
+         
+        // validate input
+        $valid = true;
+        if (empty($judul)) {
+            $judulError = 'Masukkan judul';
+            $valid = false;
+        }
+         
+        if (empty($tanggal)) {
+            $tanggalError = 'Masukkan tanggal';
+            $valid = false;
+        }
+         
+        if (empty($konten)) {
+            $kontenError = 'Silahkan';
+            $valid = false;
+        }
+         
+        // update data
+        if ($valid) {
+            $pdo = Database::connect();
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $sql = "UPDATE post  set judul = ?, tanggal = ?, konten =? WHERE id = ?";
+            $q = $pdo->prepare($sql);
+            $q->execute(array($judul,$tanggal,$konten,$id));
+            Database::disconnect();
+            header("Location: index.php");
+        }
+    } else {
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM post where id = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($id));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        $judul = $data['judul'];
+        $tanggal = $data['tanggal'];
+        $konten = $data['konten'];
+        Database::disconnect();
+    }
+
+ ?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +115,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -38,9 +124,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Ngati<span>-</span>Man</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+</a></li>
     </ul>
 </nav>
 
@@ -51,22 +137,23 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h3>Edit Postingan</h3>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="update.php?id= <?php echo $id;?> ">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="judul" id="judul" value="<?php echo $data['judul']; ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="date" name="tanggal" id="tanggal" value="<?php echo $data['tanggal']; ?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="konten" rows="20" cols="20" id="konten"> <?php echo $data['konten']; ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
+
                 </form>
-            </div>
+           </div>
         </div>
     </div>
 
