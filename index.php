@@ -57,7 +57,9 @@
 					echo '<li class="art-list-item">';
 					echo	'<div class="art-list-item-title-and-time">';
 					echo 		'<h2 class="art-list-title"><a href="post.php?id='.$row['id'].'">'.$row['judul_post'].'</a></h2>';
-					echo		'<div class="art-list-time">'.printDate($row['tanggal_post']).'</div>';
+					echo		'<div class="art-list-time">';
+					printDate($row['tanggal_post']);
+					echo		'</div>';
 					echo	'</div>';
 					echo 	'<p>'.$row['konten_post'].'&hellip;</p>';
 					echo	'<p name="instruksi" id="'.$row['id'].'">';
@@ -80,7 +82,7 @@
         author /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="#">Rama</a> /
+        <a class="twitter-link" href="#">Rama Febriyan - 13511067</a> /
         
     </aside>
 </footer>

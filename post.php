@@ -65,7 +65,6 @@
         <div class="art-body-inner">
             <hr class="featured-article" />
             <p><?=$post['konten_post']?></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
 
             <hr />
             
@@ -105,7 +104,7 @@
         author /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="#">Rama</a> /
+        <a class="twitter-link" href="#">Rama Febriyan - 13511067</a> /
         
     </aside>
 </footer>

@@ -94,7 +94,7 @@
         author /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="#">Rama</a> /
+        <a class="twitter-link" href="#">Rama Febriyan - 13511067</a> /
         
     </aside>
 </footer>
