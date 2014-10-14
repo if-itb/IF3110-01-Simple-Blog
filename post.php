@@ -25,78 +25,85 @@
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
+<script type="text/javascript" src="/assets/js/validation.js"></script>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<![endif]--> 
+            
+    <?php
+        include ("mysql.php"); 
+        $id = $_GET['id'];
+        $result = mysql_safe_query('SELECT * FROM post WHERE id = %s LIMIT 1', $_GET['id']);
+                
+        if (!mysql_num_rows($result))
+        {
+            echo 'Post #'.$_GET['id'].' not found';
+        }
+        else
+        {
+            $data = mysql_fetch_row($result);
+        }
+    ?>
+
+<title>Simple Blog | <?php if (isset($_GET['id']) && mysql_num_rows($result)) echo $data[1] ?></title>    
+
 </head>
-<body class="default">
+
+<body class="default" onload = "loadComment();">
+
 <div class="wrapper">
-<?php
-    include 'mysql.php';
-    $PID = $_GET['id'];
-    $result = mysql_safe_query("SELECT * FROM post WHERE id='$PID' LIMIT 1");
 
-    if(!mysql_num_rows($result)) {
-    echo 'Post #'.$PID.' not found';
-    exit;
-    }
-    else{
-    while
-    ($row = mysql_fetch_assoc($result)){
-    echo '<title>Simple Blog | '.$row['title'].'</title>
-    <nav class="nav">
-		<a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
-		<ul class="nav-primary">
-			<li><a href="new_post.php">+ Tambah Post</a></li>
-		</ul>
-	</nav>
+<nav class="nav">
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <ul class="nav-primary">
+        <li><a href="new_post.php">+ Tambah Post</a></li>
+    </ul>
+</nav>
 
-	<article class="art simple post">
+<article class="art simple post">
+    
+    <header class="art-header">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+            <time class="art-time"><?php if (isset($_GET['id']) && mysql_num_rows($result)) echo $data[3] ?></time>
+            <h2 class="art-title"><?php if (isset($_GET['id']) && mysql_num_rows($result)) echo $data[1] ?></h2>
+            <p class="art-subtitle"></p>
+        </div>
+    </header>
 
-		<header class="art-header">
-			<div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-				<time class="art-time">'.$row['date'].'</time>
-				<h2 class="art-title">'.$row['title'].'</h2>
-				<p class="art-subtitle"></p>
-			</div>
-		</header>
-
-		<div class="art-body">
-			<div class="art-body-inner">
-				<hr class="featured-article" />
-				<p>'.$row['content'].'</p>';
-    }
-}
-echo '<hr />';
-echo '<h2>Komentar</h2>';
-echo '<div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
-
+    <div class="art-body">
+        <div class="art-body-inner">
+            <hr class="featured-article" />
+                <p> <?php if (isset($_GET['id']) && mysql_num_rows($result)) echo nl2br($data[2]);?> </p>
+            <hr />
+            <h2><b> COMMENTS </h2></b>
+            
+            
+            
+            <div id = "Comments"> </div>
+            
+            <hr>
+            <h2>Give Comment</h2>
+            
+            <div id="contact-area">
+                <form name="commentForm" id="commentForm" onsubmit="addComment('<?php echo $id; ?>'); return false;">
+                    <label for="Nama">Name:</label>
+                    <input type="text" name="Name" id="Name" value = "">
+        
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+                    <input type="text" name="Email" id="Email" value = "">
+                    
+                    <label for="Komentar">Comment:</label><br>
+                    <textarea name="Comment" rows="20" cols="20" id="Comment"></textarea>
 
-                    <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
-
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" value="Post Comment" class="submit-button">
                 </form>
-            </div>';
-$result = mysql_safe_query('SELECT * FROM comment WHERE post_id=%s ORDER BY date ASC', $_GET['id']);
-while($row = mysql_fetch_assoc($result)) {
-echo '<ul class="art-list-body">
-          <li class="art-list-item">
-              <div class="art-list-item-title-and-time">
-                   <h2 class="art-list-title"><a href="post.html">'.$row['name']</a></h2>
-                   <div class="art-list-time">'.$row['date'].'</div>
-                   </div>
-                   <p>'.$row['content'].'</p>
-           </li>
+            </div>
+
+            <ul class="art-list-body">
+                <div id="commentList"></div>
             </ul>
         </div>
-    </div>';
-?>
+    </div>
 
 </article>
 
@@ -115,10 +122,9 @@ echo '<ul class="art-list-body">
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-
+        
     </aside>
 </footer>
-
 </div>
 
 </body>

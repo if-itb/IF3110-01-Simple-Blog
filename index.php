@@ -66,14 +66,18 @@ if(!mysql_num_rows($result)) {
 					</div>
 					<p>'.$row['content'].'</p>
 					<p>
-					<a href="#">Edit</a> | <a href="#">Hapus</a>
+					<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0);" onclick ="delPost('.$row['id'].');">Hapus</a>
 					</p>
 				</li>
 			</ul>
 			</nav>';
     }
 }
-
+    if (isset($_GET['delete']))
+    {
+        mysql_safe_query("DELETE FROM post WHERE id = $_GET[delete]");
+    }
+    $result = mysql_safe_query('SELECT * FROM post');
 ?> 
 
 <footer class="footer">
@@ -96,6 +100,17 @@ if(!mysql_num_rows($result)) {
 </footer>
 
 </div>
+
+<script>
+    function delPost(delID)
+    {
+        var confDialog = confirm("Delete this post?");
+        if (confDialog)
+        {
+            window.location = 'index.php?delete=' + delID; 
+        }
+    }
+</script>
 
 </body>
 </html>

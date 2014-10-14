@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -29,19 +29,15 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 </head>
 
 <body class="default">
-
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
 </nav>
 
 <article class="art simple post">
@@ -51,22 +47,40 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
+            <h2>Edit Post</h2>
+			
+			<?php
+                include ("mysql.php");
+				if (!empty($_POST))
+				{
+					mysql_safe_query("UPDATE post SET title = '".$_POST['Title'] ."' ,body = '".$_POST['Content'] ."' ,date = '".$_POST['Date'] ."' WHERE id = ".$_GET['id']);
+					$title = $_POST['Title'];
+					$date = $_POST['Date'];
+					$content = $_POST['Content'];
+					echo ('<script type="text/javascript"> alert("Edit post successful.");</script>');
+				}
+				else
+				{
+					$result = mysql_safe_query("SELECT * FROM post WHERE id = ".$_GET['id']);
+					$data = mysql_fetch_row($result);
+				}
+			?>
+			
             <div id="contact-area">
                 <form method="post">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <label for="Judul">Title:</label>
+                    <input type="text" name="Title" id="Title" value = "<?php echo mysql_fetch_row($result) ?>">
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="yyyy-mm-dd hh:mm:ss">
+                    <label for="Tanggal">Date:</label>
+                    <input type="text" name="Date" id="Date" value = "<?php echo $row['date'] ?>" placeholder ="yyyy-mm-dd hh:mm:ss">
                     
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <label for="Konten">Content:</label><br>
+                    <textarea name="Content" rows="20" cols="20" id="Content" ><?php echo $row['content'] ?></textarea>
 
-                    <input type="submit" name="submit" value="Post" class="submit-button">
+                    <input type="submit" name="submit" value="Edit" class="submit-button">
                 </form>
             </div>
+			
         </div>
     </div>
 
@@ -92,20 +106,6 @@
 </footer>
 
 </div>
-
-<?php
-    // post_add.php
-    if(!empty($_POST)) {
-    include 'mysql.php';
-    if(mysql_safe_query('INSERT INTO post (title,date,content) VALUES (%s,%s,%s)', $_POST['Judul'], $_POST['Tanggal'], $_POST['Konten']))
-    echo '<script type="text/javascript"> alert("Post submitted.");</script>';
-    else
-        {
-           echo mysql_error();
-           echo '<script type="text/javascript"> alert("Invalid input(s).");</script>'; 
-        }
-    }
-?>
 
 </body>
 </html>
