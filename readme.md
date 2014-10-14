@@ -16,7 +16,7 @@ List Post merupakan halaman awal blog yang berisi daftar post yang sudah pernah 
 
 ### Add Post
 
-Add Post merupakan halaman untuk menambahkan post baru.  Post baru memiliki form untuk mengisi `Judul`, `Tanggal`, dan `Konten`. Lakukan **validasi** untuk tanggal dengan javascript agar tanggal yang dimasukkan lebih besar atau sama dengan tanggal saat menambahkan post baru tersebut.
+- Add Post merupakan halaman untuk menambahkan post baru.  Post baru memiliki form untuk mengisi `Judul`, `Tanggal`, dan `Konten`. Lakukan **validasi** untuk tanggal dengan javascript agar tanggal yang dimasukkan lebih besar atau sama dengan tanggal saat menambahkan post baru tersebut.
 
 ### Edit Post
 
@@ -24,7 +24,7 @@ Mengedit post yang sudah pernah dibuat. Form yang ditampilkan sama seperti saat 
 
 ### Delete Post
 
-Menghapus post yang sudah pernah dibuat. Lakukan **konfimasi** dengan javascript untuk konfirmasi pengguna terhadap penghapusan post tersebut. Keluarkan konfirmasi berisi pesan berikut
+- Menghapus post yang sudah pernah dibuat. Lakukan **konfimasi** dengan javascript untuk konfirmasi pengguna terhadap penghapusan post tersebut. Keluarkan konfirmasi berisi pesan berikut
 
     Apakah Anda yakin menghapus post ini?
 
@@ -45,9 +45,7 @@ Lakukan **validasi** email pada form komentar dengan menggunakan javascript. Kom
 
 ## Tools
 
-Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascript.
-
-**Tidak boleh menggunakan jquery untuk ajax.**
+Pembuatan blog ini tidak boleh menggunakan framework PHP dan javascript.
 
 ## Deliverable
 

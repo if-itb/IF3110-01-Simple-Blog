@@ -29,8 +29,12 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
-
+<?php include "koneksi.php"; 
+	$id = $_GET['id'];
+	$query = mysql_query("SELECT * FROM tblblog WHERE id=".$id);
+	$post = mysql_fetch_array($query);
+?>
+<title>Simple Blog | Edit Post</title>
 
 </head>
 
@@ -40,7 +44,7 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -51,18 +55,22 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
+            <h2>Edit Post</h2>
+			<?php 
+				if(!empty($_GET['message']) && $_GET['message'] == 'success')
+				{	echo '<h6>Berhasil mengedit post!</h6>';
+					}
+			?>
             <div id="contact-area">
-                <form method="post" action="#">
+                <form action="update.php?id=<?php echo $post['id']; ?>" method="post" >
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $post['judul']; ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $post['tanggal']; ?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $post['konten']; ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -93,6 +101,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
