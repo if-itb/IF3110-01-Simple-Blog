@@ -1,3 +1,5 @@
+<?php require_once 'functions.php';
+$post = get_post($_GET["id"]); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +40,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,17 +50,15 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
-            <p class="art-subtitle"></p>
+            <time class="art-time"><?php echo $post["tanggal"] ?></time>
+            <h2 class="art-title"><?php echo $post["judul"] ?></h2>
         </div>
     </header>
 
     <div class="art-body">
         <div class="art-body-inner">
-            <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+
+            <?php echo $post["konten"]; ?>
 
             <hr />
             
@@ -75,27 +75,13 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="button" name="submit" value="Kirim" class="submit-button" onclick="return submit_komentar()">
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+            <ul class="art-list-body" id="listkomentar">
             </ul>
+
         </div>
     </div>
 
@@ -122,18 +108,52 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
+<script>
+    function load_komentar() {
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                // console.log(ajax.responseText);
+                document.getElementById("listkomentar").innerHTML = ajax.responseText;
+            }
+        }
+        ajax.open("GET", "komentar.php?id_post=<?php echo $_GET['id'] ?>", true);
+        ajax.send();
+    }
+
+    window.onload = load_komentar;
+
+    function submit_komentar() {
+        var email_regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        var emailvalue = document.getElementById("Email").value;
+        if (email_regex.test(emailvalue)) {
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function() {
+                if (ajax.readyState == 4 && ajax.status == 200) {
+                    if (ajax.responseText == "success") {
+                        window.alert("Komentar berhasil dimasukkan.");
+                        load_komentar();
+                    }
+                }
+            }
+            ajax.open("POST", "komentar.php", true);
+            ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+            var namavalue = document.getElementById("Nama").value;
+            var komentarvalue = document.getElementById("Komentar").value;
+            var formdata = "id_post=<?php echo $_GET['id'] ?>" + "&nama=" + namavalue + "&komentar=" + komentarvalue + "&email=" + emailvalue;
+
+            ajax.send(formdata);
+        } else {
+            window.alert("Email yang dimasukkan bukan email yang valid.");
+            return false;
+        }
+    }
 </script>
 
 </body>
