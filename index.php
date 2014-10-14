@@ -70,7 +70,7 @@
                   echo '</div>';
                   echo '<p>'.$row['konten'].'&hellip;</p>';
                   echo '<p>';
-                    echo '<a href="#">Edit</a> | <a href="#">Hapus</a>';
+                    echo '<a href="new_post.php?id_post='.$row['id_post'].'&action=edit">Edit</a> | <a onclick="return confirmdelete();" href="deletepost.php?id_post='.$row['id_post'].'&action=delete">Hapus</a>';
                   echo '</p>';
                   echo '</li>';
                 }
@@ -113,6 +113,16 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+</script>
+<script>
+function confirmdelete(){
+  answer = confirm("Mau di hapus ?");
+  if(answer){
+    return true;
+  }else{
+    return false;
+  }
+}
 </script>
 
 </body>

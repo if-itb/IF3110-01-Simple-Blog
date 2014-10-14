@@ -1,9 +1,38 @@
 <?php
-if(isset($_POST['judul']) && isset($_POST['tanggal']) && isset($_POST['konten'])){
-    $judul =  $_POST['judul'];   
-    $tanggal =  $_POST['tanggal'];
-    $konten = $_POST['konten'];
+function printifexist($var){
+    if(isset($var)){
+        echo $var;
+    }
+}
+
+function print_action(){
+    if( isset($_GET['action']) && ($_GET['action']=='edit')){
+        echo "edit";
+    }else{
+        echo "new";
+    }
+}
+if(isset($_GET['action']) && ($_GET['action']=='edit') && isset($_GET['id_post'])){
+    $host     = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname   = "if3110-01";
+
+    $conection = mysqli_connect($host,$username,$password,$dbname);
+    $query  = "SELECT * from post where id_post=".$_GET['id_post'];
+    $result = mysqli_query($conection, $query);
+    while($row = mysqli_fetch_array($result)){
+        $judul = $row['judul'];
+        $tgl = explode("-", $row['tanggal']);
+        $tanggal = $tgl[2]."-".$tgl[1]."-".$tgl[0];
+        $konten = $row['konten'];
+    }
+    mysqli_close($conection);
 }else{
+    $judul="";
+    $tanggal = "";
+    $konten = "";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,19 +90,19 @@ if(isset($_POST['judul']) && isset($_POST['tanggal']) && isset($_POST['konten'])
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="new_post_action.php">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php printifexist($judul)?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php printifexist($tanggal)?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" onclick="validate();" class="submit-button">
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php printifexist($konten);?></textarea>
+                    <input type="hidden" name="id_post" value="<?php echo isset($_GET['id_post']) ? $_GET['id_post'] : ""?>">
+                    <input type="hidden" name="action" value="<?php print_action();?>">
+                    <input type="submit" name="submit" value="Simpan" onclick="return validate();" class="submit-button">
                 </form>
-                <button onclick="return testlagi();">test lagi </button>
             </div>
         </div>
     </div>
@@ -154,7 +183,12 @@ function validate(){
     var konten = document.getElementById("Konten").value;
     if((judul != '' ) && (tanggal != '' ) && (konten != '' )){
         if(validateFormatTanggal(tanggal)){
-            alert(judul+tanggal+konten);
+            if(validateWaktuTanggal(tanggal)){
+                alert(judul+tanggal+konten);
+            }else{
+                alert("Waktu yang diinput minimal sama dengan hari ini atau lebih dari ini");
+                return false;
+            }
         }else{
             alert("ga valid tanggalnya formatnya")
             return false;
@@ -168,4 +202,3 @@ function validate(){
 </script>
 </body>
 </html>
-<?php }?>
