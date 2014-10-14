@@ -11,7 +11,7 @@
 	'$email', '$komentar', '$index_post' ) ";
 	$insert_query = mysql_query($insert);
 	
-	$query = mysql_query("select * from komentar where id_post='$index_post' ORDER BY id DESC LIMIT 1");
+	$query = mysql_query("select * from komentar where id_post='$index_post'");
 			
 			while ($data = mysql_fetch_array($query)){
               echo  '<li class="art-list-item">';
