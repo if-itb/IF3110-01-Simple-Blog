@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Questrial);
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 
 /* Reset & Basics (Inspired by E. Meyers)
 ================================================== */
@@ -38,7 +43,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
   text-transform: uppercase;
   font-weight: 700;
+<<<<<<< HEAD
   color: #204869;
+=======
+  color: #000;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
   text-rendering: optimizeLegibility;
 }
 
@@ -104,14 +113,22 @@ header#teaser h1 {
 /* Links
 ================================================== */
 a {
+<<<<<<< HEAD
   color: #d00749;
+=======
+  color: #F40034;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
   text-decoration: none;
   -webkit-transition: color .2s ease-in-out;
      -moz-transition: color .2s ease-in-out;
           transition: color .2s ease-in-out;
 }
 a:hover {
+<<<<<<< HEAD
   color: #ff5a00;
+=======
+  color: #F40034;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 
 /*  Layout
@@ -120,7 +137,11 @@ a:hover {
 .wrapper {
   max-width: 1500px;
   margin: 0 auto;
+<<<<<<< HEAD
   background: #ffebbf;
+=======
+  background: #fff;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 
 /* Containers to keep content to a set width */
@@ -145,6 +166,7 @@ a:hover {
 /*  Nav
 ================================================== */
 .nav {
+<<<<<<< HEAD
   position: relative;
   top: 0;
   left: 0;
@@ -158,6 +180,16 @@ a:hover {
   z-index: 2;
   background-color: #506b82; /*#587bb0;*/
   box-sizing: border-box;
+=======
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 70px;
+  padding-top: 40px;
+  margin-left: -490px; /* Half width of nav */
+  border-bottom: 1px solid #333;
+  z-index: 2;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .nav.fixed {
   position: fixed;
@@ -180,7 +212,11 @@ a:hover {
   font-weight: 700;
   font-size: 13px;
   line-height: 30px;
+<<<<<<< HEAD
   color: #fff;
+=======
+  color: #000;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
   text-transform: uppercase;
 }
 
@@ -228,6 +264,7 @@ div.cover > img {
 }
 /* Header */
 .art-header {
+<<<<<<< HEAD
   width: 100%;
   /* Background image is defined in the post */
   background-position: top center;
@@ -247,6 +284,20 @@ div.cover > img {
   padding-right: 70px;
   display: block;
   box-sizing:border-box;
+=======
+  height: 900px;
+  /* Background image is defined in the post */
+  background-position: top center;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+/* Contains the time, title and subtitle for an article */
+.art-header-inner {
+  position: fixed;
+  top: 300px;
+  left: 50%;
+  margin-left: -490px;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .art-time,
 .art-title,
@@ -264,7 +315,10 @@ div.cover > img {
   line-height: .9;
   letter-spacing: -2px;
   width: 100%;
+<<<<<<< HEAD
   color: #204869;
+=======
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .art-subtitle {
   margin-top: 4px;
@@ -295,7 +349,11 @@ div.cover > img {
 .art-body-inner {
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
   max-width: 640px;
+<<<<<<< HEAD
   padding: 10px 0 120px;
+=======
+  padding: 80px 0 50px;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
   letter-spacing: 0.01rem;
   font-weight: 400;
   font-style: normal;
@@ -392,7 +450,11 @@ div.cover > img {
 /*  List of Articles
 ================================================== */
 .art-list {
+<<<<<<< HEAD
   padding: 10px 0 80px;
+=======
+  padding: 120px 0 0;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .art-list-body {
   position: relative;
@@ -402,7 +464,11 @@ div.cover > img {
   padding: 40px 0;
   list-style: none;
   overflow: hidden;
+<<<<<<< HEAD
   border-bottom: 1px solid #d9bc7b;
+=======
+  border-bottom: 1px solid #ccc;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .art-list-item:last-child {
   border-bottom: none;
@@ -422,6 +488,7 @@ div.cover > img {
   line-height: 20px;
   letter-spacing: 2px;
   text-transform: uppercase;
+<<<<<<< HEAD
   color: #453937;
 }
 .art-list-title a {
@@ -429,6 +496,15 @@ div.cover > img {
 }
 .art-list-title a:hover {
   color: #e61765;
+=======
+  color: #999;
+}
+.art-list-title a {
+  color: #000;
+}
+.art-list-title a:hover {
+  color: #F40034;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .art-list-item p {
   width: 65%;
@@ -443,6 +519,7 @@ div.cover > img {
 /*  Footer
 ================================================== */
 .footer {
+<<<<<<< HEAD
   /*padding: 30px 0 40px;*/
   overflow: hidden;
   border-top: 1px solid #d9bc7b;
@@ -455,13 +532,22 @@ div.cover > img {
   position: fixed;
   bottom: 0;
   z-index: 150;
+=======
+  padding: 30px 0 40px;
+  overflow: hidden;
+  border-top: 1px solid #ccc;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .footer,
 .footer a {
   font-family: "proxima-nova", "helvetica neue", "helvetica", sans-serif;
   font-size: 13px;
   text-transform: uppercase;
+<<<<<<< HEAD
   color: #fff;
+=======
+  color: #777;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 .footer a:hover {
   color: #000;
@@ -830,18 +916,31 @@ img.right {
 hr.featured-article {
     padding: 0;
     border: none;
+<<<<<<< HEAD
     border-top: medium double #063561;
     color: #fff;
     text-align: center;
 }
 hr.featured-article:after {
     content: "✭ Article ✭";
+=======
+    border-top: medium double #bbb;
+    color: #bbb;
+    text-align: center;
+}
+hr.featured-article:after {
+    content: "✭ Featured Article ✭";
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
     display: inline-block;
     position: relative; 
     top: -0.8em;  
     font-size: 1.2em;
     padding: 0 0.6em;
+<<<<<<< HEAD
     background: #7ea6cb;
+=======
+    background: white;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 
 /* FORM */
@@ -856,7 +955,11 @@ hr.featured-article:after {
   width: 471px;
   font-family: Helvetica, sans-serif;
   margin: 0px 0px 10px 0px;
+<<<<<<< HEAD
   border: 2px solid #d9a151;
+=======
+  border: 2px solid #ccc;
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 
 #contact-area textarea {
@@ -869,12 +972,16 @@ hr.featured-article:after {
 
 #contact-area input.submit-button {
   width: 100px;
+<<<<<<< HEAD
   background-color: #ffbe58;
   font-family: Helvetica;
   border-color: #ff6c00;
   float: right;
   border-radius: 10px;
   cursor: pointer;
+=======
+  
+>>>>>>> 995cea6f7f68cf98b3a33285204a120951e7c074
 }
 
 label {
