@@ -1,3 +1,4 @@
+<!-- Ananda Kurniawan /13511052--> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,64 +30,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Tambah Post</title>
 
-<?php
-
-require_once('config.php');
-//if form has been submitted process it
-if(isset($_POST['submit'])){
-
-	$_POST = array_map( 'stripslashes', $_POST );
-
-	//collect form data
-	extract($_POST);
-
-	//very basic validation
-	if($postTitle ==''){
-		$error[] = 'Please enter the title.';
-	}
-
-	if($postDesc ==''){
-		$error[] = 'Please enter the description.';
-	}
-
-	if($postCont ==''){
-		$error[] = 'Please enter the content.';
-	}
-
-	if(!isset($error)){
-
-		try {
-
-			//insert into database
-			$stmt = $db->prepare('INSERT INTO blog_posts (postTitle,postDesc,postCont,postDate) VALUES (:postTitle, :postDesc, :postCont, :postDate)') ;
-			$stmt->execute(array(
-				':postTitle' => $postTitle,
-				':postDesc' => $postDesc,
-				':postCont' => $postCont,
-				':postDate' => date('Y-m-d H:i:s')
-			));
-
-			//redirect to index page
-			header('Location: index.php?action=added');
-			exit;
-
-		} catch(PDOException $e) {
-			echo $e->getMessage();
-		}
-
-	}
-
-}
-
-//check for any errors
-if(isset($error)){
-	foreach($error as $error){
-		echo '<p class="error">'.$error.'</p>';
-	}
-}
-?>
 
 </head>
 
@@ -100,6 +45,29 @@ if(isset($error)){
     </ul>
 </nav>
 
+<?php 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$judul = $_POST["Judul"];
+	$date = $_POST["Tanggal"];
+	$konten =$_POST["Konten"];	
+
+    $tanggal = date("Y-m-d", strtotime($date));
+
+	include("config.php");
+	$query = 'INSERT INTO post (judul, tanggal, konten) VALUES ("'.$judul.'", "'.$tanggal.'", "'.$konten.'")';
+	mysql_query($query);
+
+    $id = mysql_insert_id();
+
+	header("Location: view_post.php?id=".$id);
+    exit;
+
+}
+
+$title = "Simple Blog | Tambah Post";
+?>
+
+
 <article class="art simple post">
     
     
@@ -110,25 +78,17 @@ if(isset($error)){
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action=''>
+                <form method="post" action="new_post.php">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="postTitle" id="Judul" value='
-					<?php if(isset($error)){ echo $_POST['postTitle'];}?>'>
+                    <input type="text" name="Judul" id="Judul" placeholder="Judul post">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="DD-MM-YYYY">
                     
-					<label for="Konten">Konten:</label><br>
-                    <textarea name="postCont" rows="20" cols="20" id="Konten">
-					<?php if(isset($error)){ echo $_POST['postCont'];}?>
-					</textarea>
-					
-                    <label for="Deskripsi">Deskripsi:</label><br>
-                    <textarea name="postDesc" rows="20" cols="20" id="Konten">
-					<?php if(isset($error)){ echo $_POST['postDesc'];}?>
-					</textarea>
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" placeholder="Konten post"></textarea>
 
-                    <input type="submit" name="submit" value="Submit" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validatePost()">
                 </form>
             </div>
         </div>
@@ -157,9 +117,21 @@ if(isset($error)){
 
 </div>
 
+<!-- <script type="text/javascript" src="assets/js/jquery.min.js"></script> -->
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/simple_blog.js"></script>
+<?php 
+if(isset($isLoadComments)) {
+  if($isLoadComments) { ?>
+<script type="text/javascript">
+  window.onload = loadComments();
+</script>
+<?php 
+  }
+} ?>
+
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
