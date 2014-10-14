@@ -23,25 +23,24 @@
 <meta property="og:site_name" content="Simple Blog">
 
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
-<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="images/t.png">
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>TeBonBon | Add Post</title>
 
 
 </head>
+
 
 <body class="default">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
+    <a style="border:none;" id="logo" href="index.php"><h1>TeBonBon<span>-</span>Blog</h1></a>
+    
 </nav>
 
 <article class="art simple post">
@@ -51,20 +50,21 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            
 
             <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
+            <h2>Add Post</h2>
+                <form method="post" id="myform">
+                    <label for="Judul">Title:</label>
                     <input type="text" name="Judul" id="Judul">
 
-                    <label for="Tanggal">Tanggal:</label>
+                    <label for="Tanggal">Date:</label>
                     <input type="text" name="Tanggal" id="Tanggal">
                     
-                    <label for="Konten">Konten:</label><br>
+                    <label for="Konten">Content:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" id="submitbtn" class="submit-button" onclick="checkDate();">
                 </form>
             </div>
         </div>
@@ -73,9 +73,9 @@
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="index.php">Home</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
-    <div class="psi">&Psi;</div>
+    <div class="psi">Teofebano 13512050</div>
     <aside class="offsite-links">
         Asisten IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
@@ -96,16 +96,36 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
+<script>
+function checkDate(){
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+      {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+      }
+    else
+      {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    var title = document.getElementById("Judul").value;
+    var konten = document.getElementById("Konten").value;
+    var enteredDate = document.getElementById("Tanggal").value;
+    var Date1 = new Date(enteredDate);
+    var today = new Date();
+    if (Date1 >= today){
+        alert("Your date is valid!!!");
+        xmlhttp.open("POST","add_post.php?",true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send("Judul="+title+"&Tanggal="+enteredDate+"&Konten="+konten);
+        //xmlhttp.open("POST","index.php",true);
+        //xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    }
+    else{
+        alert("Your date is invalid!!!");
 
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
+    }
+    
+}
 </script>
-
 </body>
 </html>
