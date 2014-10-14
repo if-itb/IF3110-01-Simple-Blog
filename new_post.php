@@ -38,14 +38,23 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
-    
+    <?php
+		$db=mysqli_connect("localhost","root","","simpleblog_db");
+		if(isset($_POST['Judul'])){
+			mysqli_query($db,"INSERT INTO posts (title,tanggal,body) VALUES ('".$_POST['Judul']."','".$_POST['Tanggal']."','".$_POST['Konten']."')");
+		}
+		
+		
+		
+		mysqli_close($db);
+	?>
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
