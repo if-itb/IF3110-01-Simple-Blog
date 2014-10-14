@@ -2,10 +2,11 @@ function submitcomment() {
 	if(emailvalidator()) {
 		comment_add();
 		load_comment();
-		return true;
-	} else {
+		document.getElementById("Nama").value = "";
+		document.getElementById("Email").value = "";
+		document.getElementById("Komentar").value = "";
+	} 
 	return false;
-	}
 }
 
 function initAjax(){
@@ -21,14 +22,20 @@ function initAjax(){
 function comment_add() {
 	var ajax = initAjax();
 	if(ajax) {
-		
-		ajax.open("POST","comment_processor.php",false);
-		ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		var nama = encodeURIComponent(document.getElementById("Nama"));
-		var email = encodeURIComponent(document.getElementById("Email"));
-		var komentar = encodeURIComponent(document.getElementById("Komentar"));
-		var id = encodeURIComponent(document.getElementById("id"));
-		ajax.send("mode=add&id="+id+"&nama="+nama+"&komentar="+komentar+"&email="+email);
+		var Nama = document.getElementById("Nama").value;
+		var Email = document.getElementById("Email").value;
+		var Komentar = document.getElementById("Komentar").value;
+		var id = document.getElementById("id").value;
+			ajax.onreadystatechange = function()
+			{
+				if(ajax.readyState == 4 && ajax.status == 200)
+				{
+					load_comment();
+				}
+			};
+		ajax.open("GET","comment_processor2.php?id="+id+"&Nama="+Nama+"&Email="+Email+"&Komentar="+Komentar,true);
+		ajax.send();
+
 	}
 }
 
@@ -41,7 +48,7 @@ function load_comment() {
 			}
 		};
 		var id = document.getElementById("id").value;
-		ajax.open("GET","comment_processor.php?mode=retrieve&id="+id,false);
+		ajax.open("GET","comment_processor.php?id="+id,true);
 		ajax.send();
 	}
 }	

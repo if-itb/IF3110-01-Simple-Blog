@@ -88,10 +88,10 @@ echo "
 					<input type=\"hidden\" name=\"id\" id=\"id\" value=". $id .">
 					
                     <label for=\"Nama\">Nama:</label>
-                    <input type=\"text\" name=\"Nama\" id=\"Nama\" required=\"\">
+                    <input type=\"text\" name=\"Nama\" id=\"Nama\" required>
         
                     <label for=\"Email\">Email:</label>
-                    <input type=\"text\" name=\"Email\" id=\"Email\" required=\"\">
+                    <input type=\"text\" name=\"Email\" id=\"Email\" required>
 					<span id=\"email-validation\"> </span>
                    
                     <label for=\"Komentar\">Komentar:</label><br>
