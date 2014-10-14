@@ -655,11 +655,16 @@ padding: 0;
     margin-left: 20px;
   }
   .art-title {
-    letter-spacing: 0;
+	letter-spacing: 0;
+	position: relative;
+	overflow: hidden;
+	top: 10px;
+	left: 20px;
   }
   .art-subtitle,
   .art-time {
-    font-size: 12px;
+	font-size: 12px;
+	position: absolute;
   }
   .nav {
     padding-top: 25px;
@@ -773,7 +778,8 @@ img.right {
 .art-body-inner,
 .footer,
 .art-list {
-    zoom:1; /* For IE 6/7 (trigger hasLayout) */
+	zoom: 1; /* For IE 6/7 (trigger hasLayout) */
+	overflow: scroll;
 }
 
 
