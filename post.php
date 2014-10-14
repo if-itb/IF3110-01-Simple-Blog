@@ -29,43 +29,85 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<?php 
+	//establish connection to database
+	$link = mysqli_connect('localhost', 'kevhnmay94', "", 'simpleblog');
+	$id = mysqli_real_escape_string($link, $_GET['id']);
+	
+	//retrieve data from database (info_post)
+	$query = "SELECT * FROM `posts` WHERE id = $id";
+	if(!($results = mysqli_query($link, $query)))
+	{
+		die('Error ' . mysqli_errno($link));
+	}
+	$result = $results->fetch_assoc();
+	$retrieved = $result['date'];
+	$date = DateTime::createFromFormat('Y-m-d', $retrieved);
+	
+	//retrieve data from database (info_comment)
+	$query1 = "SELECT * FROM `comments` WHERE pid = $id";
+	if(!($results1 = mysqli_query($link, $query1)))
+	{
+		die('Error ' . mysqli_errno($link));
+	}
+?>
+
+<title>Simple Blog | <?php echo $result['title']; ?></title>
 
 
 </head>
 
-<body class="default">
+<body class="default" onload="loadpost(<?php echo $result['id'] ?>)">
 <div class="wrapper">
 
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Kevhn's<span>-</span>Blog</h1></a>
-
+    <ul class="nav-primary">
+        <li><a href="new_post.html">+ Tambah Post</a></li>
+    </ul>
 </nav>
 
 <article class="art simple post">
     
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+    <header class="art-header">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+            <time class="art-time"><?php echo $date->format('l\, j F Y'); ?></time>
+            <h2 class="art-title"><?php echo $result['title']; ?></h2>
+            <p class="art-subtitle"></p>
+        </div>
+    </header>
 
     <div class="art-body">
-        <div class="art-body-inner">
-            <h2 style="text-align:center">Tambah Post</h2>
+        <div class="art-body-inner" style="padding-top: 0px;">
+            <p><?php echo nl2br($result['content']); ?></p>
+
+            
+            <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="insert_database.php" onsubmit="return Validation()">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul" required="" value="">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" required="" placeholder="format: dd-mm-yyyy">
-                    <div id="errormsg"></div>
+                <form method="post" action="addcomment.php" name="form_comment" id="form_comment" onsubmit="return false">
+					<input type="hidden" name="pid" value=<?php echo $id; ?> id="pid">
+				
+                    <label for="nama">Nama:</label>
+                    <input type="text" name="nama" id="nama" required>
+        
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" id="email" required>
+                    <div id='errormsg'></div>
                     
-                    <label for="Konten"><br>Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten" required></textarea>
+                    <label for="komentar"><br>Komentar:</label><br>
+                    <textarea name="komentar" rows="20" cols="20" id="komentar" required></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="validatecomment()">
                 </form>
             </div>
+			<ul class="art-list-body">
+				
+				<div id="ajaxcontent">
+				
+				</div>
+				
+            </ul>
         </div>
     </div>
 
@@ -92,10 +134,15 @@
 
 </div>
 
+<?php 
+	//close connection to server
+	mysqli_close($link);
+?>
+
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript" src="assets/js/formValidation.js"></script>
+<script type="text/javascript" src="assets/js/getdatabase.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
