@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<HTML>
+	<head>
+		<title> Simple Blog </title>
+	</head>
+
+	<body>
+		<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css">
+		
+		<!--Header Part of the blog-->
+		<hr id="BordLine">
+		<div class="header">
+			<h1> Simple Blog </h1> 
+			<a href="../VIEW/Home.php" id="link"> HOME </a> 
+		
+		</div>
+		<div>
+			&nbsp&nbsp&nbsp#73514701  Koji Sato
+		</div>
+		<hr id="BordLine">
+		
+		<div class="form">
+
+		<script src="../JS/ValidatePost.js"></script>
+
+			<form class="Form" name="NewPost" action="../PHP/SavePost.php" onsubmit="return validateForm()" method="POST">
+				<span> Title : </span> <input id="Title" name="Title" placeholder="Title" type="text"> </input>
+				<br>
+				<span> Date : </span> <input id="Date" name="Date" placeholder="YYYY-MM-DD" type="text"> </input>
+				<br>
+				<div> Content : </div> <textarea id="Content" name="Content"></textarea>
+				<br>
+				<input type="Submit" value="Submit"> </input>
+			</form>
+		</div>
+	</body>
+</HTML>

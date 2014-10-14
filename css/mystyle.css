@@ -1,0 +1,10 @@
+#Hidden {
+	width@: 0px;
+	height : 0px;
+	background : transparent;
+	border : none;
+}
+
+#BordLine{
+	width: 100%;
+}
