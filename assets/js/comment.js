@@ -21,7 +21,9 @@ function comment() {
 	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	    {
 	    	var response = 	xmlhttp.responseText;
-	    	if(response !="") {
+	    	console.log(response);
+	    	if(response !== "") {
+
 	    		document.getElementById("commentList").innerHTML=response;
 	    	}
 	    }
@@ -87,6 +89,9 @@ function addComment() {
 			}
 		}
 	}
-	xmlhttp.open("GET","saveComment.php?id="+param+"&Nama="+x+"&Email="+y+"&Konten="+z,true);
+	console.log("go");
+	xmlhttp.open("GET","saveComment.php?id="+param+"&Nama="+x+"&Email="+y+"&Konten="+z,false);
+	console.log("akjb");
 	xmlhttp.send();
+	comment();
 }

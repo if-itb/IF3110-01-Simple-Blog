@@ -57,7 +57,7 @@
                   echo "tes";
                 }
 
-                $daftar_post=mysqli_query($ambil_data,"SELECT * FROM listpost");
+                $daftar_post=mysqli_query($ambil_data,"SELECT * FROM listpost ORDER BY Tanggal DESC");
 
                 while($row = mysqli_fetch_array($daftar_post)) {
                   echo "<li class="."art-list-item>";
