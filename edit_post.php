@@ -30,19 +30,26 @@
             <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="action/do_edit_post.php?user_option=edit&id=<?php echo$hasil['id']?>">
+                <form method="post" action="#" onsubmit="editpost(); return false">
+                
+                    <input type="hidden" name="id" id="id" value="<?php echo $id ;?>">
+                    <input type="hidden" name="id" id="user_option" value="edit">
+                    <div>
                     <label for="Judul">Judul:</label>
                     <input type="text" name="judul" id="judul" placeholder= "<?php echo $hasil['judul']; ?>">
-
+                    </div>
                     <label for="Tanggal">Tanggal:</label>
                     <input type="date" name="tanggal" id="tanggal" onchange="dateValidation()" value= "<?php echo $hasil['tanggal']; ?>">
-                    
+
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="konten" disabled><?php echo $hasil['konten']; ?></textarea>
 
                     <button type="submit" value="Submit">Submit</button>
                     <button type="reset" value="Reset">Reset</button>
                 </form>
+            </div>
+            <div id="postbaru">
+                
             </div>
         </div>
     </div>

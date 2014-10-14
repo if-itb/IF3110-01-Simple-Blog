@@ -13,7 +13,7 @@ $tanggal =  check_input($_POST['tanggal']);
 $your_date = date("Y-m-d", strtotime($tanggal));
 $konten =  check_input($_POST['konten']);
 
-if($judul=="" OR $tanggal=="" OR $konten==""){
+if($judul=="" OR $your_date=="" OR $konten==""){
 	echo "Semua field harus diisi";    
 }
 else {

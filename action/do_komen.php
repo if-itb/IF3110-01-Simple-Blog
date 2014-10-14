@@ -11,7 +11,7 @@ $id =  check_input($_POST['id']);
 $nama =  check_input($_POST['nama']);
 //$waktu =  check_input($_POST['waktu']);
 date_default_timezone_set('Asia/Jakarta');
-$date = date("Y-m-d h:i:s", time());
+$date = date("Y-m-d H:i:s", time());
 //$your_date = date("Y-m-d", strtotime($waktu));
 $email =  check_input($_POST['email']);
 $komentar =  check_input($_POST['komentar']);

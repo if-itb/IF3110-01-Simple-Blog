@@ -42,8 +42,8 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#" onsubmit="loadkomentar(); return false">
-                <input type="hidden" name="id" id="id" value="<?php echo $id ;?>">
+                <form method="post" action="#" onsubmit="loadkomentar()">
+                    <input type="hidden" name="id" id="id" value="<?php echo $id ;?>">
 
                     <label for="nama">Nama:</label>
                     <input type="text" name="nama" id="nama">
@@ -64,7 +64,7 @@
                 ?>
                     <li class="art-list-item" id="komen">
                         <div class="art-list-item-title-and-time">
-                            <h2 class="art-list-title"><a href="post.php"><?php echo $hasilkomen['nama']; ?></a></h2>
+                            <h2 class="art-list-title"><a href="#"><?php echo $hasilkomen['nama']; ?></a></h2>
                             <div class="art-list-time"><?php echo $hasilkomen['waktu']; ?></div>
                         </div>
                         <p><?php echo $hasilkomen['komentar']; ?> &hellip;</p>
