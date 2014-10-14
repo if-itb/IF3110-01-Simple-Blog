@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+<?php
+	include "mysql.php";
+	$table = "ENTRIES";
+	$sql = "SELECT * from $table WHERE ID= '$_GET[id]'";
+	$result = @mysql_query($sql);
+	$row = @mysql_fetch_array($result);
+	//echo $_GET['id'];
+	if($_GET['id'] == 0){
+	$querytype = 0;
+	}
+	else {$querytype = 1;}
+?>
+
 <html>
 <head>
 
@@ -38,9 +50,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php?id=0">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -49,26 +61,27 @@
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-    <div class="art-body">
+    <!--<div class="art-body">-->
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="form1" method="post" onsubmit="return (validatedate(document.form1.tanggal))" action="dbinsert.php?querytype=<?php echo $querytype; ?>&id=<?php echo $_GET['id']; ?>">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" required name="title" value=<?php echo "$row[TITLE]"; ?> >
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" required name="tanggal" value=<?php echo "$row[TANGGAL]"; ?>>
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="content" rows="20" cols="20" id="content" required><?php echo "$row[CONTENT]"; ?></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" />
                 </form>
             </div>
         </div>
-    </div>
+		<!--</div>-->
+	<script type="text/javascript" src="validasitanggal1.js">	</script>
 
 </article>
 
@@ -77,36 +90,13 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
+        <a class="twitter-link" href="http://twitter.com/ivanaclairine">Ivana Clairine</a>
         
     </aside>
 </footer>
 
 </div>
-
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
 
 </body>
 </html>
