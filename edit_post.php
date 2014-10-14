@@ -31,7 +31,7 @@
 <script src="assets/js/utility.js"></script>
 <script>
 function validateForm(){
-	var tanggalInput = document.forms["add-post"]["Tanggal"].value
+	var tanggalInput = document.forms["edit-post"]["Tanggal"].value
 	if (checkdate(tanggalInput) == false) {return false;}
 	var currentDate = new Date();
 	tanggalInput = stringToDate(tanggalInput);
@@ -65,15 +65,41 @@ function validateForm(){
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form name="add-post" method="post" onsubmit="return validateForm()" action="add-post.php">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                <form name="edit-post" method="post" onsubmit="return validateForm()" action="edit-post-sql.php">
+                    <?php
+						$con=mysqli_connect("localhost","root","","blog_content");
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+						// Check connection
+						if (mysqli_connect_errno()) {
+						  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+						}
+
+						// escape variables for security
+						$id = mysqli_real_escape_string($con, $_GET['id']);
+						$result = mysqli_query($con,"SELECT * FROM `blog` WHERE `ID` = $id");
+						if (!$result) {
+							printf("Error: %s\n", mysqli_error($con));
+							exit();
+						}
+						$row = mysqli_fetch_array($result);
+						
+						echo "<input type=\"hidden\" name=\"id\" value=\"{$id}\">";
+						echo "<label for=\"Judul\">Judul:</label>";
+						echo "<input type=\"text\" name=\"Judul\" id=\"Judul\" value=\"{$row['JUDUL']}\">";
+
+						//parsing tanggal dari mysql ke html
+						list($tahun, $bulan, $hari) = explode("-", $row['TANGGAL']);
+						$tanggal = $hari."/".$bulan."/".$tahun;
+						
+						echo "<label for=\"Tanggal\">Tanggal:</label>";
+						echo "<input type=\"text\" name=\"Tanggal\" id=\"Tanggal\" value=\"{$tanggal}\">";
+						
+						echo "<label for=\"Konten\">Konten:</label><br>";
+						echo "<textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\">{$row['ISI']}</textarea>";
+						
+						mysqli_close($con);
+						
+					?>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
