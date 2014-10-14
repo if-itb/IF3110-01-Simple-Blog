@@ -139,6 +139,9 @@ function convertDate($date) {
 				xmlhttp.onreadystatechange=function() {
 					if(xmlhttp.readyState==4 && xmlhttp.status==200) {
 						document.getElementById("daftar-komen").innerHTML = xmlhttp.responseText;
+						document.getElementById("Nama").value = "";
+						document.getElementById("Email").value = "";
+						document.getElementById("Komentar").value = "";
 					}
 				}
 				xmlhttp.send("nama=" + namaKomen + "&email=" + emailKomen + "&komen=" + komen);
@@ -147,15 +150,15 @@ function convertDate($date) {
 			</script>			
 			
             <div id="contact-area">
-                <form method="post" action="#" onsubmit="return addKomen()">
+                <form method="post" action="#" onsubmit="addKomen(); return false">
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+                    <input type="text" name="Nama" id="Nama" required="true">
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email" >
+                    <input type="text" name="Email" id="Email" required="true">
                     
                     <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar" required="true"></textarea>
 
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>

@@ -11,9 +11,6 @@ $currentDate = date("Y-m-d H:i:s");
 // detik semua
 $tanggalSekarang = strtotime($currentDate);
 
-settype($ngaran, 'string');
-settype($surat, 'string');
-settype($bacotan, 'string');
 mysqli_query($con, "INSERT INTO komentar (`id_post`, `nama`, `email`, `komentar`, `tanggal`)
 					VALUES ('$idPost', '$nama', '$email', '$komentar', '$currentDate')");
 
@@ -35,14 +32,14 @@ function selisihWaktu($waktu1, $waktu2) {
 }
 					
 $komen = mysqli_query($con, "SELECT * FROM `komentar` where `id_post` = '$idPost' ORDER BY `tanggal` DESC");
-while ($row = mysqli_fetch_array($daftarKomen)) {
+while ($row = mysqli_fetch_array($komen)) {
 	echo		'<li class="art-list-item">';
 	echo			'<div class="art-list-item-title-and-time">';
 	echo				'<h2 class="art-list-title">'; echo $row["nama"]; echo'</h2>';
 	//echo				'<div class="art-list-time">'; $row["tanggal"]; echo'</div>';
 	echo				'<div class="art-list-time">'; echo selisihWaktu($tanggalSekarang, strtotime($row["tanggal"])); echo'</div>';
 	echo			'</div>';
-	echo			'<p>'; echo $row["komentar"]; echo ' &hellip;</p>';
+	echo			'<p>'; echo $row["komentar"]; echo '</p>';
 	echo		'</li>';
 }
 ?>

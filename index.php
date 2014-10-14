@@ -76,7 +76,9 @@ function popUp(id) {
 	var cek = confirm("Apakah anda yakin akan menghapus pos ini?");
 	if (cek == true) {
 		window.location = "submit-hapus.php?id=" + id;
+		return true;
 	}
+	return false;
 }
 </script>
 
@@ -95,7 +97,7 @@ function popUp(id) {
 					echo	'</div>';
 					echo	'<p>'; echo aturKonten($row["konten"]); echo'</p>';
 					echo	'<p>';
-					echo	'<a href="edit.php?id='; echo $row["id"]; echo '">Edit</a> | <a href="#" onClick="popUp('; echo $row["id"]; echo ')">Hapus</a>';
+					echo	'<a href="edit.php?id='; echo $row["id"]; echo '">Edit</a> | <a href="#" onClick="return popUp('; echo $row["id"]; echo ')">Hapus</a>';
 					echo	'</p>';
 					echo	'</li>';
 				}

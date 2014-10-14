@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_array($komen)) {
 	echo				'<h2 class="art-list-title">'; echo $row["nama"]; echo'</h2>';
 	echo				'<div class="art-list-time">'; echo selisihWaktu($tanggalSekarang, strtotime($row["tanggal"])); echo'</div>';
 	echo			'</div>';
-	echo			'<p>'; echo $row["komentar"]; echo ' &hellip;</p>';
+	echo			'<p>'; echo $row["komentar"]; echo '</p>';
 	echo		'</li>';
 }
 
