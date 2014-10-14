@@ -17,6 +17,27 @@ function Confirm_Delete(id) {
 	}
  }
 
+ function load_komentar(idpost){
+     var xmlhttp;
+     if (window.XMLHttpRequest)
+     {
+         xmlhttp=new XMLHttpRequest();
+     }
+     else
+     {
+         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+     }
+     xmlhttp.onreadystatechange=function()
+     {
+	 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	 		{	
+                document.getElementById("comment_here").innerHTML=xmlhttp.responseText;    	 		
+            }
+	 }
+     xmlhttp.open("GET","load_comment.php?id="+idpost,true);
+     xmlhttp.send();
+ }
+
  function insert_komentar(idpost){
  	var email = document.getElementById("Email").value;
     if (checkemail(email)){

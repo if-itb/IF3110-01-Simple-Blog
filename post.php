@@ -33,8 +33,11 @@
 
 
 </head>
-
-<body class="default">
+<?php
+    $idpost = $_GET['id'];
+    //$echo 'idpost = '.$idpost;
+    echo '<body class="default" onload="load_komentar('.$idpost.')">';
+?>
 <div class="wrapper">
 
 <nav class="nav">
@@ -79,7 +82,7 @@
                 </div>
                         
                 <!-- Load Commentar -->
-                <?php load_comment($id); ?>
+                <?php //load_comment($id); ?>
                 
             </ul>
         </div>
