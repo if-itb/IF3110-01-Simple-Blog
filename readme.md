@@ -1,3 +1,7 @@
+### Note:
+
+Pengubahan beberapa opsi dapat dilakukan di init.php.
+
 # Simple Blog
 
 Tugas 1 IF3110.
@@ -48,10 +52,6 @@ Lakukan **validasi** email pada form komentar dengan menggunakan javascript. Kom
 Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascript.
 
 **Tidak boleh menggunakan jquery untuk ajax.**
-
-## Deliverable
-
-Masing-masing orang lakukan Fork pada repo ini. Jika sudah selesai tambahkan pull request ke repo ini.
 
 ## Lisensi
 
