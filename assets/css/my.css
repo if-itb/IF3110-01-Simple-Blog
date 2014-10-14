@@ -1,0 +1,35 @@
+#logo h1 {
+  font-family: "proxima-nova", "helvetica neue", "helvetica", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 30px;
+  color: #000;
+  text-transform: uppercase;
+  height: 30px;
+  margin-left: 0px;
+  letter-spacing: 1px;
+  font-family: 'Questrial', sans-serif;
+  font-size: 30px;
+}
+
+#logo h1 span {
+    color: #F40034;
+}
+
+hr.featured-article {
+    padding: 0;
+    border: none;
+    border-top: medium double #bbb;
+    color: #000;
+    text-align: center;
+}
+
+hr.featured-article:after {
+    content: "Featured Article";
+    display: inline-block;
+    position: relative;
+    top: -0.8em;
+    font-size: 1.2em;
+    padding: 0 0.6em;
+    background: white;
+}
