@@ -8,8 +8,6 @@ function Confirm_Delete(id) {
  function checkemail(email){
  	var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if(!email.match(regex)){
-		//document.getElementById("komentar_email").innerHTML="Email tidak valid!";
-  		//document.getElementById("komentar_email").style.color="red";
 		return false;
 	}
 	else{
@@ -41,7 +39,7 @@ function Confirm_Delete(id) {
  function insert_komentar(idpost){
  	var email = document.getElementById("Email").value;
     if (checkemail(email)){
-	 	//ajax
+	 	
 	 	var xmlhttp;
 	 	var nama = document.getElementById("Nama").value;
         
@@ -75,7 +73,29 @@ function Confirm_Delete(id) {
 	 	xmlhttp.send("id="+idpost+"&nama="+nama+"&komentar="+komentar+"&email="+email);
  	}
  	else{
-        //return false;
- 		alert("Email yang anda masukkan salah. Coba Lagi");
+        alert("Email yang anda masukkan salah. Coba Lagi");
  	}
  }
+
+function IsValidDate()
+{
+    var dateEntered = document.getElementById("Tanggal").value;
+
+    var day = dateEntered.substr(8,2);
+    var month = dateEntered.substr(5,2);
+    var year = dateEntered.substring(0,4);
+    
+    var dateToCompare = new Date(year, month - 1, day);
+    
+    var currentDate = new Date();
+    currentDate.setHours(0,0,0,0);
+    
+    if (dateToCompare - currentDate >= 0) {
+        document.getElementById("form_new_post").action = "new_post.php";
+        return true;
+    }
+    else {
+        alert("Tanggal yang anda masukkan salah");
+        return false;
+    }
+}
