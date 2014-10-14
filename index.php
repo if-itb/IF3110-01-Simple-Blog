@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Luthfi<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
@@ -54,13 +54,21 @@
                 $result = $post->GetAllPost();
                 while($row = mysql_fetch_object($result))
                 {
+                    if (strlen($row->konten) > 250)
+                    {
+                        $konten = substr($row->konten,0,250);
+                    }
+                    else
+                    {
+                        $konten = $row->konten;
+                    }
             ?>
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href="post.php?id=<?php echo $row->id; ?>"><?php echo $row->judul; ?></a></h2>
                     <div class="art-list-time"><?php echo $row->tanggal; ?></div>
                 </div>
-                <p><?php echo $row->konten; ?> &hellip;</p>
+                <p><?php echo $konten; ?> &hellip;</p>
                 <p>
                     <a href="edit_post.php?id=<?php echo $row->id; ?>">Edit</a> | <a href="#" onclick="del_post(<?php echo $row->id; ?>)">Hapus</a>
                 </p>
@@ -82,6 +90,10 @@
 
 </div>
 
+<div id="full-load" align="center">
+    <img src="assets/img/loading.gif" alt="">
+</div>
+
 <script type="text/javascript">
     function del_post(id)
     {
@@ -100,7 +112,7 @@
             {
                 if (xmlhttp.readyState<4)
                 {
-
+                    document.getElementById("full-load").style = "display:block";
                 }
                 else if (xmlhttp.readyState==4 && xmlhttp.status==200)
                 {
@@ -111,6 +123,7 @@
                     else
                     {
                         alert("Gagal menghapus!");
+                        document.getElementById("full-load").style = "display:none";
                     }
                 }
             }

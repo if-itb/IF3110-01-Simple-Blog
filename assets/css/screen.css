@@ -865,3 +865,21 @@ label {
 #loading img{
     height: 50px;
 }
+
+#full-load
+{
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: white;
+    opacity: 0.8;
+    z-index: 99;
+    padding-top: 20%;
+    display: none;
+}
+
+#full-load img{
+    height: 100px;
+}

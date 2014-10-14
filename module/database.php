@@ -11,7 +11,7 @@
         {
             $this->host    = "localhost";
             $this->user     = "root";
-            $this->pass     = "underground";
+            $this->pass     = "";
             $this->dbase    = "wbd1";
         }
 
