@@ -31,14 +31,13 @@
 
 <title>Simple Blog</title>
 
-
 </head>
 
 <body class="default">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -48,28 +47,29 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+			<?php
+				$con=mysqli_connect("localhost", "root", "", "dataPost");	
+				$result=mysqli_query($con,"SELECT * FROM posts");
+				while($row = mysqli_fetch_array($result)) {
+					$postid=$row['PID'];
+					$Tanggal=$row['Tanggal'];
+					$Konten=$row['Konten'];
+					$Judul=$row['Judul'];
+					echo "<li class=\"art-list-item\">                				
+						<div class=\"art-list-item-title-and-time\">
+							<h2 class=\"art-list-title\"><a href=\"post.php?postid=$postid\">$Judul</a></h2> 
+							<div class=\"art-list-time\">$Tanggal</div>
+							<div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>
+						</div>
+						<p>$Konten</p>
+						<p>
+						 <a href=\"edit.php?postid=$postid\">Edit</a> | <a id=\"p$postid\" onclick=\"return hapus($postid)\" href=\"\">Hapus</a>
+						</p>
+					</li>";
+				}
+				mysqli_close($con);
+			?>
+            
           </ul>
         </nav>
     </div>
@@ -100,7 +100,19 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/functions.js"></script>
 <script type="text/javascript">
+function hapus(id){
+var r = confirm("Are you sure?");
+var link= document.getElementById("p"+id);
+if (r) {
+link.href= "hapus.php?postid="+id;
+} else {
+link.href= "new_post.html";
+} 
+}
+
+
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
   (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
