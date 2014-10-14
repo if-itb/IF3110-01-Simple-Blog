@@ -1,3 +1,24 @@
+<?php
+// post_edit.php
+include 'mysql.php';
+
+if(!empty($_POST)) {
+    if(mysql_safe_query('UPDATE posts SET title=%s, body=%s, date=%s WHERE id=%s', $_POST['title'], $_POST['body'], time(), $_GET['id']))
+        redirect('post_view.php?id='.$_GET['id']);
+    else
+        echo mysql_error();
+}
+
+$result = mysql_safe_query('SELECT * FROM posts WHERE id=%s', $_GET['id']);
+
+if(!mysql_num_rows($result)) {
+    echo 'Post #'.$_GET['id'].' not found';
+    exit;
+}
+
+$row = mysql_fetch_assoc($result);
+
+echo <<<HTML
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +44,7 @@
 <meta property="og:image" content="{{! TODO: ADD GRAVATAR URL HERE }}">
 <meta property="og:site_name" content="Simple Blog">
 
-<link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
+<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
 <!--[if lt IE 9]>
@@ -49,16 +70,7 @@
     
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
-<?php
-// post_add.php
-if(!empty($_POST)) {
-    include 'src/mysql.php';
-    if(mysql_safe_query('INSERT INTO posts (Judul,Tanggal,Konten) VALUES (%s,%s,%s)', $_POST['Judul'], time(), $_POST['Konten'],))
-        echo 'Entry posted. <a href="src/post_view.php?id='.mysql_insert_id().'">View</a>';
-    else
-        echo mysql_error();
-}
-?>
+
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
@@ -66,13 +78,13 @@ if(!empty($_POST)) {
             <div id="contact-area">
                 <form method="post">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="title" id="title" value="{$row['title']}">
 
                     <label for="Tanggal">Tanggal:</label>
                     <input type="text" name="Tanggal" id="Tanggal">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="body" rows="20" cols="20" id="body">{$row['body']}</textarea>
 
                     <input type="submit" name="submit" value="Post" class="submit-button">
                 </form>
@@ -105,9 +117,9 @@ if(!empty($_POST)) {
 
 </div>
 
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="../assets/js/fittext.js"></script>
+<script type="text/javascript" src="../assets/js/app.js"></script>
+<script type="text/javascript" src="../assets/js/respond.min.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -118,7 +130,10 @@ if(!empty($_POST)) {
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
 </body>
 </html>
 
+
+
+HTML;
+?>

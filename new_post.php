@@ -53,8 +53,9 @@
 // post_add.php
 if(!empty($_POST)) {
     include 'src/mysql.php';
-    if(mysql_safe_query('INSERT INTO posts (Judul,Tanggal,Konten) VALUES (%s,%s,%s)', $_POST['Judul'], time(), $_POST['Konten'],))
-        echo 'Entry posted. <a href="src/post_view.php?id='.mysql_insert_id().'">View</a>';
+    if(mysql_safe_query('INSERT INTO posts (title,date,body) VALUES (%s,%s,%s)', $_POST['title'], time(), $_POST['body'] ))
+	
+		echo '<em>Masukan Berhasil !</em> <a href="src/post_view.php?id='.mysql_insert_id().'">Lihat</a>';
     else
         echo mysql_error();
 }
@@ -65,14 +66,14 @@ if(!empty($_POST)) {
 
             <div id="contact-area">
                 <form method="post">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <label for="title">Judul:</label>
+                    <input type="text" name="title" id="title">
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <label for="time">Tanggal:</label>
+                    <input type="text" name="time" id="time">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="body" rows="20" cols="20" id="body"></textarea>
 
                     <input type="submit" name="submit" value="Post" class="submit-button">
                 </form>
@@ -118,7 +119,6 @@ if(!empty($_POST)) {
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
 </body>
 </html>
 

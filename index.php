@@ -2,7 +2,6 @@
 <html>
 <head>
 
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -30,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title><a href="index.html">+ Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -41,48 +40,58 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
+                    <div class="art-list-time">15 Juli 2014</div>
+                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p>
+                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                </p>
+            </li>
 <?php
-// post_add.php
-if(!empty($_POST)) {
-    include 'src/mysql.php';
-    if(mysql_safe_query('INSERT INTO posts (Judul,Tanggal,Konten) VALUES (%s,%s,%s)', $_POST['Judul'], time(), $_POST['Konten'],))
-        echo 'Entry posted. <a href="src/post_view.php?id='.mysql_insert_id().'">View</a>';
-    else
-        echo mysql_error();
+// index.php
+include 'src/mysql.php';
+$result = mysql_safe_query('SELECT * FROM posts ORDER BY date DESC');
+
+if(!mysql_num_rows($result)) {
+    echo 'Hanya ada Template.';
+} else {
+    while($row = mysql_fetch_assoc($result)) {
+		
+        echo '<h2>'.$row['title'].'</h2>';
+        $body = substr($row['body'], 0, 300);
+        echo nl2br($body).'...<br/>';
+        echo '<a href="src/post_view.php?id='.$row['id'].'">Read More</a> | ';
+        echo '<a href="src/post_view.php?id='.$row['id'].'#comments">'.$row['num_comments'].' comments</a>';   
+        echo '<hr/>';
+    }
 }
 ?>
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Post" class="submit-button">
-                </form>
-            </div>
-        </div>
+            <li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
+                    <div class="art-list-time">11 Juli 2014</div>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p>
+                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                </p>
+            </li>
+          </ul>
+        </nav>
     </div>
-
-	
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -121,4 +130,3 @@ if(!empty($_POST)) {
 
 </body>
 </html>
-
