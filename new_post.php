@@ -2,6 +2,7 @@
 <html>
 <head>
 
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -29,7 +30,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title><a href="index.html">+ Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -48,27 +49,39 @@
     
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
+<?php
+// post_add.php
+if(!empty($_POST)) {
+    include 'src/mysql.php';
+    if(mysql_safe_query('INSERT INTO posts (title,date,body) VALUES (%s,%s,%s)', $_POST['title'], time(), $_POST['body'] ))
+	
+		echo '<em>Masukan Berhasil !</em> <a href="src/post_view.php?id='.mysql_insert_id().'">Lihat</a>';
+    else
+        echo mysql_error();
+}
+?>
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                <form method="post">
+                    <label for="title">Judul:</label>
+                    <input type="text" name="title" id="title">
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <label for="time">Tanggal:</label>
+                    <input type="text" name="time" id="time">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="body" rows="20" cols="20" id="body"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Post" class="submit-button">
                 </form>
             </div>
         </div>
     </div>
+
+	
 
 </article>
 
@@ -106,6 +119,6 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
 </body>
 </html>
+
