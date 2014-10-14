@@ -56,7 +56,38 @@
           <ul class="art-list-body">
 			<?php
 				mysql_connect("localhost","root","");
-				@mysql_select_db("simpleblog") or die( "Unable to select database");
+				$exist = @mysql_select_db("simpleblog");
+				if(!$exist){
+					$sql1 = 'CREATE DATABASE IF NOT EXISTS `simpleblog` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;';
+					$sql2 = 'USE `simpleblog`;';
+					$sql3 = 'CREATE TABLE IF NOT EXISTS `comment` (
+					  `idpost` int(11) NOT NULL,
+					  `idcomment` int(11) NOT NULL AUTO_INCREMENT,
+					  `nama` varchar(20) DEFAULT NULL,
+					  `email` varchar(100) NOT NULL,
+					  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					  `komentar` text,
+					  PRIMARY KEY (`idcomment`),
+					  KEY `idpost` (`idpost`)
+					) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;';
+					$sql4 = 'CREATE TABLE IF NOT EXISTS `post` (
+					  `idpost` int(11) NOT NULL AUTO_INCREMENT,
+					  `judul` varchar(20) DEFAULT NULL,
+					  `tanggal` date DEFAULT NULL,
+					  `konten` text,
+					  PRIMARY KEY (`idpost`)
+					) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ';
+					$sql5 = 'ALTER TABLE `comment`
+							ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`idpost`) REFERENCES `post` (`idpost`) ON DELETE CASCADE ON UPDATE CASCADE';
+					$sql6 = "INSERT INTO `post` (`judul`, `tanggal`, `konten`) VALUES
+							('Belum ada isinya', '2014-03-23', 'wah belum ada isinya')";
+					mysql_query($sql1);
+					mysql_query($sql2);
+					mysql_query($sql3);
+					mysql_query($sql4);
+					mysql_query($sql5);
+					mysql_query($sql6);
+				}
 				$query = "SELECT * FROM post";
 				$result = mysql_query($query);
 				$jumpost = mysql_numrows($result);
