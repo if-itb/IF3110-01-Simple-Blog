@@ -1,3 +1,4 @@
+<?php require_once 'functions.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -38,42 +39,40 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+          <ul class="art-list-body">
 
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+          <?php foreach (get_all_posts() as $id => $post): ?>
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+            <li class="art-list-item">
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href="post.php?id=<?php echo $id; ?>"><?php echo $post["judul"]; ?></a></h2>
+                    <div class="art-list-time"><?php echo $post["tanggal"] ?></div>
+                </div>
+                <p><?php if (strlen($post["konten"]) > 250) {echo substr($post["konten"], 0, 250) . "&hellip;";} else {echo $post["konten"];} ?></p>
+                <p>
+                  <a href="edit_post.php?id=<?php echo $id; ?>">Edit</a> | <a href="delete_post.php?id=<?php echo $id; ?>" onclick="return konfirmasi_hapus();">Hapus</a>
+                </p>
+            </li>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+          <?php endforeach; ?>
+
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="#">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
@@ -96,15 +95,11 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
+<script>
+    function konfirmasi_hapus() {
+        return window.confirm("Apakah Anda yakin ingin menghapus post ini?");
+    }
 </script>
 
 </body>
