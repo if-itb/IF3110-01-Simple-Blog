@@ -74,12 +74,12 @@
             <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="edit.php?pid=<?php echo $data['pid']?>">
+                <form method="post" action="edit.php?pid=<?php echo $data['pid']?>" onsubmit="return validate_date()">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul" value="<?php echo $data['posttitle']?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $data['postdate']?>">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $data['postdate']?>"><div id="errormsg"></div>
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $data['postcontent']?></textarea>
