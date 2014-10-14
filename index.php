@@ -42,10 +42,11 @@
 </script>
 <?php
   if(isset($_GET['delete_post'])){ 
-
+  
   $stmt = $db->prepare('DELETE FROM posts WHERE ID = :ID') ;  //query untuk menghapus dari database
   $stmt->execute(array(':ID' => $_GET['delete_post']));
-
+  $stmt2 = $db->prepare('DELETE FROM komentar WHERE post_id_fk = :ID') ;  //query untuk menghapus dari database
+  $stmt2->execute(array(':ID' => $_GET['delete_post']));
   header('Location: index.php?action=deleted');
   exit;
   } 
@@ -79,13 +80,12 @@
                           echo '<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
                       echo '</div>';
                       echo '<p>'.substr($row['Konten'],0,255).'&hellip;</p>'; //menampilkan sebagian konten
-                      ?>
-
-                        <p>
-                          <a href="edit_post.php?id='<?php echo $row['ID'] ?>'">Edit</a> | 
+                      echo '<p>';          
+                      echo '<a href="edit_post.php?id='.$row['ID'].'">Edit</a> | ';
+            ?>
                           <a href="javascript:delete_post('<?php echo $row['ID'];?>','<?php echo $row['Judul'];?>')">Hapus</a>
                         </p>
-                      <?php
+            <?php
                   echo '</li>';
 
                 }
@@ -121,7 +121,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
