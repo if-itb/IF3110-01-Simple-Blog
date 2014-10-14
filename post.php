@@ -72,15 +72,15 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form name="commentForm" method="post" id="commentForm" action="#" onsubmit="return false">
+                <form name="commentForm" method="post" id="commentForm" action="#" onsubmit="return comment()">
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama" aria-required="true" required="">
+                    <input type="text" name="Nama" id="Nama">
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email" aria-required="true" required="">
+                    <input type="text" name="Email" id="Email">
                     <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar" aria-required="true" required=""></textarea>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
                     <input name="id" id="id" type="hidden" value="<?php echo $id;?>">
-                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="comment()">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
 

@@ -9,17 +9,26 @@ function confirmDelete() {
 }
 
 function comment() {
-  if (validateEmail()){
-    var idPost = document.getElementById('id').value;
-    saveComment(idPost);
-    loadComment(idPost);
-    document.forms["commentForm"]["Nama"].value="";
-    document.forms["commentForm"]["Email"].value="";
-    document.forms["commentForm"]["Komentar"].value="";
-    return true;
+  var nameField = document.forms["commentForm"]["Nama"].value;
+  var emailField = document.forms["commentForm"]["Email"].value;
+  var commentField = document.forms["commentForm"]["Komentar"].value;
+  if ((nameField=="")||(nameField==null)||(emailField=="")||(emailField==null)||(commentField=="")||(commentField==null)) {
+    alert("Error : Form harus diisi lengkap!");
+    return false;
   }
   else {
-    return false;
+    if (validateEmail()){
+      var idPost = document.getElementById('id').value;
+      saveComment(idPost);
+      document.forms["commentForm"]["Nama"].value="";
+      document.forms["commentForm"]["Email"].value="";
+      document.forms["commentForm"]["Komentar"].value="";
+      loadComment(idPost);
+      return false;
+    }
+    else {
+      return false;
+    }
   }
 }
 
