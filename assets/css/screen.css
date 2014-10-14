@@ -15,8 +15,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, time,
 html, body, .wrapper {
   min-height: 100%;
 }
-
-
 /* Body
 ================================================== */
 html, body {
@@ -47,11 +45,14 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 50px;
   padding-bottom: 30px;
+    padding-top: 21px;
 }
 
 h2 {
   font-size: 45px;
   padding-bottom: 25px;
+  background-color: rgba(255, 255, 255, 0.73);
+  text-align:center;
 }
 
 h3 {
@@ -70,7 +71,8 @@ h5 {
 }
 
 p {
-  margin: 0 0 28px 0;
+  margin: 0 0 2px 0;
+    color: #000;
 }
 
 strong {
@@ -115,18 +117,22 @@ a {
 a:hover {
   color: #F40034;
 }
-
+#note {
+    text-align: center;
+    color: red;
+}
 /*  Layout
 ================================================== */
 /* White container that is the "page" */
 .wrapper {
   max-width: 1500px;
   margin: 0 auto;
-  background: #fff;
+  background: #ffffff url("latar.jpg") top;
+    background-size: 100% 100%;
+    background-attachment: fixed;
 }
 
 /* Containers to keep content to a set width */
-.nav,
 .art-header-inner,
 .footer,
 .art-list,
@@ -134,6 +140,15 @@ a:hover {
 .fourohfour {
   width: 980px;
 }
+
+#komen{
+    background-color: rgba(255, 255, 255, 0.69);
+}
+
+.art-body-inner p{
+    background-color: rgba(255, 255, 255, 0.69);
+}
+
 .nav,
 .art-body-inner,
 .footer,
@@ -146,24 +161,51 @@ a:hover {
 
 /*  Nav
 ================================================== */
+#hed li{
+    padding-left: 35%;   
+}
+
+#homediv li{
+    padding-left: 38%;   
+}
+
+#hed li a,
+#home {
+    margin-top: 15px;
+    font-size: 50px;
+}
 .nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 50%;
-  height: 70px;
-  padding-top: 40px;
-  margin-left: -490px; /* Half width of nav */
-  border-bottom: 1px solid #333;
-  z-index: 2;
+  height: 80px;
+  background-color: #07C2D2;
+  padding-top: 0px;
+  width: 100%;
+  margin-left: -50%; /* Half width of nav */
+  border-bottom: 1px solid (51, 51, 51, 0);
+  z-index: 2000;
 }
 .nav.fixed {
   position: fixed;
+    width: 100%;
+}
+
+#addico{
+    height: 80px;
+    float: right;
+}
+
+#aang{
+    width: 80px;
+    height: 80px;
 }
 #logo {
   float: left;
+    height: 80px;
 }
 .nav-primary {
-  float: right;
+  float: none;
 }
 .nav-primary li {
   display: inline-block;
@@ -179,6 +221,19 @@ a:hover {
   line-height: 30px;
   color: #000;
   text-transform: uppercase;
+     align-content: center;
+    display: inline-block;
+}
+.nav-primary li a > img{
+    position:relative;
+    top:0%;
+    min-height:1%;
+    display:block;
+    left:0%;
+    width: 80px;
+    height: 80px;
+
+    min-width:1%;
 }
 
 #logo h1 {
@@ -197,7 +252,7 @@ a:hover {
   margin-left: 0; /* Remove left margin from the first nav li */
 }
 
-/* Home Page 
+/* Home Page
 ================================================== */
 
 div#home {}
@@ -225,7 +280,7 @@ div.cover > img {
 }
 /* Header */
 .art-header {
-  height: 900px;
+  height: 440px;
   /* Background image is defined in the post */
   background-position: top center;
   background-attachment: fixed;
@@ -233,10 +288,11 @@ div.cover > img {
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: fixed;
+  position: relative;
   top: 300px;
   left: 50%;
   margin-left: -490px;
+    background-color: rgba(255, 255, 255, 0.66);
 }
 .art-time,
 .art-title,
@@ -254,6 +310,7 @@ div.cover > img {
   line-height: .9;
   letter-spacing: -2px;
   width: 100%;
+  position: relative;
 }
 .art-subtitle {
   margin-top: 4px;
@@ -311,12 +368,16 @@ div.cover > img {
     box-shadow: #fdffb6 0 0 5px;
 }
 
+#subpost{
+    position: sticky;
+}
+
 .art-body-inner blockquote {
   font-size: 16px;
   background: #f9f9f9;
   border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
+  margin: 1.5em 0px;
+  padding: 0.5em 0px;
   quotes: "\201C""\201D""\2018""\2019";
 }
 
@@ -386,12 +447,16 @@ div.cover > img {
 .art-list-body {
   position: relative;
   overflow: hidden;
+    padding-left: 0;
 }
 .art-list-item {
   padding: 40px 0;
-  list-style: none;
+  list-style: square;
   overflow: hidden;
-  border-bottom: 1px solid #ccc;
+  margin-bottom: 100px;
+  text-align:center; /* center horizontally */
+  vertical-align:middle; /* center vertically */
+    background-color: rgba(203, 203, 203, 0.47);
 }
 .art-list-item:last-child {
   border-bottom: none;
@@ -403,8 +468,10 @@ div.cover > img {
 }
 .art-list-item-title-and-time {
   float: left;
-  width: 30%;
+  width: 100%;
   margin-bottom: 10px;
+  background-color: #67fcc2;
+  border-radius: 2%;
 }
 .art-list-time {
   font-size: 12px;
@@ -414,17 +481,16 @@ div.cover > img {
   color: #999;
 }
 .art-list-title a {
-  color: #000;
+  color: #9a9a9a;
 }
 .art-list-title a:hover {
-  color: #F40034;
+  color: #4b00f4;
+    font-size: 150%;
 }
 .art-list-item p {
-  width: 65%;
-  float: left;
-  margin-left: 5%;
-  margin-bottom: 0;
-  font-size: 16px;
+  width: 100%;
+  float: right;
+  font-size: 20px;
   line-height: 24px;
 }
 
@@ -496,7 +562,7 @@ div.cover > img {
 .nav.white li a,
 .nav.white li,
 .nav.white #logo h1 {
-  color: #fff;
+  color: #0ad94a;
   text-shadow: 0 0 8px rgba(0,0,0,.5);
 }
 .nav.white #logo h1 {
@@ -605,11 +671,12 @@ padding: 0;
   .art-list,
   .abt,
   .fourohfour {
-    width: 90%;
+    width: 100%;
   }
   .nav,
   .art-header-inner {
-    margin-left: -45%;
+    margin-left: -50%;
+      background-color: rgba(255, 255, 255, 0.74);
   }
 }
 
@@ -617,7 +684,7 @@ padding: 0;
   /* Everything becomes scrolling and non-fading */
   .nav,
   .nav.fixed {
-    position: relative;
+    position: fixed;
     opacity: 1 !important; /* Important to override JS values */
     display: inline-block;
   }
@@ -626,6 +693,7 @@ padding: 0;
     top: 0 !important; /* Important to override JS values */
     margin-top: 240px !important; /* Important to override JS values */
     opacity: 1 !important; /* Important to override JS values */
+      background-color: rgba(255, 255, 255, 0.58);
   }
   /* Articles no longer have fixed heights */
   .art-header {
@@ -639,7 +707,7 @@ padding: 0;
     padding-bottom: 0;
   }
   .art-list {
-    padding-top: 0;
+    padding-top: 100px;
   }
   .abt {
     padding: 40px 0;
@@ -648,6 +716,11 @@ padding: 0;
     padding: 80px 0 60px;
   }
 }
+
+  .art-body-inner ul,
+  .art-body-inner ol {
+    background-color: rgba(195, 188, 188, 0.54);
+  }
 
 @media only screen and (max-width: 780px) {
   .art-body-inner ul,
@@ -662,8 +735,8 @@ padding: 0;
     font-size: 12px;
   }
   .nav {
-    padding-top: 25px;
-    height: 55px;
+    padding-top: 0px;
+    height: 80px;
   }
   .art-list-item-title-and-time,
   .art-list-item p {
@@ -815,43 +888,50 @@ hr.featured-article {
     text-align: center;
 }
 hr.featured-article:after {
-    content: "✭ Featured Article ✭";
+    content: "Isi Artikel";
     display: inline-block;
-    position: relative; 
-    top: -0.8em;  
+    position: relative;
+    top: -0.8em;
     font-size: 1.2em;
     padding: 0 0.6em;
-    background: white;
+    background: Cyan;
 }
 
 /* FORM */
-
-#contact-area {
-  width: 600px;
-  margin-top: 25px;
+#subpost{
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 100%;
+}
+#konten{
+    margin-right: 400px;
+}
+textarea {
+ resize: none;
+    width: 78%;
+    height: 200px;
+    text-align:center;
+    vertical-align: text-bottom
+}
+form {
+    margin-top: 50px;
+    background-size: contain;
+    text-align:center;
 }
 
-#contact-area input, #contact-area textarea {
-  padding: 5px;
-  width: 471px;
-  font-family: Helvetica, sans-serif;
-  margin: 0px 0px 10px 0px;
-  border: 2px solid #ccc;
+input{
+    text-align:center;
+    width: 78%;
+    margin-bottom: 20px;
+    height: 50px;
 }
-
-#contact-area textarea {
-  height: 90px;
+#note{
+    visibility: hidden;
+    height: 0px;
 }
-
-#contact-area textarea:focus, #contact-area input:focus {
-  border: 2px solid #900;
+::-webkit-input-placeholder {
+   font-size-adjust: auto;
 }
-
-#contact-area input.submit-button {
-  width: 100px;
-  
-}
-
 label {
   float: left;
   text-align: right;
