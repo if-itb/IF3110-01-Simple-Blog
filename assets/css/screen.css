@@ -155,12 +155,15 @@ a:hover {
   margin-left: -490px; /* Half width of nav */
   border-bottom: 1px solid #333;
   z-index: 2;
+  background-image: url('../../images/1.jpg');
+  background-repeat: no-repeat;
 }
 .nav.fixed {
   position: fixed;
 }
 #logo {
   float: left;
+  margin-left: 23%;
 }
 .nav-primary {
   float: right;
@@ -222,18 +225,20 @@ div.cover > img {
 ================================================== */
 .art {
   margin-top: -131px;
+
 }
 /* Header */
 .art-header {
-  height: 900px;
+  height: 660px;
   /* Background image is defined in the post */
   background-position: top center;
-  background-attachment: fixed;
+  background-attachment: relative;
   overflow: hidden;
+
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: fixed;
+  position: relative;
   top: 300px;
   left: 50%;
   margin-left: -490px;
@@ -382,10 +387,13 @@ div.cover > img {
 ================================================== */
 .art-list {
   padding: 120px 0 0;
+  
+  background-repeat: none;
 }
 .art-list-body {
   position: relative;
   overflow: hidden;
+
 }
 .art-list-item {
   padding: 40px 0;
@@ -435,6 +443,9 @@ div.cover > img {
   padding: 30px 0 40px;
   overflow: hidden;
   border-top: 1px solid #ccc;
+   background-image: url(../../images/2.jpg);
+  background-repeat: no-repeat;
+  background-size: 800px 230px;
 }
 .footer,
 .footer a {
