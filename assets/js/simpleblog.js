@@ -42,6 +42,10 @@ function addComment() {
 	var email = encodeURIComponent(document.getElementById("Email").value);
 	var komentar = encodeURIComponent(document.getElementById("Komentar").value);
 
+	var namaerror = document.getElementById("namaerror");
+	var emailerror = document.getElementById("emailerror");
+	var komentarerror = document.getElementById("komentarerror");
+
 	if (nama == '' || email == '' || komentar == '' || (!validateEmail(email))) {
 		var namavalidation = true;
 		var emailvalidation = true;
@@ -85,6 +89,9 @@ function addComment() {
 		}
 
 	} else {
+		namaerror.innerHTML = ""; namaerror.removeAttribute("class");
+		emailerror.innerHTML = ""; emailerror.removeAttribute("class");
+		komentarerror.innerHTML = ""; komentarerror.removeAttribute("class");
 
 		var data = "id_post="+id_post+"&nama="+nama+"&email="+email+"&komentar="+komentar;
 		var url = "add_comment.php";
@@ -121,6 +128,11 @@ function addComment() {
 	return false;
 }
 
+function parseDate(date) {
+	var valid = date.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+	return valid;
+}
+
 function validatePost() {
 	var judul = document.getElementById("Judul").value;        
 	var tanggal = document.getElementById("Tanggal").value;
@@ -131,27 +143,36 @@ function validatePost() {
  		return false;
  	}
  	if (tanggal == "") {
- 		alert("Judul tidak boleh kosong");
+ 		alert("Tanggal tidak boleh kosong");
  		return false;
  	} else {
- 		var date = tanggal.split("-");
- 		var postDate = new Date(date[2],date[1]-1,date[0]);
- 		var today = new Date();
+ 		if (parseDate(tanggal)) {
+	 		var date = tanggal.split("-");
+	 		var postDate = new Date(date[2],date[1]-1,date[0]);
+	 		var today = new Date();
 
- 		var isGreaterThanToday = true;
+	 		var isGreaterThanToday = true;
 
- 		if (postDate.getFullYear() < today.getFullYear()) {
- 			isGreaterThanToday = false;
- 		} else if (postDate.getMonth() < today.getMonth()) {
- 			isGreaterThanToday = false;
- 		} else if (postDate.getDate() < today.getDate()) {
- 			isGreaterThanToday = false;
- 		}
+	 		if (postDate.getFullYear() < today.getFullYear()) {
+	 			isGreaterThanToday = false;
+	 		} else if (postDate.getFullYear() == today.getFullYear()) {
+		 		if (postDate.getMonth() < today.getMonth()) {
+		 			isGreaterThanToday = false;
+		 		} else if (postDate.getMonth() == today.getMonth()) {
+		 			if (postDate.getDate() < today.getDate()) {
+		 				isGreaterThanToday = false;
+		 			}
+		 		}
+		 	}
 
- 		if (!isGreaterThanToday) {
- 			alert("Tanggal harus lebih besar atau sama dengan tanggal sekarang");
- 			return false;
- 		}
+	 		if (!isGreaterThanToday) {
+	 			alert("Tanggal harus lebih besar atau sama dengan tanggal sekarang");
+	 			return false;
+	 		}
+	 	} else {
+	 		alert("Format tanggal harus DD-MM-YYYY");
+	 		return false;
+	 	}
  	}
  	if (konten == "") {
  		alert("Konten tidak boleh kosong");

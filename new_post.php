@@ -10,7 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$query = 'INSERT INTO post (judul, tanggal, konten) VALUES ("'.$judul.'", "'.$tanggal.'", "'.$konten.'")';
 	mysql_query($query);
 
-	header("Location: new_post.php?status=success");
+    $id = mysql_insert_id();
+
+	header("Location: post.php?id=".$id);
     exit;
 
 }
@@ -30,23 +32,18 @@ include("header.php");
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-            	<?php if (isset($_GET["status"]) AND $_GET["status"] == "success") { ?>
-            	    <p>Post berhasil ditambahkan!</p>
-            	<?php } else { ?>
-
                 <form method="post" action="new_post.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul" placeholder="Judul post">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="<?php echo date("d-m-Y"); ?>">
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="DD-MM-YYYY">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten" placeholder="Konten post"></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validatePost()">
                 </form>
-                <?php } ?>
             </div>
         </div>
     </div>
