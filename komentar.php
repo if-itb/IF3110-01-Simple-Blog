@@ -4,12 +4,12 @@ include 'DBConfig.php';
 
 $id = $_GET['id'];
 if ($_GET['state']==1) {
-    $komentar = mysql_query("select * from komentar where PID='$id'", $link);
+    $komentar = mysql_query("select * from komentar where PID='$id' ORDER BY TANGGAL", $link);
  
     while($komen = mysql_fetch_array($komentar)) {
         echo "<li class=\"art-list-item\">";
             echo "<div class=\"art-list-item-title-and-time\">";
-                echo "<h2 class=\"art-list-title\"><a href=\"".$komen['EMAIL']."\">".$komen['NAMA']."</a></h2>";
+                echo "<h2 class=\"art-list-title\"><a href=mailto:\"".$komen['EMAIL']."\">".$komen['NAMA']."</a></h2>";
                 echo "<div class=\"art-list-time\">".$komen['TANGGAL']."</div>";
             echo "</div>";            
             echo "<p>".$komen['KOMENTAR']."&hellip;</p>";
@@ -22,11 +22,13 @@ else if ($_GET['state']==2) {
     $Komentar=$_GET['komentar']; 
     $PID=$id;
     $Tanggal = date('Y-m-d');
-
+    
     $query = mysql_query("INSERT INTO komentar (PID, NAMA, EMAIL, TANGGAL, KOMENTAR)
-               VALUES ('$PID','$Nama','$Email', '$Tanggal', '$Komentar') ORDER BY TANGGAL");
+               VALUES ('$PID','$Nama','$Email', '$Tanggal', '$Komentar')");
     if ($query)
         echo "submitted"; 
+    else 
+        echo "not";
 }
 
 mysql_close($link);

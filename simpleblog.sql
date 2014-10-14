@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 13 Okt 2014 pada 09.07
+-- Generation Time: 14 Okt 2014 pada 11.04
 -- Versi Server: 5.5.36
 -- PHP Version: 5.4.25
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `entries` (
   `TANGGAL` date NOT NULL,
   `KONTEN` text NOT NULL,
   PRIMARY KEY (`PID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
 
 --
 -- Dumping data untuk tabel `entries`
@@ -41,16 +41,8 @@ CREATE TABLE IF NOT EXISTS `entries` (
 INSERT INTO `entries` (`PID`, `JUDUL`, `TANGGAL`, `KONTEN`) VALUES
 (23, 'bosen', '2014-10-10', 'Yo Deadline tugas ini 3 hari lagi brooooh'),
 (33, 'Perang', '2014-10-11', 'Otak : Paniklah, AI tinggal 4 hari!!!! <br>\r\nAfik : â€¦â€¦â€¦. Kalo skip tubes sekali bakal gimana ya? .___.'),
-(42, 'asdsa', '2013-09-12', 'sjdfnds'),
-(47, 'bisaaaa', '2014-10-12', 'sdjksfnsdk'),
-(48, 'coba lagi ', '2014-10-12', 'jsandaksdnmsad'),
 (49, 'coba lagi ', '2014-10-12', 'jsandaksdnmsad'),
-(51, 'nuhuh', '0008-08-08', '8'),
-(53, 'jnjn', '0009-09-09', '9ijijsas'),
-(54, 'jnjn', '0009-09-09', '9ijijsas'),
-(59, 'asas', '2014-09-21', 'snfsdm'),
-(60, 'alert this', '0001-09-21', 'ansanmd'),
-(61, 'tanggalnya sama', '2014-10-13', 'jsandasdnaksdkajfbsjdbfjhabfsjnhsjf');
+(66, 'Afik', '2014-10-30', 'jsdnfakas');
 
 -- --------------------------------------------------------
 
@@ -67,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `komentar` (
   `KOMENTAR` text NOT NULL,
   PRIMARY KEY (`KID`),
   KEY `FK_entries_PID` (`PID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data untuk tabel `komentar`
@@ -76,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `komentar` (
 INSERT INTO `komentar` (`PID`, `KID`, `NAMA`, `EMAIL`, `TANGGAL`, `KOMENTAR`) VALUES
 (33, 1, 'Afik', 'afik@gmail.com', '2014-10-12', 'pusing'),
 (33, 4, 'bezzelbulb', 'b.com', '2014-10-12', 'kapan ini kelaaaaaar?'),
-(47, 32, 'mau nambah tanggal dong', 'ads@asda.sds', '2014-10-13', 'andjkanskdas');
+(33, 34, 'afik2', 'akuafik@gmail.com', '2014-10-14', 'ter terakhir');
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

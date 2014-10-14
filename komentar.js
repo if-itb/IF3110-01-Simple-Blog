@@ -49,6 +49,9 @@ function addComment(id){
                         showComment(id);
                         document.getElementById("comment_form").reset();
                     }
+                    else {
+                        alert("query tidak diterima");
+                    }
                 }
             }
             xmlhttp.open("GET","komentar.php?state=2&id="+id+"&nama="+Nama+"&email="+Email+"&komentar="+Komentar,true);
@@ -66,6 +69,5 @@ function addComment(id){
 function validateForm(email) {
     console.log("email: " + email);
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    console.log(re.test(email));
     return re.test(email);
 }

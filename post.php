@@ -50,10 +50,10 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>AYE!</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
-    </ul>
+  <a style="border:none;" id="logo" href="index.php"><h1>AYE!</h1></a>
+  <ul class="nav-primary">
+      <li><a href="new_post.php">+ Tambah Post</a></li>
+  </ul>
 </nav>
 
 <article class="art simple post">
@@ -104,25 +104,18 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+        Simple Blog By /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
+        <a class="twitter-link" href="http://twitter.com/akuafik">AFIK</a> /
     </aside>
 </footer>
-
-</div>
 
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+
+</div>
 
 </body>
 </html>
