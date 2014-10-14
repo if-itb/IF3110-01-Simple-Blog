@@ -6,7 +6,7 @@ function post_insert($title, $content, $date) {
 	$query = "INSERT INTO posts (id, title, content, date)
 			  VALUES (NULL, '%title%', '%content%', '%date%')";
 	$param = array(
-		'content' => $content,
+		'content' => htmlspecialchars($content),
 		  'title' => $title,
 		   'date' => $date
 	);
@@ -18,7 +18,7 @@ function post_select($id = null) {
 		$query = "SELECT * FROM posts WHERE id = '%id%'";
 		$param = array('id' => $id);
 	} else {
-		$query = "SELECT * FROM posts";
+		$query = "SELECT * FROM posts ORDER BY date DESC, id DESC";
 		$param = array();
 	}
 	return db_query($query, $param);

@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__DIR__) . '/config.php';;
+require_once dirname(__DIR__) . '/config.php';
 
 function db_connect() {
 	global
@@ -17,5 +17,10 @@ function db_query($query, $param) {
 	foreach ($param as $key => $value) {
 		$query = str_ireplace("%{$key}%", mysqli_real_escape_string($db, $value), $query);
 	}
-	return mysqli_query($db, $query);
+	$result = mysqli_query($db, $query);
+	if (stripos($query, "INSERT") !== false || stripos($query, "UPDATE") !== false) {
+		return mysqli_insert_id($db);
+	} else {
+		return $result;
+	}
 }

@@ -1,3 +1,6 @@
+<?php
+	require_once 'php/lib/url.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -10,11 +13,10 @@
 		<title>Slog</title>
 		
 		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,700,700italic|Roboto+Condensed:300,400,400italic,700,700italic|Inconsolata:400,700">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-
-		<!--[if lt IE 9]>
-			<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-			<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="<?php echo url('css/style.css') ?>">
 	</head>
-	<body>
+	<body>		
+		<header>
+			<div class="header-title">Slog</div>
+			<div class="header-subtitle">A simple blog by Ted Kesgar</div>
+		</header>

@@ -1,0 +1,67 @@
+.section-view
+{
+    width: 720px;
+    
+    .view-message
+    {
+        .clear-margin();
+        width: 600px;
+        padding: 20px;
+        border-radius: 20px;
+        background: #000;
+        color: #fff;
+    }
+    
+    .article-left
+    {
+        margin: 40px auto;
+        width: 240px;
+        float: left;
+        
+        .article-date
+        {
+            color: #888;
+            letter-spacing: 0.2em;
+        }
+        
+        ul.actions
+        {
+            .clear-margin();
+            list-style-type: none;
+            
+            li
+            {
+                display: block;
+                margin: 10px 0;
+                a
+                {
+                    background: #000;
+                    border: none;
+                    color: #fff;
+                    display: inline-block;
+                    font-size: 0.8em;
+                    letter-spacing: 0.1em;
+                    padding: 0.5em 1em;
+                    text-transform: lowercase;
+                    transition: 0.5s;
+                    
+                    &:hover,
+                    &:active
+                    {
+                        background: #ccc;
+                        color: #000;
+                        font-size: 1em;
+                    }
+                }
+            }
+        }
+    }
+    
+    .article-right
+    {
+        margin: 40px auto;
+        width: 480px;
+        float: right;
+        text-align: justify;
+    }
+}

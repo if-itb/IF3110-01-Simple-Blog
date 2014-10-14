@@ -1,12 +1,12 @@
 <?php
 
-if (isset($_GET['action'])) {
+if (isset($_GET['p'])) {
+	require 'php/views/post_page.php';
+	exit;
+} else if (isset($_GET['action'])) {
 	switch ($_GET['action']) {
 	case 'view':
 		require 'php/views/post_view.php';
-		break;
-	case 'create':
-		require 'php/views/post_create.php';
 		break;
 	case 'edit':
 		require 'php/views/post_edit.php';
@@ -18,6 +18,7 @@ if (isset($_GET['action'])) {
 		require 'php/views/post_list.php';
 		break;
 	}
-} else {
-	require 'php/views/post_list.php';
+	exit;
 }
+
+require 'php/views/post_list.php';

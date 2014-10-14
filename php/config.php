@@ -7,3 +7,5 @@ $db_name = 'slog';
 
 $admin_user = 'titodks';
 $admin_pass = 'rizahanakusuma';
+
+$baseurl = 'http://localhost/Ted-Simple-Blog/';
