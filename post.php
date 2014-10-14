@@ -33,7 +33,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="return load_comment();">
 <div class="wrapper">
 
 <nav class="nav">
@@ -97,7 +97,7 @@
                     <textarea name="komentar" rows="20" cols="20" id="komentar"></textarea>
 
                     <input type="submit" name="submit" value="Simpan" onclick="return send_comment();" class="submit-button">
-                    <button onclick="return load_comment();">Test</button>
+                    <!-- <button onclick="return load_comment();">Test</button> -->
                 <!-- </form> -->
             </div>
 
@@ -192,11 +192,19 @@ function send_comment()
 	var email = document.getElementById('email').value;
 	var konten = document.getElementById('komentar').value;
 
+	if(!validate_email(email)){
+		alert("Email masih salah formatnya");
+		return false;
+	}
 	xmlhttp.onreadystatechange=function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
-			alert(xmlhttp.responseText);
+			var hasil = xmlhttp.responseText;
+			var res = JSON.parse(hasil);
+			if(res.status=='ok'){
+				load_comment();
+			}
 		}
 	}
 	xmlhttp.open("GET","ajax_addcomment.php?nama="+nama+"&email="+email+"&konten="+konten+"&id_post="+id_post,true);
@@ -215,7 +223,7 @@ function load_comment(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			var hasil = xmlhttp.responseText;
 			var the_jsons = JSON.parse(hasil);
-			
+			console.log(the_jsons);
 			var container = document.getElementById('listkomentar');
 			
 			var out_string ="";
@@ -225,17 +233,11 @@ function load_comment(){
 				var waktu       = the_jsons[i].waktu;
 				var email       = the_jsons[i].email;
 				var konten      = the_jsons[i].konten;
-				alert(JSON.parse(the_jsons[i]));
-				out_string = out_string + printthecoment(id_komentar,nama,email,waktu,konten);
+
+				out_string = out_string + printthecoment(id_komentar,nama,email,waktu,konten)+ "\n";
 			}
 			console.log(out_string);
 			container.innerHTML = out_string;
-			//alert(out_string);
-			// inner html set to  string;
-			// var the_json = JSON.parse(hasil);
-			// for (var i = the_json.length - 1; i >= 0; i--) {
-			// 	console.log(the_json[i])
-			// }
 		}
 	}
 	xmlhttp.open("GET","ajax_loadcomment.php?id_post=<?php echo $id_post;?>",true);
@@ -244,13 +246,12 @@ function load_comment(){
 
 function printthecoment(id,nama,email,waktu,konten){
 	 var output = "";
-	 alert(konten);
 	output = '<li class="art-list-item">'+
                      '<div class="art-list-item-title-and-time">'+
                          '<h2 class="art-list-title"><a href="flagkomentar.php?id_post='+id+'">'+nama+'</a></h2>'+
                          '<div class="art-list-time">'+waktu+'</div>'+
                      '</div>'+
-                     +konten+
+                     konten+
                  '</li>';
     return output;
 }
