@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -49,22 +49,22 @@
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-    <div class="art-body">
+    <div class="art-header">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
                 <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <label for="Title">Title:</label>
+                    <input type="text" name="Title" id="Title">
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <label for="Date">Date:</label>
+                    <input type="text" name="Date" id="Date">
                     
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <label for="Content">Content:</label><br>
+                    <textarea name="Content" rows="20" cols="20" id="Content"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Submit" class="submit-button">
                 </form>
             </div>
         </div>
@@ -107,5 +107,27 @@
       ga('create',ga_ua);ga('send','pageview');
 </script>
 
+
 </body>
+<?php
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+    $title = $_POST["Title"];
+    $date = $_POST["Date"];
+    $content = $_POST["Content"];
+
+    //make connection
+    $con = mysqli_connect("localhost", "root", "", "simpleblog");
+
+
+    if (!mysqli_connect_errno()) {
+        $var = mysqli_query($con, "SELECT MAX(id) as 'id' FROM post");
+        $last = mysqli_fetch_array($var, MYSQL_ASSOC);
+        $result = mysqli_query($con, "INSERT INTO post VALUES ( ".($last["id"]+1).", '".$title."', '".$date."', '".$content."')");
+        $url = '../IF3110-01-Simple-Blog/index.php';
+        mysqli_close($con);
+        header( "Location: $url" ); 
+    }
+    echo $title;
+}
+?>
 </html>
