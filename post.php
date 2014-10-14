@@ -145,12 +145,14 @@
 	<script type="text/javascript">
 		function validateemail() {
 			var email = document.forms["submission"]["Email"].value;
-			var regex = \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b;
+			var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			var checker = email.match(regex);
 			if (checker == null) {
 				alert("Format email yang dimasukkan salah!");
 				document.getElementById("Email").focus();
 				return false;
+			} else {
+				alert("Komentar telah diterima");
 			}
 		}
 	</script>
