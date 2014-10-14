@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 14, 2014 at 09:38 PM
+-- Generation Time: Oct 14, 2014 at 10:23 PM
 -- Server version: 5.5.40
 -- PHP Version: 5.6.0
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `blog`
 --
+CREATE DATABASE IF NOT EXISTS `blog` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `blog`;
 
 -- --------------------------------------------------------
 
@@ -33,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `comment_table` (
   `email` varchar(30) NOT NULL,
   `time` datetime NOT NULL,
   `content` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `comment_table`
@@ -41,7 +43,9 @@ CREATE TABLE IF NOT EXISTS `comment_table` (
 
 INSERT INTO `comment_table` (`id`, `id_post`, `name`, `email`, `time`, `content`) VALUES
 (1, 1, 'JEMS', 'rivahero@gmail.com', '2014-10-13 16:40:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! …'),
-(2, 1, 'KAVE', 'rivahero@gmail.com', '2014-10-13 15:38:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! …');
+(2, 1, 'KAVE', 'rivahero@gmail.com', '2014-10-13 15:38:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! …'),
+(33, 1, 'Riva Syafri Rachmatullah', 'riva.syafri.r@gmail.com', '2014-10-14 00:00:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! …'),
+(34, 1, 'Riva Syafri', 'riva.syafri.r@gmail.com', '2014-10-14 00:00:00', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! …');
 
 -- --------------------------------------------------------
 
@@ -88,7 +92,7 @@ ALTER TABLE `post_table`
 -- AUTO_INCREMENT for table `comment_table`
 --
 ALTER TABLE `comment_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `post_table`
 --
