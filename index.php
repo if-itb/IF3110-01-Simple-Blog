@@ -63,10 +63,9 @@ while($row=mysqli_fetch_array($result)){
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href="post.php?id='.$row['pid'].'">'.$row['judul'].'</a></h2>
                     <div class="art-list-time">'.$row['tanggal'].'</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
                 <p>'.$row['konten'].'<p>
-                  <a href="new_post.php?id='.$row['pid'].'">Edit</a> | <a href="deletepost.php?id='.$row['pid'].'">Hapus</a>
+                  <a href="new_post.php?id='.$row['pid'].'">Edit</a> | <a href="deletepost.php?id='.$row['pid'].'" onclick="return confirmdelete()">Hapus</a>
                 </p>
             </li>';
 	}
@@ -99,6 +98,14 @@ while($row=mysqli_fetch_array($result)){
 </footer>
 
 </div>
+
+<script>
+function confirmdelete(){
+	if (!confirm("Apakah Anda yakin menghapus post ini?")){
+		return false;}
+	}
+</script>
+
 <?php
 mysqli_close($db);
 ?>

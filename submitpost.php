@@ -10,17 +10,16 @@
 	$newkonten=mysqli_real_escape_string($db, $_POST['Konten']);
 	$newtanggal=$_POST['Tanggal'];
     if ($isedit)
-	{	$sql = "update post set judul='$newjudul', tanggal=$newtanggal, konten='$newkonten'
+	{	$sql = "update post set judul='$newjudul', tanggal='$newtanggal', konten='$newkonten'
 		where pid=$postid";
 	}
 	else
 	{	$sql = "INSERT INTO post (pid ,judul ,tanggal ,konten) VALUES (
-		NULL , '$newjudul', CURRENT_TIMESTAMP , '$newkonten')";
+		NULL , '$newjudul', '$newtanggal' , '$newkonten')";
 	}
 	if (!mysqli_query($db,$sql)) {
 		die('Error: ' . mysqli_error($db));
 	}
-	echo "1 record added";
 	if($isedit){
 		mysqli_close($db);
 		header('location:post.php?id='.$postid);

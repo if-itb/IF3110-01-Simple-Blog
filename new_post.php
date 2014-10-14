@@ -79,7 +79,7 @@ if($isedit) {
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="submitpost.php<?php if($isedit){echo "?id=".$postid;} ?>">
+                <form method="post" onsubmit="return validate()" action="submitpost.php<?php if($isedit){echo "?id=".$postid;} ?>">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul" value="<?php if($isedit){echo $post['judul'];} ?>">
 
@@ -88,7 +88,7 @@ if($isedit) {
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"><?php if ($isedit) {echo $post['konten'];}?></textarea>
-                    <input type="submit" id="submitbutton" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" id="submitbutton" onclick="submitpost()" name="submit" value="Simpan" class="submit-button">
                 </form>
             </div>
         </div>
@@ -101,7 +101,9 @@ if($isedit) {
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+        By: <a class="twitter-link" href="http://twitter.com/ardiwii">Ardi Wicaksono/13512063</a>
+		<br>
+        Template by: Asisten IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
         <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
@@ -117,26 +119,28 @@ if($isedit) {
 
 </div>
 <script type="text/javascript">
-	function submitpost(){
-		alert("ea");
-		inputtanggal = document.getElementById('Tanggal').value;
-		istanggalformat = inputtanggal.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-		alert(istanggalformat);
-		if(istanggalformat==0){
-			var postdate=new Date(inputtanggal);
-			var currenttime=new Date();
-			var postdatems = postdate.getTime();
-			var curenttimems = curenttime.getTime();
-			if(postdatems>=curenttimems){
-				alert("tanggal valid");
+	function validate(){
+		var inputtanggal = document.getElementById('Tanggal').value;
+		var istanggalformat = inputtanggal.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		var postdate=new Date(inputtanggal);
+		var currenttime=new Date();
+		if(istanggalformat=='0'){
+			//alert("sampai sini");
+			postdate.setHours(23);
+			postdate.setMinutes(59);
+			postdate.setSeconds(59);
+			if(postdate >= currenttime){
+				return true;
 			}
 			else{
 				alert("tanggal tidak valid");
+				return false;
 			}
+		}
 		else{
 			alert("format tanggal salah");
-			}
-		}	
+			return false;
+		}
 	}
 </script>
 <!--<script type="text/javascript" src="assets/js/jquery.min.js"></script>

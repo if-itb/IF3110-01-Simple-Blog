@@ -398,11 +398,13 @@ div.cover > img {
   border-bottom: none;
 }
 .art-list-title {
+  word-wrap: break-word;
   font-size: 26px;
   line-height: 26px;
   font-weight: 700;
 }
 .art-list-item-title-and-time {
+  word-wrap: break-word;
   float: left;
   width: 30%;
   margin-bottom: 10px;
@@ -668,6 +670,7 @@ padding: 0;
   }
   .art-list-item-title-and-time,
   .art-list-item p {
+	word-wrap: break-word;
     float: none;
     width: auto;
     margin-left: 0;
@@ -815,8 +818,9 @@ hr.featured-article {
     color: #bbb;
     text-align: center;
 }
+
 hr.featured-article:after {
-    content: "✭ Featured Article ✭";
+    content: "=====";
     display: inline-block;
     position: relative; 
     top: -0.8em;  

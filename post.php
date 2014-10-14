@@ -78,14 +78,14 @@ echo
         <div class="art-body-inner">
             <hr class="featured-article" />
             <p>'.$post['konten'].'</p>
-	<a href="new_post.php?id='.$postid.'">Edit</a>'; 
+			<a href="new_post.php?id='.$postid.'">Edit</a> | <a href="deletepost.php?id='.$post['pid'].'" onclick="return confirmdelete()">Hapus</a>'; 
   ?>
             <hr />
             
-            <h2>Komentar</h2>
+            <h2 style="margin-top=200px;">Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" id="commentform" onsubmit="submitcomment(this); return false">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -99,16 +99,17 @@ echo
                 </form>
             </div>
 
-            <ul class="art-list-body">
+            <ul class="art-list-body" id="comment-area">
 				<?php
-				$comments=mysqli_query($db,"SELECT * FROM comment where pid=".$postid); 
+				$comments=mysqli_query($db,"SELECT * FROM comment where pid=".$postid." order by tglkomen desc"); 
 				while($row=mysqli_fetch_array($comments)){
 				echo'
 					<li class="art-list-item">
 						<div class="art-list-item-title-and-time">
 							<h2 class="art-list-title">'.$row["nama"].'</h2>
+							<div class="art-list-time">'.$row["email"].'</div>
 							<div class="art-list-time">'.$row["tglkomen"].'</div>
-						</div>'.$row["komen"].'</li>';
+						</div><div style="margin-left:230px;">'.$row["komen"].'</div></li>';
 					}
 				?>
             </ul>
@@ -122,7 +123,9 @@ echo
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+        By: <a class="twitter-link" href="http://twitter.com/ardiwii">Ardi Wicaksono/13512063</a>
+		<br>
+        Template by: Asisten IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
         <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
@@ -135,6 +138,66 @@ echo
         
     </aside>
 </footer>
+
+<script type="text/javascript">
+function confirmdelete(){
+	if (!confirm("Apakah Anda yakin menghapus post ini?")){
+		return false;}
+	}
+
+//function validate(){
+//}
+
+function loadXMLDoc(formdata,url,cfunc)
+		{
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=cfunc;
+		xmlhttp.open("POST",url,true);
+		xmlhttp.send(formdata);
+		}
+
+function submitcomment(formcontent){
+	var inputemail = document.getElementById('Email').value;
+	var isemailvalid = inputemail.search("[A-Za-z0-9.\-_]+\@[A-Za-z0-9.\-_]+\.[a-z]+");
+	var namelength = document.getElementById('Nama').value.length;
+	var kontenlength = document.getElementById('Komentar').value.length;
+	if(namelength>12){
+		alert("nama terlalu panjang")
+		return false;
+	}
+	if(namelength==12){
+		alert("nama tidak boleh kosong")
+		return false;
+	}
+	if(isemailvalid!='0' || inputemail.length>25){
+		alert("email terlalu panjang atau tidak valid");
+		return false;
+	}
+	if(namelength==0){
+		alert("komentar tidak boleh kosong")
+		return false;
+	}
+	var passeddata = new FormData(formcontent);
+	loadXMLDoc(passeddata,"submitcomment.php?id="+<?php echo $postid ?>,function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+			document.getElementById("comment-area").innerHTML = xmlhttp.responseText + document.getElementById("comment-area").innerHTML;
+			}
+		  });
+		  document.getElementById("commentform").reset();
+	  }
+	
+
+</script>
+
 <?php mysqli_close($db);
 ?>
 </div>
