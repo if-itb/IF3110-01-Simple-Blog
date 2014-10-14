@@ -1,3 +1,12 @@
+<?php
+if(isset($_GET['id'])){
+	$isedit=true;
+	$postid=$_GET['id'];
+}
+else{
+	$isedit=false;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +38,23 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<?php
+$db=mysqli_connect("Localhost","root","","wbdsimpleblog");
+if(mysqli_connect_errno()){
+	echo "Failed to connect to MySQL: ".mysqli_connect_error();
+}
+
+if($isedit) {	
+	$tables=mysqli_query($db,"SELECT * FROM post WHERE pid=".$postid);
+	if (!$tables) {
+		// error di query nya
+	}
+	else {
+		$post = $tables->fetch_assoc();
+	}
+}
+?>                
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -38,54 +63,47 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<?php
-$db=mysqli_connect("Localhost","root","","wbdsimpleblog");
-if(mysqli_connect_errno()){
-	echo "Failed to connect to MySQL: ".mysqli_connect_error();
-}
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-$result=mysqli_query($db,"SELECT * FROM post order by tanggal");
-?>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Tambah Post</h2>
 
-	<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-<?php
-while($row=mysqli_fetch_array($result)){            
-	echo'   <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>'
-	}
-mysqli_close($db);
-?>	
-			</ul>
-        </nav>
+            <div id="contact-area">
+                <form method="post" onsubmit="return validate()" action="submitpost.php<?php if($isedit){echo "?id=".$postid;} ?>">
+                    <label for="Judul">Judul:</label>
+                    <input type="text" name="Judul" id="Judul" value="<?php if($isedit){echo $post['judul'];} ?>">
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php if($isedit) echo $post['tanggal'];?>">
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php if ($isedit) {echo $post['konten'];}?></textarea>
+                    <input type="submit" id="submitbutton" onclick="submitpost()" name="submit" value="Simpan" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
 
-
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+        By: <a class="twitter-link" href="http://twitter.com/ardiwii">Ardi Wicaksono/13512063</a>
+		<br>
+        Template by: Asisten IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
         <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
@@ -100,7 +118,32 @@ mysqli_close($db);
 </footer>
 
 </div>
-
+<script type="text/javascript">
+	function validate(){
+		var inputtanggal = document.getElementById('Tanggal').value;
+		var istanggalformat = inputtanggal.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		var postdate=new Date(inputtanggal);
+		var currenttime=new Date();
+		if(istanggalformat=='0'){
+			//alert("sampai sini");
+			postdate.setHours(23);
+			postdate.setMinutes(59);
+			postdate.setSeconds(59);
+			if(postdate >= currenttime){
+				return true;
+			}
+			else{
+				alert("tanggal tidak valid");
+				return false;
+			}
+		}
+		else{
+			alert("format tanggal salah");
+			return false;
+		}
+	}
+</script>
+<!--<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
@@ -114,6 +157,6 @@ mysqli_close($db);
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+-->
 </body>
 </html>
