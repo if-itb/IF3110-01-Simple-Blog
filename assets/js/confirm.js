@@ -59,11 +59,6 @@
           document.getElementById("date_comment").style.color="red";
           return false;
         }
-        else if (in_date>today){  //jika input tanggal lebih besar dari hari ini
-          document.getElementById("date_comment").innerHTML="Tanggal tidak boleh lebih besar dari hari ini";
-          document.getElementById("date_comment").style.color="red";
-          return false;
-        }
         else{ //jika input tanggal sama dengan hari ini
           document.getElementById("date_comment").innerHTML="ok!";
           document.getElementById("date_comment").style.color="green";
