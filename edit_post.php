@@ -2,6 +2,10 @@
 <html>
 <head>
 
+<?php
+	$id = $_GET['id'];
+?>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -51,10 +55,10 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="addpost.php" onsubmit="return isTanggalValid()">
+                <form method="post" action="editpost.php?id=<?php echo $id;?>">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
@@ -93,7 +97,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
