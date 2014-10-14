@@ -46,7 +46,7 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="edit_post.php">+ Edit Post</a></li>
+        <li><a href="assets/php/new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -56,7 +56,7 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
             
             <div id="contact-area">
                 <?php 

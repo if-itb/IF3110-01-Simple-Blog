@@ -19,8 +19,10 @@
             "<div class=\"art-list-item-title-and-time\">";
 		echo
 			"<h2 class=\"art-list-title\"><a href=\"post.php?postid=".$row['Post_Id']."\">".$row['Title']."</a></h2>";
+		$time = strtotime($row['Date']);
+		$time = date('j F Y',$time);
 		echo 
-			"<div class=\"art-list-time\">".$row['Title']."</div>
+			"<div class=\"art-list-time\">".$time."</div>
             <div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>";
 			if (str_word_count($row['Contents'])>30)
 			{

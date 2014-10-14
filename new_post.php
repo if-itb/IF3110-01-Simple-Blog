@@ -104,7 +104,6 @@
         var inputyyyy = partdate[0];
         var inputmm = partdate[1];
         var inputdd = partdate[2];
-        alert(partdate['0']+' '+partdate['1']+' '+partdate['2']+'\n'+currentdate);
         if (nowyyyy<inputyyyy)
         {
             return true;

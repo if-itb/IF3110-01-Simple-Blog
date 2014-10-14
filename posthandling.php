@@ -1,7 +1,7 @@
 <?php 
 	function getpost($con)
 	{
-		$result = mysqli_query($con,"SELECT * FROM post");
+		$result = mysqli_query($con,"SELECT * FROM post ORDER BY Date DESC");
 		return $result;
 	}
 	function getspecificpost($con,$postid)
@@ -11,7 +11,7 @@
 	}
 	function getspecificcomments($con,$postid)
 	{
-		$result = mysqli_query($con,"SELECT * FROM comments WHERE Post_Id = ".$postid);
+		$result = mysqli_query($con,"SELECT * FROM comments WHERE Post_Id = ".$postid." ORDER BY Time DESC");
 		return $result;				
 	}
  ?>
