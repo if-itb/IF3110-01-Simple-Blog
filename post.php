@@ -29,43 +29,83 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+	<?php
+		$con = mysqli_connect("localhost", "root", "", "dbblog");
+				
+			if(mysqli_connect_errno()){
+				echo "Gagal menghubungkan ke basis data blog";
+			}
+			$id = $_GET['ID'];
+			$res = mysqli_query($con, "SELECT * FROM post WHERE ID=$id");
+			while ($tabel = mysqli_fetch_array($res)){
+				echo"
+					<title>Simple Blog | ".$tabel['Judul']."</title>
+				";
+			}
+			mysqli_close($con);
+	?>
 
 
 </head>
 
-<body class="default">
+<body class="default" onload="listcomment(<?php echo $_GET['ID'] ?>)">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
     
     <header class="art-header">
-        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
-            <p class="art-subtitle"></p>
+        <div class="art-header-inner" style="margin-top: 200px; opacity: 1;">
+            <?php
+				$con = mysqli_connect("localhost", "root", "", "dbblog");
+				
+				if(mysqli_connect_errno()){
+					echo "Gagal menghubungkan ke basis data blog";
+				}
+				$id = $_GET['ID'];
+				$res = mysqli_query($con, "SELECT * FROM post WHERE ID=$id");
+				while ($tabel = mysqli_fetch_array($res)){
+					echo"
+						<time class='art-time'>".$tabel['Tanggal']."</time>
+						<h2 class='art-title'>".$tabel['Judul']."</h2>
+						<p class='art-subtitle'></p>
+					";
+				}
+				mysqli_close($con);
+			?>
         </div>
     </header>
 
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
+            <?php
+				$con = mysqli_connect("localhost", "root", "", "dbblog");
+				
+				if(mysqli_connect_errno()){
+					echo "Gagal menghubungkan ke basis data blog";
+				}
+				$id = $_GET['ID'];
+				$res = mysqli_query($con, "SELECT * FROM post WHERE ID=$id");
+				while ($tabel = mysqli_fetch_array($res)){
+					echo"
+						<p>".$tabel['Konten']."</p>
+					";
+				}
+				mysqli_close($con);
+			?>
             <hr />
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" id="comment-area" onsubmit="return false;">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -75,27 +115,11 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="submitcomment(<?php echo $_GET['ID'] ?>)">
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
+            <ul class="art-list-body" id="kom"></ul>
         </div>
     </div>
 
@@ -122,6 +146,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/ajaxcomment.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

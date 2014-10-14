@@ -53,19 +53,24 @@
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
 
+	
+			
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" onsubmit="return validate();" action="submit.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
-
+					
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="yyyy-mm-dd">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
+					
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
+					
                 </form>
+				
+				<script type="text/javascript" src="assets/js/validate.js"></script>	
             </div>
         </div>
     </div>

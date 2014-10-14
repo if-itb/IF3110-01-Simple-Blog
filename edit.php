@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -44,36 +44,50 @@
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Edit Post</h2>
+			
+			<?php
+				$id = $_GET['ID'];
+				$con=mysqli_connect("localhost","root","","dbblog");
+				if(mysqli_connect_errno()){
+					echo "Gagal menghubungkan ke basis data blog";
+				}
+			
+				$result = mysqli_query($con, "SELECT * FROM post WHERE ID=$id");
+				
+				while($hasil = mysqli_fetch_array($result)){
+					echo"
+						<div id='contact-area'>
+							<form method='post' onsubmit='return validate();' action='submit_edit.php?ID=".$hasil['ID']."'>
+								<label for='Judul'>Judul:</label>
+								<input type='text' name='Judul' id='Judul' value=".$hasil['Judul'].">
+								
+								<label for='Tanggal'>Tanggal:</label>
+								<input type='text' name='Tanggal' id='Tanggal' value=".$hasil['Tanggal'].">
+								
+								<label for='Konten'>Konten:</label><br>
+								<textarea name='Konten' rows='20' cols='20' id='Konten'>".$hasil['Konten']."</textarea>
+								
+								<input type='submit' name='submit' value='Simpan' class='submit-button'>
+								
+							</form>
+							
+							<script type='text/javascript' src='assets/js/validate.js'></script>	
+						</div>
+					";
+				}
+			?>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
