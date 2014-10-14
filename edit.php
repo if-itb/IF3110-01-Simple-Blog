@@ -38,13 +38,32 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
+<?php
+	include("connect.php");
+	if (isset($_GET['ID'])){
+		$ID = $_GET['ID'];
+		$query = mysql_query("
+			SELECT *
+			FROM post
+			WHERE ID = '$ID'
+		")or die(mysql_error());
+		while($data = mysql_fetch_object($query)){
+			$ID = $data->ID;
+			$Judul = $data->Judul;
+			$Tanggal = $data->Tanggal;
+			$Konten = $data->Konten;
+			session_start();
+			$_SESSION['ID'] = $ID;
+		}
+	}
+?>
     
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
@@ -54,15 +73,15 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="formTes" method="post" action="update.php" onsubmit="return checkdate();">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $Judul ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $Tanggal ?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $Konten ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -96,6 +115,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/validasi.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
