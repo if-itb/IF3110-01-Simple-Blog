@@ -211,26 +211,26 @@ function load_comment(){
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 
-	xmlhttp.onreadystatechange=function()
-	{
-		if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		{
+	xmlhttp.onreadystatechange=function(){
+		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			var hasil = xmlhttp.responseText;
 			var the_jsons = JSON.parse(hasil);
 			
 			var container = document.getElementById('listkomentar');
-			var out_string;
-			for (var i = the_jsons.length - 1; i >= 0; i--) {
+			
+			var out_string ="";
+			for (var i = the_jsons.length - 1; i >= 0; i--){
 				var id_komentar = the_jsons[i].id_komentar;
 				var nama        = the_jsons[i].nama;
 				var waktu       = the_jsons[i].waktu;
 				var email       = the_jsons[i].email;
 				var konten      = the_jsons[i].konten;
-
-				// out_string = out_string + printthecoment(id_komentar,nama,email,waktu,konten);
-			};
-
-			alert(out_string);
+				alert(JSON.parse(the_jsons[i]));
+				out_string = out_string + printthecoment(id_komentar,nama,email,waktu,konten);
+			}
+			console.log(out_string);
+			container.innerHTML = out_string;
+			//alert(out_string);
 			// inner html set to  string;
 			// var the_json = JSON.parse(hasil);
 			// for (var i = the_json.length - 1; i >= 0; i--) {
@@ -243,14 +243,15 @@ function load_comment(){
 }
 
 function printthecoment(id,nama,email,waktu,konten){
-	var output = "";
-	output = '<li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="flagkomentar.php?id_post='+id+'">'+nama+'</a></h2>
-                        <div class="art-list-time">'+waktu+'</div>
-                    </div>
-                    '+konten+'
-                </li>';
+	 var output = "";
+	 alert(konten);
+	output = '<li class="art-list-item">'+
+                     '<div class="art-list-item-title-and-time">'+
+                         '<h2 class="art-list-title"><a href="flagkomentar.php?id_post='+id+'">'+nama+'</a></h2>'+
+                         '<div class="art-list-time">'+waktu+'</div>'+
+                     '</div>'+
+                     +konten+
+                 '</li>';
     return output;
 }
 </script>
