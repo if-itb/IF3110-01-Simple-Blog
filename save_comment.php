@@ -24,7 +24,9 @@ function clean($data)
 		echo '<li class="art-list-item">';
 		echo 	'<div class="art-list-item-title-and-time">';
 		echo		'<h2 class="art-list-title"><a href="#">'.$nama.'</a></h2>';
-		echo		'<div class="art-list-time">'.printwaktu($comment['tanggal_kom']).'</div>';
+		echo		'<div class="art-list-time">';
+		printwaktu($comment['tanggal_kom']);
+		echo '</div>';
 		echo	'</div>';
 		echo	'<p>'.$komentar.'</p>';
 		
@@ -50,5 +52,6 @@ function printwaktu($tanggal) {
 		default: break;
 	}
 	echo $splitDate[2].' '.$month.' '.$splitDate[0].'<br>'.$splitTime[0].':'.$splitTime[1];
-}
+	
+	}
 ?>
