@@ -228,12 +228,12 @@ div.cover > img {
   height: 900px;
   /* Background image is defined in the post */
   background-position: top center;
-  background-attachment: relative;
+  background-attachment: fixed;
   overflow: hidden;
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: relative;
+  position: fixed;
   top: 300px;
   left: 50%;
   margin-left: -490px;
