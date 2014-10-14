@@ -1,3 +1,22 @@
+<?php
+    include 'sql_my.php';
+    function featured_text($isFeatured) {
+        if ($isFeatured) {
+            return "<div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>";
+        } else {
+            return "";
+        }
+    }
+    $post_str = "<li class=\"art-list-item\">
+        <div class=\"art-list-item-title-and-time\">
+        <h2 class=\"art-list-title\"><a href=\"post.php?id=%d\">%s</a></h2>
+        <div class=\"art-list-time\">%s</div>
+        %s</div>
+        <p>%s</p>
+        <p><a href=\"new_post.php?id=%d\">Edit</a> | <a href=\"delete_post.php?id=%d\" onclick=\"return checkSure()\">Hapus</a></p>
+        </li>";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +57,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,28 +67,26 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<?php
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+    $sql_con = mysqli_connect("localhost", "WBD_USER", "QKC3zwhJ", "WBD_DB");
+
+    if (mysqli_connect_errno()) {
+        echo "<li>Failed to Connect to Database [".mysqli_connect_error()."]</li>";
+    } else {
+        $result = mysqli_query($sql_con, "SELECT * FROM post ORDER BY postdate DESC");
+
+        while ($row = mysqli_fetch_array($result)) {
+            $title = htmlspecialchars($row['TITLE']);
+            $content = htmlspecialchars($row['CONTENT']);
+            printf($post_str, $row['ID'], $title, date_sql2my0($row['POSTDATE']),
+                featured_text($row['ISFEATURED']), $content, $row['ID'],
+                $row['ID']);
+        }
+    }
+
+    mysqli_close($sql_con);
+?>
           </ul>
         </nav>
     </div>
@@ -90,25 +107,17 @@
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
+
     </aside>
 </footer>
 
 </div>
 
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
-
 </body>
+
+<script type="text/javascript">
+    function checkSure(id) {
+        return confirm("Apakah anda yakin?");
+    }
+</script>
 </html>
