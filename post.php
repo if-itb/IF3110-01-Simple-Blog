@@ -1,4 +1,33 @@
+<?php
+    require_once dirname(__FILE__)."/assets/db/db_connection.php";
+    $db = Database::getInstance()->getHandle();
+
+    // get the errors
+    $id = null;
+    static $error = "";
+    if(isset($_GET['id']))
+        $id = $db->escapeString($_GET['id']);
+    else
+        $error .= "Post ID not defined!";
+
+    $defined_methods = ["view", "delete"];
+    $method = null;
+    if(isset($_GET['method'])) {
+        $method = $db->escapeString($_GET['method']);
+        if(!in_array($method, $defined_methods)) {
+            $error .= "<br/>Unknown method: ".$method;
+        }
+    } else {
+        // TODO: using GOTO?
+        $error .= "<br/>Method undefined!";
+    }
+    ob_start();
+?>
 <!DOCTYPE html>
+<!-- this page manages all stuff about posts: 
+        - view (including comments)
+        - delete
+-->
 <html>
 <head>
 
@@ -13,7 +42,7 @@
 <meta name="twitter:site" content="omfgitsasalmon">
 <meta name="twitter:title" content="Simple Blog">
 <meta name="twitter:description" content="Deskripsi Blog">
-<meta name="twitter:creator" content="Simple Blog">
+<meta name="twitter:creator" content="Alvin Natawiguna">
 <meta name="twitter:image:src" content="{{! TODO: ADD GRAVATAR URL HERE }}">
 
 <meta property="og:type" content="article">
@@ -29,7 +58,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<title>Simple Blog | <!--TITLE--></title>
 
 
 </head>
@@ -38,27 +67,43 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
-    
+<?php
+if($method == 'view'):
+    $table = Database::$table_post;
+    $statement = $db->prepare("SELECT * FROM $table WHERE id=:id");
+
+    $statement->bindValue(':id', $id);
+
+    $post = $statement->execute();
+
+    if($post): // view the post
+        $post = $post->fetchArray();
+        $pageTitle = $post['judul'];
+?>  
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time">
+            <?php 
+                $date = new DateTime($post["tanggal"]);
+                echo $date->format("l, j F o");
+            ?>
+            </time>
+            <h2 class="art-title"><?php echo $pageTitle;?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
 
     <div class="art-body">
         <div class="art-body-inner">
-            <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <?php if($post["featured"] == 1): ?><hr class="featured-article" /> <?php endif;?>
+            <p><?php echo $post["konten"]; ?></p>
 
             <hr />
             
@@ -98,8 +143,25 @@
             </ul>
         </div>
     </div>
+<?php // this will be sent out if the post is not available:
+    else:
+        $error .= "<br />Cannot fetch post: ".$db->lastErrorMsg();
+    endif;
+?>
+<!-- end of view -->
+<?php 
+elseif($method == "delete"): 
+    $statement = $db->prepare("DELETE FROM ".Database::$table_post." WHERE id=:id");
+    $statement->bindValue(":id", $id);
 
-</article>
+    if($statement->execute()) {
+        $delete = "Delete success";
+    } else {
+        $error .= "<br/>Delete error: ".$db->lastErrorMsg();
+    }
+?>
+<?php endif; ?>
+</article><!-- end of content -->
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -108,33 +170,33 @@
     <aside class="offsite-links">
         Asisten IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
-        <br>
+        <br />
         <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
         <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
         <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
+        <br />
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
     </aside>
 </footer>
 
 </div>
 
-<script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
+<script type="text/javascript" src="assets/js/fittext.js"></script>
 
 </body>
 </html>
+<?php
+    $pageContents = ob_get_contents();
+    ob_end_clean();
+
+    if(isset($pageTitle)) {
+        echo str_replace("<!--TITLE-->", $pageTitle, $pageContents);
+    } else if(isset($delete)) {
+        echo str_replace("<!--TITLE-->", "Delete Success", $pageContents);
+    } else {
+        echo str_replace("<!--TITLE-->", "Error", $pageContents);
+    }
+?>
