@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+	mysql_connect("localhost", "root", "");
+	mysql_select_db("simpleblog");
+	$var = $_GET['postid'];
+	$sql = mysql_query("SELECT * FROM post WHERE id = $var");
+	$row = mysql_fetch_array($sql);
+?>
 <html>
 <head>
 
@@ -38,9 +44,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -51,19 +57,16 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="dataeditpost.php?postid=<?php echo $var;?>" onsubmit="return validatedate()">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
+                    <input type="text" name="Judul" id="Judul" value=<?php echo $row['judul'] ?>>
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
+                    <input type="date" name="Tanggal" placeholder="mm/dd/yyyy" id="Tanggal" value=<?php echo $row['tanggal'] ?>>
+					<label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['konten']?></textarea>
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
             </div>
@@ -105,6 +108,22 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
+</script>
+<script type="text/javascript">
+function validatedate(){
+  
+  var InputText = document.getElementById('Tanggal').value;
+  var now = new Date();
+  var firstValue = InputText.split('-');
+ var firstDate = new Date(firstValue[0],(firstValue[1]-1),firstValue[2]);
+ if(firstDate > now) 
+ {
+	return false;
+  }
+  else {
+  return true;
+  }
+ }
 </script>
 
 </body>

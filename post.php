@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html>
+<?php
+	mysql_connect("localhost", "root", "");
+	mysql_select_db("simpleblog");
+	$var = $_GET['postid'];
+	$sql = mysql_query("SELECT * FROM post WHERE id = $var");
+	$row = mysql_fetch_array($sql);
+?>
+
 <head>
 
 <meta charset="utf-8">
@@ -38,18 +46,18 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
-    
+	
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?php echo $row['tanggal'];?></time>
+            <h2 class="art-title"><?php echo $row['judul'];?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,15 +65,14 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <p><?php echo $row['konten']; ?></p>
 
             <hr />
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="comment" method="post">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -74,27 +81,31 @@
                     
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
-
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+					
+					
+                    <input type="button" name="submit" value="Kirim" class="submit-button" onclick="return callajax(<?php echo $var?>)">
                 </form>
             </div>
-
-            <ul class="art-list-body">
-                <li class="art-list-item">
+            <ul class="art-list-body" id = "allcom">
+              <div id="com">  
+				<?php
+					$sqli = mysql_query("SELECT * FROM komentar ORDER BY id DESC");
+					while($baris = mysql_fetch_array($sqli)){
+						$id = $baris['id'];
+						$nama = $baris['nama'];
+						$email = $baris['email'];
+						$tanggal = $baris['tanggal'];
+						$isikomen = $baris['isikomen'];
+				?>
+				<li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
+                        <h2 class="art-list-title"><a href="post.php?postid=<?php echo $var;?>"><?php echo $nama; ?></a></h2>
+                        <div class="art-list-time"><?php echo $tanggal; ?></div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+                    <p> <?php echo $isikomen; ?></p>
+				</li>
+				<?php } ?>
+			</div>
             </ul>
         </div>
     </div>
@@ -135,6 +146,62 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
+<script>
+  // The variable that makes Ajax possible!
+ var id;
+function callajax(id){
+if (validateemail())
+{
+ var ajaxRequest;
+ try{ 
+   // Opera 8.0+, Firefox, Safari
+   ajaxRequest = new XMLHttpRequest();
+ }catch (e){
+   // Internet Explorer Browsers
+   try{
+      ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+   }catch (e) {
+      try{
+         ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+      }catch (e){
+         // Something went wrong
+         alert("Your browser broke!");
+         return false;
+      }
+   }}
+//alert("tes");	   
+   var jsvar1 = document.forms["comment"]["Nama"].value;
+   var jsvar2 = document.forms["comment"]["Email"].value;
+   var jsvar3 = document.forms["comment"]["Komentar"].value;
+   
+   var parameter;
+   parameter = "Nama="+jsvar1+"&Email="+jsvar2+"&Komentar="+jsvar3+"&postid="+id;
+	//alert(parameter);
+  ajaxRequest.onreadystatechange=function() {
+    if (ajaxRequest.readyState==4 && ajaxRequest.status==200) {
+		 document.getElementById('allcom').innerHTML = ajaxRequest.responseText + document.getElementById('allcom').innerHTML + document.getElementById('com').innerHTML;  	 
+		 
+    }
+  }
+  ajaxRequest.open("POST","comment.php",true);
+  ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+  ajaxRequest.send(parameter);
+ }
+ }
+ </script>
+ <script type="text/javascript">
+function validateemail(){
+var email = document.getElementById('Email');
+ var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!filter.test(email.value)) {
+    alert('Please provide a valid email address');
+    email.focus;
+    return false;
+ }
+ else
+	return true;
+}
+ </script>
 
 </body>
 </html>
