@@ -61,7 +61,7 @@
                 </div>
                 <p>'.$row["content"].'</p>
                 <p>
-                <a href="edit_post.php?id='.$row["id"].'">Edit</a> | <a href="#">Hapus</a>
+                <a href="edit_post.php?id='.$row["id"].'">Edit</a> | <a href="deletepost.php?id='.$row["id"].'" onclick="return confirm(\'Apakah Anda yakin menghapus post ini?\')">Hapus</a>
                 </p>
                 </li>';
             }
