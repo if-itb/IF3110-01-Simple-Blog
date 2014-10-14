@@ -14,7 +14,7 @@
 
 	echo '<li class="art-list-item">    
             <div class="art-list-item-title-and-time">
-                <h2 class="art-list-title"><a href="post.html">'.str_replace(" ", "<br/>", $nama).'</a></h2>
+                <h2 class="art-list-title"><a href="#">'.str_replace(" ", "<br/>", $nama).'</a></h2>
                 <div class="art-list-time">'.$tanggal.'</div>
             </div>
             <p>'.str_replace("\n","<br />",$komentar).'&hellip;</p>    
