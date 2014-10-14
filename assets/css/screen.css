@@ -1,5 +1,3 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
-@import url(http://fonts.googleapis.com/css?family=Questrial);
 
 /* Reset & Basics (Inspired by E. Meyers)
 ================================================== */
@@ -40,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
   text-transform: uppercase;
   font-weight: 700;
-  color: #000;
+  color: #204869;
   text-rendering: optimizeLegibility;
 }
 
@@ -106,14 +104,14 @@ header#teaser h1 {
 /* Links
 ================================================== */
 a {
-  color: #F40034;
+  color: #d00749;
   text-decoration: none;
   -webkit-transition: color .2s ease-in-out;
      -moz-transition: color .2s ease-in-out;
           transition: color .2s ease-in-out;
 }
 a:hover {
-  color: #F40034;
+  color: #ff5a00;
 }
 
 /*  Layout
@@ -122,7 +120,7 @@ a:hover {
 .wrapper {
   max-width: 1500px;
   margin: 0 auto;
-  background: #fff;
+  background: #ffebbf;
 }
 
 /* Containers to keep content to a set width */
@@ -147,14 +145,19 @@ a:hover {
 /*  Nav
 ================================================== */
 .nav {
-  position: absolute;
+  position: relative;
   top: 0;
-  left: 50%;
-  height: 70px;
+  left: 0;
+  width: 100%;
+  height: 100px;
   padding-top: 40px;
-  margin-left: -490px; /* Half width of nav */
-  border-bottom: 1px solid #333;
+  padding-left: 180px;
+  padding-right: 180px;
+  margin-left: 0; /* Half width of nav */
+  /*border-bottom: 1px solid #333;*/
   z-index: 2;
+  background-color: #506b82; /*#587bb0;*/
+  box-sizing: border-box;
 }
 .nav.fixed {
   position: fixed;
@@ -177,7 +180,7 @@ a:hover {
   font-weight: 700;
   font-size: 13px;
   line-height: 30px;
-  color: #000;
+  color: #fff;
   text-transform: uppercase;
 }
 
@@ -225,18 +228,25 @@ div.cover > img {
 }
 /* Header */
 .art-header {
-  height: 900px;
+  width: 100%;
   /* Background image is defined in the post */
   background-position: top center;
-  background-attachment: fixed;
+  /*background-attachment: fixed;*/
   overflow: hidden;
+  box-sizing: border-box;
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: fixed;
-  top: 300px;
-  left: 50%;
-  margin-left: -490px;
+  /*position: relative;*/
+  width: 100%;
+  margin-top: 50px;
+  left: 0;
+  right: 0;
+  margin-left: 0;
+  padding-left: 70px;
+  padding-right: 70px;
+  display: block;
+  box-sizing:border-box;
 }
 .art-time,
 .art-title,
@@ -254,6 +264,7 @@ div.cover > img {
   line-height: .9;
   letter-spacing: -2px;
   width: 100%;
+  color: #204869;
 }
 .art-subtitle {
   margin-top: 4px;
@@ -284,7 +295,7 @@ div.cover > img {
 .art-body-inner {
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
   max-width: 640px;
-  padding: 80px 0 50px;
+  padding: 10px 0 120px;
   letter-spacing: 0.01rem;
   font-weight: 400;
   font-style: normal;
@@ -381,7 +392,7 @@ div.cover > img {
 /*  List of Articles
 ================================================== */
 .art-list {
-  padding: 120px 0 0;
+  padding: 10px 0 80px;
 }
 .art-list-body {
   position: relative;
@@ -391,7 +402,7 @@ div.cover > img {
   padding: 40px 0;
   list-style: none;
   overflow: hidden;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #d9bc7b;
 }
 .art-list-item:last-child {
   border-bottom: none;
@@ -411,13 +422,13 @@ div.cover > img {
   line-height: 20px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #999;
+  color: #453937;
 }
 .art-list-title a {
-  color: #000;
+  color: #13355b;
 }
 .art-list-title a:hover {
-  color: #F40034;
+  color: #e61765;
 }
 .art-list-item p {
   width: 65%;
@@ -432,16 +443,25 @@ div.cover > img {
 /*  Footer
 ================================================== */
 .footer {
-  padding: 30px 0 40px;
+  /*padding: 30px 0 40px;*/
   overflow: hidden;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #d9bc7b;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 23px;
+  padding-left: 180px;
+  padding-right: 180px;
+  background-color: #d9a151;
+  position: fixed;
+  bottom: 0;
+  z-index: 150;
 }
 .footer,
 .footer a {
   font-family: "proxima-nova", "helvetica neue", "helvetica", sans-serif;
   font-size: 13px;
   text-transform: uppercase;
-  color: #777;
+  color: #fff;
 }
 .footer a:hover {
   color: #000;
@@ -810,18 +830,18 @@ img.right {
 hr.featured-article {
     padding: 0;
     border: none;
-    border-top: medium double #bbb;
-    color: #bbb;
+    border-top: medium double #063561;
+    color: #fff;
     text-align: center;
 }
 hr.featured-article:after {
-    content: "✭ Featured Article ✭";
+    content: "✭ Article ✭";
     display: inline-block;
     position: relative; 
     top: -0.8em;  
     font-size: 1.2em;
     padding: 0 0.6em;
-    background: white;
+    background: #7ea6cb;
 }
 
 /* FORM */
@@ -836,7 +856,7 @@ hr.featured-article:after {
   width: 471px;
   font-family: Helvetica, sans-serif;
   margin: 0px 0px 10px 0px;
-  border: 2px solid #ccc;
+  border: 2px solid #d9a151;
 }
 
 #contact-area textarea {
@@ -849,7 +869,12 @@ hr.featured-article:after {
 
 #contact-area input.submit-button {
   width: 100px;
-  
+  background-color: #ffbe58;
+  font-family: Helvetica;
+  border-color: #ff6c00;
+  float: right;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 label {

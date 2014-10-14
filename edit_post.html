@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -47,27 +47,25 @@
 <article class="art simple post">
     
     
-     <header class="art-header">
-        <div class="art-header-inner">
-            <h2 class="art-title">Tambah Post</h2>
-        </div>
-    </header>
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
     <div class="art-body">
         <div class="art-body-inner">
+            <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="new_post.php" id="formisi" onsubmit="return validasi(this.Tanggal);">
+                <form method="post" action="#">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="date" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    
+                    <input type="submit" name="submit" value="Edit" class="submit-button">
                 </form>
             </div>
         </div>
@@ -75,53 +73,28 @@
 
 </article>
 
-<script>
-
-function validasi(input)
-{
-    var validformat=/^\d{4}\-\d{2}\-\d{2}$/; //Basic check for format validity
-    var returnval=false;
-    if (!validformat.test(input.value)) {
-        alert("Format Tanggal tidak valid.");
-    } else { //Detailed check for valid date ranges
-        var dayfield=input.value.split("-")[2];
-        var monthfield=input.value.split("-")[1];
-        var yearfield=input.value.split("-")[0];
-        var dayobj = new Date(yearfield, monthfield-1, dayfield);
-
-        var firstValue = input.value.split('-');
-        var d = new Date();
-
-        var DateNow=new Date();
-        DateNow.setFullYear(d.getFullYear(), d.getMonth(), d.getDate()); 
-
-        if ((dayobj.getMonth()+1!=monthfield)||(dayobj.getDate()!=dayfield)||(dayobj.getFullYear()!=yearfield)) {
-            alert("Rentang Tanggal tidak valid.");
-        } else if ((dayobj > DateNow)|| (dayobj.getDate() == DateNow.getDate() && dayobj.getMonth() == DateNow.getMonth() && dayobj.getFullYear() == DateNow.getFullYear()))
-        {
-            returnval = true;
-        } else {
-            alert("Tanggal harus lebih besar atau sama dengan hari ini.");
-        }
-    }
-    if (returnval==false) {
-        input.select()
-        return returnval;
-    }
-}
-
-</script>
-
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
-    <div class="psi">Windy Amelia</div>
-    <aside class="offsite-links"><a href="https://www.facebook.com/windy.amelia.52" target="_blank">
-       <img src="fb.png" style="width:40px;height:40px"></a>
+    <!-- <div class="footer-nav"><p></p></div> -->
+    <div class="psi">&Psi;</div>
+    <aside class="offsite-links">
+        Asisten IF3110 /
+        <a class="rss-link" href="#rss">RSS</a> /
+        <br>
+        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
+        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
+        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
+        <br>
+        <a class="twitter-link" href="#">Renusa</a> /
+        <a class="twitter-link" href="#">Kelvin</a> /
+        <a class="twitter-link" href="#">Yanuar</a> /
+        
     </aside>
 </footer>
 
 </div>
 
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

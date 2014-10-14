@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
 
 </head>
@@ -40,16 +40,30 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="edit_post.php?id=<?php echo $row['id_post']; ?>">Edit Post</a></li>
     </ul>
 </nav>
+
+<?php
+// Create connection
+$con=mysqli_connect("Localhost", "root","windy","blogwindy");
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+$id_post = $_GET["id"];
+$result = mysqli_query($con,"SELECT * FROM post WHERE id_post=$id_post");
+$row = mysqli_fetch_array($result);
+?>
 
 <article class="art simple post">
     
     
-     <header class="art-header">
+    <header class="art-header">
         <div class="art-header-inner">
-            <h2 class="art-title">Tambah Post</h2>
+            <h2 class="art-title">EDIT Post</h2>
         </div>
     </header>
 
@@ -57,17 +71,18 @@
         <div class="art-body-inner">
 
             <div id="contact-area">
-                <form method="post" action="new_post.php" id="formisi" onsubmit="return validasi(this.Tanggal);">
+                <form method="post" action="update_post.php?id=<?php echo $row['id_post']; ?>" onsubmit="return validasi(this.Tanggal);">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['Judul']; ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="date" name="Tanggal" id="Tanggal">
+                    <input type="date" name="Tanggal" id="Tanggal" value="<?php echo $row['Tanggal']; ?>">
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['Konten'];?></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    
+                    <input type="submit" name="submit" value="Edit" class="submit-button">
                 </form>
             </div>
         </div>
@@ -76,7 +91,6 @@
 </article>
 
 <script>
-
 function validasi(input)
 {
     var validformat=/^\d{4}\-\d{2}\-\d{2}$/; //Basic check for format validity
@@ -92,16 +106,19 @@ function validasi(input)
         var firstValue = input.value.split('-');
         var d = new Date();
 
+        //var firstDate=new Date();
+        //firstDate.setFullYear(firstValue[0],(firstValue[1] - 1 ),firstValue[2]);
+
         var DateNow=new Date();
         DateNow.setFullYear(d.getFullYear(), d.getMonth(), d.getDate()); 
 
         if ((dayobj.getMonth()+1!=monthfield)||(dayobj.getDate()!=dayfield)||(dayobj.getFullYear()!=yearfield)) {
             alert("Rentang Tanggal tidak valid.");
-        } else if ((dayobj > DateNow)|| (dayobj.getDate() == DateNow.getDate() && dayobj.getMonth() == DateNow.getMonth() && dayobj.getFullYear() == DateNow.getFullYear()))
+        } else if ((dayobj > DateNow) || (dayobj.getDate() == DateNow.getDate() && dayobj.getMonth() == DateNow.getMonth() && dayobj.getFullYear() == DateNow.getFullYear()))
         {
-            returnval = true;
+            returnval=true;
         } else {
-            alert("Tanggal harus lebih besar atau sama dengan hari ini.");
+             alert("Tanggal harus lebih besar sama dengan hari ini");
         }
     }
     if (returnval==false) {
@@ -109,7 +126,6 @@ function validasi(input)
         return returnval;
     }
 }
-
 </script>
 
 <footer class="footer">
@@ -122,19 +138,7 @@ function validasi(input)
 
 </div>
 
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
-</script>
+<script type="text/javascript" src="allfunction.js"></script>
 
 </body>
 </html>
