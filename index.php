@@ -29,8 +29,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
 
+<title>Simple Blog</title>
 
 </head>
 
@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -48,28 +48,27 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+            <?php
+              // Create connection
+              $con=mysqli_connect("localhost","root","","wbd_db");
+              $result = mysqli_query($con,"SELECT * FROM post");
+              while($row = mysqli_fetch_array($result)) {
+            ?>
+                <li class="art-list-item">
+                  <div class="art-list-item-title-and-time">
+                      <h2 class="art-list-title"><a href="post.php?pc=<?php echo $row['post_id']?>"><?php echo $row['tittle'] ?></a></h2>
+                      <div class="art-list-time"><?php echo $row['post_date'] ?></div>
+                      <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                  </div>
+                  <p><?php echo $row['konten'] ?></p>
+                  <p>
+                    <a href="update_post.php?pc=<?php echo $row['post_id']?>">Edit</a> | <a href="delete_post.php?pc=<?php echo $row['post_id']?>"  onclick="return confirm('Apa kamu yakin untuk menghapus post ini?');">Hapus</a>
+                  </p>
+                </li> 
+            <?php
+              }
+              mysqli_close($con);
+            ?>
           </ul>
         </nav>
     </div>

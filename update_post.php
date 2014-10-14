@@ -98,9 +98,8 @@ function checkDate(){
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -111,18 +110,30 @@ function checkDate(){
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
+            <h2>Update Post</h2>
+            <?php
+              $session_post_id = $_GET['pc'];
+              // Create connection
+              $con=mysqli_connect("localhost","root","","wbd_db");
+              $result = mysqli_query($con,"SELECT * FROM post WHERE post_id = '$session_post_id'");
+              $row = mysqli_fetch_array($result);
+            ?>
             <div id="contact-area">
-                <form name="new_post" action="new_post.php" method="post" onsubmit="return cekData();">
+                <form name="new_post" action="update.php" method="post" onsubmit="return cekData();">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['tittle']?>">
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" value="YYYY-MM-DD">
-                    <br><label for="Konten">Konten:</label>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $row['post_date']?>">
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['konten']?></textarea>
+
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="hidden" name="post_id" id="post_id" value="<?php echo $row['post_id']?>">
                 </form>
+                <?php
+                    mysqli_close($con);
+                ?>
             </div>
         </div>
     </div>
@@ -150,6 +161,7 @@ function checkDate(){
 
 </div>
 
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

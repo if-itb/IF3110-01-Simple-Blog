@@ -31,6 +31,62 @@
 
 <title>Simple Blog | Apa itu Simple Blog?</title>
 
+<script type="text/javascript">
+
+function cekData(){
+    if(new_comment.Nama.value == ""){
+        alert("Nama harus diisi!");
+        return false;
+    }
+    else if(new_comment.Email.value == ""){
+        alert("E-mail harus diisi!");
+        return false;
+    }
+    else if(new_comment.Komentar.value == ""){
+        alert("Komentar post harus diisi!");
+        return false;
+    }
+    else{
+        checkEmail();
+        showComment();
+        return false;
+    }
+}
+
+function checkEmail(){
+    var validformat=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!validformat.test(new_comment.Email.value)){
+        alert("Email anda salah!");
+    }
+}
+
+function showComment() {
+    var nama = document.getElementById('Nama').value;
+    var email = document.getElementById('Email').value;
+    var komentar = document.getElementById('Komentar').value;
+    var post_id = document.getElementById('post_id').value;
+    var comment_date = document.getElementById('comment_date').value;
+    if (window.XMLHttpRequest) {
+       // code for IE7+, Firefox, Chrome, Opera, Safari
+       xmlhttp=new XMLHttpRequest();
+    } 
+    else { // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            document.getElementById("listKomentar").innerHTML=xmlhttp.responseText + document.getElementById("listKomentar").innerHTML;
+        }
+    }
+    xmlhttp.open("POST","new_comment.php",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("&post_id="+post_id+"&Nama="+nama+"&Email="+email+"&Komentar="+komentar+"&comment_date="+comment_date+"&post_id="+post_id);
+}
+
+</script>
+
+</script>
+
 
 </head>
 
@@ -38,34 +94,44 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
+<?php
+  $session_post_id = $_GET['pc'];
+  // Create connection
+  $con=mysqli_connect("localhost","root","","wbd_db");
+  $result = mysqli_query($con,"SELECT * FROM post WHERE post_id = '$session_post_id'");
+  $row = mysqli_fetch_array($result);
+?>
+
 <article class="art simple post">
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?php echo $row['post_date']?></time>
+            <h2 class="art-title"><?php echo $row['tittle']?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
-
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <p><?php echo $row['konten']?></p>
 
             <hr />
-            
+
+        <?php mysqli_close($con); 
+            $session_post_id = $_GET['pc'];
+        ?>
+
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="new_comment" method="post" onsubmit="cekData(); return false;">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -76,25 +142,28 @@
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="hidden" name="post_id" id="post_id" value="<?php echo $row['post_id']?>">
+                    <input type="hidden" name="comment_date" id="comment_date" value="<?php echo "".date("Y-m-d") ?>">
                 </form>
-            </div>
-
-            <ul class="art-list-body">
+            </div> 
+            <ul class="art-list-body" id="listKomentar">
+                <?php 
+                    // Create connection
+                    $con=mysqli_connect("localhost","root","","wbd_db");
+                    $result = mysqli_query($con,"SELECT * FROM comment WHERE post_id = '$session_post_id' ORDER BY comment_id DESC");
+                    while($row = mysqli_fetch_array($result)) {
+                ?>
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
+                        <h2 class="art-list-title"><a href="post.php"><?php echo $row['nama'] ?></a></h2>
+                        <div class="art-list-time"><?php echo $row['comment_date'] ?></div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                    <p><?php echo $row['komentar'] ?> &hellip;</p>
                 </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+                <?php 
+                }
+                mysqli_close($con); 
+                ?>
             </ul>
         </div>
     </div>
