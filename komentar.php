@@ -54,11 +54,11 @@
             <h2>Tambah Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="index.php">
+                <form method="post" action="index.php" onsubmit="return validateForm();" name="myForm" >
 					<?php
 						$a = $_POST["idx"];
 					?>
-                    <label for="Judul">Nama:</label>
+                    <label for="Nama">Nama:</label>
                     <input type="text" name="namaK" id="namaK">
 					
 					<label for="Email">Email:</label>
@@ -112,5 +112,16 @@
       ga('create',ga_ua);ga('send','pageview');
 </script>
 
+<script>
+function validateForm() {
+    var x = document.forms["myForm"]["emailK"].value;
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        alert("Not a valid e-mail address");
+        return false;
+    }
+}
+</script>
 </body>
 </html>
