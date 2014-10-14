@@ -31,10 +31,121 @@
 
 <title>Simple Blog | Apa itu Simple Blog?</title>
 
+<script type="text/javascript">
+    //script ini digunakan untuk mengirim request untuk menambahkan komentar terbaru
+    
+    //fungsi menambahkan komentar
+    function ajaxLoadComment() {
+        var index=<?php echo $_GET['index'];?>;
+        var ajaxLoadRequest;  
 
+        try{
+            // Opera 8.0+, Firefox, Safari
+            ajaxLoadRequest = new XMLHttpRequest();
+        } catch (e){
+            // Internet Explorer Browsers
+            try{
+                
+                ajaxLoadRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try{
+                    ajaxLoadRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e){
+                    // Something went wrong
+                    alert("Browser tidak dapat dikenali");
+                    return false;
+                }
+            }
+        }
+
+        ajaxLoadRequest.open("GET", "assets/php/loadComment.php?index="+index);        
+        
+        ajaxLoadRequest.onreadystatechange=function() {
+            if (ajaxLoadRequest.readyState==4 && ajaxLoadRequest.status==200) {
+                document.getElementById("test").innerHTML= ajaxLoadRequest.responseText;
+            }
+        }
+        
+        ajaxLoadRequest.send();
+
+    }
+    
+    //function ajax untuk mengirim data untuk komentar baru
+    function ajaxAddComment() {
+        var x = document.forms["formComment"]["Email"].value;
+        var atpos = x.indexOf("@");
+        var dotpos = x.lastIndexOf(".");
+        if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+            alert("Email yang anda masukkan tidak valid");
+            return false;    
+        }
+        
+        var index=<?php echo $_GET['index'];?>;
+        var ajaxAddRequest;  
+        
+	    var nama = encodeURIComponent(document.getElementById("Nama").value);
+        var email = encodeURIComponent(document.getElementById("Email").value);
+        var komentar = encodeURIComponent(document.getElementById("Komentar").value);
+        
+        try{
+            // Opera 8.0+, Firefox, Safari
+            ajaxAddRequest = new XMLHttpRequest();
+        } catch (e){
+            // Internet Explorer Browsers
+            try{
+                ajaxAddRequest = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try{
+                    ajaxAddRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e){
+                    // Something went wrong
+                    alert("Browser tidak dapat dikenali!");
+                    return false;
+                }
+            }
+        }
+        
+        //mengirim request AJAX
+        ajaxAddRequest.open("GET", "assets/php/addComment.php?index="+index+"&nama="+nama+"&email="+email+"&konten="+komentar, true);
+        ajaxAddRequest.send();
+        
+        ajaxLoadComment();
+
+    }
+</script>
+    
+    
 </head>
 
 <body class="default">
+
+<?php
+    //pengaktifan sesi
+    if(session_status() != PHP_SESSION_ACTIVE) {
+        //session_start();
+    } else {
+        echo "Session tidak dapat diaktifkan";
+    }
+
+    //melakukan koneksi kedalam database post dan comment yang telah dibuat
+    $connectBlogDatabase = mysqli_connect("localhost", "root", "", "simpleblog");
+
+    //mengecek apakah koneksi berjalan dengan baik, jika tidak, menampilkan pesan error
+    if(mysqli_connect_errno()) {
+        echo "Gagal Koneksi : ".mysqli_connect_error();   
+    }
+
+    //mengambil nilai index
+    $index = $_GET["index"];
+
+    //mengambil data dari db dengan query SELECT
+    $querySelectData = "SELECT * FROM postdata WHERE ID=$index";
+    $queryTemp = mysqli_query($connectBlogDatabase, $querySelectData);
+    
+    $arrayData = mysqli_fetch_array($queryTemp);
+
+?>
+    
 <div class="wrapper">
 
 <nav class="nav">
@@ -48,8 +159,17 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            
+            <?php  
+                //waktu dari konten
+                echo "<time class=\"art-time\">".$arrayData['Tanggal']."</time>"
+            ?>
+            
+            <?php  
+                //judul dari konten
+                echo "<h2 class=\"art-title\">".$arrayData['Judul']."</h2>"
+            ?>
+            
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,15 +177,19 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            
+            
+            <?php
+                //isi dari konten pos
+                echo "<p>".$arrayData['Konten']."</p>";
+            ?>
 
             <hr />
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="" name="formComment" onsubmit="return ajaxAddComment()">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -78,24 +202,18 @@
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
+            
+            <script>ajaxLoadComment()</script>
+            
+            <div id="comment-area">
+                <ul class="art-list-body">
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
+                <div id="test">
+            
+                </div>
+                    
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -136,6 +254,8 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+    
+<script type="text/javascript" src="assets/js/validate.js"></script>
+    
 </body>
 </html>

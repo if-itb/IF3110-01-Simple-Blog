@@ -30,11 +30,37 @@
 <![endif]-->
 
 <title>Simple Blog | Tambah Post</title>
-
-
+    
 </head>
 
 <body class="default">
+
+<script>
+    document.getElementById("warning").innerHTML = null;
+</script>
+    
+<?php
+    //pengaktifan sesi
+    if(session_status() != PHP_SESSION_ACTIVE) {
+        session_start();
+    } else {
+        echo "Session tidak dapat diaktifkan";
+    }
+
+    //pengecekan sesi, apabila tidak ada post yang telah ditambahkan, diinisialisasi dengan 0
+    if(($_SESSION["addPost"] != 1) &&($_SESSION["addPost"] != 2)) {
+        $_SESSION["addPost"] = 0;
+    }
+    
+    //cek apakah ada GET dari index (edit post pada index ke sekian)
+    if(isset($_GET["index"])) {
+        $_SESSION["index"] = $_GET["index"];
+    } else {
+        unset($_SESSION["index"]);
+    }
+
+?>
+    
 <div class="wrapper">
 
 <nav class="nav">
@@ -54,7 +80,7 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="assets/php/addPost.php" name="formPost" onsubmit="return validateDate();">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
@@ -67,6 +93,27 @@
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
             </div>
+            
+            <div id="warning">
+            </div>
+            
+            <div>
+                
+            <?php
+                //Menambahakan peringatan apabila telah ditambahkan post baru dengan menggunakan session atau diedit
+                if($_SESSION["addPost"] == 1) {
+                    echo "* Post Baru Telah Ditambahkan";
+                    $_SESSION["addPost"] = 0;
+                } else {
+                    if($_SESSION["addPost"] == 2) {
+                        echo "* Post Lama Telah Disunting";
+                        $_SESSION["addPost"] = 0;
+                    }
+                }
+            ?>
+                
+            </div>
+                
         </div>
     </div>
 
@@ -107,6 +154,10 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+    
+    
+<script type="text/javascript" src="assets/js/validate.js"></script>
+    
+    
 </body>
 </html>
