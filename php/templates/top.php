@@ -1,5 +1,5 @@
 <?php
-	require_once 'php/lib/url.php';
+	require_once "php/lib/url.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
 		<title>Slog</title>
 		
 		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,700,700italic|Roboto+Condensed:300,400,400italic,700,700italic|Inconsolata:400,700">
-		<link rel="stylesheet" type="text/css" href="<?php echo url('css/style.css') ?>">
+		<link rel="stylesheet" type="text/css" href="<?php echo url("css/style.css") ?>">
 	</head>
 	<body>		
 		<header>

@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__DIR__) . '/config.php';
+require_once dirname(__DIR__) . "/config.php";
 
-function url($tail = '') {
+function url($tail = "") {
 	global $baseurl;
 	return $baseurl . $tail;
 }
@@ -27,10 +27,12 @@ function url_make_get($param = null) {
 	return $url;
 }
 
+function url_page($name) {
+	return url_make_get(array("p" => $name));
+}
+
 function url_list_post() {
-	return url_make_get(array(
-		"action" => "list"
-	));
+	return url_make_get(array("action" => "list"));
 }
 
 function url_edit_post($id = NULL) {
@@ -45,10 +47,11 @@ function url_edit_post($id = NULL) {
 
 function url_view_post($id, $param = NULL) {
 	if ($param == NULL) {
-		$param = array();
+		$param = array("id" => $id);
+	} else {
+		$param["action"] = "view";
+		$param["id"] = $id;
 	}
-	$param["action"] = "view";
-	$param["id"] = $id;
 	return url_make_get($param);
 }
 

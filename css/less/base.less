@@ -26,3 +26,23 @@ a
         border-bottom-color: #aaa;
     }
 }
+
+.input-shared(@width : 500px)
+{
+    background: #fff;
+    border: 1px solid #888;
+    border-radius: 10px;
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    transition: 0.5s;
+    width: @width;
+    
+    &:focus
+    {
+        border-color: #000;
+        box-shadow: 0 0 4px 2px #888;
+        outline: none;
+        width: @width + 40px;
+    }
+}
