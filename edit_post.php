@@ -48,17 +48,42 @@
     
     
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
+<script type="text/javascript">
+	function validate(){
+		var inputtanggal = document.getElementById('Tanggal').value;
+		var istanggalformat = inputtanggal.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		var postdate=new Date(inputtanggal);
+		var currenttime=new Date();
+		if(istanggalformat=='0'){
+			//alert("sampai sini");
+			postdate.setHours(23);
+			postdate.setMinutes(59);
+			postdate.setSeconds(59);
+			if(postdate >= currenttime){
+				return true;
+			}
+			else{
+				alert("tanggal tidak valid");
+				return false;
+			}
+		}
+		else{
+			alert("format tanggal salah");
+			return false;
+		}
+	}
+</script>
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Edit Post</h2>
+			
 		<?php
 				require ("sqlconnect.php");
 				$query = "SELECT * FROM listpost WHERE ID =".$_GET['IDPOST'];
 				$result = mysqli_query($con,$query);
 				while($row = mysqli_fetch_array($result)){
            echo '<div id="contact-area">
-                <form method="post" action="editing.php?POSTID='.$_GET['IDPOST'].'">
+                <form method="post" onsubmit="return validate()" action="editing.php?POSTID='.$_GET['IDPOST'].'">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul" value = '.$row['Judul'].'>
                     <label for="Tanggal">Tanggal:</label>
