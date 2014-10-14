@@ -78,17 +78,7 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-
+        <a class="twitter-link" href="http://luthfihm.com">Luthfi Hamid Masykuri / 13512100</a>
     </aside>
 </footer>
 
@@ -104,45 +94,65 @@
             (tanggal != "") &&
             (konten != ""))
         {
-            var xmlhttp;
-            if (window.XMLHttpRequest)
-            {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
+            if (validateDate(tanggal))
+            {
+                var xmlhttp;
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else
+                {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function()
+                {
+                    if (xmlhttp.readyState<4)
+                    {
+                        document.getElementById("btn-submit").style="display:none";
+                        document.getElementById("loading").style="display:block";
+                    }
+                    else if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                    {
+                        if (xmlhttp.responseText == "true")
+                        {
+                            window.location = "index.php";
+                        }
+                        else
+                        {
+                            alert("Post gagal diproses");
+                            document.getElementById("loading").style="display:none";
+                            document.getElementById("btn-submit").style="display:block";
+                        }
+                    }
+                }
+                xmlhttp.open("POST","controller/add_post.php",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send("judul="+judul+"&tanggal="+tanggal+"&konten="+konten);
             }
             else
-            {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange=function()
             {
-                if (xmlhttp.readyState<4)
-                {
-                    document.getElementById("btn-submit").style="display:none";
-                    document.getElementById("loading").style="display:block";
-                }
-                else if (xmlhttp.readyState==4 && xmlhttp.status==200)
-                {
-                    if (xmlhttp.responseText == "true")
-                    {
-                        window.location = "index.php";
-                    }
-                    else
-                    {
-                        alert("Post gagal diproses");
-                        document.getElementById("loading").style="display:none";
-                        document.getElementById("btn-submit").style="display:block";
-                    }
-                }
+                alert("Tanggal tidak valid!");
+                document.getElementById("Tanggal").focus();
             }
-            xmlhttp.open("POST","controller/add_post.php",true);
-            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-            xmlhttp.send("judul="+judul+"&tanggal="+tanggal+"&konten="+konten);
         }
         else
         {
             alert("Input tidak valid");
             document.getElementById("loading").style="display:none";
             document.getElementById("btn-submit").style="display:block";
+        }
+    }
+    function validateDate(tanggal) {
+        var re = /^(19|20)\d\d[\-](0[1-9]|1[012])[\-](0[1-9]|[12][0-9]|3[01])$/;
+        if(re.test(tanggal))
+        {
+            var d = new Date(tanggal);
+            return !isNaN(d);
+        }
+        else
+        {
+            return false;
         }
     }
     </script>

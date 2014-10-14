@@ -72,7 +72,7 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form id="form_komen" onsubmit="add_komen();return false;">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
 
@@ -82,26 +82,13 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input id="btn-submit" type="submit" name="submit" value="Kirim" class="submit-button">
+                    <div id="loading"><img src="assets/img/loading.gif" alt=""></div>
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+            <ul class="art-list-body" id="komen_list">
 
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
             </ul>
         </div>
     </div>
@@ -113,17 +100,7 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-
+        <a class="twitter-link" href="http://luthfihm.com">Luthfi Hamid Masykuri / 13512100</a>
     </aside>
 </footer>
 
@@ -142,6 +119,123 @@
             document.getElementById("fade-title").style = "opacity:1;transition: opacity 0.5s ease-in-out;";
         }
     }
+    function add_komen()
+    {
+        var nama = document.getElementById("Nama").value;
+        var email = document.getElementById("Email").value;
+        var komentar = document.getElementById("Komentar").value;
+
+        if ((nama != "") &&
+            (email != "") &&
+            (komentar != ""))
+        {
+            if (validateEmail(email))
+            {
+                var xmlhttp;
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else
+                {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function()
+                {
+                    if (xmlhttp.readyState<4)
+                    {
+                        document.getElementById("btn-submit").style="display:none";
+                        document.getElementById("komen_list").style="display:none";
+                        document.getElementById("loading").style="display:block";
+                    }
+                    else if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                    {
+                        if (xmlhttp.responseText == "true")
+                        {
+                            load_komen();
+                            document.getElementById("form_komen").reset();
+                        }
+                        else
+                        {
+                            alert("Post gagal diproses");
+                            document.getElementById("loading").style="display:none";
+                            document.getElementById("btn-submit").style="display:block";
+                        }
+                    }
+                }
+                xmlhttp.open("POST","controller/add_komen.php",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send("id_post=<?php echo $data->id; ?>&nama="+nama+"&email="+email+"&komentar="+komentar);
+            }
+            else
+            {
+                alert("Email tidak valid!");
+                document.getElementById("Email").focus();
+            }
+        }
+        else
+        {
+            alert("Input tidak valid");
+            document.getElementById("loading").style="display:none";
+            document.getElementById("btn-submit").style="display:block";
+        }
+    }
+    function load_komen()
+    {
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState<4)
+            {
+                document.getElementById("btn-submit").style="display:none";
+                document.getElementById("komen_list").style="display:none";
+                document.getElementById("loading").style="display:block";
+            }
+            else if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                if (xmlhttp.responseText != "zero")
+                {
+                    var list = JSON.parse(xmlhttp.responseText);
+                    var inner = "";
+                    var row;
+                    var i = 0;
+                    for (row in list)
+                    {
+                        inner +=  '<li class="art-list-item">';
+                        inner += '    <div class="art-list-item-title-and-time">';
+                        inner += '        <h2 class="art-list-title"><a href="post.php?id=<?php echo $data->id; ?>">'+list[i].nama+'</a></h2>';
+                        inner += '            <div class="art-list-time">'+list[i].time+'</div>';
+                        inner += '</div>';
+                        inner += '            <p>'+list[i].komentar+'</p>';
+                        inner += '</li>';
+                        i++;
+                    }
+                    document.getElementById("komen_list").innerHTML = inner;
+                }
+                document.getElementById("loading").style="display:none";
+                document.getElementById("btn-submit").style="display:block";
+                document.getElementById("komen_list").style="display:block";
+            }
+        }
+        xmlhttp.open("POST","controller/get_komen.php",true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send("id_post=<?php echo $data->id; ?>");
+
+
+    }
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    load_komen();
     var myVar = setInterval(function(){fade();},1);
 </script>
 
