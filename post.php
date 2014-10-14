@@ -95,7 +95,7 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
                     <?php
-                        echo "<input type='submit' name='submit' value='Kirim' class='submit-button' onclick='addComment(".$id.")'>";    
+                        echo "<input type='reset' name='submit' value='Kirim' class='submit-button' onclick='addComment(".$id.")'>";    
                     ?>
                     
                 </form>
