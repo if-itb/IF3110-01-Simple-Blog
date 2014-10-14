@@ -84,7 +84,6 @@ echo '<div id="contact-area">
                 </form>
             </div>';
 $result = mysql_safe_query('SELECT * FROM comment WHERE post_id=%s ORDER BY date ASC', $_GET['id']);
-<ol id="comments">';
 while($row = mysql_fetch_assoc($result)) {
 echo '<ul class="art-list-body">
           <li class="art-list-item">
