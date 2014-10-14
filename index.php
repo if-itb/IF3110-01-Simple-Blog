@@ -55,7 +55,6 @@
 						echo "<div class='art-list-item-title-and-time'>";
 							echo "<h2 class='art-list-title'><a href='view_post.php?id=" . $row['id'] . "'>". $row['title'] ."</a></h2>";
 							echo "<div class='art-list-time'>".date("d F Y",strtotime($row['date'])) ."</div>";
-							echo "<div class='art-list-time'><span style='color:#F40034;'>&#10029;</span> Featured</div>";
 						echo "</div>";
 						echo "<p>". substr ( $row['content'] , 0, 320) ."&hellip;</p>";
 						echo "<p><a href='edit_post.php?id=" . $row['id'] . "'>Edit</a> | <a onclick='return confirm(\"Apakah Anda yakin menghapus post ini?\")' href='delete_post.php?id=" . $row['id'] . "'>Hapus</a></p>";

@@ -45,14 +45,39 @@ function viewComment() {
 			document.getElementById("comment").innerHTML=xmlhttp.responseText;
 		}
 	}
-	xmlhttp.open("GET","view_comment.php?id="+<?php echo$_GET['id'];?>,true);
+	xmlhttp.open("GET","view_comment.php?id="+<?php echo $_GET['id'];?>,true);
 	xmlhttp.send();
+	
+}
+
+function addComment() { 
+	var nama = document.getElementById("Nama").value;
+	var email = document.getElementById("Email").value;
+	var komentar = document.getElementById("Komentar").value;
+	var vars = "Nama="+nama+"&Email="+email+"&Komentar="+komentar;
+	if (window.XMLHttpRequest) {
+	
+		xmlhttp=new XMLHttpRequest();
+	} 
+	else { 
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			//document.getElementById("comment").innerHTML=xmlhttp.responseText;
+			viewComment();
+		}
+	}
+	xmlhttp.open("POST","add_comment.php?id="+<?php echo $_GET['id'];?>,true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send(vars);
+	return false;
 }
 </script>
 
 </head>
 
-<body class="default">
+<body class="default" onload="viewComment()">
 <div class="wrapper">
 
 <?php include 'header.php';?>
@@ -86,22 +111,22 @@ function viewComment() {
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="commentForm" method="post" action="#" onsubmit="return addComment()">
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+                    <input type="text" name="Nama" id="Nama" required>
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+                    <input type="text" name="Email" id="Email" required>
                     
                     <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar" required></textarea>
 
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
 
-            <ul id="comment" onload="viewComment()" class="art-list-body">
-				<input type="submit" onclick="viewComment()" value="Load">
+            <ul id="comment" class="art-list-body">
+			
             </ul>
         </div>
     </div>
@@ -111,6 +136,33 @@ function viewComment() {
 <?php include 'footer.php';?>
 
 </div>
+
+<script type="text/javascript">
+	var emailField = document.forms["commentForm"]["Email"];
+	var form = document.forms["commentForm"];
+	function checkEmailValidity()
+	{
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if(!re.test(emailField.value))
+		{
+			emailField.setCustomValidity('Invalid email address.');
+		}
+		else
+		{
+			emailField.setCustomValidity('');
+		}
+	}
+	emailField.addEventListener('change', checkEmailValidity);
+	function checkFormValidity()
+	{
+		checkEmailValidity();
+        if (!this.checkValidity()) {
+            event.preventDefault();
+            emailField.focus();
+        }
+	}
+	form.addEventListener('submit', checkFormValidity, false);
+</script>
 
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
