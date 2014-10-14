@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -40,40 +40,51 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.html">+ Edit Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>View Post</h2>
+
+            <div id="contact-area">
+                <form action="index.php">
+                    <label for="Judul">Judul:</label>
+					<?php
+					$judul = isset($_POST["judul1"])?$_POST["judul1"]:"";
+					?>
+					<input type="hidden" name="JudulLama" id="JudulLama" value=<?php echo $judul;?>">
+                    <input type="text" name="JudulEdit" id="JudulEdit" value="<?php echo $judul;?>">
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <?php
+					$tanggal = isset($_POST["tanggal1"])?$_POST["tanggal1"]:"";
+					?>
+					<input type="hidden" name="TanggalLama" id="TanggalLama" value=<?php echo $tanggal;?>">
+					<input type="text" name="TanggalEdit" id="TanggalEdit" value ="<?php echo $tanggal;?>">
+					
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <?php
+					$konten = isset($_POST["konten1"])?$_POST["konten1"]:"";
+					?>
+					<input type="hidden" name="KontenLama" id="KontenLama" value=<?php echo $konten;?>">
+					<input type="text" name="KontenEdit"  id="KontenEdit" value="<?php echo $konten;?>">
+					
+
+                    <input type="submit" name="submit" value="Back" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>

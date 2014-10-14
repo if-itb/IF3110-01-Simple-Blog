@@ -51,20 +51,25 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Tambah Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                <form method="post" action="index.php" onsubmit="return validateForm();" name="myForm" >
+					<?php
+						$a = $_POST["idx"];
+					?>
+                    <label for="Nama">Nama:</label>
+                    <input type="text" name="namaK" id="namaK">
+					
+					<label for="Email">Email:</label>
+                    <input type="text" name="emailK" id="emailK">
+					
+					<label for="Komentar">Komentar:</label>
+                    <input type="text" name="komentarK" id="komentarK">
 
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+					<input type="hidden" name="idxK" id="idxK" value="<?php echo $a;?>">
+					
+                    <input type="submit" name="submit" value="Submit" class="submit-button">
                 </form>
             </div>
         </div>
@@ -107,5 +112,16 @@
       ga('create',ga_ua);ga('send','pageview');
 </script>
 
+<script>
+function validateForm() {
+    var x = document.forms["myForm"]["emailK"].value;
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        alert("Not a valid e-mail address");
+        return false;
+    }
+}
+</script>
 </body>
 </html>
