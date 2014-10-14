@@ -11,7 +11,8 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
   font: inherit;
   vertical-align: baseline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, time, nav, section {
-  display: block; }
+  display: block;
+}
 html, body, .wrapper {
   min-height: 100%;
 }

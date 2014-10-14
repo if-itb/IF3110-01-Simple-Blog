@@ -51,7 +51,7 @@
             if (mysqli_connect_errno()) {
                 echo "Failed to connect to MySQL: " .mysqli_connect_error();
             }
-            $result = mysqli_query($con, "SELECT * FROM post_table order by date desc");
+            $result = mysqli_query($con, "SELECT * FROM post_table ORDER BY date DESC");
             while ($row = mysqli_fetch_array($result)) {
                 echo '<li class="art-list-item">
                 <div class="art-list-item-title-and-time">
