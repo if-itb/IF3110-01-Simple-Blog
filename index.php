@@ -1,3 +1,9 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors','On');
+require_once "post_utility.php";
+$posts = loadPosts();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +35,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -38,39 +44,38 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+<script src="assets/js/post.js"></script>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <?php
+            foreach($posts as $post)
+            {
+            ?>
+            <li class="art-list-item"> <!-- repeat this -->
+                <div class="art-list-item-title-and-time">
+                    <h2 class="art-list-title"><a href=<?php echo '"post.php?id='.$post['id'].'"';?>><?php echo $post["judul"];?></a></h2>
+                    <div class="art-list-time"><?php echo date("d-M-Y", strtotime($post["tanggal"]));?></div>
+                </div>
+                <p><?php echo $post["konten"];?>&hellip;</p>
+                <p>
+                  <a href=<?php echo '"new_post.php?id='.$post['id'].'"';?>>Edit</a> | <a href="#" onclick=<?php echo '"return deletePost('.$post['id'].');"';?>>Hapus</a>
+                </p>
+            </li><!-- until this-->
+            <?php
+            }
+            ?>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>

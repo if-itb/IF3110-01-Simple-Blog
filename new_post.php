@@ -1,3 +1,33 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors','On');
+
+
+if (isset($_POST['submit']) && (!isset($_GET['id'])))
+{
+    require_once "post_utility.php";
+    
+    $sql_date = date("Y-m-d", strtotime($_POST['Tanggal']));
+
+    createPost($_POST["Judul"], $sql_date, $_POST["Konten"]);
+
+    $success = 1;
+} else if (isset($_POST['submit']) && isset($_GET['id']))
+{
+    require_once "post_utility.php";
+    $sql_date = $sql_date = date("Y-m-d", strtotime($_POST['Tanggal']));
+
+    updatePost($_GET['id'], $_POST["Judul"], $sql_date, $_POST["Konten"]);
+
+    $success = 2;
+}
+
+if (isset($_GET['id']))
+{
+    require_once "post_utility.php";
+    $post = loadPost($_GET['id']);
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +59,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -38,42 +68,41 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+    <script src="assets/js/post.js"></script>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2><?php if(isset($_GET['id'])) {echo "Edit Post";} else { echo "Tambah Post";}?></h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+            <div id="contact-area">
+                <?php if(isset($success)){if($success == 1){echo "Sukses menambah post baru";} else if($success == 2){echo "Sukses merevisi post";}}?>
+                <form method="post" action="#">
+                    <label for="Judul">Judul:</label>
+                    <input type="text" name="Judul" id="Judul" <?php if(isset($post)) echo 'value="'.$post['judul'].'"';?>>
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="Tanggal" id="Tanggal" <?php if(isset($post)) echo 'value="'.date("d-m-Y", strtotime($post['tanggal'])).'"';?>>
+                    <div id="errorMessage">
+                    </div>
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" ><?php if(isset($post)) echo $post['konten'];?></textarea>
+
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return checkDate();">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
