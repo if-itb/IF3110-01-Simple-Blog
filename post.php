@@ -1,33 +1,32 @@
 <?php
-    require_once dirname(__FILE__)."/assets/db/db_connection.php";
-    $db = Database::getInstance()->getHandle();
 
-    // get the errors
-    $id = null;
-    static $error = "";
-    if(isset($_GET['id']))
-        $id = $db->escapeString($_GET['id']);
-    else
-        $error .= "Post ID not defined!";
+require_once dirname(__FILE__)."/assets/db/db_connection.php";
+$db = Database::getInstance()->getHandle();
 
-    $defined_methods = ["view", "delete"];
-    $method = null;
-    if(isset($_GET['method'])) {
-        $method = $db->escapeString($_GET['method']);
-        if(!in_array($method, $defined_methods)) {
-            $error .= "<br/>Unknown method: ".$method;
-        }
-    } else {
-        // TODO: using GOTO?
-        $error .= "<br/>Method undefined!";
+// get the errors
+$id = null;
+static $error, $post;
+
+if(isset($_GET['id']))
+    $id = $db->escapeString($_GET['id']);
+else
+    $error .= "Post ID not defined!";
+
+$defined_methods = ["view", "delete"];
+$method = null;
+if(isset($_GET['method'])) {
+    $method = $db->escapeString($_GET['method']);
+    if(!in_array($method, $defined_methods)) {
+        $error .= "<br/>Unknown method: ".$method;
     }
-    ob_start();
+} else {
+    // TODO: using GOTO?
+    $error .= "<br/>Method undefined!";
+}
+ob_start();
+
 ?>
 <!DOCTYPE html>
-<!-- this page manages all stuff about posts: 
-        - view (including comments)
-        - delete
--->
 <html>
 <head>
 
@@ -59,7 +58,6 @@
 <![endif]-->
 
 <title>Simple Blog | <!--TITLE--></title>
-
 
 </head>
 
@@ -110,36 +108,22 @@ if($method == 'view'):
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="javascript:postComment()">
                     <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
+                    <input type="text" name="Nama" id="Nama" required/>
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+                    <input type="email" name="Email" id="Email" required/>
                     
-                    <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <label for="Komentar">Komentar:</label><br/>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar" required></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button"></button>
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+            <ul class="art-list-body" id="comments">
+                
             </ul>
         </div>
     </div>
@@ -183,8 +167,14 @@ elseif($method == "delete"):
 
 </div>
 
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/fittext.js"></script>
+<script type="text/javascript" src="assets/js/utils.js"></script>
+<?php if($method == "view"): ?>
+<script type="text/javascript">var postId = <?php echo $post['id']; ?>;</script>
+<script type="text/javascript" src="assets/js/post.js"></script>
+<script type="text/javascript">
+getComments();
+</script>
+<?php endif; ?>
 
 </body>
 </html>

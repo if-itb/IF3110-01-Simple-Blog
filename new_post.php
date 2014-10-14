@@ -1,21 +1,6 @@
 <?php ob_start();
 require_once dirname(__FILE__)."/assets/db/db_connection.php";
-
-function curPageURL() {
-    $pageURL = 'http';
-    if (isset($_SERVER["HTTPS"])) {
-        if($_SERVER["HTTPS"] == "on")
-            $pageURL .= "s";
-    }
-    $pageURL .= "://";
-
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-    } else {
-        $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-    }
-    return $pageURL;
-}
+require_once dirname(__FILE__)."/assets/scripts/utils.php";
 
 $db = Database::getInstance()->getHandle();
 
@@ -146,11 +131,7 @@ if(isset($_GET['id'])) {
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
+<article class="art simple post" style="margin-top:5em">
     <div class="art-body">
         <div class="art-body-inner">
             <h2 style="margin-top:1em"><!--TITLE--></h2>
