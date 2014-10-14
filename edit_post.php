@@ -70,7 +70,7 @@
                                 <input type="text" name="Judul" id="Judul" value="<?php echo htmlspecialchars($title); ?>">
 
                                 <label for="Tanggal">Tanggal:</label>
-                                <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $date; ?>">
+                                <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $date; ?>" placeholder="YYYY-MM-DD">
 
                                 <label for="Konten">Konten:</label><br>
                                 <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo htmlspecialchars($content); ?></textarea>
