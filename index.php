@@ -93,21 +93,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-				function validatedelete(teks)
-				{
-					var x;
-					var y = teks;
-					var z = "delete_post.php?id=";
-					var res = z.concat(y);
-					if (confirm("Apakah Anda yakin menghapus post ini?")==true)
-					{
-						x=window.location.href=res;
-						}else{
-						x="cancel"; 
-					}
-				}
-			</script>
+<script type="text/javascript" src="assets/js/validate_delete.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
