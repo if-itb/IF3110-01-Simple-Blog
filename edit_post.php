@@ -35,6 +35,7 @@
 </head>
 
 <body class="default">
+<a name="top"></a>
 <div class="wrapper">
 
 <nav class="nav">
@@ -85,7 +86,7 @@ echo					"<input type=\"submit\" name=\"submit\" value=\"Apply\" class=\"submit-
 </article>
 
 <footer class="footer">
-	<div class="back-to-top"><a href="">Back to top</a></div>
+	<div class="back-to-top"><a href="#top">Back to top</a></div>
 	<!-- <div class="footer-nav"><p></p></div> -->
 	<div class="psi">&Psi;</div>
 	<aside class="offsite-links">

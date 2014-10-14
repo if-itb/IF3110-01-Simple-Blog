@@ -84,7 +84,9 @@ echo $row['posted_body'];
 <hr />
 <h2>Komentar</h2>
 			<div id="contact-area">
-				<form method="post" onsubmit="return false">
+			<?php
+			echo	"<form method=\"post\" onsubmit=\"return false;\">";
+				?>
 					<label for="Nama">Nama:</label>
 					<input type="text" name="Nama" id="Nama">
 		
@@ -93,8 +95,8 @@ echo $row['posted_body'];
 					
 					<label for="Komentar">Komentar:</label><br>
 					<textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
-<?php>
-echo 					"<input type=\"submit\" name=\"submit\" value=\"Kirim\" class=\"submit-button\" onclick=\"SubmitComment(Nama, Email, Komentar, $_GET[post_ID])\">";
+<?php
+echo "<input type=\"reset\" name=\"submit\" value=\"Kirim\" class=\"submit-button\" onclick=\"SubmitComment();\">";
 ?>					
 				</form>
 			</div>
@@ -167,11 +169,35 @@ else {
 	  ga('create',ga_ua);ga('send','pageview');
 
 
-function SubmitComment(name, email, comment){
-	if (VerifyEmail(email)){
-		//submit
-		var request = new XMLHttpRequest();
+function SubmitComment(){
+	if (VerifyEmail(document.getElementById('Email').value)) {
+		 if (window.XMLHttpRequest) {
+			xmlHttpObj = new XMLHttpRequest( );
+		} else {
+			try {
+				xmlHttpObj = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				try {
+					xmlHttpObj = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch (e) {
+					xmlHttpObj = false;
+				}
+			}
+		}
 
+		var post_ID = <?php echo $_GET['post_ID']?> ;
+		var author = document.getElementById('Nama').value;
+		var email = document.getElementById('Email').value;
+		var comment = document.getElementById('Komentar').value;
+
+		//submit
+		xmlHttpObj.open("GET", "new_comm.php?post_ID=" + post_ID + "&author=" + author + "&email=" + email + "&comment=" + comment, true);
+		xmlHttpObj.send(null);
+		xmlHttpObj.onreadystatechange = function() {
+			if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
+				document.getElementById("yangmaudiajaks").innerHTML=xmlHttpObj.responseText;
+			}
+		}
 	}
 	else {
 		alert("Invalid comment. Please fix~ :3");
@@ -179,8 +205,8 @@ function SubmitComment(name, email, comment){
 }
 
 function VerifyEmail(email){
-	var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return (emailRegex.test(email.value))
+	var emailRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
+	return (emailRegex.test(email));
 }
 
 </script>
