@@ -63,7 +63,6 @@ $posts = loadPosts();
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href=<?php echo '"post.php?id='.$post['id'].'"';?>><?php echo $post["judul"];?></a></h2>
                     <div class="art-list-time"><?php echo date("d-M-Y", strtotime($post["tanggal"]));?></div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
                 <p><?php echo $post["konten"];?>&hellip;</p>
                 <p>
