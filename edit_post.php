@@ -1,3 +1,34 @@
+<?php
+    require("assets/php/posts.inc");
+    
+    $con = new mysqli("localhost","root","","simple-blog");
+
+    if ($con->errno){
+        echo "Failed to connect to MySQL: ". $con->errno;
+    }
+    
+    $query = "SELECT * FROM `posts` WHERE Post_ID = '".$_GET['postID']."'";
+    
+    $result = $con->query($query);
+    if (!$result){
+        echo $con->error;
+    }
+    $row = $result->fetch_array();
+    $posts = new Posts($row['Title'],$row['Date'],$row['Content']);
+    
+    function loadPost(){
+        global $posts;
+        echo "<form method=\"post\" action=\"assets/php/edit_post_handler.php?PostID=".$_GET['postID']."\" onsubmit=\"return onSubmitClick()\">";
+        echo "<label for=\"Judul\">Judul:</label>";
+        echo "  <input type=\"text\" name=\"Judul\" id=\"Judul\" value=\"".$posts->getTitle()."\">";
+        echo "  <label for=\"Tanggal\">Tanggal:</label>";
+        echo "  <select name=\"Date\" id=\"Date\" now=\"".$posts->getDateNumber()."\" ></select>";
+        echo "  <select name=\"Month\" id=\"Month\" now=\"".$posts->getMonth()."\"></select>";
+        echo "  <select name=\"Year\" id=\"Year\" now=\"".$posts->getYear()."\"></select><br><br>";
+        echo "  <label for=\"Konten\">Konten:</label>";
+        echo "  <textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\">".$posts->getContent()."</textarea><br>";
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +60,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -38,42 +69,29 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Postt</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post" style="margin-top:5em">
+    
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Edit Post</h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+            <div id="contact-area">
+                    <?php
+                        loadPost()
+                    ?>
+                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -110,5 +128,15 @@
       ga('create',ga_ua);ga('send','pageview');
 </script>
 
+<script type="text/javascript" src="assets/js/new_post.js"></script>
+<script type="text/javascript">
+    function initDate(){
+        document.getElementById("Date").selectedIndex = document.getElementById("Date").getAttribute('now')-1;
+        document.getElementById("Month").selectedIndex = document.getElementById("Month").getAttribute('now')-1;
+        document.getElementById("Year").selectedIndex = document.getElementById("Year").getAttribute('now')-1900;
+    }
+    
+    initDate();
+</script>
 </body>
 </html>

@@ -1,3 +1,47 @@
+<?php
+    require("assets/php/posts.inc");
+            
+    $postsArray=array();
+    try{
+        $db = new PDO("mysql:host=localhost;dbname=simple-blog","root","");
+
+        $numberOfArrayElements = 0;
+        $query = "SELECT * FROM `posts`";
+            foreach($db->query($query) as $row){
+                 $numberOfArrayElements++;
+                $postsArray[] = new Posts($row['Title'],$row['Date'],$row['Content']);
+                $postsArray[$numberOfArrayElements-1]->setPostID($row['Post_ID']);
+            }
+
+        $db = null;
+    }
+    catch(Exception $e){
+        echo $e->getMessage();
+    }
+    
+    function showPosts(){
+        global $postsArray;
+        foreach($postsArray as $posts){
+            $content = $posts->getContent();
+            if (strlen($content)>100){
+                $content = substr($content,0,100)."...";
+            }
+           echo "<li class=\"art-list-item\">\n";
+            echo "  <div class=\"art-list-item-title-and-time\">\n";
+            echo "      <h2 class=\"art-list-title\"><a href=\"post.php?postID=".$posts->getPostID()."\">".$posts->getTitle()."</a></h2>\n";
+            echo "      <div class=\"art-list-time\">".$posts->getDateNumber()." ".$posts->getMonthName()." ".$posts->getYear()."</div>\n";
+            echo "      <div class=\"art-list-time\"><span style=\"color:#F40034;\">&#10029;</span> Featured</div>\n";
+            echo "  </div>\n";
+            echo "  <p>".$content."</p>\n";
+            echo "  <p>\n";
+            echo "  <a href=\"edit_post.php?postID=".$posts->getPostID()."\">Edit</a> | <a href=\"assets/php/delete_post_handler.php?";
+            echo "postID=".$posts->getPostID()."\"";
+            echo "onclick=\"onDeleteClick(event);\">Hapus</a>\n";
+            echo "</li>\n"; 
+        }
+    }  
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +73,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -44,32 +88,17 @@
     </ul>
 </nav>
 
-<article class="art simple post" style="margin-top:5em">
-    
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="assets/php/new_post_handler.php" onsubmit="return onSubmitClick()">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <select name="Date" id="Date"></select>
-                    <select name="Month" id="Month" onchange="onMonthChange();"></select>
-                    <select name="Year" id="Year"></select><br><br>
-                    
-                    <label for="Konten">Konten:</label>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea><br>
-
-                    <input type="submit" id="submit" name="submit" value="Simpan" class="submit-button" >
-                </form>
-            </div>
-        </div>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <?php
+                showPosts();
+            ?>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -92,9 +121,6 @@
 
 </div>
 
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -105,7 +131,7 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
+<script type="text/javascript" src="assets/js/index.js"></script>>
 
-<script type="text/javascript" src="assets/js/new_post.js"></script>
 </body>
 </html>

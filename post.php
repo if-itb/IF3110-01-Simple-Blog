@@ -1,3 +1,34 @@
+<?php
+    require("assets/php/posts.inc");
+    $con = new mysqli("localhost","root","","simple-blog");
+    if ($con->errno){
+        echo "Failed to connect to MySQL: ". $con->errno;
+    }
+    $query = "SELECT * FROM `posts` WHERE Post_ID='".$_GET[postID]."'";
+    $result = $con->query($query);
+    if (!$result){
+        echo $con->error;
+    }
+    $row = $result->fetch_array();
+    $posts = new Posts($row['Title'],$row['Date'],$row['Content']);
+    
+    function showTitle(){
+        global $posts;
+        echo "<h2 class=\"art-title\">".$posts->getTitle()."</h2>";
+    }
+    
+    function showDate(){
+        global $posts;
+        $date = $posts->getDateNumber()." ".$posts->getMonthName()." ".$posts->getYear();
+        echo "<time class=\"art-time\">".$date."</time>";
+    }
+    
+    function showContent(){
+        global $posts;
+        echo "<p>".$posts->getContent()."</p>";
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,8 +79,12 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <?php
+                showDate();
+            ?>
+            <?php
+                showTitle();
+            ?>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,15 +92,15 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
+            <?php
+                showContent();
+            ?>
             <hr />
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form>
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -75,26 +110,12 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="return onSubmitClick();">
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+            <ul class="art-list-body" id="komentar">
+                
             </ul>
         </div>
     </div>
@@ -136,5 +157,6 @@
       ga('create',ga_ua);ga('send','pageview');
 </script>
 
+<script type="text/javascript" src="assets/js/posts.js"></script>
 </body>
 </html>
