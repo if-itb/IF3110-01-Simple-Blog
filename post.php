@@ -1,3 +1,23 @@
+<?php
+    require 'database.php';
+    $id = null;
+    if ( !empty($_GET['id'])) {
+        $id = $_REQUEST['id'];
+    }
+     
+    if ( null==$id ) {
+        header("Location: index.php");
+    } else {
+        $pdo = Database::connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM post where id = ?";
+        $q = $pdo->prepare($query);
+        $q->execute(array($id));
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        Database::disconnect();
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +58,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Ngati<span>-</span>Man</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,8 +68,8 @@
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+            <time class="art-time"><?php echo $data['tanggal']; ?></time>
+            <h2 class="art-title"><?php echo $data['judul']; ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,8 +77,8 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <p><?php echo $data['konten']; ?></p>
+            <p></p>
 
             <hr />
             
@@ -82,7 +102,7 @@
             <ul class="art-list-body">
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
+                        <h2 class="art-list-title"><a href="post.php">Jems</a></h2>
                         <div class="art-list-time">2 menit lalu</div>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
@@ -90,7 +110,7 @@
 
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
+                        <h2 class="art-list-title"><a href="post.php">Kave</a></h2>
                         <div class="art-list-time">1 jam lalu</div>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
