@@ -1,7 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<?php
+    // Create connection
+    $con=mysqli_connect("localhost","root","","blog_posts");
 
+    // Check connection
+    if (mysqli_connect_errno()) {
+      echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM post WHERE post_id = '$id'";
+    $sql1 = "SELECT * FROM comment WHERE comment_post_id = '$id'";
+    if (!($result = mysqli_query($con,$sql)) || !($result1 = mysqli_query($con,$sql1))) {
+      die('Error: ' . mysqli_error($con));
+    }
+
+    mysqli_close($con);
+?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -29,6 +46,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
+<?php $row = mysqli_fetch_array($result) ?>
 <title>Simple Blog | Tambah Post</title>
 
 
@@ -38,9 +56,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -51,18 +69,15 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <?php echo '<form method="post" action="update_post.php?id='.$row['post_id'].'">' ?>
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <?php echo '<input type="text" name="Judul" id="Judul" value='.$row['post_title'].'>' ?>
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"> <?php echo $row['post_content'] ?> </textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>

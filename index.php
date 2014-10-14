@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<?php
+// Create connection
+$con=mysqli_connect("localhost","root","","blog_posts");
 
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+$post = mysqli_query($con,"SELECT * FROM post");
+
+mysqli_close($con);
+?>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -38,9 +50,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,26 +60,42 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
+            <?php
+              while($row = mysqli_fetch_array($post)) { ?>
+                <li class="art-list-item">
+                    <div class="art-list-item-title-and-time">
+                        <?php $id = $row['post_id'];
+                        echo '<h2 class="art-list-title">'.'<a href="post.php?id='.$id.'">'; ?> <?php echo $row['post_title'] ?></a></h2>
+                        <div class="art-list-time"><script>convertDate(<?php echo $row['post_date'] ?>);</script></div>
+                        <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                    </div>
+                    <p><?php echo $row['post_content'] ?>&hellip;</p>
+                    <p>
+                      <?php $id = $row['post_id'];
+                      echo '<a href="edit.php?id='.$id.'">Edit</a>'; ?>| <?php echo '<a href="javascript:confirmDelete('.$row['post_id'].')">'; ?>Hapus</a>
+                    </p>
+                </li>
+              <?php } ?>
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
+                    <h2 class="art-list-title"><a href="post_1.html">Apa itu Simple Blog?</a></h2>
                     <div class="art-list-time">15 Juli 2014</div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
                 <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                  <a href="edit.php">Edit</a> | <a href="">Hapus</a>
                 </p>
             </li>
 
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
+                    <h2 class="art-list-title"><a href="post_1.html">Siapa dibalik Simple Blog?</a></h2>
                     <div class="art-list-time">11 Juli 2014</div>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
                 <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                  <a href="edit.php">Edit</a> | <a href="">Hapus</a>
                 </p>
             </li>
           </ul>
@@ -110,6 +138,24 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-
+<script>
+function confirmDelete(id) {
+    var x;
+    if (confirm("Apakah Anda yakin ingin menghapus post ini?") == true) {
+        location.href = "hapus.php?id="+id;
+    } else {
+        
+    }
+    function convertDate(tanggal){
+            var temp = new Date(tanggal);
+            var t1 = tanggal.getDate();
+            var t2 = tanggal.getMonth();
+            var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            var t3 = tanggal.getFullYear();
+            var t = t1+" "+month[t2]+" "+t3;
+            return t;
+        }
+}
+</script>
 </body>
 </html>
