@@ -1,4 +1,4 @@
-<! Database Connector>
+<! Database Initiator>
 <?php
 	$dbhost = 'localhost';
 	$dbuser = 'root';
