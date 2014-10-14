@@ -23,13 +23,13 @@
 <meta property="og:site_name" content="Simple Blog">
 
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
-<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -38,58 +38,55 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+            <?php
+				require_once __DIR__ . '/connect_db.php';	
+				$db = new connect_db();
+				$result = mysql_query("SELECT * FROM simple_post ORDER BY pid DESC") or die(mysql_error());
+				
+				while($post = mysql_fetch_array($result)){
+					echo '<li class="art-list-item">';
+						echo '<div class="art-list-item-title-and-time">';
+							echo '<h2 class="art-list-title">';
+								echo '<a href="post.php?id=' . $post['pid'] .'">';
+									echo $post['judul'];
+								echo '</a>';
+							echo '</h2>';
+							echo '<div class="art-list-time">';
+								echo ($post['tanggal']);
+							echo '</div>';
+						echo '</div>';
+						echo '<p>';
+						if(strlen($post['konten']) > 300)
+						{
+							echo substr($post['konten'], 0, 299);
+							echo '<br />...<br /><a href="post.php?id=' . $post['pid'] .'">';
+								echo 'Continue Reading';
+							echo '</a>';
+						}else{
+							echo $post['konten'];
+						}
+						echo '<br />';
+							echo '<a href="edit_post.php?id=' . $post['pid'] . '">Edit</a> | <a href="delete_post.php?id=' . $post['pid'] . '" onclick="return confirm(\'Apakah Anda yakin menghapus post ini?\');">Hapus</a>';
+						echo '</p>';
+					echo '</li>';
+				}
+			?>
+          </ul>
+        </nav>
     </div>
+</div>
 
-</article>
-
-<footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
-    <!-- <div class="footer-nav"><p></p></div> -->
-    <div class="psi">&Psi;</div>
-    <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
-    </aside>
-</footer>
+<?php include("footer.php"); ?>
 
 </div>
 
