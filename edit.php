@@ -163,18 +163,14 @@ function checkform()
 
 function checkDateTime()
 {
-  
     
   var date = new Date();
   var y = date.getFullYear();
   var m = date.getMonth()+1;
   var d = date.getDate();
-  alert(y+" "+m+" "+d);
-
 
   var tanggal=document.getElementById("Tanggal").value;
   var array_tanggal= tanggal.split("-");
-  alert(array_tanggal);
   
   if( array_tanggal[0]>y )
   {
@@ -186,11 +182,9 @@ function checkDateTime()
     if(array_tanggal[1]>m )
     {
         return true;
-
     }
     if(array_tanggal[1]==m )
     {
-
         if(array_tanggal[2]>=d )
         {
             return true;
@@ -211,7 +205,6 @@ function checkDateTime()
     return false;
   }
 }
-
 
 </script>
 

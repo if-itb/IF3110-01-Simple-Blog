@@ -44,8 +44,6 @@
     </ul>
 </nav>
 
-
-
 <div id="home">
     <div class="posts">
         <nav class="art-list">
@@ -64,7 +62,6 @@
                 </p>
               </li> 
 
-            
           </ul>
         </nav>
     </div>
@@ -103,7 +100,6 @@
 </script>
 
 
-
 <script>
 
 function featured(id)
@@ -131,8 +127,6 @@ function featured(id)
 
     xmlhttp.open("GET","featured.php?id="+id,true);
     xmlhttp.send();
-
-
 }
 
 </script>
@@ -165,11 +159,9 @@ function get_post()
     xmlhttp.open("GET","get_post.php?",true);
     xmlhttp.send();
 
-
 }
 
 </script>
-
 
 </body>
 </html>
