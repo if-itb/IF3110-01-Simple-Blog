@@ -21,14 +21,10 @@ function clean($data)
 	return $data;
 }
 
-$comment='<li class="art-list-item"><div class="art-list-item-title-and-time"><h2 class="art-list-title"><a href="#">'.$nama.'</a></h2></div><p>'.$komentar.'</p>';
-//echo $comment;
-				echo '<li class="art-list-item">';
-				echo 	'<div class="art-list-item-title-and-time">';
-				echo		'<h2 class="art-list-title"><a href="#">'.$nama.'</a></h2>';
-				//echo		'<div class="art-list-time">'.$comment['tanggal'].'</div>';
-				echo	'</div>';
-				echo	'<p>'.$komentar.'</p>';
-//mysql_query($sql);
-//header ('Location: index.php');
+		echo '<li class="art-list-item">';
+		echo 	'<div class="art-list-item-title-and-time">';
+		echo		'<h2 class="art-list-title"><a href="#">'.$nama.'</a></h2>';
+		//echo		'<div class="art-list-time">'.$comment['tanggal'].'</div>';
+		echo	'</div>';
+		echo	'<p>'.$komentar.'</p>';
 ?>

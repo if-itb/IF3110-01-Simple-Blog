@@ -1,4 +1,4 @@
-//window.onload=load_comment();
+
 function load_comment()
 {
 	var id_post= encodeURIComponent(document.getElementById("id_post").value);
@@ -59,10 +59,8 @@ function save_comment()
 	var komentar= encodeURIComponent(document.getElementById("Komentar").value);
 	
 	
-	//alert(email);
 	if (validate_comment(nama, email, komentar)==true)
-	{//return false;}
-	//alert(nama);
+	{
 	var xmlhttp;
 	if(window.XMLHttpRequest)
 	{
@@ -76,8 +74,7 @@ function save_comment()
 	
 	xmlhttp.onreadystatechange = function()
 	{
-	//alert ("status"+xmlhttp.status);
-	//alert ("ready state"+xmlhttp.readyState);
+	
 	console.log("ready state "+xmlhttp.readyState);
 	console.log("status "+xmlhttp.status);
 
@@ -96,7 +93,7 @@ function save_comment()
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send(param);
 	return false;
-	//alert("ready");
+	
 	}//else{return false;}
 }
 
@@ -106,29 +103,15 @@ function validateEmail(teks)
 	var format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	if (teks.value.match(format))
 	{
-		//document.form2.Email.focus();
+		
 		document.getElementById("submit").disabled=false;
 		return true;
 	}
 	else
 	{
-		document.getElementById("Email").focus();
+		
 		alert('Format email salah!');
 		document.getElementById("submit").disabled=true;
 		return false;
 	}
-}
-
-function komen()
-{
-	var nama = encodeURIComponent(document.getElementById("Nama").value);
-	var id_post= encodeURIComponent(document.getElementById("id_post").value);
-	var email= encodeURIComponent(document.getElementById("Email").value);
-	var komentar= encodeURIComponent(document.getElementById("Komentar").value);
-	
-	if (validate_comment(nama, email, komentar))
-	{
-		save_comment();
-		return true;
-	}else{return false;}
 }

@@ -64,8 +64,6 @@
 					echo		'<a href="edit_post.php?id='.$row['id'].'">Edit</a> | <a href="javascript:void(0)" onclick="validatedelete('.$row['id'].')">Hapus</a>';
 					echo	'</p>';
 					echo '</li>';
-				
-			
 			}
 			?>
             
