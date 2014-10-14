@@ -24,12 +24,22 @@
 
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-
+	
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Apa itu Simple Blog?</title>
+<?php 
+	require('config.php'); 
+	$stmt = $db->prepare('SELECT id, title, content, date FROM post WHERE id = :id');
+	$stmt->execute(array(':id' => $_GET['id']));
+	$row = $stmt->fetch();
+	if($row['id'] == ''){
+		exit;
+	}
+?>
+	
+<title>Simple Blog | <?php echo $row['title'];?></title>
 
 
 </head>
@@ -45,22 +55,33 @@
 </nav>
 
 <article class="art simple post">
-    
-    <header class="art-header">
+
+<	header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+			<?php 
+				echo '<time class="art-time">'.date('jS M Y', strtotime($row['date'])).'</time>';
+				echo '<h2 class="art-title">'.$row['title'].'</h2>';
+			?>
             <p class="art-subtitle"></p>
         </div>
     </header>
+  <!--
+echo '<header class="art-header">';
+        echo '<div class="art-header-inner" style="margin-top: 0px; opacity: 1;">';
+            echo '<time class="art-time">'.date('jS M Y', strtotime($row['postDate'])).'</time>';
+            echo '<h2 class="art-title">'.$row['title'].'</h2>';
+            echo '<p class="art-subtitle"></p>';
+        echo '</div>';
+echo '</header>';-->
+</div>
 
-    <div class="art-body">
+	<div class="art-body">
         <div class="art-body-inner">
-            <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
-
-            <hr />
+           <?php	
+			echo '<hr class="featured-article" />';
+				echo '<p>'.$row['content'].'</p>';				
+			echo '</hr>';
+			?>
             
             <h2>Komentar</h2>
 
@@ -106,16 +127,12 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+        IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
+		<a class="twitter-link" href="#">M. Rian Fakhrusy</a>
+		<br>
+        <a class="twitter-link" href="#">13511008</a>
         
     </aside>
 </footer>

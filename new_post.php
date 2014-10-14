@@ -29,8 +29,40 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Tambah Post</title>
 
+<?php
+	require_once('config.php');
+	if(isset($_POST['submit'])){
+		$_POST = array_map( 'stripslashes', $_POST );
+		extract($_POST);
+		if($title ==''){
+			$error[] = 'Belum ada judul';
+		}
+		if($content ==''){
+			$error[] = 'Belum ada isi';
+		}
+		if(!isset($error)){
+			try {
+				$stmt = $db->prepare('INSERT INTO post (title,content,date) VALUES (:title, :content, :date)') ;
+				$stmt->execute(array(
+					':title' => $title,
+					':content' => $content,
+					':date' => date('Y-m-d H:i:s')
+				));
+				header('Location: index.php?action=added');
+				exit;
+			} catch(PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+	if(isset($error)){
+		foreach($error as $error){
+			echo '<p class="error">'.$error.'</p>';
+		}
+	}
+?>
 
 </head>
 
@@ -38,58 +70,51 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Tambah Post</h2>
+
+            <div id="contact-area">
+                <form method="post" action='#'>
+                    <label for="Judul">Judul:</label>
+                    <input type="text" name="title" id="Judul">
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="Tanggal" id="Tanggal">
+                    
+					<label for="Konten">Konten:</label><br>
+                    <textarea name="content" rows="20" cols="20" id="Konten"></textarea>
+
+                    <input type="submit" name="submit" value="Submit" class="submit-button">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+        IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
+		<a class="twitter-link" href="#">M. Rian Fakhrusy</a>
+		<br>
+        <a class="twitter-link" href="#">13511008</a> 
         
     </aside>
 </footer>

@@ -29,8 +29,48 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Edit Post</title>
 
+<?php
+	require_once('config.php');
+	if(isset($_POST['submit'])){
+		$_POST = array_map( 'stripslashes', $_POST );
+		extract($_POST);
+		if($title ==''){
+			$error[] = 'Belum ada judul';
+		}
+		if($content ==''){
+			$error[] = 'Belum ada isi';
+		}
+		if(!isset($error)){
+			try {
+				$stmt = $db->prepare('INSERT INTO post (title,content,date) VALUES (:title, :content, :date)') ;
+				$stmt->execute(array(
+					':title' => $title,
+					':content' => $content,
+					':date' => date('Y-m-d H:i:s')
+				));
+				header('Location: index.php?action=added');
+				exit;
+			} catch(PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
+	}
+	if(isset($error)){
+		foreach($error as $error){
+			echo '<p class="error">'.$error.'</p>';
+		}
+	}
+	try {
+		$stmt = $db->prepare('SELECT id, title, content FROM post WHERE id = :id');
+		$stmt->execute(array(':id' => $_GET['id']));
+		$row = $stmt->fetch(); 
+
+	} catch(PDOException $e) {
+		echo $e->getMessage();
+	}
+?>
 
 </head>
 
@@ -38,9 +78,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -51,20 +91,23 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                <form method="post" action=''>
+                    <input type='hidden' name='id' value='<?php echo $row['id'];?>'>
+					
+					<label for="Judul">Judul:</label>
+                    <input type="text" name="title" id="Judul"
+					value='<?php echo $row['title'];?>'>
 
                     <label for="Tanggal">Tanggal:</label>
                     <input type="text" name="Tanggal" id="Tanggal">
                     
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+					<label for="Konten">Konten:</label><br>
+                    <textarea name="content" rows="20" cols="20" id="Konten"><?php echo $row['content'];?></textarea>
+					
+                    <input type="submit" name="submit" value="Update" class="submit-button">
                 </form>
             </div>
         </div>
@@ -77,16 +120,12 @@
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
-        Asisten IF3110 /
+        IF3110 /
         <a class="rss-link" href="#rss">RSS</a> /
         <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
+		<a class="twitter-link" href="#">M. Rian Fakhrusy</a> 
+		<br>
+        <a class="twitter-link" href="#">13511008</a>
         
     </aside>
 </footer>
