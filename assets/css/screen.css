@@ -225,15 +225,15 @@ div.cover > img {
 }
 /* Header */
 .art-header {
-  height: 900px;
+  height: 500px;
   /* Background image is defined in the post */
   background-position: top center;
-  background-attachment: fixed;
+  background-attachment: relative;
   overflow: hidden;
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: fixed;
+  position: relative;
   top: 300px;
   left: 50%;
   margin-left: -490px;
