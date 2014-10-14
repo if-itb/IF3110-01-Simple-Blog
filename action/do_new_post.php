@@ -25,7 +25,7 @@ else {
 		<ul class="art-list-body">		
 			<li class="art-list-item">
 	            <div class="art-list-item-title-and-time">
-	                <h2 class="art-list-title"><a href="post.php">
+	                <h2 class="art-list-title"><a href="#">
 	                	<?php echo $judul; ?>
 	                </a></h2>
 	                <div class="art-list-time">
