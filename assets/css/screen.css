@@ -11,7 +11,8 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
   font: inherit;
   vertical-align: baseline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, time, nav, section {
-  display: block; }
+  display: block;
+}
 html, body, .wrapper {
   min-height: 100%;
 }
@@ -225,7 +226,7 @@ div.cover > img {
 }
 /* Header */
 .art-header {
-  height: 900px;
+  height: 500px;
   /* Background image is defined in the post */
   background-position: top center;
   background-attachment: fixed;
@@ -233,7 +234,7 @@ div.cover > img {
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: fixed;
+  position: relative;
   top: 300px;
   left: 50%;
   margin-left: -490px;

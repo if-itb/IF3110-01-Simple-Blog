@@ -37,16 +37,16 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
-</nav>
+    <nav class="nav">
+        <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+        <ul class="nav-primary">
+            <li><a href="new_post.php">+ Tambah Post</a></li>
+        </ul>
+    </nav>
 
 <article class="art simple post">
-    
-    
+
+
     <h2 class="art-title" style="margin-bottom:40px">-</h2>
 
     <div class="art-body">
@@ -54,17 +54,17 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="submission" method="post" action="insertpost.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="YYYY-MM-DD">
+
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return checkdate()">
                 </form>
             </div>
         </div>
@@ -87,12 +87,31 @@
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
+
     </aside>
 </footer>
 
 </div>
+<script type="text/javascript">
+    function checkdate() {
+        var date = document.forms["submission"]["Tanggal"].value;
+        var checker = date.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+        if (checker == 0) {
+            var Tgl = new Date(date);
+            var now = new Date();
+            if ((Tgl > now) || (Tgl.getDate() == now.getDate() && Tgl.getMonth() == now.getMonth() && Tgl.getFullYear() == now.getFullYear())) {
 
+            } else {
+                alert("Tanggal harus lebih besar atau sama dengan tanggal sekarang");
+                return false;
+            }
+        } else {
+            alert("Format tanggal yang dimasukkan salah!");
+            document.getElementById("Tanggal").focus();
+            return false;
+        }
+    }
+</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

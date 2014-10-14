@@ -31,52 +31,49 @@
 
 <title>Simple Blog</title>
 
-
 </head>
 
 <body class="default">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
-
 <div id="home">
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
+           <?php
+            $con=mysqli_connect("localhost", "root", "chmod777", "blog");
+            if (mysqli_connect_errno()) {
+                echo "Failed to connect to MySQL: " .mysqli_connect_error();
+            }
+            $result = mysqli_query($con, "SELECT * FROM post_table ORDER BY date DESC");
+            while ($row = mysqli_fetch_array($result)) {
+                echo '<li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
+                <h2 class="art-list-title"><a href="post.php?id='.$row["id"].'">'.$row["title"].'</a></h2>
+                <div class="art-list-time">'.$row["date"].'</div>
+                <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                <p>'.$row["content"].'</p>
                 <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                <a href="edit_post.php?id='.$row["id"].'">Edit</a> | <a href="deletepost.php?id='.$row["id"].'" onclick="return confirm(\'Apakah Anda yakin menghapus post ini?\')">Hapus</a>
                 </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+                </li>';
+            }
+            mysqli_close($con);
+            ?>
           </ul>
         </nav>
     </div>
 </div>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="#">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
@@ -90,12 +87,14 @@
         <a class="twitter-link" href="#">Renusa</a> /
         <a class="twitter-link" href="#">Kelvin</a> /
         <a class="twitter-link" href="#">Yanuar</a> /
-        
+
     </aside>
 </footer>
 
 </div>
-
+<?php
+    mysqli_close($con);
+?>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
