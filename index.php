@@ -6,6 +6,7 @@
 	<meta name="author" content="Bagaskara Pramudita">
 	<meta charset='utf-8'>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico">
 </head>
 <body>
 	<div id="topLogo"><img src="logo/bp.png"></div>
@@ -48,7 +49,7 @@
 	</div>
 	<script type="text/javascript">
 		function deletePost(vara){
-		    if (confirm("Apakah yakin ingin menghapus post ini?") == true) {
+		    if (confirm("Apakah Anda yakin menghapus post ini?") == true) {
 		        location.href = 'delete.php?post_id='+vara;
 		    }
 		};

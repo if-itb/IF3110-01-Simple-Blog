@@ -6,6 +6,7 @@
 	<meta name="author" content="Bagaskara Pramudita">
 	<meta charset='utf-8'>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico">
 </head>
 <body>
 	<?php
@@ -29,7 +30,7 @@
 		$post = mysqli_fetch_array($result);
 		
 		$string = strip_tags($post['post_title']);
-		$newstring = wordwrap($string, 20, "<br>", false);?>
+		$newstring = wordwrap($string, 18, "<br>", false);?>
 		<h1><?php echo $newstring; ?></h1>
 		<h3><?php echo date('d-m-Y' ,strtotime($post['post_date'])); ?></h3>
 		<p><?php echo nl2br($post['post_content']); ?></p>
@@ -60,36 +61,43 @@
 				<!--<img src="img/purple">-->
 				<h1> <?php echo $comment['comment_name']; ?></h1>
 				<h4> <?php echo $comment['comment_email']; ?></h4>
-				<p> <?php 
+				<p> 
+				<?php 
 				date_default_timezone_set("Asia/Jakarta"); 
 				$timekomen = strtotime($comment['comment_date']);
 				$timesekarang = strtotime(date("H:i:s"));
 				$diff = $timesekarang - $timekomen;
-				/*echo date("H:i:s",$diff).'<br>';*/
-				$parsed = date_parse(date("H:i:s",$diff));
+				$parsed = date_parse(date("Y-m-d H:i:s",$diff));
 				$seconds = $parsed['hour'] * 3600 - (7*3600) + $parsed['minute'] * 60 + $parsed['second'];
-				/*echo date("H:i:s",$timekomen).'<br>';*/
-				/*echo date("H:i:s",$timesekarang).'<br>';*/
-				/*echo $seconds.'<br>'; */
-				if ($seconds >= 60){
-					$minutes = $seconds / 60;
-					if ($minutes >= 60){
-						$hours = $minutes / 60;
-						if ($hours >= 24){
-							$days = $hours / 24;
-							echo intval($days)."&nbsp hari yang lalu";
-						}
-						else{
-							echo intval($hours)."&nbsp jam yang lalu";
-						}
-					}
-					else
-					{
-						echo intval($minutes)."&nbsp menit yang lalu";
-					}
+				/*echo date("Y-m-d H:i:s",$timekomen).'<br>';
+				echo date("Y-m-d H:i:s",$timesekarang).'<br>';
+				echo date("Y-m-d H:i:s",$diff).'<br>';
+				echo $seconds.'<br>'; 
+				echo $parsed['day'].'<br>'; */
+				if ($parsed['day'] > 1){
+					echo "Beberapa hari yang lalu";
 				}
 				else{
-					echo $seconds. "&nbsp detik yang lalu";
+					if ($seconds >= 60){
+						$minutes = $seconds / 60;
+						if ($minutes >= 60){
+							$hours = $minutes / 60;
+							if ($hours >= 24){
+								$days = $hours / 24;
+								echo intval($days)."&nbsp hari yang lalu";
+							}
+							else{
+								echo intval($hours)."&nbsp jam yang lalu";
+							}
+						}
+						else
+						{
+							echo intval($minutes)."&nbsp menit yang lalu";
+						}
+					}
+					else{
+						echo $seconds. "&nbsp detik yang lalu";
+					}
 				}
 				?>
 			</p>
@@ -112,10 +120,22 @@
 			var x = document.forms["komen"]["email"].value;
 			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     		if( re.test(x)){
-				pos_komen();
+    			if(x.length <= 50){
+					if (document.forms["komen"]["nama"].value.length <= 50)
+					{
+						pos_komen();
+					}
+					else{
+						alert('Nama lebih panjang dari 50 karakter');
+					}
+				}
+				else
+				{
+					alert('Email anda lebih dari 50 karakter');
+				}
 			}
 			else{
-				alert('e-mail yang anda masukkan salah, tolong ulangi');
+				alert('Email yang anda masukkan salah, tolong ulangi');
 			}
 		}
 		function pos_komen(){

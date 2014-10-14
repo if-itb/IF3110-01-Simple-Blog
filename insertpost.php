@@ -6,6 +6,7 @@
 	<meta name="author" content="Bagaskara Pramudita">
 	<meta charset='utf-8'>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico">
 </head>
 <body>
 	<div id="topLogo"><a href="index.php"><img src="logo/bp.png"></a></div>
@@ -44,20 +45,25 @@
 		function validate(){
 			var today = new Date(<?php echo time();?> *1000);
 			var date = new Date(document.forms["pos"]["date"].value);
-			alert(date);
 			date.setHours(23);
 			date.setMinutes(59);
 			date.setSeconds(59);
 			var month = 1+parseInt(date.getMonth());
 			var datebener = date.getFullYear()+"-"+month+"-"+date.getDate();
-			if (date >= today){
-				alert(datebener);
-				document.forms["pos"]["date"].value = datebener;
-				return true;
+			var title = document.forms["pos"]["title"].value;
+			if (title.length <= 50){
+				if (date >= today){
+					document.forms["pos"]["date"].value = datebener;
+					return true;
+				}
+				else{
+					alert('Tanggal yang anda masukkan tidak valid');
+					return false;	
+				}
 			}
 			else{
-				alert('Tanggal yang anda masukkan tidak valid');
-				return false;	
+				alert('Judul lebih panjang dari 50 karakter');
+				return false;
 			}
 		}
 	</script>
