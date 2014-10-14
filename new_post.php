@@ -147,7 +147,7 @@ if(isset($_GET['id'])) {
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" placeholder="Tulis konten post di sini" rows="20" cols="20" id="Konten" required><?php if(isset($post)) echo $post['konten']; ?></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button" />
+                    <input type="submit" name="submit" value="Simpan" id="submitBtn" class="submit-button" />
                 </form>
             </div>
             <?php endif; ?>
@@ -179,7 +179,40 @@ if(isset($_GET['id'])) {
 
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/utils.js"></script>
+<script type="text/javascript">
+if(!checkDateInput()) {
+    var node = document.getElementById('Tanggal');
+
+    node.removeAttribute("min");
+    node.type = "text";
+
+    var attr = document.createAttribute('onblur');
+    attr.value = "validateTanggal(this.value);";
+    node.setAttributeNode(attr);
+}
+
+function validateTanggal(tanggal) {
+    try {
+        var date = new Date(tanggal);
+
+        if(date < new Date()) {
+            alert("Tanggal tidak valid!");
+
+            var attr = document.createAttribute('disabled');
+            attr.value = "";
+            document.getElementById('submitBtn').setAttributeNode(attr);
+
+            document.getElementById('Tanggal').focus();
+        } else {
+            document.getElementById('submitBtn').removeAttribute('disabled');            
+        }
+    } catch (e) {
+        alert(e);
+        return false;
+    }
+}
+</script>
 
 </body>
 </html>

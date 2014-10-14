@@ -1,3 +1,7 @@
+/**
+ * Detects whether the browser supports <input type='date'> tag
+ * @return {boolean} true if supports <input type='date'> tag
+ */
 function checkDateInput() {
     var input = document.createElement('input');
     input.setAttribute('type','date');
