@@ -180,7 +180,7 @@ function submitcomment(formcontent){
 		alert("email terlalu panjang atau tidak valid");
 		return false;
 	}
-	if(namelength==0){
+	if(kontenlength==0){
 		alert("komentar tidak boleh kosong")
 		return false;
 	}

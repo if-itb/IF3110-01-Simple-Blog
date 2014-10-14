@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
@@ -64,7 +64,7 @@ while($row=mysqli_fetch_array($result)){
                     <h2 class="art-list-title"><a href="post.php?id='.$row['pid'].'">'.$row['judul'].'</a></h2>
                     <div class="art-list-time">'.$row['tanggal'].'</div>
                 </div>
-                <p>'.$row['konten'].'<p>
+                <p>'.$row['konten'].'<br>
                   <a href="new_post.php?id='.$row['pid'].'">Edit</a> | <a href="deletepost.php?id='.$row['pid'].'" onclick="return confirmdelete()">Hapus</a>
                 </p>
             </li>';

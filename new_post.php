@@ -54,7 +54,7 @@ if($isedit) {
 	}
 }
 ?>                
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -76,7 +76,7 @@ if($isedit) {
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2><?php if ($isedit) {echo 'Edit Post';} else{echo'Tambah Post';}?></h2>
 
             <div id="contact-area">
                 <form method="post" onsubmit="return validate()" action="submitpost.php<?php if($isedit){echo "?id=".$postid;} ?>">
@@ -122,8 +122,17 @@ if($isedit) {
 	function validate(){
 		var inputtanggal = document.getElementById('Tanggal').value;
 		var istanggalformat = inputtanggal.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		var judullength = document.getElementById('Judul').value.length;
 		var postdate=new Date(inputtanggal);
 		var currenttime=new Date();
+		if(judullength>35){
+			alert("judul terlalu panjang(maks 40 karakter)");
+			return false;
+		}
+		if(judullength==0){
+			alert("judul tidak boleh kosong");
+			return false;
+		}
 		if(istanggalformat=='0'){
 			//alert("sampai sini");
 			postdate.setHours(23);

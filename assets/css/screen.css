@@ -237,6 +237,7 @@ div.cover > img {
   top: 300px;
   left: 50%;
   margin-left: -490px;
+  word-wrap: break-word;
 }
 .art-time,
 .art-title,
