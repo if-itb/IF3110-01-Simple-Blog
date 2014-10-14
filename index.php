@@ -46,7 +46,7 @@
 <?php require ('sql_connect.inc');
   sql_connect('blog');
 
-  $query = "SELECT judul, isi, tanggal, user, id FROM blog ORDER BY tanggal ASC";
+  $query = "SELECT judul, isi, tanggal, id FROM blog ORDER BY tanggal ASC";
 ?>
 <div id="home">
     <div class="posts">
@@ -57,7 +57,6 @@
             while ($baris = mysql_fetch_array($r, MYSQL_ASSOC)) {
                 //$tanggal = date('M j y g:i A', strtotime($baris['tanggal']));
                 $tanggal = $baris['tanggal'];
-                $user = $baris['user'];
                 $id = $baris['id'];
                 $judul = $baris['judul'];
                 $isi = $baris['isi'];
