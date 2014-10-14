@@ -3,3 +3,4 @@ add-post.php <- add-post.html
 index.php <- add-post.php, delete-post.php , edit_post.php , view_post.php
 delete-post.php <- index.php
 edit-post-sql.php <- edit_post.php
+view_post.php <- view-comment.php

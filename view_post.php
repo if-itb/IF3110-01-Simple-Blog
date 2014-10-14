@@ -52,7 +52,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="getComment()">
 <div class="wrapper">
 
 <nav class="nav">
@@ -65,7 +65,7 @@
 <article class="art simple post">
     
     <header class="art-header">
-        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1; position:relative">
             <time class="art-time"><?php 
 										echo $GLOBALS['row']['TANGGAL'];
 									?>
@@ -82,7 +82,7 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="add-comment" method="post" onsubmit="addComment(); return false" action="#">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -96,8 +96,8 @@
                 </form>
             </div>
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
+            <ul id="list-comment" class="art-list-body">
+                <!--<li class="art-list-item">
                     <div class="art-list-item-title-and-time">
                         <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
                         <div class="art-list-time">2 menit lalu</div>
@@ -111,7 +111,7 @@
                         <div class="art-list-time">1 jam lalu</div>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
@@ -138,19 +138,61 @@
 </footer>
 
 </div>
+<script> 
+	function addComment(){
+		var nama = document.forms["add-comment"]["Nama"].value
+		var email = document.forms["add-comment"]["Email"].value
+		var komentar = document.forms["add-comment"]["Komentar"].value
+		
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (re.test(email)==false) {alert("email yang dimasukan tidak benar"); return false;}
+		var id_blog = <?php echo $GLOBALS['id']; ?>
 
-<script type="text/javascript" src="assets/js/fittext.js"></script>
-<script type="text/javascript" src="assets/js/app.js"></script>
-<script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript">
-  var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
-
-  (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=
-      function(){(g[s].q=g[s].q||[]).push(arguments)});g[s].s=+new Date;
-      t=h.createElement(o);z=h.getElementsByTagName(o)[0];
-      t.src='//www.google-analytics.com/analytics.js';
-      z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
-      ga('create',ga_ua);ga('send','pageview');
+		var xmlhttp
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				alert("Komen anda telah dikirim");
+				alert(xmlhttp.responseText);
+				location.reload();
+			}
+		  }
+		xmlhttp.open("POST","add-comment.php",true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("Nama="+nama+"&Email="+email+"&Komentar="+komentar+"&Id_blog="+id_blog);
+		alert("Mohon sabar saat komen anda terkirim")
+	}
+	function getComment(){
+		var id_blog = <?php echo $GLOBALS['id']; ?>
+	
+		var xmlhttp
+		if (window.XMLHttpRequest)
+		  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlhttp=new XMLHttpRequest();
+		  }
+		else
+		  {// code for IE6, IE5
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		xmlhttp.onreadystatechange=function()
+		  {
+		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				document.getElementById("list-comment").innerHTML=xmlhttp.responseText;
+			}
+		  }
+		xmlhttp.open("GET","view-comment.php?"+"id_blog="+id_blog,true);
+		xmlhttp.send();
+	}
 </script>
 <?php
 	mysqli_close($con);
