@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +29,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
+
 
 
 </head>
@@ -40,38 +40,53 @@
 
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+<div id="home">
+    <div class="posts">
+      <?php
+        include "db-connector.php";
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
 
-            <div id="contact-area">
-                <form name="form1" method="post" onsubmit="return validateDate();" action="savepost.php" >                
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+        $query_getAll = "select * from post_content ORDER BY id DESC";
+        $hasil_getAll = mysql_query($query_getAll,$db) or die(mysql_error());
+      
+        while($row = mysql_fetch_array($hasil_getAll))
+          {echo '<nav class="art-list">';
+           echo '<ul class="art-list-body">';
+             echo '<li class="art-list-item">';
+                 echo '<div class="art-list-item-title-and-time">';
+                     echo '<h2 class="art-list-title"><a href="post.php?iPost='.$row['id'].'">';                     
+                     echo $row['title'];                     
+                     echo '</a></h2>';
+                     echo '<div class="art-list-time">';
+                     echo $row['date'];
+                     echo '</div>';
+                     echo '<div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>';
+                 echo '</div>';
+                 echo '<p>';
+                     $cont = $row['content'];
+                     if( strlen($cont)< 250){
+                     echo substr($cont, 0, 250);
+                     } else {
+                     echo substr($cont, 0, 250) . '<a href="post.php?iPost='.$row['id'].'">...</a>';
 
-                    <label for="Tanggal" >Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" placeholder="yyyy-mm-dd">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button" >
-                </form>
-            </div>
-        </div>
+                     }
+                 echo '</p>';                                   
+                 echo '<p>';
+                   echo '<a href="editpost.php?iPost='.$row['id'].'">Edit</a> | <a href="changepost.php?iPost='.$row['id'].'" class="confirmation">Hapus</a>';
+                 echo '</p>';
+             echo '</li>';             
+           echo '</ul>';
+         echo '</nav>';
+        }       
+      ?>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -109,32 +124,14 @@
       ga('create',ga_ua);ga('send','pageview');
 </script>
 
+
 <script type="text/javascript">
-    function validateDate(){
-      var x = document.forms["form1"]["Tanggal"].value;
-      var ok = true;
-       //cek angka
-       if(x.length == 10 && x.match(/^\d{4}-\d{1,2}-\d{1,2}$/)){
-            //cek isafter
-            var xdate = new Date(x);
-            var nowdate = new Date();
-            var now_year = nowdate.getFullYear();
-            var now_month = nowdate.getMonth();
-            var now_date = nowdate.getDate();
-            var now = now_year + "-" + (now_month+1) + "-" + now_date;
-            if((xdate >= nowdate)||(now==x)){
-                ok=true;
-            }else {
-                ok=false;
-            }
-       } else {    
-            ok = false;
-       }
-       
-       if(ok==false){
-            alert("invalid date format!");
-       }
-       return ok;
+var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Apakah Anda yakin menghapus post ini?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
     }
 </script>
 
