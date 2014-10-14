@@ -1,7 +1,7 @@
 <?php
 	require("sqlconnect.php");
 	$id = $_GET["id"];
-	$viewquery = "SELECT * FROM komentar WHERE id_post='$id'";
+	$viewquery = "SELECT * FROM komentar WHERE id_post='$id' ORDER BY id_komentar DESC";
 	$retval = mysql_query($viewquery, $connection);
 	while($row = mysql_fetch_array($retval, MYSQL_ASSOC))
 	{

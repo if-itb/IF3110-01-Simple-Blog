@@ -1,5 +1,5 @@
 <?php
-	$viewquery = 'SELECT * FROM post';
+	$viewquery = 'SELECT * FROM post ORDER BY id DESC';
 	$retval = mysql_query($viewquery, $connection);
 	while($row = mysql_fetch_array($retval, MYSQL_ASSOC))
 	{
