@@ -32,15 +32,21 @@
 <title>Burden Blog | Tambah Post</title>
 
 
+<script type="text/javascript" src="assets/js/post.js"></script>
+
 </head>
 
 <?php
 // post_add.php
 date_default_timezone_set('Asia/Jakarta');
 if(!empty($_POST)) {
-	include 'mysql.php';
-	if (echo '<script>', 'valiDate($_POST['date'])' , '</script>') {		
-		if(!mysql_safe_query('INSERT INTO posts (title,body,date) VALUES (%s,%s,%s)', $_POST['title'], $_POST['body'], $_POST['date'])
+	include 'mysql.php'; 
+	$det = $_POST['date']; 
+	?>
+	<script>
+	var ex = "<?php echo $det; ?>";
+	if (valiDate(ex)) </script> <?php { 
+		if(!mysql_safe_query('INSERT INTO posts (title,body,date) VALUES (%s,%s,%s)', $_POST['title'], $_POST['body'], $_POST['date']))
 			echo mysql_error();
 		else
 			redirect('index.php');
@@ -105,7 +111,6 @@ if(!empty($_POST)) {
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript" src="assets/js/post.js"></script>
 
 </body>
 </html>
