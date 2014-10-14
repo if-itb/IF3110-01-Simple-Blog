@@ -96,13 +96,12 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="komentar" rows="20" cols="20" id="komentar"></textarea>
 
-                    <button name="submit" value="Kirim" class="submit-button" onclick="return button_submit();">
-                        Submit
-                    </button>
+                    <input type="submit" name="submit" value="Simpan" onclick="return send_comment();" class="submit-button">
+                    <button onclick="return load_comment();">Test</button>
                 <!-- </form> -->
             </div>
 
-            <ul class="art-list-body">
+            <ul class="art-list-body" id="listkomentar">
             <?php
             $result_komentar = mysqli_query($conection,"SELECT * from komentar where id_post=".$id_post);
             while ($row_komentar = mysqli_fetch_array($result_komentar)) {?>
@@ -157,49 +156,103 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
-<script type="text/javascript">
-function validate_email(var email){
+<script>
+
+
+function submit_button(){
+	alert("test");
+}
+
+function validate_email(email){
     var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     return pattern.test(email);
 }
-function validate_nama(var nama){
+
+function validate_nama(nama){
     return (!nama || /^\s*$/.test(nama));
 }
-function validate_konten(var konten){
+
+function validate_konten(konten){
     return (!konten || /^\s*$/.test(konten));
 }
 
-function button_submit(){
-    var nama = document.getElementsById('nama');
-    var email = document.getElementsById('email');
-    var konten = document.getElementsById('komentar');
-    alert(nama+email+konten);
-}
 
 
-var requestObj = false;
-
-if (window.XMLHttpRequest) {
-    requestObj = new XMLHttpRequest();
-} else if (window.ActiveXObject) {
-    requestObj = new ActiveXObject("Microsoft.XMLHTTP");
-}
-
-function get(source, id)
+function send_comment()
 {
-    if (requestObj) {
-        var obj = document.querySelector('#'+id);
-        requestObj.open("GET", source);
-        requestObj.onreadystatechange = function ()
-        {
-            if (requestObj.readyState == 4 && requestObj.status == 200) {
-                obj.innerHTML = requestObj.responseText;
-            }
-        }
-        requestObj.send(null);
-    }
+	var xmlhttp;
+	if (window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}else {
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	var id_post = <?php echo $id_post;?>;
+	var nama = document.getElementById('nama').value;
+	var email = document.getElementById('email').value;
+	var konten = document.getElementById('komentar').value;
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			alert(xmlhttp.responseText);
+		}
+	}
+	xmlhttp.open("GET","ajax_addcomment.php?nama="+nama+"&email="+email+"&konten="+konten+"&id_post="+id_post,true);
+	xmlhttp.send();
 }
 
+function load_comment(){
+	var xmlhttp;
+	if (window.XMLHttpRequest){
+		xmlhttp=new XMLHttpRequest();
+	}else {
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			var hasil = xmlhttp.responseText;
+			var the_jsons = JSON.parse(hasil);
+			
+			var container = document.getElementById('listkomentar');
+			var out_string;
+			for (var i = the_jsons.length - 1; i >= 0; i--) {
+				var id_komentar = the_jsons[i].id_komentar;
+				var nama        = the_jsons[i].nama;
+				var waktu       = the_jsons[i].waktu;
+				var email       = the_jsons[i].email;
+				var konten      = the_jsons[i].konten;
+
+				// out_string = out_string + printthecoment(id_komentar,nama,email,waktu,konten);
+			};
+
+			alert(out_string);
+			// inner html set to  string;
+			// var the_json = JSON.parse(hasil);
+			// for (var i = the_json.length - 1; i >= 0; i--) {
+			// 	console.log(the_json[i])
+			// }
+		}
+	}
+	xmlhttp.open("GET","ajax_loadcomment.php?id_post=<?php echo $id_post;?>",true);
+	xmlhttp.send();	
+}
+
+function printthecoment(id,nama,email,waktu,konten){
+	var output = "";
+	output = '<li class="art-list-item">
+                    <div class="art-list-item-title-and-time">
+                        <h2 class="art-list-title"><a href="flagkomentar.php?id_post='+id+'">'+nama+'</a></h2>
+                        <div class="art-list-time">'+waktu+'</div>
+                    </div>
+                    '+konten+'
+                </li>';
+    return output;
+}
 </script>
 
 </body>
