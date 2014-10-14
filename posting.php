@@ -11,16 +11,18 @@ if (!empty($_POST)){
 	$content = $_POST['Konten'];
 	$valid = true;
 	if (empty($title)){
-		$titleerror = "Judul harus diisi!"; #pesan error blm tampil
+		$titleerror = "Judul harus diisi!";
+		echo $titleerror;
 		$valid = false;
 	}
 	if (empty($date)){
-		$dateerror = "Tanggal harus diisi!"; #pesan error blm tampil
-		#sisipkan validasi untuk tanggal >= timestamp
+		$dateerror = "Tanggal harus diisi!"; 
+		echo $dateerror;
 		$valid = false;
 	}
 	if (empty($content)){
-		$contenterror = "Konten harus diisi!"; #pesan error blm tampil
+		$contenterror = "Konten harus diisi!"; 
+		echo $contenterror;
 		$valid = false;
 	}
 
