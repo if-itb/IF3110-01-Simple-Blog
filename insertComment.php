@@ -11,7 +11,7 @@ if (!empty($_GET['pid'])){
 	$comment = $_GET['Komentar'];
 
 	
-
+	date_default_timezone_set('Asia/Jakarta');
 	$cdate = date("Y-m-d H:i:s");
 
 
