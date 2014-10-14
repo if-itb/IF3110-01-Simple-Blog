@@ -5,6 +5,13 @@ KomentarNama1
 KomentarEmail1
 KomentarTanggal1
 KomentarIsi1
+Judul2
+Tanggal2
+Konten2
+KomentarNama2
+KomentarEmail12
+KomentarTanggal2
+KomentarIsi2
 Judul3
 Tanggal3
 Konten3

@@ -88,6 +88,13 @@
 						array_splice($lines,$idxchange,7);
 					}	
 					
+					if(isset($_POST["komentarK"])){
+						$idxchange = $_POST["idxK"];
+						$lines[$idxchange] = $_POST["namaK"];
+						$lines[$idxchange+1] = $_POST["emailK"];
+						$lines[$idxchange+3] = $_POST["komentarK"];
+					}
+					
 					$js_array = json_encode($lines);
 					echo "var array_data = ". $js_array . ";\n";
 					?>
@@ -149,7 +156,13 @@
 					
 				<form method="post" action="index.php">
 					<input type="hidden" name="deleteP" id="deleteP" value="<?php echo $lines[0];?>">
-					<input type="submit" value = Hapus></a>
+					<input type="submit" value = "Hapus"></a>
+					</form>
+				
+				
+				<form method="post" action="komentar.php">
+					<input type="hidden" name="idx" id="idx" value="<?php echo 3;?>">
+					<input type="submit" value = "Komentar"></a>
 					</form>
 				</p>
             </li>
@@ -170,8 +183,14 @@
 					
 				<form method="post" action="index.php">
 					<input type="hidden" name="deleteP" id="deleteP" value="<?php echo $lines[7];?>">
-					<input type="submit" value = Hapus></a>
+					<input type="submit" value = "Hapus"></a>
 					</form>
+					
+					<form method="post" action="komentar.php">
+					<input type="hidden" name="idx" id="idx" value="<?php echo 10;?>">
+					<input type="submit" value = "Komentar"></a>
+					</form>
+			
 				</p>
             </li>
           </ul>
