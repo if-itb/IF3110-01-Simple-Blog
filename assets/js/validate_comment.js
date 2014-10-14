@@ -5,6 +5,8 @@ function add(pid)
 	var Nama = document.getElementById('Nama').value;
 	var Komentar = document.getElementById('Komentar').value;
 	var Email = document.getElementById('Email').value;	
+
+	
 	
 	xmlhttp.onreadystatechange = function()
 	{
