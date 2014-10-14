@@ -96,36 +96,17 @@ echo $row['posted_body'];
 					<label for="Komentar">Komentar:</label><br>
 					<textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 <?php
-echo "<input type=\"reset\" name=\"submit\" value=\"Kirim\" class=\"submit-button\" onclick=\"SubmitComment();\">";
+echo "<input type=\"reset\" name=\"submit\" value=\"Kirim\" class=\"submit-button\" onclick=\"SubmitComment($_GET[post_ID]);\">";
 ?>					
 				</form>
 			</div>
 
+<script type="text/javascript" src="assets/js/comment.js"></script>
+
 <ul class="art-list-body">
 <div id = "yangmaudiajaks">
 <?php
-include 'mysql.php';
-$tempID = $_GET['post_ID'];
-
-$result = mysql_query("SELECT * FROM `comment` WHERE `post_ID` = '$tempID' ORDER BY `comm_DT` ASC") or die(mysql_error());
-if (mysql_num_rows($result) > 0){
-	while ($row = mysql_fetch_array($result)){
-		echo "<li class=\"art-list-item\">";
-		echo "<div class=\"art-list-item-title-and-time\">";
-		echo	"<h2 class=\"art-list-title\">";
-		// link to mail + comment author name done
-		echo 	"<a href=\"mailto:$row[comm_email]\">$row[author]</a></h2>";
-		// time
-		echo	"<div class=\"art-list-time\">$row[comm_DT]</div>";
-		echo "</div>";
-		echo "<p>$row[comm_Body]";
-		// insert body here
-		echo "</li>";
-	}
-}
-else {
-	echo "No Comments";
-}
+include 'get_comments.php';
 ?>
 </div>
 </ul>
@@ -157,7 +138,6 @@ else {
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
-<script type="text/javascript" src="assets/js/comment.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
@@ -167,49 +147,6 @@ else {
 	  t.src='//www.google-analytics.com/analytics.js';
 	  z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
 	  ga('create',ga_ua);ga('send','pageview');
-
-
-function SubmitComment(){
-	if (VerifyEmail(document.getElementById('Email').value)) {
-		 if (window.XMLHttpRequest) {
-			xmlHttpObj = new XMLHttpRequest( );
-		} else {
-			try {
-				xmlHttpObj = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-				try {
-					xmlHttpObj = new ActiveXObject("Microsoft.XMLHTTP");
-				} catch (e) {
-					xmlHttpObj = false;
-				}
-			}
-		}
-
-		var post_ID = <?php echo $_GET['post_ID']?> ;
-		var author = document.getElementById('Nama').value;
-		var email = document.getElementById('Email').value;
-		var comment = document.getElementById('Komentar').value;
-
-		//submit
-		xmlHttpObj.open("GET", "new_comm.php?post_ID=" + post_ID + "&author=" + author + "&email=" + email + "&comment=" + comment, true);
-		xmlHttpObj.send(null);
-		xmlHttpObj.onreadystatechange = function() {
-			if (xmlHttpObj.readyState == 4 && xmlHttpObj.status == 200) {
-				document.getElementById("yangmaudiajaks").innerHTML=xmlHttpObj.responseText;
-			}
-		}
-	}
-	else {
-		alert("Invalid comment. Please fix~ :3");
-	}
-}
-
-function VerifyEmail(email){
-	var emailRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
-	return (emailRegex.test(email));
-}
-
 </script>
-
 </body>
 </html>
