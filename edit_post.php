@@ -40,7 +40,7 @@
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.html">+ Edit Post</a></li>
     </ul>
 </nav>
 
@@ -59,20 +59,23 @@
 					<?php
 					$judul = isset($_POST["judul1"])?$_POST["judul1"]:"";
 					?>
-                    <input type="text" name="Judul" id="Judul" value="<?php echo $judul;?>">
+					<input type="hidden" name="JudulLama" id="JudulLama" value=<?php echo $judul;?>">
+                    <input type="text" name="JudulEdit" id="JudulEdit" value="<?php echo $judul;?>">
 
                     <label for="Tanggal">Tanggal:</label>
                     <?php
 					$tanggal = isset($_POST["tanggal1"])?$_POST["tanggal1"]:"";
 					?>
-					<input type="text" name="Tanggal" id="Tanggal" value ="<?php echo $tanggal;?>">
+					<input type="hidden" name="TanggalLama" id="TanggalLama" value=<?php echo $tanggal;?>">
+					<input type="text" name="TanggalEdit" id="TanggalEdit" value ="<?php echo $tanggal;?>">
 					
                     
                     <label for="Konten">Konten:</label><br>
                     <?php
 					$konten = isset($_POST["konten1"])?$_POST["konten1"]:"";
 					?>
-					<input type="text" name="Konten"  id="Konten" value="<?php echo $konten;?>">
+					<input type="hidden" name="KontenLama" id="KontenLama" value=<?php echo $konten;?>">
+					<input type="text" name="KontenEdit"  id="KontenEdit" value="<?php echo $konten;?>">
 					
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">

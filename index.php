@@ -58,20 +58,39 @@
 								
 				
 				
-				<?php
-					$filename = "test.txt";
-					$lines = file($filename, FILE_IGNORE_NEW_LINES);
-					echo $lines;
-				?>
+				
+				<?php 
+						
+					?>
 				<script>
 					<?php
-					$filename = "test.txt";
+					$filename = "newfile.txt";
 					$lines = file($filename, FILE_IGNORE_NEW_LINES);
+					if(isset($_POST["Judul"])){
+						array_unshift($lines,"");
+						array_unshift($lines,"");
+						array_unshift($lines,"");
+						array_unshift($lines,"");
+						array_unshift($lines,$_POST["Konten"]);
+						array_unshift($lines,$_POST["Tanggal"]);
+						array_unshift($lines,$_POST["Judul"]);
+					}
+					if(isset($_POST["JudulEdit"])){
+					$idxchange = array_search($_POST["JudulEdit"],$lines);
+					$lines[$idxchange] = $_POST["JudulEdit"];
+					$lines[$idxchange+1] = $_POST["TanggalEdit"];
+					$lines[$idxchange+2] = $_POST["KontenEdit"];
+					}
+					
+					
+					if(isset($_POST["deleteP"])){
+						$idxchange = array_search($_POST["deleteP"],$lines);
+						array_splice($lines,$idxchange,7);
+					}	
+					
 					$js_array = json_encode($lines);
 					echo "var array_data = ". $js_array . ";\n";
 					?>
-					
-					
 					
 					function getJudul(a){
 						return array_data[a*7];
@@ -101,28 +120,36 @@
 						return array_data[6+a*7];
 					}
 					
+					function returnArray(a){
+						return a;
+					}
+					
+					
 				</script>
 				
-				<script>
-					var judul = "<?php echo $_POST["Judul"];?>";
-					var tgl = "<?php echo $_POST["Tanggal"];?>";
-					var konten = "<?php echo $_POST["Konten"];?>";
-					array_data.unshift("");
-					array_data.unshift("");
-					array_data.unshift("");
-					array_data.unshift("");
-					array_data.unshift(konten);
-					array_data.unshift(tgl);
-					array_data.unshift(judul);
-				</script>
+			
+				
+				<?php
+				$myfile = fopen("newfile.txt","w") or die("could not open file");
+				for ($c=0; $c<count($lines)-1; $c++){
+					fwrite($myfile,$lines[$c]."\r\n");
+				}
+				fwrite($myfile,$lines[$c]);
+				fclose($myfile);
+				?>
 				
 				</p>
                 <p>
-					<form method="post" action="new_post.php">
-					<input type="hidden" name="judul1" value="<?php echo $lines  [0];?>" id="judul1">
-					<input type="hidden" name="tanggal1" value="<?php echo $lines  [1];?>" id="tanggal1">
-					<input type="hidden" name="konten1" value="<?php echo $lines  [2];?>" id="konten1">
-					<input type="submit" value = "Edit"> | <a href="#">Hapus</a>
+					<form method="post" action="edit_post.php">
+					<input type="hidden" name="judul1" value="<?php echo $lines[0];?>" id="judul1">
+					<input type="hidden" name="tanggal1" value="<?php echo $lines[1];?>" id="tanggal1">
+					<input type="hidden" name="konten1" value="<?php echo $lines[2];?>" id="konten1">
+					<input type="submit" value = "Edit"> 
+					</form>
+					
+				<form method="post" action="index.php">
+					<input type="hidden" name="deleteP" id="deleteP" value="<?php echo $lines[0];?>">
+					<input type="submit" value = Hapus></a>
 					</form>
 				</p>
             </li>
@@ -134,8 +161,18 @@
                 </div>
                 <p id="konten2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
                 <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
+					<form method="post" action="edit_post.php">
+					<input type="hidden" name="judul1" value="<?php echo $lines[7];?>" id="judul1">
+					<input type="hidden" name="tanggal1" value="<?php echo $lines[8];?>" id="tanggal1">
+					<input type="hidden" name="konten1" value="<?php echo $lines[9];?>" id="konten1">
+					<input type="submit" value = "Edit"> 
+					</form>
+					
+				<form method="post" action="index.php">
+					<input type="hidden" name="deleteP" id="deleteP" value="<?php echo $lines[7];?>">
+					<input type="submit" value = Hapus></a>
+					</form>
+				</p>
             </li>
           </ul>
         </nav>
