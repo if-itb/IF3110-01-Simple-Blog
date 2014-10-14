@@ -1,29 +1,3 @@
-<?php
-require_once "post_utility.php";
-if (!isset($_GET["id"]))
-{
-    $url  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-    $url .= $_SERVER['SERVER_NAME'];
-    $url .= $_SERVER['REQUEST_URI'];
-
-    $location = dirname($url);
-    header("Location: ".$location."/404.html");
-    die();
-}
-$id = $_GET["id"];
-$post = loadPost($id);
-if (!isset($post['konten']))
-{
-    $url  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-    $url .= $_SERVER['SERVER_NAME'];
-    $url .= $_SERVER['REQUEST_URI'];
-
-    $location = dirname($url);
-    header("Location: ".$location."/404.html");
-    die();
-}
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +24,6 @@ if (!isset($post['konten']))
 
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-<script src="assets/js/komentar.js"></script>
 
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -61,7 +34,7 @@ if (!isset($post['konten']))
 
 </head>
 
-<body class="default" onload="loadSemuaKomentar();">
+<body class="default">
 <div class="wrapper">
 
 <nav class="nav">
@@ -75,45 +48,12 @@ if (!isset($post['konten']))
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time"><?php echo $post["tanggal"];?></time>
-            <h2 class="art-title"><?php echo $post['judul'];?></h2>
+            <time class="art-time"></time>
+            <h2 class="art-title">Not found</h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
 
-    <div class="art-body">
-        <div class="art-body-inner">
-            <hr class="featured-article" />
-            <?php echo $post["konten"]; ?>
-
-            <hr />
-            
-            <h2>Komentar</h2>
-
-            <div id="contact-area">
-                <form method="post" action="#" onsubmit="return false;">
-                    <label for="Nama">Nama:</label>
-                    <input type="text" name="Nama" id="Nama">
-        
-                    <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
-                    <div id="errorMessage">
-                    </div>
-                    <label for="Komentar">Komentar:</label><br>
-                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
-                    <input type="hidden" name="id" id="pageId" value=<?php echo '"'.$id.'"';?>>
-
-                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="return sendKomentar();">
-                </form>
-            </div>
-
-            <ul class="art-list-body">
-                <div id="ajaxComment">
-                    
-                </div>
-            </ul>
-        </div>
-    </div>
 
 </article>
 
