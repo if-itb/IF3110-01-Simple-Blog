@@ -1,5 +1,10 @@
 # Simple Blog
 
+#Petunjuk instalasi
+
+Pertama, import file simpleblog.sql ke dalam server mysql. Kemudian lakukan konfigurasi username, password dan alamat host dari server mysql di file db_config.php
+
+#Spesifikasi tugas
 Tugas 1 IF3110.
 
 ![Simple Blog](http://i655.photobucket.com/albums/uu275/sonnylazuardi/ss-5.jpg)
