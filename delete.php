@@ -13,6 +13,10 @@ if (!empty($_GET['pid'])){
 		die('Tidak bisa tersambung: ' . mysql_error());
 	}
 	mysql_select_db("simpleblog");
+	$deleteComment = "DELETE FROM komentar WHERE pid='$pid'";
+	if (!mysql_query($deleteComment,$sambung)){
+		die('Error: ' . mysql_error());
+	}
 	$deletePost = "DELETE FROM blogitem WHERE pid='$pid' ";
 	if (!mysql_query($deletePost,$sambung)){
 		die('Error: ' . mysql_error());
