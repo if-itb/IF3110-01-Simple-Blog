@@ -48,17 +48,6 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
 <?php
 // index.php
 include 'src/mysql.php';
@@ -69,25 +58,17 @@ if(!mysql_num_rows($result)) {
 } else {
     while($row = mysql_fetch_assoc($result)) {
 		
-        echo '<h2>'.$row['title'].'</h2>';
+		echo '<div class="posts">';
+        echo '<h2 class="art-list-title">'.$row['title'].'</h2>';
         $body = substr($row['body'], 0, 300);
         echo nl2br($body).'...<br/>';
         echo '<a href="src/post_view.php?id='.$row['id'].'">Read More</a> | ';
         echo '<a href="src/post_view.php?id='.$row['id'].'#comments">'.$row['num_comments'].' comments</a>';   
         echo '<hr/>';
+		echo '</div>';
     }
 }
 ?>
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
           </ul>
         </nav>
     </div>
