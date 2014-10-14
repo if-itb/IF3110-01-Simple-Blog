@@ -33,7 +33,7 @@ function comment_add() {
 					load_comment();
 				}
 			};
-		ajax.open("GET","comment_processor2.php?id="+id+"&Nama="+Nama+"&Email="+Email+"&Komentar="+Komentar,true);
+		ajax.open("GET","comment_processor.php?mode=add&id="+id+"&Nama="+Nama+"&Email="+Email+"&Komentar="+Komentar,true);
 		ajax.send();
 
 	}
@@ -48,7 +48,7 @@ function load_comment() {
 			}
 		};
 		var id = document.getElementById("id").value;
-		ajax.open("GET","comment_processor.php?id="+id,true);
+		ajax.open("GET","comment_processor.php?mode=retrieve&id="+id,true);
 		ajax.send();
 	}
 }	
@@ -58,6 +58,7 @@ function emailvalidator() {
 	var at = email.indexOf("@");
 	var dot = email.lastIndexOf(".");
 	if (at< 1 || dot<at+2 || dot+2>=email.length) {
+	alert("Email tidak valid!");
 	return false;
 	}
 	return true;
