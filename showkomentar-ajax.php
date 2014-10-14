@@ -2,7 +2,7 @@
 	include 'functions.php';
 	$id_post = intval($_GET['id']);
 	$con = connectdb();
-	$sql_statement = "SELECT * FROM data_komen ORDER BY Tanggal";
+	$sql_statement = "SELECT * FROM data_komen ORDER BY Tanggal ASC";
 	$result = mysql_query($sql_statement,$con);
 	echo "<ul class='art-list-body'>";
 	while($row = mysql_fetch_array($result))

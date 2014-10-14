@@ -14,7 +14,7 @@ function validateform() {
     {
 	re = /^(\d{4})-(\d{1,2})-(\d{1,2})$/
 	if(x != '' && !x.match(re)) {
-	alert("Invalid date format: " + x +"\nDate must be in DD-MM-YYY format");
+	alert("Invalid date format: " + x +"\nDate must be in YYYY-MM-DD format");
 	return false;
 	}
 	else{

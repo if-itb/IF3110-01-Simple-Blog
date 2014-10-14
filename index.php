@@ -53,7 +53,7 @@
           <ul class="art-list-body">
 		  <?php
 			$con = connectdb();
-			$sql_statement = "SELECT * FROM data_post ORDER BY Tanggal";
+			$sql_statement = "SELECT * FROM data_post ORDER BY Tanggal DESC";
 			$result = mysql_query($sql_statement,$con);
 			while($row = mysql_fetch_array($result))
 			{
