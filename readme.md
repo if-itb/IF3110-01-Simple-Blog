@@ -1,6 +1,7 @@
 # Simple Blog
 
 Tugas 1 IF3110.
+Farizan Ramadhan - 13511081 (K02)
 
 ![Simple Blog](http://i655.photobucket.com/albums/uu275/sonnylazuardi/ss-5.jpg)
 
