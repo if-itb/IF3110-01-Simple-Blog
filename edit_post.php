@@ -1,3 +1,5 @@
+<!-- Ananda Kurniawan /13511052--> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +31,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Edit Post</title>
 
 
 </head>
@@ -38,42 +40,84 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
-</nav>
+</nav><?php 
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST["id"];
+    $judul = $_POST["Judul"];
+    $date = trim($_POST["Tanggal"]);
+    $konten =$_POST["Konten"];  
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    $tanggal = date("Y-m-d", strtotime($date));
+
+    include("config.php");
+    $query = 'UPDATE post SET judul="'.$judul.'", tanggal="'.$tanggal.'", konten="'.$konten.'" WHERE  id="'.$id.'"';
+    mysql_query($query);
+
+    $url = "view_post.php?id=".$id;
+
+    header("Location: $url");
+    exit;
+
+} else {
+
+    if (!isset($_GET["id"])) {
+        header("Location: index.php");
+        exit();
+    } else {
+        $id = $_GET["id"];
+    }
+
+    include("config.php");
+
+    $query = "SELECT * FROM post WHERE id='".$id."'";
+    $result = mysql_query($query);
+
+    if (mysql_num_rows($result) == 0) {
+        
+    } else {
+        
+        $post = mysql_fetch_array($result);
+    }
+
+}
+
+$title = "Simple Blog | Edit Post";
+?>
+
+
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Edit Post</h2>
+
+            <div id="contact-area">
+                <form method="post" action="edit_post.php">
+                    <input type="hidden" id="id" name="id" value="<?php echo $post['id']; ?>" >
+                    <label for="Judul">Judul:</label>
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $post['judul']; ?>">
+
+                    <label for="Tanggal">Tanggal:</label>
+                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo date("d-m-Y", strtotime($post['tanggal'])); ?>">
+                    
+                    <label for="Konten">Konten:</label><br>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $post['konten']; ?></textarea>
+
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validatePost()">
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -96,9 +140,21 @@
 
 </div>
 
+<!-- <script type="text/javascript" src="assets/js/jquery.min.js"></script> -->
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/simple_blog.js"></script>
+<?php 
+if(isset($isLoadComments)) {
+  if($isLoadComments) { ?>
+<script type="text/javascript">
+  window.onload = loadComments();
+</script>
+<?php 
+  }
+} ?>
+
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
