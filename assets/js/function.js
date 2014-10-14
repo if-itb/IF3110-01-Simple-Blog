@@ -106,21 +106,17 @@ function IsValidDate()
 //Validasi date untuk form edit post
 function IsValidDateEdit(idpost)
 {
-    alert("masuk fungsi IsValidDateEdit");
     var dateEntered = document.getElementById("Tanggal").value;
-    alert(dateEntered);
+    
     var day = dateEntered.substr(8,2);
     var month = dateEntered.substr(5,2);
     var year = dateEntered.substring(0,4);
     
     var dateToCompare = new Date(year, month - 1, day);
-    alert(dateToCompare);
     
     var currentDate = new Date();
     currentDate.setHours(0,0,0,0);
-    alert(currentDate);
     
-    alert(dateToCompare - currentDate);
     if (dateToCompare - currentDate >= 0) {
         document.getElementById("form_edit_post").action = "edit_post_call_function.php?id="+idpost;
         alert("Edit Post berhasil");
