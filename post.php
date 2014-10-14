@@ -10,10 +10,11 @@
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM blogitem where pid = ?";
+        $sql = "SELECT * FROM blogitem WHERE pid = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($pid));
         $data = $q->fetch(PDO::FETCH_ASSOC);
+        
         Database::disconnect();
     }
 ?>
@@ -54,7 +55,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onload="loadpost(<?php echo $data['pid'] ?>)">
 <div class="wrapper">
 
 <nav class="nav">
@@ -84,36 +85,24 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form onsubmit="return false">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
                     <label for="Email">Email:</label>
-                    <input type="text" name="Email" id="Email">
+                    <input type="text" name="Email" id="Email"><div id='errormsg'></div>
                     
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="return validate_comment(<?php echo $data['pid']?>)">
                 </form>
             </div>
 
             <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+                <div id = "useAjax">
 
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+                </div>
             </ul>
         </div>
     </div>
@@ -145,6 +134,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/validate_comment.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
