@@ -29,9 +29,18 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
+<?php include 'init.php';?>
+<title>Simple Blog | Edit Post</title>
+
+</head>
+
+<body class="default">
+<div class="wrapper">
+
+<?php include 'header.php';?>
 <?php
 	$bulan=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
-	$db = new mysqli("localhost","root","","ai_tugas1");
+	$db = new mysqli($db_loc,$db_user,$db_pass,$db_name);
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
@@ -76,19 +85,9 @@
 	}
 	$db->close();
 ?>
-
-<title>Simple Blog | Edit Post</title>
-
-</head>
-
-<body class="default">
-<div class="wrapper">
-
-<?php include 'header.php';?>
-
 <article class="art simple post">
     
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+    <h2 class="art-title" style="margin-bottom:100px">-</h2>
 
     <div class="art-body">
         <div class="art-body-inner">

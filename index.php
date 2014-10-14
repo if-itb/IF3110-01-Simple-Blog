@@ -29,14 +29,13 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
+<?php include 'init.php';?>
 <title>Simple Blog</title>
-
 
 </head>
 
 <body class="default">
 <div class="wrapper">
-
 <?php include 'header.php';?>
 
 <div id="home">
@@ -45,28 +44,44 @@
           <ul class="art-list-body">
 			
 			<?php			
-				$db = new mysqli("localhost","root","","ai_tugas1");
+				$db = new mysqli($db_loc,$db_user,$db_pass,$db_name);
 				if (mysqli_connect_errno()){
 					echo "Failed to connect to MySQL: " . mysqli_connect_error();
 				}
-				/*if (!isset($_GET['p']))$tp=1;
-				else $tp=$_GET['p'];*/
-				$bulan=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
-				$result = $db->query("SELECT * FROM post ORDER BY Date DESC;");
-				$tp2=mysqli_num_rows($result);
-				if ($tp2>0){
-					while($res = $result->fetch_array(MYSQLI_ASSOC)){
-						$tgl=strtotime($res['Date']);
+				$result = $db->query("SELECT Count(*) AS a FROM post;");
+				$res = $result->fetch_array(MYSQLI_ASSOC);
+				$pg_max=0;
+				$pg_max=$res['a'];
+				if ($pg_max>0){
+					$bulan=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
+					if ($paging){
+						$result = $db->query("SELECT * FROM post ORDER BY Date DESC LIMIT ".$NUMPERPAGES." OFFSET ".($pg_num-1)*$NUMPERPAGES.";");
+					} else {
+						$result = $db->query("SELECT * FROM post ORDER BY Date DESC;");
+					}
+					$tp2=mysqli_num_rows($result);
+					if ($tp2>0){
+						while($res = $result->fetch_array(MYSQLI_ASSOC)){
+							$tgl=strtotime($res['Date']);
+							echo "
+							<li class=\"art-list-item\">
+								<div class=\"art-list-item-title-and-time\">
+									<h2 class=\"art-list-title\"><a href=\"post.php?id=".$res['ID']."\">".$res['Title']."</a></h2>
+									<div class=\"art-list-time\">".date('j',$tgl)." ".$bulan[date('n',$tgl)-1]." ".date('Y',$tgl)."</div>
+								</div>
+								<p>".mb_strimwidth($res['Content'],0,265,"&hellip;<a href=\"post.php?id=".$res['ID']."\">Read More</a>")."</p>
+								<p>
+								  <a href=\"edit.php?id=".$res['ID']."\">Edit</a> | <a href=\"proc.php?x=3&id=".$res['ID']."\" onclick=\"return DeletePost();\">Hapus</a>
+								</p>
+							</li>";
+						}
+					} else {
 						echo "
 						<li class=\"art-list-item\">
 							<div class=\"art-list-item-title-and-time\">
-								<h2 class=\"art-list-title\"><a href=\"post.php?id=".$res['ID']."\">".$res['Title']."</a></h2>
-								<div class=\"art-list-time\">".date('j',$tgl)." ".$bulan[date('n',$tgl)-1]." ".date('Y',$tgl)."</div>
+								<h2 class=\"art-list-title\"><a href=\"new_post.php\">Invalid Page</a></h2>
 							</div>
-							<p>".mb_strimwidth($res['Content'],0,265,"&hellip;<a href=\"post.php?id=".$res['ID']."\">Read More</a>")."</p>
-							<p>
-							  <a href=\"edit.php?id=".$res['ID']."\">Edit</a> | <a href=\"proc.php?x=3&id=".$res['ID']."\" onclick=\"return DeletePost();\">Hapus</a>
-							</p>
+							<p>There is no post here yet!<br><br>Why don't you fill it until it reach here?</p>
 						</li>";
 					}
 				} else {
@@ -81,6 +96,47 @@
 				$db->close();
 			?>
           </ul>
+		<ul class="pagination">
+		<?php
+			if ($pg_max>0&&$paging){
+				$pg_max=ceil($pg_max/$NUMPERPAGES);
+				$f1=false;
+				$f2=false;
+				$a=0;$b=0;
+				$a=$pg_num-(($NUMPAGEBELOW-($NUMPAGEBELOW%2==0?2:1))/2);
+				$b=$pg_num+(($NUMPAGEBELOW-($NUMPAGEBELOW%2==0?0:1))/2);
+				if ($a<1){
+					$a=1;$f1=true;
+				}
+				if ($b>$pg_max){
+					$b=$pg_max;$f2=true;
+				}
+				if ($f1!=$f2){
+					if ($f1){
+						$b=$a+$NUMPAGEBELOW-1;
+						if ($b>$pg_max)$b=$pg_max;
+					} else {
+						$a=$b-$NUMPAGEBELOW+1;
+						if ($a<1)$a=1;
+					}
+				}
+				echo "
+				<li>
+					<a href=\"?p=".($pg_num>1?$pg_num-1:$pg_num)."\">Prev</a>
+				</li>";
+				for ($i=$a;$i<=$b;$i++){
+					echo "
+					<li".($i==$pg_num?" class=\"active\"":"").">
+						<a href=\"?p=".($i)."\">".($i)."</a>
+					</li>";
+				}
+				echo "
+				<li>
+					<a href=\"?p=".($pg_num+1<=$pg_max?$pg_num+1:$pg_max)."\">Next</a>
+				</li>";
+			}
+		?>
+		</ul>
         </nav>
     </div>
 </div>

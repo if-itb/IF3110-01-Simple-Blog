@@ -1,3 +1,4 @@
+<?php include 'init.php';?>
 <?php
 	function validTgl($in){
 		if (!strtotime($in))return false;
@@ -6,7 +7,7 @@
 	if($_GET['x']==1){
 		//add post
 		if (strtotime($_POST['Tanggal'])){
-			$db = new mysqli("localhost","root","","ai_tugas1");
+			$db = new mysqli($db_loc,$db_user,$db_pass,$db_name);
 			if (mysqli_connect_errno()){
 				trigger_error("Failed to connect to MySQL: ".mysqli_connect_error());
 			}
@@ -21,12 +22,10 @@
 			}
 			$db->close();
 			header('Location: index.php');
-		} else {
-			
 		}
 	} else if($_GET['x']==2){
 		//edit post
-		$db = new mysqli("localhost","root","","ai_tugas1");
+		$db = new mysqli($db_loc,$db_user,$db_pass,$db_name);
 		if (mysqli_connect_errno()){
 			trigger_error("Failed to connect to MySQL: ".mysqli_connect_error());
 		}
@@ -43,7 +42,7 @@
 		header('Location: post.php?id='.$_POST['ID']);
 	} else if($_GET['x']==3){
 		//delete post
-		$db = new mysqli("localhost","root","","ai_tugas1");
+		$db = new mysqli($db_loc,$db_user,$db_pass,$db_name);
 		if (mysqli_connect_errno()){
 			trigger_error("Failed to connect to MySQL: ".mysqli_connect_error());
 		}
@@ -64,7 +63,6 @@
 		if (strtotime($_POST['Tanggal'])){
 			if (validTgl($_POST['Tanggal'])){
 				echo "";
-				//echo date("Y-m-d",strtotime($_POST['Tanggal']));
 			} else {
 				echo "<label></label><input type=\"text\" disabled value=\"Can't input past date\">";
 			}

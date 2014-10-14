@@ -1,3 +1,7 @@
+### Note:
+
+Pengubahan beberapa opsi dapat dilakukan di init.php.
+
 # Simple Blog
 
 Tugas 1 IF3110.

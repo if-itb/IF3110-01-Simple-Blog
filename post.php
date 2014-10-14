@@ -29,9 +29,10 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
+<?php include 'init.php';?>
 <?php
 	$bulan=["JANUARI","FEBRUARI","MARET","APRIL","MEI","JUNI","JULI","AGUSTUS","SEPTEMBER","OKTOBER","NOVEMBER","DESEMBER"];
-	$db = new mysqli("localhost","root","","ai_tugas1");
+	$db = new mysqli($db_loc,$db_user,$db_pass,$db_name);
 	if (mysqli_connect_errno()){
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	}
@@ -76,12 +77,11 @@
 	}
 	$db->close();
 ?>
-
 <title>Simple Blog | <?php echo $title;?></title>
 
 </head>
 
-<body class="default" onload="LoadComment()">
+<body class="default" onload="LoadComment(1)">
 <div class="wrapper">
 
 <?php include 'header.php';?>
@@ -126,7 +126,7 @@
 						<input type="submit" name="submit" value="Kirim" class="submit-button">
 					</form>
 				</div>
-			<a onclick="LoadComment();">refresh</a>
+			<a onclick="LoadComment(1);">refresh</a>
 			<?php }?>
             <ul class="art-list-body" name='comment-area' id='comment-area'>
                 <li class="art-list-item">
@@ -144,7 +144,6 @@
 <?php include 'footer.php';?>
 
 </div>
-<?php /*
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
@@ -157,10 +156,13 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
-</script>*/?>
+</script>
 <script type="text/javascript">
 	function GetElmt(id){
 		return document.getElementById(id);
+	}
+	function isPgC(){
+		return GetElmt('Pg_C').name=="1";
 	}
 	function CallComment(param){
 		var x=new XMLHttpRequest || new ActiveXObject('Microsoft.XMLHTTP');
@@ -190,8 +192,12 @@
 			CallComment(tp);
 		}
 	}
-	function LoadComment(){
+	function LoadComment(pg){
 		var tp=new FormData();
+		if (isPgC){
+			tp.append('p',pg);
+			//GetElmt('Komentar').value='benar';
+		}
 		tp.append('x',0);
 		CallComment(tp);
 	}

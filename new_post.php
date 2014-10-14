@@ -29,20 +29,19 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
+<?php include 'init.php';?>
 <title>Simple Blog | Tambah Post</title>
-
 
 </head>
 
 <body class="default">
 <div class="wrapper">
-
 <?php include 'header.php';?>
 
 <article class="art simple post">
     
     
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+    <h2 class="art-title" style="margin-bottom:100px">-</h2>
 
     <div class="art-body">
         <div class="art-body-inner">
@@ -90,7 +89,6 @@
 	}
 	function validTgl(){
 		var x=new XMLHttpRequest || new ActiveXObject('Microsoft.XMLHTTP');
-		//alert('1');
 		x.open('POST','proc.php?x=4');
 		var param=new FormData();
 		param.append('Tanggal',GetElmt('Tanggal').value);
