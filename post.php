@@ -55,40 +55,32 @@
         echo'    <h2>Komentar</h2>';
 
         echo'    <div id="contact-area">';
-        echo'        <form method="post" action="add_comment.php?id='.$id.'">';
+        echo'        <form method="post" onSubmit="return false">';
+        //echo'        <form method="post" action="add_comment.php?id='.$id.'">';
         echo'            <label for="Nama">Nama:</label>';
         echo'            <input type="text" name="Nama" id="Nama">';
         
         echo'            <label for="Email">Email:</label>';
         echo'            <input type="text" name="Email" id="Email">';
-                    
+        echo'            <p id="komentar_email"></p>';
+
         echo'            <label for="Komentar">Komentar:</label><br>';
         echo'            <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>';
 
-        echo'            <input type="submit" name="submit" value="Kirim" class="submit-button">';
+        //echo'            <input type="submit" name="submit" value="Kirim" class="submit-button">';
+        echo'            <input type="submit" name="submit" value="Kirim" class="submit-button" onClick="insert_komentar('.$id.')">';
+
         echo'        </form>';
         echo'    </div>';
     ?>
             <ul class="art-list-body">
                 
+                <div id="comment_here">
+
+                </div>
+                        
                 <!-- Load Commentar -->
                 <?php load_comment($id); ?>
-                
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
                 
             </ul>
         </div>
@@ -117,6 +109,7 @@
 
 </div>
 
+<script type="text/javascript" src="assets/js/function.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

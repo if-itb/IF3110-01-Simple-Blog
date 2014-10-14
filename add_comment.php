@@ -1,11 +1,12 @@
 <?php
     include 'function.php';
-    $id         = $_GET['id'];
-    $nama       = mysql_real_escape_string ($_POST['Nama']);
-    $email      = mysql_real_escape_string ($_POST['Email']);
-    $komentar   = mysql_real_escape_string ($_POST['Komentar']);
-    $tanggal    = date($_POST["Tanggal"]);
-    $location = 'Location: post.php?id='.$id;
+    $id         = $_POST['id'];
+    //$id         = $_GET['id'];
+    $nama       = mysql_real_escape_string ($_POST['nama']);
+    $email      = mysql_real_escape_string ($_POST['email']);
+    $komentar   = mysql_real_escape_string ($_POST['komentar']);
+    echo $id. $nama. $email. $komentar;
+    //$location = 'Location: post.php?id='.$id;
     add_comment($id, $nama, $email, $komentar);
-    header($location);
+    //header($location);
 ?>
