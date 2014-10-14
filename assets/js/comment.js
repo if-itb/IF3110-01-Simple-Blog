@@ -82,7 +82,7 @@ function save_comment()
 		{
 			
 			var savedComments = document.getElementById("isi_komentar").innerHTML;
-			document.getElementById("isi_komentar").innerHTML = xmlhttp.responseText + savedComments;
+			document.getElementById("isi_komentar").innerHTML = load_comment();
 			
 			document.getElementById("Nama").value='';
 			document.getElementById("Email").value='';
@@ -100,7 +100,7 @@ function save_comment()
 function validateEmail(teks)
 {
 	var email = document.getElementById("Email").value;
-	var format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	var format = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if (teks.value.match(format))
 	{
 		

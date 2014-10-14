@@ -21,7 +21,7 @@ function clean($data)
 	return $data;
 }
 
-		echo '<li class="art-list-item">';
+/* 		echo '<li class="art-list-item">';
 		echo 	'<div class="art-list-item-title-and-time">';
 		echo		'<h2 class="art-list-title"><a href="#">'.$nama.'</a></h2>';
 		echo		'<div class="art-list-time">';
@@ -29,7 +29,7 @@ function clean($data)
 		echo '</div>';
 		echo	'</div>';
 		echo	'<p>'.$komentar.'</p>';
-		
+		 */
 function printwaktu($tanggal) {
 	$raw = explode(" ",$tanggal);
 	$rawdate = $raw[0];
