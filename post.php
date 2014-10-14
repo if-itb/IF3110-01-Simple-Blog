@@ -39,6 +39,7 @@
 		}
 	?>
 </title>
+
 <?php include 'functions.php'; ?>
 
 </head>

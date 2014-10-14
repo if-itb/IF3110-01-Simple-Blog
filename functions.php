@@ -11,6 +11,7 @@
 	function FetchPostList(){
 		$dbhandle = ConnecttoDatabase();
 		$PostList = array();
+		
 		$sqlquery = "SELECT * FROM Posts";
 		$result = mysqli_query($dbhandle, $sqlquery);
 		while($row = mysqli_fetch_array($result))

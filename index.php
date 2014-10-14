@@ -30,6 +30,7 @@
 <![endif]-->
 
 <title>Simple Blog</title>
+
 <?php include 'functions.php'; ?>
 
 

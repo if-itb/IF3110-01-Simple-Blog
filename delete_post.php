@@ -1,5 +1,6 @@
 <?php
 	include 'functions.php';
+	
 	if($_GET){
 		DeletePost($_GET['ID']);
 	}

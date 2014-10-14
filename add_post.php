@@ -1,5 +1,6 @@
 <?php
 	include 'functions.php';
+	
 	AddPosttoDatabase();
 	header("Location: index.php");
 ?>

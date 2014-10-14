@@ -1,5 +1,6 @@
 <?php
 	include 'functions.php';
+	
 	if($_GET){
 		$PostID = $_GET['ID'];
 		$Name = $_GET['Name'];

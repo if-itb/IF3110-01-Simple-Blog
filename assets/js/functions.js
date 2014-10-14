@@ -16,6 +16,7 @@ function IsInputValid(){
 	var InputTitle = document.getElementById("Judul").value;
 	var InputContent = document.getElementById("Konten").value;
 	var InputDate = new Date(document.getElementById("Tanggal").value);
+	
 	if((InputTitle == null || InputTitle === "") || (InputContent == null || InputContent === "") || !Date.parse(InputDate)){
 		alert("Masih ada field yang kosong");
 		return false;	

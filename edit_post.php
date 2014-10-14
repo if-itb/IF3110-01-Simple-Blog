@@ -1,5 +1,6 @@
 <?php
 	include 'functions.php';
+	
 	if($_GET){
 		UpdatePost($_GET['ID']);
 	}

@@ -30,6 +30,7 @@
 <![endif]-->
 
 <title><?php if(!$_GET) echo "Simple Blog | Tambah Post"; else echo "Simple Blog | Edit Post"; ?></title>
+
 <?php include 'functions.php'; ?>
 
 

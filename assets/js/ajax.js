@@ -46,6 +46,7 @@ function AddComment(PostID){
 function IsEmailValid(){
 	var regex = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 	var emailInput = document.getElementById("Email").value;
+	
 	if(!regex.test(emailInput)){
 		alert("Email tidak valid");
 		return false;	
@@ -58,6 +59,7 @@ function IsEmpty(){
 	var InputName = document.getElementById("Nama").value;
 	var InputEmail = document.getElementById("Email").value;
 	var InputComment = document.getElementById("Komentar").value;
+	
 	if(InputName == "" || InputEmail == "" || InputComment == ""){
 		alert("Masih ada field yang kosong");
 		return true;	
