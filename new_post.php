@@ -37,12 +37,12 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
-    </ul>
-</nav>
+    <nav class="nav">
+        <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+        <ul class="nav-primary">
+            <li><a href="new_post.php">+ Tambah Post</a></li>
+        </ul>
+    </nav>
 
 <article class="art simple post">
 
@@ -95,12 +95,12 @@
 <script type="text/javascript">
     function checkdate() {
         var date = document.forms["submission"]["Tanggal"].value;
-        var checker = date.search("[0-9]{4}/[0-9]{2}/[0-9]{2}");
+        var checker = date.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
         if (checker == 0) {
             var Tgl = new Date(date);
             var now = new Date();
             if ((Tgl > now) || (Tgl.getDate() == now.getDate() && Tgl.getMonth() == now.getMonth() && Tgl.getFullYear() == now.getFullYear())) {
-                alert("tanggal Benar");
+
             } else {
                 alert("Tanggal harus lebih besar atau sama dengan tanggal sekarang");
                 return false;

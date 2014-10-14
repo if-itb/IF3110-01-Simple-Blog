@@ -92,7 +92,9 @@
 </footer>
 
 </div>
-
+<?php
+    mysqli_close($con);
+?>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

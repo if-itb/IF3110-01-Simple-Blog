@@ -139,7 +139,9 @@
 </footer>
 
 </div>
-
+<?php
+    mysqli_close($con);
+?>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
@@ -152,9 +154,7 @@
       t.src='//www.google-analytics.com/analytics.js';
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
-<?php
-    mysqli_close($con);
-?>
+
 </script>
 
 </body>

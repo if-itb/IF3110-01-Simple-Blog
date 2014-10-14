@@ -63,23 +63,21 @@
                 <div class="art-body">
                     <div class="art-body-inner">
                         <h2>Edit Post</h2>
-                        <?php
-                            echo '<div id="contact-area">';
-                                echo '<form name="submission" method="post" action="updatepost.php?id='.$row["id"].'">';
+                        <div id="contact-area">
+                            <form name="submission" method="post" action="updatepost.php?id=<?php echo $id; ?>">
 
-                                    echo '<label for="Judul">Judul:</label>';
-                                    echo '<input type="text" name="Judul" id="Judul" value='.$title.'>';
+                                <label for="Judul">Judul:</label>
+                                <input type="text" name="Judul" id="Judul" value="<?php echo htmlspecialchars($title); ?>">
 
-                                    echo '<label for="Tanggal">Tanggal:</label>'
-                                    echo '<input type="text" name="Tanggal" id="Tanggal" value='.$date.'>';
+                                <label for="Tanggal">Tanggal:</label>
+                                <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $date; ?>">
 
-                                    echo '<label for="Konten">Konten:</label><br>'
-                                    echo '<textarea name="Konten" rows="20" cols="20" id="Konten" value='.$content.'></textarea>'
+                                <label for="Konten">Konten:</label><br>
+                                <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo htmlspecialchars($content); ?></textarea>
 
-                                    echo '<input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return checkdate()">';
-                                echo '</form>';
-                            echo '</div>';
-                        ?>
+                                <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return checkdate()">
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -108,12 +106,12 @@
         <script type="text/javascript">
             function checkdate() {
                 var date = document.forms["submission"]["Tanggal"].value;
-                var checker = date.search("[0-9]{4}/[0-9]{2}/[0-9]{2}");
+                var checker = date.search("[0-9]{4}-[0-9]{2}-[0-9]{2}");
                 if (checker == 0) {
                     var Tgl = new Date(date);
                     var now = new Date();
                     if ((Tgl > now) || (Tgl.getDate() == now.getDate() && Tgl.getMonth() == now.getMonth() && Tgl.getFullYear() == now.getFullYear())) {
-                        alert("tanggal Benar");
+
                     } else {
                         alert("Tanggal harus lebih besar atau sama dengan tanggal sekarang");
                         return false;
