@@ -28,22 +28,6 @@ include("function.php");
 
 <article class="art simple post">
 
-    <?php 
-        if (!$isPostExist) { ?>
-
-            <header class="art-header">
-                <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-                    <h3 class="art-title">The post is not found</h3>
-                    <p class="art-subtitle"></p>
-                </div>
-            </header>
-            <div class="art-body">
-                 
-            </div>
-
-
-    <?php    } else {
-    ?>
     
     <header class="art-header">
         <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
@@ -88,7 +72,6 @@ include("function.php");
         </div>
     </div>
 
-    <?php } ?>
 
 </article>
 
