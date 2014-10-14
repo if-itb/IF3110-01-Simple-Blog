@@ -38,7 +38,7 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
@@ -48,28 +48,41 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+            <?php
+				//open db connection
+				$db = mysqli_connect('localhost','root', "", 'simpleblog');
+				
+				$query = "SELECT * FROM `listpost` ORDER BY `Tanggal` DESC";
+				
+				$q_results = mysqli_query($db, $query);
+				
+				foreach ($q_results as $res) {
+				
+					$date_pre = $res['Tanggal'];
+					$date = DateTime::createFromFormat('Y-m-d',$date_pre);
+				
+					echo "<li class=\"art-list-item\">
+					<div class=\"art-list-item-title-and-time\">
+						<h2 class=\"art-list-title\"><a href=\"post.php?id=". $res['Idx'] ." \"> ". $res['Judul'] . "</a></h2>
+						<div class=\"art-list-time\"> ". $date->format('j F Y') ." </div>
+					</div>
+					<p>"; 
+					if (strlen($res['Konten']) > 225) {
+						echo substr ($res['Konten'],0,225);
+						echo "&hellip;";
+					} else {
+						echo ($res['Konten']);
+					}
+					echo "</p>
+					<p>
+					  <a href=\"edit.php?id=". $res['Idx'] ."\">Edit</a> | <a href=\"delete.php?id=". $res['Idx'] ."\" onclick=\"return deleteConfirmation()\">Hapus</a>
+					</p>
+					</li>";
+				}
+				
+				mysqli_close($db);
+				
+			?>
           </ul>
         </nav>
     </div>
@@ -99,6 +112,11 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript">
+	function deleteConfirmation() {
+		return confirm("Apakah Anda yakin menghapus post ini?");
+	}
+</script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
