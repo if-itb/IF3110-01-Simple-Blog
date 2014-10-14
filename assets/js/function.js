@@ -61,16 +61,18 @@ function Confirm_Delete(id) {
 	 	{
 	 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	 		{
-	 			document.getElementById("komentar_email").innerHTML="";
+	 			//document.getElementById("komentar_email").innerHTML="";
 	 			document.getElementById("Nama").value="";
 	 			document.getElementById("Komentar").value="";
 	 			document.getElementById("Email").value="";
                 document.getElementById("comment_here").innerHTML=xmlhttp.responseText;	
+                load_komentar(idpost);
 	 		}
 	 	}
 	 	xmlhttp.open("POST","add_comment.php",true);
 	 	xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 	 	xmlhttp.send("id="+idpost+"&nama="+nama+"&komentar="+komentar+"&email="+email);
+        
  	}
  	else{
         alert("Email yang anda masukkan salah. Coba Lagi");
@@ -92,6 +94,36 @@ function IsValidDate()
     
     if (dateToCompare - currentDate >= 0) {
         document.getElementById("form_new_post").action = "new_post.php";
+        alert("New Post berhasil di posting");
+        return true;
+    }
+    else {
+        alert("Tanggal yang anda masukkan salah");
+        return false;
+    }
+}
+
+//Validasi date untuk form edit post
+function IsValidDateEdit(idpost)
+{
+    alert("masuk fungsi IsValidDateEdit");
+    var dateEntered = document.getElementById("Tanggal").value;
+    alert(dateEntered);
+    var day = dateEntered.substr(8,2);
+    var month = dateEntered.substr(5,2);
+    var year = dateEntered.substring(0,4);
+    
+    var dateToCompare = new Date(year, month - 1, day);
+    alert(dateToCompare);
+    
+    var currentDate = new Date();
+    currentDate.setHours(0,0,0,0);
+    alert(currentDate);
+    
+    alert(dateToCompare - currentDate);
+    if (dateToCompare - currentDate >= 0) {
+        document.getElementById("form_edit_post").action = "edit_post_call_function.php?id="+idpost;
+        alert("Edit Post berhasil");
         return true;
     }
     else {

@@ -86,7 +86,7 @@
         }
         
         //Menampilkan form
-        echo    '<form method="post" action="edit_post_call_function.php?id='.$id.'">';
+        echo    '<form method="post" id = "form_edit_post" onSubmit="return IsValidDateEdit('.$id.')">';
         echo    '<label for="Judul">Judul:</label>';
         echo    '<input type="text" name="Judul" id="Judul" value="'.$judul.'"> </input>';
         echo    '<label for="Tanggal">Tanggal:</label>';
@@ -218,3 +218,5 @@
     }
 }
 ?>
+
+<script type="text/javascript" src="assets/js/function.js"></script>
