@@ -35,12 +35,37 @@
 </head>
 
 <body class="default">
+<img src="assets/img/background.jpg" class="background">
 <div class="wrapper">
 
+<?php
+
+    $con = mysqli_connect("localhost","root","","simpleblog");
+    if (mysqli_connect_errno()) {
+        echo "Failed to connect to mySQL";
+    }
+
+    $post_modif = false;
+    $post_judul = "";
+    $post_tanggal = "";
+    $post_konten = "";
+
+    if (isset ($_GET['id'])) {
+        $idPost = $_GET['id'];
+        $isiPost = mysqli_query ($con, "SELECT * FROM post WHERE post_id = $idPost");
+        $singlePost = mysqli_fetch_array ($isiPost);
+        $post_judul = $singlePost['post_judul'];
+        $post_tanggal = $singlePost['post_tanggal'];
+        $post_konten = $singlePost['post_konten'];
+        $post_modif = true;
+    }
+
+?>
+
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><img src="assets/img/logo.png"></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -51,18 +76,19 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h6>Tambah Post</h6>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="index.php?id=<?=$idPost;?>&modif=<?=$post_modif;?>" onsubmit="return validasiTanggal();"
+                        name="formPost">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                    <input type="text" name="Judul" id="Judul" required value = "<?php echo $post_judul; ?>" >
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="Date" name="Tanggal" id="Tanggal" required value = <?php echo $post_tanggal; ?>>
                     
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten" required><?php echo $post_konten; ?></textarea>
 
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                 </form>
@@ -73,22 +99,8 @@
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
-    <!-- <div class="footer-nav"><p></p></div> -->
-    <div class="psi">&Psi;</div>
-    <aside class="offsite-links">
-        Asisten IF3110 /
-        <a class="rss-link" href="#rss">RSS</a> /
-        <br>
-        <a class="twitter-link" href="http://twitter.com/YoGiiSinaga">Yogi</a> /
-        <a class="twitter-link" href="http://twitter.com/sonnylazuardi">Sonny</a> /
-        <a class="twitter-link" href="http://twitter.com/fathanpranaya">Fathan</a> /
-        <br>
-        <a class="twitter-link" href="#">Renusa</a> /
-        <a class="twitter-link" href="#">Kelvin</a> /
-        <a class="twitter-link" href="#">Yanuar</a> /
-        
-    </aside>
+    <div class="back-to-top"><a class="btt" href="">Back to top</a></div>
+    <div class="psi">Kanyap</div>
 </footer>
 
 </div>
@@ -106,6 +118,32 @@
       z.parentNode.insertBefore(t,z)}(window,document,'script','ga'));
       ga('create',ga_ua);ga('send','pageview');
 </script>
+<script>
+    function validasiTanggal() {
+        var inputTgl = document.forms["formPost"]["Tanggal"].value;
+        var currentDate = new Date();
+
+        // parsing tiap konten dari tanggal
+        var arrTgl = inputTgl.split("-");
+        var inputTahun = arrTgl[0];
+        var inputBulan = arrTgl[1];
+        var inputHari = arrTgl[2];
+        
+        // memasukan konten inputDate ke format data yang sama dengan curretnDate
+        var inputDate = new Date();
+        inputDate.setFullYear(inputTahun,inputBulan-1,inputHari);
+
+        // membandingkan dengan tanggal sekarang
+        if (inputDate >= currentDate) {
+            return true;
+        } else {
+            alert("Masukan tanggal yang lebih besar atau sama dengan hari ini");
+            return false;
+        }
+    }
+</script>
+
+<?php mysqli_close($con); ?>
 
 </body>
 </html>
