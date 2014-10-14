@@ -164,6 +164,13 @@
 					<input type="hidden" name="idx" id="idx" value="<?php echo 3;?>">
 					<input type="submit" value = "Komentar"></a>
 					</form>
+					
+					<form method="post" action="view.php">
+					<input type="hidden" name="judul1" value="<?php echo $lines[0];?>" id="judul1">
+					<input type="hidden" name="tanggal1" value="<?php echo $lines[1];?>" id="tanggal1">
+					<input type="hidden" name="konten1" value="<?php echo $lines[2];?>" id="konten1">
+					<input type="submit" value = "View"> 
+					</form>
 				</p>
             </li>
 
@@ -189,6 +196,12 @@
 					<form method="post" action="komentar.php">
 					<input type="hidden" name="idx" id="idx" value="<?php echo 10;?>">
 					<input type="submit" value = "Komentar"></a>
+					</form>
+					<form method="post" action="view.php">
+					<input type="hidden" name="judul1" value="<?php echo $lines[0];?>" id="judul1">
+					<input type="hidden" name="tanggal1" value="<?php echo $lines[1];?>" id="tanggal1">
+					<input type="hidden" name="konten1" value="<?php echo $lines[2];?>" id="konten1">
+					<input type="submit" value = "View"> 
 					</form>
 			
 				</p>
