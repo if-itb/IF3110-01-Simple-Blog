@@ -13,7 +13,7 @@ $query = "SELECT * FROM post WHERE id='".$id."'";
 $result = mysql_query($query);
 
 if (mysql_num_rows($result) == 0) {
-    $isPostExist = false;
+    header("Location: index.php");
 } else {
     $isPostExist = true;
     $post = mysql_fetch_array($result);
