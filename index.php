@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simpl Blog</title>
+<title>Simple Blog</title>
 
 
 </head>
@@ -72,7 +72,7 @@
 				echo	'</div>';
 				echo	'<p>' . $data["konten"] . '</p>';
 				echo	'<p>';
-				echo	  '<a href="edit_post.php?id='.$data['id'].' ">Edit</a> | <a href="hapus.php?id='.$data['id'].' ">Hapus</a>';
+				echo	  '<a href="edit_post.php?id='.$data['id'].' ">Edit</a> | <a href="javascript:confirmDelete(\'hapus.php?id='.$data['id'].'\')" ">Hapus</a>';
 				echo	'</p>';
 				echo	'</li>';
 			}
@@ -102,8 +102,14 @@
 </footer>
 
 </div>
-
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script> function confirmDelete(delURL){
+	var msg;
+	msg = "Are you sure want to delete the post? ";
+	var agree = confirm(msg);
+	if(agree)
+		document.location = delURL;
+	
+}</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

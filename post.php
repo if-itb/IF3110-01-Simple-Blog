@@ -31,15 +31,16 @@
 
 <?php include "koneksi.php"; 
 	$id = $_GET['id'];
-	$query = mysql_query("SELECT * FROM tblblog WHERE id=".$id);
+	$query = mysql_query("SELECT * FROM `tblblog` WHERE `id`='$id' ");
 	$post = mysql_fetch_array($query);
+	
 ?>
 <title>Simple Blog | <?php echo $post['judul']; ?></title>
 
 
 </head>
 
-<body class="default">
+<body class="default" onload="return loadComment()">
 <div class="wrapper">
 
 <nav class="nav">
@@ -73,39 +74,42 @@
 					}
 			?>
             <div id="contact-area">
-                <form method="post" action="inputkomentar.php">
+                <form name="myForm" method="post" onsubmit="return false;" >
+					<input type="hidden" name="id" value="<?php echo $post['id']; ?>" >
+                    
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
-                    <label for="Email">Email:</label>
+					<label for="Email">Email:</label>
                     <input type="text" name="Email" id="Email">
                     
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="insertComment();">
                 </form>
             </div>
+				<ul class="art-list-body">
+					<div id="loadkomen"></div>				
+					<div id="inputkomentar"></div>
+				<?php 
+				/*include ('koneksi.php'); 
 
-            <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
-            </ul>
-        </div>
-    </div>
+				$query = mysql_query("select * from komentar where id_post='$id' ");
+				
+				while ($data = mysql_fetch_array($query)){
+				  echo  '<li class="art-list-item">';
+				  echo      '<div class="art-list-item-title-and-time">';
+				  echo          '<h2 class="art-list-title"><a href="post.html">'. $data["Nama"] .'</a></h2>';
+				  echo          '<div class="art-list-time">2 menit lalu</div>';
+				  echo      '</div>';
+				  echo      '<p>'. $data["Komentar"].'</p>';
+				  echo  '</li>';
+				 }*/ 
+				?>
+				</ul>
+			</div>
+		</div>
 
 </article>
 
@@ -129,8 +133,20 @@
 </footer>
 
 </div>
-
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+ <script type="text/javascript"> /* function validateForm(){
+	var x = document.forms["myForm"]["Email"].value;
+	//var x = document.forms.myForm.Email.value;	
+	var atpos = x.indexOf("@");
+	var dotpos = x.lastIndexOf(".");
+	if(atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length){
+			alert("Not a valid e-mail address");
+			//document.myForm.Email.focus();
+			return false;
+		}
+}
+	 //return ( true ); */
+</script> 
+<script type="text/javascript" src="komen.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

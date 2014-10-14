@@ -1,21 +1,32 @@
 <?php
-	include "koneksi.php";
+	include "koneksi.php"; 
 	if(isset($_POST)) {
-		if(isset($_POST["Nama"])){
-			$nama = $_POST['Nama'];
-		}
-		if(isset($_POST["Email"])){
+		
+			$nama = $_POST['Nama_komen'];
 			$email = $_POST['Email'];
-		}
-		if(isset($_POST["Komentar"])){
 			$komentar = $_POST['Komentar'];
+			$index_post = $_POST['id'];
 		}
-	}
-	$insert = "INSERT INTO komentar (Nama, Email, Komentar) VALUES ('$nama',
-	'$email', '$komentar')";
+	$insert = "INSERT INTO komentar (`Nama`, `Email`, `Komentar`, `id_post`) VALUES ('$nama',
+	'$email', '$komentar', '$index_post' ) ";
 	$insert_query = mysql_query($insert);
-	if($insert_query){
-		header('location:post.php?message=success');
-	} 
+	
+	$query = mysql_query("select * from komentar where id_post='$index_post' ORDER BY id DESC LIMIT 1");
+			
+			while ($data = mysql_fetch_array($query)){
+              echo  '<li class="art-list-item">';
+              echo      '<div class="art-list-item-title-and-time">';
+              echo          '<h2 class="art-list-title"><a href="post.html">'. $data["Nama"] .'</a></h2>';
+              echo          '<div class="art-list-time">2 menit lalu</div>';
+              echo      '</div>';
+              echo      '<p>'. $data["Komentar"].'</p>';
+              echo  '</li>';
+}
+	
+	
+	/* if($insert_query){
+		header('location:post.php?id='. $index_post .'?message=success');	
+	} */
+	
 ?>
 

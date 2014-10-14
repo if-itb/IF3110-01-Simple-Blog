@@ -32,6 +32,7 @@
 <title>Simple Blog | Tambah Post</title>
 
 
+
 </head>
 
 <body class="default">
@@ -58,7 +59,7 @@
 					}
 			?>
             <div id="contact-area">
-                <form action="input.php" method="post" >
+                <form name="formTes" action="input.php" method="post" onsubmit="return checkdate();">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
@@ -68,7 +69,8 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" >
+                  
                 </form>
             </div>
         </div>
@@ -96,8 +98,7 @@
 </footer>
 
 </div>
-
-<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="komen.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
