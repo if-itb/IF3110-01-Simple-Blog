@@ -61,18 +61,18 @@
             <h2>Edit Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="update_post.php">
+                <form method="post" action="update_post.php" name="form" onChange="checkform()">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul" value="<?php echo $array['title'] ?>">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal" value="<?php echo $array['tanggal'] ?>"">
+                    <input type="date" name="Tanggal" id="Tanggal" value="<?php echo $array['tanggal'] ?>"">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten" ><?php echo $array['body'] ?></textarea>
 					
 					<input type="hidden" name="ID" id="ID" value="<?php echo $array['id'] ?>">
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" id="submit" value="Simpan" class="submit-button">
                 </form>
             </div>
         </div>
@@ -110,6 +110,20 @@
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
+function checkform()
+	{
+		var f = document.forms["form"].elements;
+
+		var canSubmit=(document.getElementById('Judul').value!="")&&(document.getElementById('Konten').value!="");
+		
+		if (canSubmit) {
+			document.getElementById('submit').disabled = false;
+		}
+		else {
+			document.getElementById('submit').disabled = 'disabled';
+		}
+	}
+	
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
   (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=

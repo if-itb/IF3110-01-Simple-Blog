@@ -34,7 +34,7 @@
 
 </head>
 
-<body class="default">
+<body class="default" onLoad="changemin()">
 <div class="wrapper">
 
 <nav class="nav">
@@ -63,17 +63,17 @@
             <h2>Tambah Post</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="#" id="form" onChange="checkform()">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="date" name="Tanggal" id="Tanggal" min="2010-10-10">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" id="submit" value="Simpan" class="submit-button" disabled>
                 </form>
             </div>
         </div>
@@ -106,6 +106,66 @@
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
 <script type="text/javascript">
+
+function changemin()
+	{
+		var f = document.forms["form"].elements;
+		var j = new Date();
+		var y = j.getFullYear();
+		var m = j.getMonth()+1;
+		var d = j.getDate();
+		var str = y.toString();
+		str = str.concat("-",m.toString(),"-",d.toString());
+		//document.getElementById('tes').value = str;
+		document.getElementById('Tanggal').min = str;
+	}
+function checkform()
+	{
+		var f = document.forms["form"].elements;
+
+		var canSubmit=(document.getElementById('Judul').value!="")&&(document.getElementById('Konten').value!="");
+		
+		if (canSubmit) {
+			document.getElementById('submit').disabled = false;
+		}
+		else {
+			document.getElementById('submit').disabled = 'disabled';
+		}
+	}
+
+/*
+function checkForm(){
+	// regular expression to match required date format
+    re = /^(\d{1,2})\-(\d{1,2})\-(\d{4})$/;
+
+    if(form.startdate.value != '') {
+      if(regs = form.startdate.value.match(re)) {
+        // day value between 1 and 31
+        if(regs[1] < 1 || regs[1] > 31) {
+          alert("Invalid value for day: " + regs[1]);
+          form.startdate.focus();
+          return false;
+        }
+        // month value between 1 and 12
+        if(regs[2] < 1 || regs[2] > 12) {
+          alert("Invalid value for month: " + regs[2]);
+          form.startdate.focus();
+          return false;
+        }
+        // year value between 1902 and 2014
+        if(regs[3] < (new Date()).getFullYear()) {
+          alert("Invalid value for year: " + regs[3] + " - must be more than or " + (new Date()).getFullYear());
+          form.startdate.focus();
+          return false;
+        }
+      } else {
+        alert("Invalid date format: " + form.startdate.value);
+        form.startdate.focus();
+        return false;
+      }
+    }
+}
+*/
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 
   (function(g,h,o,s,t,z){g.GoogleAnalyticsObject=s;g[s]||(g[s]=

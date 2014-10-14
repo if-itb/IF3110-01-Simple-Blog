@@ -59,7 +59,7 @@
 					if (isset($_GET['delete'])){
 						mysqli_query($db,"DELETE FROM posts WHERE id = ".$_GET['id']);
 					}
-					$get_db=mysqli_query($db,"SELECT * FROM posts ORDER BY tanggal");
+					$get_db=mysqli_query($db,"SELECT * FROM posts ORDER BY tanggal DESC");
 					while($array=mysqli_fetch_array($get_db)){
 						?>
 						<li class="art-list-item">
@@ -70,7 +70,7 @@
 							</div>
 							<p><?php echo $array['body'] ?></p>
 							<p>
-							  <a href="edit_post.php?id=<?php echo $array['id'] ?>">Edit</a> | <a href="index.php?delete=true&id=<?php echo $array['id'] ?>">Hapus</a>
+							  <a href="edit_post.php?id=<?php echo $array['id'] ?>">Edit</a> | <a href="index.php?delete=true&id=<?php echo $array['id'] ?>" onclick="return confirm('Apakah Anda yakin menghapus post ini?');">Hapus</a>
 							</p>
 						</li>
 						<?php

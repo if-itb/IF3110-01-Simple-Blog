@@ -75,7 +75,7 @@
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" action="#" name="FormKomen" id="FormKomen" onchange="checkform()">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -85,7 +85,7 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="submit" name="submit" id="submit" value="Kirim" class="submit-button" disabled>
                 </form>
             </div>
 
@@ -131,7 +131,25 @@
 </footer>
 
 </div>
+<script type="text/javascript">
+	function validateEmail(email) { 
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return re.test(email);
+	} 
+	function checkform()
+	{
+		var f = document.forms["FormKomen"].elements;
+		var canSubmit=validateEmail(document.getElementById('Email').value)&&(document.getElementById('Nama').value!="")&&(document.getElementById('Komentar').value!="")
+		
+		if (canSubmit) {
+			document.getElementById('submit').disabled = false;
+		}
+		else {
+			document.getElementById('submit').disabled = 'disabled';
+		}
+	}
 
+</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
