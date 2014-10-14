@@ -1,3 +1,7 @@
+<?php
+  include('config.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,16 +35,15 @@
 
 <title>Simple Blog | Tambah Post</title>
 
-
 </head>
 
 <body class="default">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -52,24 +55,24 @@
     <div class="art-body">
         <div class="art-body-inner">
             <h2>Tambah Post</h2>
-
             <div id="contact-area">
-                <form method="post" action="#">
+                <form name="formPost" method="post" action="insert.php">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="Judul" id="Judul">
 
                     <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
+                    <input type="text" name="Tanggal" id="Tanggal" placeholder="dd-mm-yyyy">
                     
                     <label for="Konten">Konten:</label><br>
                     <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <input type="submit" name="submit" value="Simpan" class="submit-button" onclick="return validasiTanggal(document.formPost.Tanggal)">  
+                                 
                 </form>
             </div>
         </div>
     </div>
-
+    
 </article>
 
 <footer class="footer">
@@ -92,7 +95,71 @@
 </footer>
 
 </div>
+<script language="javascript" type="text/javascript">
+function cek(inputText) {
+}
+function validasiTanggal(inputText) {
+  var formatTanggal = /^(0?[1-9]|[12][0-9]|3[01])[\-](0?[1-9]|1[012])[\-]\d{4}$/;
+  if(inputText.value.match(formatTanggal)) {
+    document.formPost.Tanggal.focus();
+    
+    var dSplit = inputText.value.split('-');
+    var dd = parseInt(dSplit[0]);
+    var mm = parseInt(dSplit[1]);
+    var yy = parseInt(dSplit[2]);
+  
+    var jumHari = [31,28,31,30,31,30,31,31,30,31,30,31];
+    if(mm==1 || mm>2) {
+      if(dd>jumHari[mm-1]) {
+        alert('Format tanggal salah! dd-mm-yyyy');
+        document.formPost.Tanggal.focus();
+        return false;
+      }
+    } 
+    if (mm == 2) {
+        var yyKabisat = false;
+        if (((yy%4==0) || (yy%100==0)) && !(yy%400==0)) {
+            yyKabisat = true;
+        }
+        if ((yyKabisat==false) && (dd>=29)) {
+            alert('Format tanggal salah! dd-mm-yyyy');
+            document.formPost.Tanggal.focus();
+            return false;
+        }
+        if ((yyKabisat==true) && (dd>29)) {
+            alert('Format tanggal salah! dd-mm-yyyy');
+            document.formPost.Tanggal.focus();
+            return false;
+        }
+    }
+  //periksa apakah input lebih besar atau sama
+    var dSplit = inputText.value.split('-');
+    var dd = parseInt(dSplit[0]);
+    var mm = parseInt(dSplit[1]);
+    var yy = parseInt(dSplit[2]);
 
+    var today = new Date();
+    var ddT = today.getDate();
+    var mmT = today.getMonth() + 1;
+    var yyT = today.getFullYear();
+
+    var inputToDate = new Date(yy,mm,dd);
+    var todayToDate = new Date(yyT, mmT, ddT);
+    if (inputToDate >= todayToDate) {
+        return true;
+    }
+    else {
+        alert('Masukan tanggal harus lebih besar atau sama dengan tanggal hari ini');
+        document.formPost.Tanggal.focus();
+        return false;
+    }
+  }else {
+    alert('Format tanggal salah! dd-mm-yyyy');
+    document.formPost.Tanggal.focus();
+    return false;
+  }
+}
+</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

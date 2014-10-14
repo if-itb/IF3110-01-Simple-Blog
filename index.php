@@ -1,3 +1,7 @@
+<?php
+  include('config.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +42,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,28 +52,39 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
+
+            <?php
+              $query = mysql_query("SELECT `post-id`, `judul`, `tanggal`, `konten` FROM `data-post`") or die(mysql_error());
+           
+              while ($data = mysql_fetch_array($query)) {
+                
+            ?>
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
+                    <h2 class="art-list-title"><a href="post.php?id=<?php echo $data['post-id']; ?>"><?php echo $data['judul']; ?></a></h2>
+                    <div class="art-list-time"><?php echo $data['tanggal']; ?></div>
                     <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
                 <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
+                  <?php 
+                    if (strlen($data['konten']) > 225) {
+                     echo substr($data['konten'], 0, 225) ?> &hellip;
+                    <?php   
+                    }
+                      else {
+                        echo $data['konten'];
+                      }
+                  ?>
+                </p>
+                <p>
+                  <a href="edit_post.php?id=<?php echo $data['post-id']; ?>">Edit</a> |
+                   <a href="javascript:konfirmDelete('delete.php?id=<?php echo $data['post-id']; ?>')">Hapus</a>
                 </p>
             </li>
+            <?php
+              }
+            ?>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
           </ul>
         </nav>
     </div>
@@ -95,7 +110,13 @@
 </footer>
 
 </div>
-
+<script type="text/javascript">
+function konfirmDelete(delURL) {
+  if(confirm("Apakah Anda yakin menghapus pos ini?")) {
+     document.location = delURL;
+  }
+}
+</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

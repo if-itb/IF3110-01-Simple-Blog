@@ -1,3 +1,14 @@
+<?php
+  include('config.php');
+
+    $id = $_GET['id'];
+
+    $query = mysql_query("SELECT  `judul`, `tanggal`, `konten` FROM `data-post` WHERE `post-id`=$id") or die(mysql_error());
+ 
+    $data = mysql_fetch_array($query);
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +36,42 @@
 <link rel="stylesheet" type="text/css" href="assets/css/screen.css" />
 <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
+<script language="javascript" type="text/javascript">
+
+function buatAjax() {
+    if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+    }
+    if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return null;
+}
+var drz = buatAjax();
+
+function kirimData() {
+    var komen = "id="+<?php echo $id; ?>;
+        komen += "&nama="+document.formKomen.Nama.value;
+        komen += "&email="+document.formKomen.Email.value;
+        komen += "&komentar="+document.formKomen.Komentar.value; 
+    drz.onreadystatechange = function() {
+        if((drz.readyState == 4) && (drz.status == 200)) {
+            var text = drz.responseText + document.getElementById("proses").innerHTML;
+            document.getElementById("proses").innerHTML = text;
+            document.formKomen.Nama.value = "";
+            document.formKomen.Email.value = "";
+            document.formKomen.Komentar.value = "";
+        }
+    }
+    drz.open("POST", "insert_komentar.php?data="+Math.random(), true);
+    drz.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    drz.setRequestHeader("Content-length", komen.length);
+    drz.setRequestHeader("Connection", "close");
+    drz.send(komen);
+}
+
+</script>
+
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
@@ -38,18 +85,18 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
 <article class="art simple post">
     
     <header class="art-header">
-        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
-            <time class="art-time">15 Juli 2014</time>
-            <h2 class="art-title">Apa itu Simple Blog?</h2>
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1; position: relative">
+            <time class="art-time"><?php echo $data['tanggal']; ?></time>
+            <h2 class="art-title"><?php echo $data['judul']; ?></h2>
             <p class="art-subtitle"></p>
         </div>
     </header>
@@ -57,15 +104,14 @@
     <div class="art-body">
         <div class="art-body-inner">
             <hr class="featured-article" />
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis aliquam minus consequuntur amet nulla eius, neque beatae, nostrum possimus, officiis eaque consectetur. Sequi sunt maiores dolore, illum quidem eos explicabo! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur consequatur molestiae saepe sed, incidunt sunt inventore minima voluptatum adipisci hic, est ipsa iste. Nobis, aperiam provident quae. Reprehenderit, iste.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores animi tenetur nam delectus eveniet iste non culpa laborum provident minima numquam excepturi rem commodi, officia accusamus eos voluptates obcaecati. Possimus?</p>
+            <p><?php echo $data['konten']; ?></p>
 
             <hr />
             
             <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form method="post" action="#">
+                <form method="post" name="formKomen">
                     <label for="Nama">Nama:</label>
                     <input type="text" name="Nama" id="Nama">
         
@@ -75,26 +121,27 @@
                     <label for="Komentar">Komentar:</label><br>
                     <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
 
-                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                    <input type="button" name="submit" value="Kirim" class="submit-button" onClick="validasiEmail(document.formKomen.Email)">
                 </form>
             </div>
 
             <ul class="art-list-body">
+            <div id="proses"></div>
+            <?php
+                $query_komen = mysql_query("SELECT `kom-id`, `nama`, `waktu`, `email`, `komentar` FROM `data-kom` WHERE `post-id`=$id ORDER BY `kom-id` DESC");
+                while ($data_kom=mysql_fetch_array($query_komen)) {
+            ?>
                 <li class="art-list-item">
                     <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
+                        <h2 class="art-list-title"><a href="mailto:<?php echo $data_kom['email']; ?>"><?php echo $data_kom['nama']; ?></a></h2>
+                        <div class="art-list-time"><?php echo $data_kom['waktu']; ?></div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                    <p><?php echo $data_kom['komentar'] ?></p>
                 </li>
-
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
+               
+            <?php
+                }
+            ?>
             </ul>
         </div>
     </div>
@@ -121,7 +168,20 @@
 </footer>
 
 </div>
-
+<script>
+function validasiEmail(inputText) { 
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+    if(inputText.value.match(mailformat))  
+    {  
+        kirimData(); 
+    }  
+    else  
+    {  
+        alert("Masukan email tidak valid!");  
+        document.formKomen.Email.focus();  
+    }  
+} 
+</script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
