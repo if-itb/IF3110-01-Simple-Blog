@@ -82,6 +82,22 @@
 			$Nama = $_POST["Nama"];
 			$Email = $_POST["Email"];
 			$Komentar = $_POST["Komentar"];
+			
+			$dbhost = 'localhost';
+			$dbuser = 'root';
+			$dbpass = '';
+			$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+			mysql_select_db('simple_blog_db');
+			$sql = "INSERT INTO comments".
+				"(post_id,name,email,comment_content,comment_time)".
+				"VALUES ('$Post_ID', '$Nama', '$Email', '$Komentar', NOW())";
+			$retval = mysql_query( $sql, $conn );
+			if(! $retval )
+			{
+				die('Could not enter data: ' . mysql_error());
+			}
+			echo "Komentar berhasil ditambahkan\n";
+			mysql_close($conn);
 		}
 	?>
 	
@@ -118,21 +134,45 @@
             </div>
 
             <ul class="art-list-body">
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Jems</a></h2>
-                        <div class="art-list-time">2 menit lalu</div>
+			
+				<li class="art-list-item">
+                    <?php
+					$dbhost = 'localhost';
+					$dbuser = 'root';
+					$dbpass = '';
+					$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+					if(! $conn )
+					{
+						die('Could not connect: ' . mysql_error());
+					}
+					$sql = "SELECT * FROM comments WHERE post_id = $Post_ID";
+
+					mysql_select_db('simple_blog_db');
+					$retval = mysql_query( $sql, $conn );
+					if(! $retval )
+					{
+						die('Could not get data: ' . mysql_error());
+					}
+					while($row = mysql_fetch_array($retval))
+					{ 
+						$Nama = $row['name'];
+						$Email = $row['email'];
+						$Komentar = $row['comment_content'];
+						$Waktu_Komentar = $row['comment_time'];
+
+					?>
+					<div class="art-list-item-title-and-time">
+                        <h2 class="art-list-title"><a href=<?php echo "post.php?Post_ID=$Post_ID"?>><?php echo $Nama;; ?></a></h2>
+                        <div class="art-list-time"><?php echo $Waktu_Komentar; ?></div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
+                    <p><?php echo $Komentar; ?></p>
+
+					<?php
+				} 
+				mysql_close($conn);
+				?>
                 </li>
 
-                <li class="art-list-item">
-                    <div class="art-list-item-title-and-time">
-                        <h2 class="art-list-title"><a href="post.html">Kave</a></h2>
-                        <div class="art-list-time">1 jam lalu</div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                </li>
             </ul>
         </div>
     </div>

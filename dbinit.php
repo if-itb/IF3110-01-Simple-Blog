@@ -39,7 +39,8 @@
 			'post_id INT NOT NULL, '.
 			'name VARCHAR(20) NOT NULL, '.
 			'email  VARCHAR(20) NOT NULL, '.
-			'comment_content    VARCHAR(200) NOT NULL, '.
+			'comment_content  VARCHAR(200) NOT NULL, '.
+			'comment_time timestamp(6) NOT NULL'.
 			'primary key ( comment_id ))';
 
 		mysql_select_db('simple_blog_db');
