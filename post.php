@@ -29,51 +29,87 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Apa itu Simple Blog?</title>
 
 
 </head>
+<?php
+// Create connection
+$con=mysqli_connect("localhost","root","","wbd");
+
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+$resultpost = mysqli_query($con,"SELECT * FROM post WHERE PostID=".$_GET['PostID']);
+$resultcomment = mysqli_query($con,"SELECT * FROM comment WHERE PostID=".$_GET['PostID']." ORDER BY Tanggal DESC");
+$row = mysqli_fetch_array($resultpost);
+$row2 = mysqli_fetch_array($resultcomment);
+
+?>
 
 <body class="default">
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
+<article class="art simple post">
+    
+    <header class="art-header">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+            <time class="art-time"><?php echo $row['Tanggal']; ?></time>
+            <h2 class="art-title"><?php echo $row['Judul']; ?></h2>
+            <p class="art-subtitle"></p>
+        </div>
+    </header>
 
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <hr class="featured-article" />
+            <p><?php echo $row['Konten']; ?></p>
+           
+
+            <hr />
+            
+            <h2>Komentar</h2>
+
+            <div id="contact-area">
+                <form method="post" onsubmit="showComment(<?php echo $_GET['PostID'];?>); return false;">
+                    <label for="Nama">Nama:</label>
+                    <input type="text" name="Nama" id="Nama">
+        
+                    <label for="Email">Email:</label>
+                    <input type="text" name="Email" id="Email">
+                    
+                    <label for="Komentar">Komentar:</label><br>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+
+                    <input type="submit" name="submit" value="Kirim" class="submit-button">
+                </form>
+            </div>
+
+            <ul class="art-list-body" id="Comment">
+                <?php while($row2 = mysqli_fetch_array($resultcomment)) {?>
+                <li class="art-list-item">
+                    <div class="art-list-item-title-and-time">
+                        <h2 class="art-list-title"><a href="simpleblog.js"><?php echo $row2['Nama']; ?></a></h2>
+                        <div class="art-list-time"><?php echo $row2['Tanggal']; ?></div>
+                    </div>
+                    <p><?php echo $row2['Konten']; ?></p>
+                </li>
+                <?php }
+                mysqli_close($con);?>
+            </ul>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -100,6 +136,7 @@
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
+<script type="text/javascript" src="assets/js/simpleblog.js"></script>
 <script type="text/javascript">
   var ga_ua = '{{! TODO: ADD GOOGLE ANALYTICS UA HERE }}';
 

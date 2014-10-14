@@ -225,7 +225,7 @@ div.cover > img {
 }
 /* Header */
 .art-header {
-  height: 900px;
+  height: 550px;
   /* Background image is defined in the post */
   background-position: top center;
   background-attachment: fixed;
@@ -233,7 +233,7 @@ div.cover > img {
 }
 /* Contains the time, title and subtitle for an article */
 .art-header-inner {
-  position: fixed;
+  position: relative;
   top: 300px;
   left: 50%;
   margin-left: -490px;
@@ -692,7 +692,7 @@ padding: 0;
     padding-bottom: 50px;
   }
   .art-header-inner {
-    margin-top: 190px !important;
+    margin-top: 0px !important;
   }
   .art-body-inner {
     padding-top: 30px;
