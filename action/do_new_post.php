@@ -14,17 +14,32 @@ $your_date = date("Y-m-d", strtotime($tanggal));
 $konten =  check_input($_POST['konten']);
 
 if($judul=="" OR $tanggal=="" OR $konten==""){
-    header("Location:../new_post.php?msg= Semua field harus diisi");
-    
+	echo "Semua field harus diisi";    
 }
 else {
 
 	$data = mysql_query("INSERT INTO `post`(`judul`,  `tanggal`,  `konten`) VALUES
                                        ('".$judul."', '".$your_date."', '".$konten."')");
 	if($data){
-		header("Location:../new_post.php?msg=Post Berhasil Ditambahkan");
-    } else {      
-      	header("Location:../new_post.php?msg=Post Gagal Ditambahkan"); 
+?>
+		<ul class="art-list-body">		
+			<li class="art-list-item">
+	            <div class="art-list-item-title-and-time">
+	                <h2 class="art-list-title"><a href="post.php">
+	                	<?php echo $judul; ?>
+	                </a></h2>
+	                <div class="art-list-time">
+	                	<?php echo $your_date; ?>
+	                </div>
+	            </div>
+	            <p>
+	            	<?php echo $konten; ?>
+	            &hellip;</p>
+	        </li>        
+        </ul>
+<?php
+	} else {      
+      	echo "Post Gagal Ditambahkan"; 
     }
 }
 ?>

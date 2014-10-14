@@ -9,20 +9,24 @@ function check_input($value)
 
 $id =  check_input($_POST['id']);
 $nama =  check_input($_POST['nama']);
-$waktu =  check_input($_POST['waktu']);
-$your_date = date("Y-m-d", strtotime($waktu));
+//$waktu =  check_input($_POST['waktu']);
+date_default_timezone_set('Asia/Jakarta');
+$date = date("Y-m-d h:i:s", time());
+//$your_date = date("Y-m-d", strtotime($waktu));
 $email =  check_input($_POST['email']);
 $komentar =  check_input($_POST['komentar']);
 
-if($id=="" OR $nama=="" OR $your_date=="" OR $email=="" OR $komentar==""){
+if($id=="" OR $nama=="" OR $date=="" OR $email=="" OR $komentar==""){
     	echo "Semua field harus diisi";    
 }
 else {
 	echo mysql_error($dbConnect);
+	// echo $date;
 	$data = mysql_query("INSERT INTO `komentar`(`idterkait`, `nama`,  `waktu`,  `email`,  `komentar`)
-		VALUES ('".$id."', '".$nama."', '".$your_date."', '".$email."', '".$komentar."')");
+		VALUES ('".$id."', '".$nama."', '".$date."', '".$email."', '".$komentar."')");
+	
 	if($data){
-		$datakomen = mysql_query("select * from komentar where idterkait='$id' ");
+		$datakomen = mysql_query("SELECT * from komentar WHERE idterkait='$id' ORDER BY waktu DESC");
 	    
 ?>
 		<ul class="art-list-body">

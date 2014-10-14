@@ -47,13 +47,44 @@ function loadkomentar(){
 		console.log("kutil2 ketupat");
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	var id=document.getElementById('id').value; 
-	var nama=document.getElementById('nama').value;
-	var waktu=new Date();
+	var nama=document.getElementById('nama').value;	
 	var email=document.getElementById('email').value;
 	var komentar=document.getElementById('komentar').value;
 		console.log(nama);
-	xmlhttp.send("id="+id+"&nama="+nama+"&waktu="+waktu+"&email="+email+"&komentar="+komentar+"");
+	xmlhttp.send("id="+id+"&nama="+nama+"&email="+email+"&komentar="+komentar+"");
 		console.log("kutil3 ketupat");
+
+}
+
+function newpost(){
+	var xmlhttp;
+	console.log("kutil ketupat");
+
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+	  	xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	   		document.getElementById("postbaru").innerHTML=xmlhttp.responseText;
+
+	    }
+	  }
+	xmlhttp.open("POST","action/do_new_post.php",true);
+		console.log("kutil2 ketupat");
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	var judul=document.getElementById('judul').value;	
+	var tanggal=document.getElementById('tanggal').value;
+	var konten=document.getElementById('konten').value;
+		console.log(judul);
+	xmlhttp.send("judul="+judul+"&tanggal="+tanggal+"&konten="+konten+"");
+		console.log("tanggal");
 
 }
 

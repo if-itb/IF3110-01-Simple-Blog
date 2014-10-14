@@ -2,9 +2,9 @@
     require('config/configuration.php');
     require('include/header.php');
     $id = $_GET["id"];
-    $data = mysql_query("select * from post where id='$id' ");
+    $data = mysql_query("SELECT * from post WHERE id='$id' ORDER BY tanggal DESC");
     $hasil = mysql_fetch_array($data);
-    $datakomen = mysql_query("select * from komentar where idterkait='$id' ");
+    $datakomen = mysql_query("SELECT * from komentar WHERE idterkait='$id' ORDER BY waktu DESC");
     
 ?>
 
@@ -16,12 +16,7 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
-</nav>
+
 
 <article class="art simple post">
     

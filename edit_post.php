@@ -15,13 +15,6 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <!--<li><a href="new_post.html">+ Edit Post</a></li>-->
-    </ul>
-</nav>
-
 <article class="art simple post">
     
     
@@ -39,7 +32,7 @@
             <div id="contact-area">
                 <form method="post" action="action/do_edit_post.php?user_option=edit&id=<?php echo$hasil['id']?>">
                     <label for="Judul">Judul:</label>
-                    <input type="text" name="judul" id="judul" value= "<?php echo $hasil['judul']; ?>">
+                    <input type="text" name="judul" id="judul" placeholder= "<?php echo $hasil['judul']; ?>">
 
                     <label for="Tanggal">Tanggal:</label>
                     <input type="date" name="tanggal" id="tanggal" onchange="dateValidation()" value= "<?php echo $hasil['tanggal']; ?>">
@@ -47,7 +40,8 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="konten" disabled><?php echo $hasil['konten']; ?></textarea>
 
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
+                    <button type="submit" value="Submit">Submit</button>
+                    <button type="reset" value="Reset">Reset</button>
                 </form>
             </div>
         </div>

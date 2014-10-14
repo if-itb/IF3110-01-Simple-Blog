@@ -10,13 +10,6 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
-    <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
-    </ul>
-</nav>
-
 <article class="art simple post">
     
     
@@ -32,7 +25,7 @@
             <h2>Tambah Post</h2>
             
             <div id="contact-area">
-                <form method="post" action="action/do_new_post.php">
+                <form method="post" action="#" onsubmit="newpost(); return false">
                     <label for="Judul">Judul:</label>
                     <input type="text" name="judul" id="judul">
 
@@ -42,8 +35,13 @@
                     <label for="Konten">Konten:</label><br>
                     <textarea name="konten" rows="20" cols="20" id="konten" disabled></textarea>
 
-                    <input type="submit" name="submit"l vaue="Simpan" class="submit-button">
+                    <button type="submit" value="Submit">Submit</button>
+                    <button type="reset" value="Reset">Reset</button>
+
                 </form>
+            </div>
+            <div id="postbaru">
+                
             </div>
         </div>
     </div>

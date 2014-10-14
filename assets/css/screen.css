@@ -852,6 +852,11 @@ hr.featured-article:after {
   
 }
 
+#contact-area input.clear-button {
+  width: 100px;
+  
+}
+
 label {
   float: left;
   text-align: right;
@@ -859,3 +864,13 @@ label {
   width: 100px;
   padding-top: 5px;
 }
+
+/*  Tambahan */
+button {
+display: inline-block;
+padding: 4px 12px;
+margin-bottom: 0;
+font-size: 14px;
+line-height: 20px;
+color: #333;
+text-align: center;
