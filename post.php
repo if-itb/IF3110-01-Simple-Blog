@@ -126,9 +126,11 @@ function validateEmail() {
 	var email = document.forms["komen"]["Email"].value;
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var result = email.match(re);
-	if (result !=null){alert("benar");}
+	if (result !=null){document.getElementById("Email").style.background = "lime";
+            document.getElementById("Email").style.color = "white";}
 	else
-	{alert("salah"); return false;}
+	{document.getElementById("Email").style.background = "red";
+            document.getElementById("Email").style.color = "white"; return false;}
 }
 </script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
