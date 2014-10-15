@@ -34,6 +34,22 @@
 
 </head>
 <body class="default">
+    <?php
+        $dbhost="localhost";
+        $dbuser="root";
+        $dbpass="";
+        $dbname="simpleblog";
+        $connection=mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
+        if(mysqli_connect_errno()){
+            die("Koneksi ke Database gagal : ".mysqli_connect_errno()
+                ." (". mysqli_connect_errno()." )");
+        }
+        $id=$_GET['ID'];
+        $query="SELECT * FROM posting WHERE id=$id";
+        $result=mysqli_query($connection,$query);
+        if($result) $row=mysqli_fetch_assoc($result);
+        else echo 'query gagal';
+    ?>
 <div class="wrapper">
 
 <nav class="nav">
@@ -50,12 +66,12 @@
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <h2>Edit POST</h2>
 
             <div id="contact-area">
-                <form id="formPost" method="post" action="processPost.php">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
+                <form id="formPost" method="post" action="processEdit.php?ID=<?php echo $id ?>">
+                    <label for="Judul">Judul: </label>
+                    <input type="text" name="Judul" id="Judul" value="<?php echo $row['judul'] ?>">
 
                     <label for="Tanggal">Tanggal:</label>
                     <select id="daydropdown" name="daydropdown">
@@ -66,11 +82,10 @@
                     </select> 
                     <br><br>
                     <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
+                    <textarea name="Konten" rows="20" cols="20" id="Konten"><?php echo $row['konten'] ?></textarea>
                     <input type="submit" name="submit" value="Simpan" class="submit-button">
                     <br>
                 </form>
-                <span id="error" style="color:red;"></span>
             </div>
         </div>
     </div>

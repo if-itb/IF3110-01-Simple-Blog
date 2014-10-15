@@ -29,11 +29,30 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog | Apa itu Simple Blog?</title>
 
 
 </head>
-<body class="default">
+
+<body class="default" onload="show_comment(<?php echo $_GET['ID']?>)">
+    <?php
+        $dbhost="localhost";
+        $dbuser="root";
+        $dbpass="";
+        $dbname="simpleblog";
+        $connection=mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
+        if(mysqli_connect_errno()){
+          die("Koneksi ke Database gagal : ".mysqli_connect_errno()
+          ." (". mysqli_connect_errno()." )");
+        }
+        $id=$_GET['ID'];
+        $query="SELECT * FROM `posting` WHERE id=$id";
+        $results=mysqli_query($connection,$query);
+        if($results) $result=mysqli_fetch_assoc($results);
+        else{
+            echo "QUERY FAILED";
+        }
+    ?>
 <div class="wrapper">
 
 <nav class="nav">
@@ -45,33 +64,40 @@
 
 <article class="art simple post">
     
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+    <header class="art-header">
+        <div class="art-header-inner" style="margin-top: 0px; opacity: 1;">
+            <time class="art-time"><?php echo $result['tanggal']?></time>
+            <h2 class="art-title"><?php echo $result['judul']?></h2>
+            <p class="art-subtitle"></p>
+        </div>
+    </header>
 
     <div class="art-body">
         <div class="art-body-inner">
-            <h2>Tambah Post</h2>
+            <hr class="featured-article" />
+            <p><?php echo $result['konten']?></p>
+            <hr />
+            
+            <h2>Komentar</h2>
 
             <div id="contact-area">
-                <form id="formPost" method="post" action="processPost.php">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <select id="daydropdown" name="daydropdown">
-                    </select> 
-                    <select id="monthdropdown" name="monthdropdown">
-                    </select> 
-                    <select id="yeardropdown" name="yeardropdown">
-                    </select> 
-                    <br><br>
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                    <br>
+                <form id="comen" method="POST" action="#" onsubmit="return false">
+                    <label for="Nama">Nama:</label>
+                    <input type="text" name="Nama" id="Nama">
+        
+                    <label for="Email">Email:</label>
+                    <input type="text" name="Email" id="Email">
+                    
+                    <label for="Komentar">Komentar:</label><br>
+                    <textarea name="Komentar" rows="20" cols="20" id="Komentar"></textarea>
+                    <input type="submit" name="submit" value="Kirim" class="submit-button" onclick="comment(<?php echo $_GET['ID']?>)">
                 </form>
                 <span id="error" style="color:red;"></span>
+                <span id="errorEmail" style="color:red;"></span>
             </div>
+
+            <ul id="yeay" class="art-list-body">
+            </ul>
         </div>
     </div>
 
@@ -97,8 +123,7 @@
 </footer>
 
 </div>
-<script type="text/javascript" src="assets/js/date.js"></script>
-<script type="text/javascript" src="assets/js/function.js"></script>
+<script type="text/javascript" src="assets/js/ajax.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

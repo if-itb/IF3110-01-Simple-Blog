@@ -38,9 +38,9 @@
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.php">+ Tambah Post</a></li>
+        <li><a href="new_post.html">+ Tambah Post</a></li>
     </ul>
 </nav>
 
@@ -48,36 +48,6 @@
     <div class="posts">
         <nav class="art-list">
           <ul class="art-list-body">
-            <?php
-              $dbhost="localhost";
-              $dbuser="root";
-              $dbpass="";
-              $dbname="simpleblog";
-              $connection=mysqli_connect($dbhost,$dbuser,$dbpass,$dbname);
-              if(mysqli_connect_errno()){
-                  die("Koneksi ke Database gagal : ".mysqli_connect_errno()
-                    ." (". mysqli_connect_errno()." )");
-              }
-              $query="SELECT * FROM `posting` ORDER BY `tanggal` DESC";
-              $results=mysqli_query($connection,$query);
-              while($result=mysqli_fetch_assoc($results)){
-                echo "
-                <li class='art-list-item'>
-                  <div class='art-list-item-title-and-time'>
-                      <input type='hidden' id='postId' value='".$result['id']."'/a>
-                      <h2 class='art-list-title'><a href='view_post.php?ID=".$result['id']."'>".$result['judul']."</a></h2>
-                      <div class='art-list-time'>".$result['tanggal']."</div>
-                      <div class='art-list-time'><span style='color:#F40034;'>&#10029;</span> Featured</div>
-                  </div>
-                  <p>".$result['konten']."</p>
-                  <p>
-                    <a href='edit.php?ID=".$result['id']."'>Edit</a> | <a href='#' onclick='ConfirmDelete(".$result['id'].")'>Hapus</a>
-                  </p>
-                </li>
-                ";
-              }
-              
-            ?>
             <li class="art-list-item">
                 <div class="art-list-item-title-and-time">
                     <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
@@ -125,7 +95,7 @@
 </footer>
 
 </div>
-<script type="text/javascript" src="assets/js/function.js"></script>
+
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
