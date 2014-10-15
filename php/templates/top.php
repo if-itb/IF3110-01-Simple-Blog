@@ -14,6 +14,7 @@
 		
 		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,400italic,700,700italic|Roboto+Condensed:300,400,400italic,700,700italic|Inconsolata:400,700">
 		<link rel="stylesheet" type="text/css" href="<?php echo url("css/style.css") ?>">
+		<link rel="icon" type="image/png" href="<?php echo url("favicon.png") ?>">
 	</head>
 	<body>		
 		<header>
