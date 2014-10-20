@@ -1,6 +1,6 @@
 # Slog
 
-Slog is a work I have done for college assignment IF3110 Web-Based Development [Simple Blog](https://github.com/if-itb/IF3110-01-Simple-Blog).
+Slog is a work I have done for college assignment IF3110 Web-Based Development [Simple Blog](https://github.com/if-itb/IF3110-01-Simple-Blog). The assignment is to create a blog using PHP without any frameworks nor JavaScript frameworks.
 
 Please note that the website design and structure is still *very very* unsafe and **should not be used directly without modification**. For example, the post and comment feature are very prone to malicious HTML injection. After all, Slog is only created in a week from a blank folder by a drunk programmer for a college assignment -- surely you shouldn't expect much.
 
