@@ -29,14 +29,16 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog</title>
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
 
 <body class="default">
+<?php
+	include 'functions.php';
+?>
 <div class="wrapper">
-
 <nav class="nav">
     <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
@@ -44,36 +46,62 @@
     </ul>
 </nav>
 
-<div id="home">
-    <div class="posts">
-        <nav class="art-list">
-          <ul class="art-list-body">
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Apa itu Simple Blog?</a></h2>
-                    <div class="art-list-time">15 Juli 2014</div>
-                    <div class="art-list-time"><span style="color:#F40034;">&#10029;</span> Featured</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-
-            <li class="art-list-item">
-                <div class="art-list-item-title-and-time">
-                    <h2 class="art-list-title"><a href="post.html">Siapa dibalik Simple Blog?</a></h2>
-                    <div class="art-list-time">11 Juli 2014</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis repudiandae quae natus quos alias eos repellendus a obcaecati cupiditate similique quibusdam, atque omnis illum, minus ex dolorem facilis tempora deserunt! &hellip;</p>
-                <p>
-                  <a href="#">Edit</a> | <a href="#">Hapus</a>
-                </p>
-            </li>
-          </ul>
-        </nav>
+<article class="art simple post">
+    
+    
+    <h2 class="art-title" style="margin-bottom:40px">-</h2>
+    <div class="art-body">
+        <div class="art-body-inner">
+            <h2>Tambah Post</h2>
+			<div id="contact-area">
+                <form name="myForm" method="post" action="processing.php" onsubmit="return validateform()">
+		<p id="tes"></p>
+				<script>
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			document.getElementByID("tes").innerHTML = "Tes";
+		</script>
+				<?php
+					if(isset($_GET['id']))
+					{
+						$con = connectdb();
+						$id_post = $_GET['id'];
+						$sql_statement = "SELECT * FROM data_post WHERE ID_POST = $id_post";
+						$result = mysql_query($sql_statement,$con);
+						while($row = mysql_fetch_array($result))
+						{
+							$id = intval($_GET['id']);
+							$judul = $row['Judul'];
+							$tanggal = $row['Tanggal'];
+							$konten = $row['Konten'];
+							echo "<label for='Judul'>Judul:</label>"
+						."<input type=\"text\" id=\"Judul\" name=\"Judul\" value=\"".$row['Judul']."\">"
+						."<label for='Tanggal'>Tanggal:</label>"
+						."<input type=\"text\" id=\"Tanggal\" name=\"Tanggal\" value=\"".$row['Tanggal']."\">"
+						.'<label for="Konten">Konten:</label><br>'
+						."<textarea name=\"Konten\" rows=\"20\" cols=\"20\" id=\"Konten\">".$row['Konten']."</textarea>"					
+						.'<input type="submit" name="submit" value="Simpan" class="submit-button">'
+						."<input type=\"hidden\" name=\"id\" value=\"".$id."\">";
+						}
+					}
+					else
+					{
+						echo "<label for='Judul'>Judul:</label>"
+						."<input type=text id=Judul name=Judul>"
+						."<label for='Tanggal'>Tanggal:</label>"
+						."<input type=text id=Tanggal name=Tanggal>"
+						.'<label for="Konten">Konten:</label><br>'
+						."<textarea name=Konten rows=20 cols=20 id=Konten>"."</textarea>"					
+						.'<input type="submit" name=\"submit\" value="Simpan" class="submit-button">';
+						
+					}
+				?>
+				</form>
+            </div>
+        </div>
     </div>
-</div>
+
+</article>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -96,6 +124,7 @@
 
 </div>
 
+<script type="text/javascript" src="confirm.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>

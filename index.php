@@ -29,48 +29,51 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>Simple Blog | Tambah Post</title>
+<title>Simple Blog</title>
 
 
 </head>
 
 <body class="default">
+<?php
+	include 'functions.php';
+?>
 <div class="wrapper">
 
 <nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
-        <li><a href="new_post.html">+ Tambah Post</a></li>
+        <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
 </nav>
 
-<article class="art simple post">
-    
-    
-    <h2 class="art-title" style="margin-bottom:40px">-</h2>
-
-    <div class="art-body">
-        <div class="art-body-inner">
-            <h2>Tambah Post</h2>
-
-            <div id="contact-area">
-                <form method="post" action="#">
-                    <label for="Judul">Judul:</label>
-                    <input type="text" name="Judul" id="Judul">
-
-                    <label for="Tanggal">Tanggal:</label>
-                    <input type="text" name="Tanggal" id="Tanggal">
-                    
-                    <label for="Konten">Konten:</label><br>
-                    <textarea name="Konten" rows="20" cols="20" id="Konten"></textarea>
-
-                    <input type="submit" name="submit" value="Simpan" class="submit-button">
-                </form>
-            </div>
-        </div>
+<div id="home">
+    <div class="posts">
+        <nav class="art-list">
+          <ul class="art-list-body">
+		  <?php
+			$con = connectdb();
+			$sql_statement = "SELECT * FROM data_post ORDER BY Tanggal DESC";
+			$result = mysql_query($sql_statement,$con);
+			while($row = mysql_fetch_array($result))
+			{
+				$id_post = $row['ID_Post'];
+				echo "<li class='art-list-item'>
+				<div class='art-list-item-title-and-time'><h2 class='art-list-title'>"
+				.'<a href="post.php?id='.$id_post.'">'
+				.$row['Judul']."</a></h2><div class='art-list-time'>"
+				.$row['Tanggal']."</div><div class='art-list-time'><span style='color:#F40034;'>&#10029;</span> Featured</div></div>"
+				."<p>".$row['Konten']."</p>"
+				."<p>".'<a href="new_post.php?id='.$id_post .'">Edit</a>'." | "
+				.'<a href="processing.php?id='.$id_post .'&action=delete" onclick="return confirm_delete()">Hapus</a></p></li>'
+				;
+			}
+			mysql_close($con);
+		  ?>
+          </ul>
+        </nav>
     </div>
-
-</article>
+</div>
 
 <footer class="footer">
     <div class="back-to-top"><a href="">Back to top</a></div>
@@ -92,7 +95,7 @@
 </footer>
 
 </div>
-
+<script type="text/javascript" src="confirm.js"></script>
 <script type="text/javascript" src="assets/js/fittext.js"></script>
 <script type="text/javascript" src="assets/js/app.js"></script>
 <script type="text/javascript" src="assets/js/respond.min.js"></script>
