@@ -2,9 +2,10 @@
 	include 'functions.php';
 	$id_post = intval($_GET['id']);
 	$con = connectdb();
-	$sql_statement = "SELECT * FROM data_komen ORDER BY Tanggal ASC";
+	$sql_statement = "SELECT * FROM data_komen WHERE ID_Post = $id_post ORDER BY Tanggal ASC";
 	$result = mysql_query($sql_statement,$con);
 	echo "<ul class='art-list-body'>";
+	
 	while($row = mysql_fetch_array($result))
 	{
 		$nama = $row['Nama'];
