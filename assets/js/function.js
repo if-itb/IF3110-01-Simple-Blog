@@ -23,7 +23,6 @@ function comment() {
       document.forms["commentForm"]["Nama"].value="";
       document.forms["commentForm"]["Email"].value="";
       document.forms["commentForm"]["Komentar"].value="";
-      loadComment(idPost);
       return false;
     }
     else {
@@ -67,7 +66,7 @@ function loadComment(str) {
   }
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      document.getElementById("oldComment").innerHTML=xmlhttp.responseText;
+      document.getElementById("Comment").innerHTML=xmlhttp.responseText;
     }
   }
   xmlhttp.open("GET","comment.php?var="+str,true);
@@ -86,7 +85,7 @@ function saveComment(str) {
   }
   xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      document.getElementById("newComment").innerHTML=xmlhttp.responseText;
+      document.getElementById("Comment").innerHTML=xmlhttp.responseText;
     }
   }
   xmlhttp.open("POST","insertcomment.php",true);

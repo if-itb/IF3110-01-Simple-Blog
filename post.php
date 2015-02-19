@@ -85,10 +85,9 @@
             </div>
 
             <ul class="art-list-body">
-                <div id="oldComment">
+                <div id="Comment">
                 </div>
-                <div id="newComment">
-                </div>
+                
             </ul>
         </div>
     </div>
