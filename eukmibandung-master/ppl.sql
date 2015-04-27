@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2015 at 01:29 PM
+-- Generation Time: Apr 27, 2015 at 08:54 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.4.16
 
@@ -25,57 +25,57 @@ USE `ppl`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ukmin_dinas`
+-- Table structure for table `ppl_ukmin_dinas`
 --
 
-CREATE TABLE IF NOT EXISTS `ukmin_dinas` (
+CREATE TABLE IF NOT EXISTS `ppl_ukmin_dinas` (
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL DEFAULT '123456789',
   PRIMARY KEY (`username`,`password`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ukmin_dinas`
+-- Dumping data for table `ppl_ukmin_dinas`
 --
 
-INSERT INTO `ukmin_dinas` (`username`, `password`) VALUES
+INSERT INTO `ppl_ukmin_dinas` (`username`, `password`) VALUES
 ('admin', 'admin'),
 ('wiraganteng', '123456789');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ukmin_dukcapil`
+-- Table structure for table `ppl_ukmin_dukcapil`
 --
 
-CREATE TABLE IF NOT EXISTS `ukmin_dukcapil` (
-  `ktp` varchar(20) NOT NULL,
-  `username` varchar(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ppl_ukmin_dukcapil` (
+  `nik` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
-  PRIMARY KEY (`ktp`,`username`,`password`)
+  PRIMARY KEY (`nik`,`password`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ukmin_dukcapil`
+-- Dumping data for table `ppl_ukmin_dukcapil`
 --
 
-INSERT INTO `ukmin_dukcapil` (`ktp`, `username`, `password`) VALUES
-('100', '100', '100'),
-('153', '153', '153'),
-('dede', 'dede', 'dede'),
-('dummyIndustri', 'dummyIndustri', 'dummy'),
-('dummyIndustri2', 'dummyIndustri2', 'dummy'),
-('dummyUKM', 'dummyUKM', 'dummy'),
-('dummyUKM2', 'dummyUKM2', 'dummy'),
-('test', 'test', 'test');
+INSERT INTO `ppl_ukmin_dukcapil` (`nik`, `password`) VALUES
+('100', '100'),
+('153', '153'),
+('aaa', 'aaa'),
+('dede', 'dede'),
+('dummyIndustri', 'dummy'),
+('dummyIndustri2', 'dummy'),
+('dummyUKM', 'dummy'),
+('dummyUKM2', 'dummy'),
+('test', 'test');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ukmin_industri`
+-- Table structure for table `ppl_ukmin_industri`
 --
 
-CREATE TABLE IF NOT EXISTS `ukmin_industri` (
+CREATE TABLE IF NOT EXISTS `ppl_ukmin_industri` (
   `id_industri` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL DEFAULT '123456789',
@@ -93,10 +93,10 @@ CREATE TABLE IF NOT EXISTS `ukmin_industri` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `ukmin_industri`
+-- Dumping data for table `ppl_ukmin_industri`
 --
 
-INSERT INTO `ukmin_industri` (`id_industri`, `username`, `password`, `no_registrasi`, `nama_perusahaan`, `produk`, `pemilik`, `alamat`, `deskripsi`, `kontak`, `rating`, `jumlah_pemberi_rating`) VALUES
+INSERT INTO `ppl_ukmin_industri` (`id_industri`, `username`, `password`, `no_registrasi`, `nama_perusahaan`, `produk`, `pemilik`, `alamat`, `deskripsi`, `kontak`, `rating`, `jumlah_pemberi_rating`) VALUES
 (1, 'industri', 'industri', 'industri', 'industri_lalala', 'industri', 'industri', 'industri   ', 'industri   ', 'industri', 3, 1),
 (2, 'dede', 'coba', 'dede', 'dede ganteng', 'coba ganteng', 'dede', ' coba   ', ' coba   ', 'coba', 2.5, 2),
 (5, 'dede', 'dede', 'dede', 'linux', 'dede', 'dede', 'dede  ', 'dede  ', 'dede', 0, 0),
@@ -110,23 +110,24 @@ INSERT INTO `ukmin_industri` (`id_industri`, `username`, `password`, `no_registr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ukmin_perijinan`
+-- Table structure for table `ppl_ukmin_perijinan`
 --
 
-CREATE TABLE IF NOT EXISTS `ukmin_perijinan` (
+CREATE TABLE IF NOT EXISTS `ppl_ukmin_perijinan` (
   `no_registrasi` varchar(20) NOT NULL,
-  `ktp` varchar(20) NOT NULL,
+  `nik` varchar(20) NOT NULL,
   `jenis` varchar(20) NOT NULL,
-  PRIMARY KEY (`no_registrasi`,`ktp`)
+  PRIMARY KEY (`no_registrasi`,`nik`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ukmin_perijinan`
+-- Dumping data for table `ppl_ukmin_perijinan`
 --
 
-INSERT INTO `ukmin_perijinan` (`no_registrasi`, `ktp`, `jenis`) VALUES
+INSERT INTO `ppl_ukmin_perijinan` (`no_registrasi`, `nik`, `jenis`) VALUES
 ('100', '100', 'industri'),
 ('A153', '153', 'ukm'),
+('aaa', 'aaa', 'ukm'),
 ('dede', 'dede', 'ukm'),
 ('dummyIndustri', 'dummyIndustri', 'industri'),
 ('dummyIndustri2', 'dummyIndustri2', 'industri'),
@@ -137,33 +138,35 @@ INSERT INTO `ukmin_perijinan` (`no_registrasi`, `ktp`, `jenis`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ukmin_profit`
+-- Table structure for table `ppl_ukmin_profit`
 --
 
-CREATE TABLE IF NOT EXISTS `ukmin_profit` (
+CREATE TABLE IF NOT EXISTS `ppl_ukmin_profit` (
   `id_transaksi` int(11) NOT NULL AUTO_INCREMENT,
   `no_registrasi` int(11) NOT NULL,
   `profit` varchar(25) NOT NULL,
   `bulan` date NOT NULL,
   PRIMARY KEY (`id_transaksi`),
   KEY `no_registrasi` (`no_registrasi`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `ukmin_profit`
+-- Dumping data for table `ppl_ukmin_profit`
 --
 
-INSERT INTO `ukmin_profit` (`id_transaksi`, `no_registrasi`, `profit`, `bulan`) VALUES
+INSERT INTO `ppl_ukmin_profit` (`id_transaksi`, `no_registrasi`, `profit`, `bulan`) VALUES
 (2, 100, '100000', '2015-03-18'),
-(3, 100, '200000', '2015-04-24');
+(3, 100, '200000', '2015-04-24'),
+(4, 100, '80000', '2015-08-13'),
+(5, 100, '100000', '2015-04-27');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ukmin_ukm`
+-- Table structure for table `ppl_ukmin_ukm`
 --
 
-CREATE TABLE IF NOT EXISTS `ukmin_ukm` (
+CREATE TABLE IF NOT EXISTS `ppl_ukmin_ukm` (
   `id_ukm` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL DEFAULT '123456789',
@@ -178,14 +181,14 @@ CREATE TABLE IF NOT EXISTS `ukmin_ukm` (
   `jumlah_pemberi_rating` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_ukm`,`no_registrasi`),
   KEY `no_registrasi` (`no_registrasi`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
--- Dumping data for table `ukmin_ukm`
+-- Dumping data for table `ppl_ukmin_ukm`
 --
 
-INSERT INTO `ukmin_ukm` (`id_ukm`, `username`, `password`, `no_registrasi`, `nama_perusahaan`, `produk`, `pemilik`, `alamat`, `deskripsi`, `kontak`, `rating`, `jumlah_pemberi_rating`) VALUES
-(6, 'wira', '123456789', 'ulululululu', 'balada asmara', 'asdasdasdasd', 'wira', 'asd      ', 'asd      ', 'asd', 3.6, 5),
+INSERT INTO `ppl_ukmin_ukm` (`id_ukm`, `username`, `password`, `no_registrasi`, `nama_perusahaan`, `produk`, `pemilik`, `alamat`, `deskripsi`, `kontak`, `rating`, `jumlah_pemberi_rating`) VALUES
+(6, 'wira', '123456789', 'ulululululu', 'balada asmara', 'asdasdasdasd', 'wira', 'asd      ', 'asd      ', 'asd', 3.66667, 6),
 (7, 'ukm', 'ukm', 'wira', 'cin(t)a segitiga + wasit', 'huhu', 'hehe', 'hyhy   ', 'balada cinta', 'hoho', 0, 0),
 (8, 'coba', 'coba', 'coba', 'darwin', 'coba', 'darwin', ' coba ', ' coba ', 'coba', 0, 0),
 (10, 'dede', 'dede', 'dede', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 5, 1),
@@ -198,34 +201,36 @@ INSERT INTO `ukmin_ukm` (`id_ukm`, `username`, `password`, `no_registrasi`, `nam
 (17, 'dummyUKM', 'dummy', 'dummyUKM', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 0, 0),
 (18, 'abcd', 'abcd', 'abcd', 'abcdeeee', 'abcd', 'abcd', 'abcd  ', 'abcd  ', 'abcd', 0, 0),
 (19, 'test', 'test', 'test', 'NA', 'NA', 'NA', 'NA  ', 'NNNNNNNNN', 'NA', 0, 0),
-(21, 'ulala', 'ulala', 'ulala', 'ulala', 'ulala', 'ulala', ' ulala', ' ulala', 'ulala', 0, 0);
+(21, 'ulala', 'ulala', 'ulala', 'ulala', 'ulala', 'ulala', ' ulala', ' ulala', 'ulala', 0, 0),
+(22, 'aaa', 'aaa', 'aaa', 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ukmin_verifikasi`
+-- Table structure for table `ppl_ukmin_verifikasi`
 --
 
-CREATE TABLE IF NOT EXISTS `ukmin_verifikasi` (
+CREATE TABLE IF NOT EXISTS `ppl_ukmin_verifikasi` (
   `id_verifikasi` int(11) NOT NULL AUTO_INCREMENT,
   `no_registrasi` varchar(20) NOT NULL,
   `username_dinas` varchar(20) NOT NULL DEFAULT 'admin',
   `status` varchar(20) NOT NULL DEFAULT 'not verified',
   PRIMARY KEY (`id_verifikasi`),
   UNIQUE KEY `no_registrasi` (`no_registrasi`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=125 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=127 ;
 
 --
--- Dumping data for table `ukmin_verifikasi`
+-- Dumping data for table `ppl_ukmin_verifikasi`
 --
 
-INSERT INTO `ukmin_verifikasi` (`id_verifikasi`, `no_registrasi`, `username_dinas`, `status`) VALUES
+INSERT INTO `ppl_ukmin_verifikasi` (`id_verifikasi`, `no_registrasi`, `username_dinas`, `status`) VALUES
 (1, 'tes', 'wiraganteng', 'suspend'),
 (3, 'darwin', 'wiraganteng', 'verified'),
 (4, '100', 'wiraganteng', 'verified'),
 (5, 'dummyUKM', 'admin', 'verified'),
 (123, '123', 'admin', 'suspend'),
-(124, 'test', 'admin', 'verified');
+(124, 'test', 'admin', 'verified'),
+(125, 'aaa', 'admin', 'verified');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
