@@ -1,0 +1,256 @@
+/* Body
+================================================== */
+html, body {
+	height: 100%;
+}
+.wrapper {
+	min-height: 100%;
+}
+body {
+	overflow-x: hidden;
+	font: 17px/28px ff-meta-serif-web-pro, "Georgia", serif;
+	color: #333;
+	background: #fff;
+}
+
+/* Typography
+================================================== */
+h1, h2, h3, h4, h5, h6 {
+	font-family: "proxima-nova", "helvetica neue", "helvetica", sans-serif;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-weight: 700;
+	text-rendering: optimizeLegibility;
+}
+
+h1 {
+	font-family : 'EXO';
+	font-size: 50px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	color: #0099FF;
+}
+
+h2 {
+	font-size: 30px;
+	padding-bottom: 10px;
+}
+
+/* Links
+================================================== */
+a,
+a:focus,
+a:visited,
+a:hover,
+a:active {
+	color : #000;
+	text-decoration : none; 
+}
+a:hover {
+	color 	: #FFA347;
+	opacity	: .8;
+}
+
+/* Menu 
+================================================== */
+ul {
+	list-style-type	: none;
+	margin			: 0;
+	padding-left	: 0;
+}
+	
+li {
+	display		: inline;
+}
+
+/* Header and Footer
+================================================== */
+.header ul {
+	position: absolute;
+	top: 0;
+	left: 90%;
+	height: 70px;
+	padding-top: 40px;
+	
+	z-index: 2;
+	text-align : center;
+	margin-right : 0%;
+}
+
+.identity {
+	text-align: left;
+	margin-left: 10px;
+	font-family : 'EXO';
+	font-size: 14px;
+	line-height: 1.8;
+	letter-spacing: 4px;
+}
+
+/* Post
+================================================== */
+.postview {
+	text-align: center;
+}
+.post {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.postTitle a{
+	font-size : 25px;
+	text-transform: uppercase;
+}
+
+.postDate {
+	text-transform: uppercase;
+	font-size: 18px;
+	line-height: 1.8;
+	letter-spacing: 4px;
+}
+
+.postContent {
+	overflow-x: auto;
+	width: 50%;
+	height:60px;
+	float: right;
+	margin-right: 1%;
+	margin-bottom: 0;
+	font-size: 16px;
+	line-height: 24px;
+}
+
+.hiddenForm input[type=text] {
+	width: 0px;
+	height: 0px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,1.0);
+}
+
+.hiddenForm ul {
+	margin-top : 70px;
+	line-height : 1.8;
+	font-size: 14px;
+	outline: none;
+	width: 60px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.hiddenForm input[type=submit] {
+	line-height : 1.8;
+	margin-left:-13px;
+	font-size: 14px;
+	outline: none;
+	width: 60px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.hiddenForm input[type=submit],
+.hiddenForm input[type=submit]:focus,
+.hiddenForm input[type=submit]:hover,
+.hiddenForm input[type=submit]:active {
+	color : #000;
+	text-decoration : none; 
+}
+.hiddenForm input[type=submit]:hover {
+	color 	: #FFA347;
+	opacity	: .8;
+}
+
+.viewContent {
+	text-align : justify;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+/* Comment and Comment Form
+================================================== */
+#strongLine {
+	width: 100%;
+}
+
+#separator {
+	width: 90%;
+	border-color: #E6F0FF;
+}
+
+#separator2 {
+	wdith: 95%;
+}
+
+.commentContainer {
+	margin-left : 100px;
+}
+
+.commentComment {
+	font-family: 'Exo', sans-serif;
+}
+
+#hidden {
+	width: 0px;
+	height: 0px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,1.0);
+}
+
+.importantForm input[type=text] {
+	width: 400px;
+	background: transparent;
+	border: 1px solid rgba(0,0,0,0.6);
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Exo', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.importantForm textarea {
+	width: 400px;
+	height: 200px;
+	margin-left:88px;
+	background: transparent;
+	border: 1px solid rgba(0,0,0,0.6);
+	border-radius: 2px;
+	color: #000;
+	font-family: 'Exo', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.importantForm input[type=submit] {
+	text-align: center;
+	line-height : 1.8;
+	margin-left:-13px;
+	font-size: 14px;
+	outline: none;
+	width: 100px;
+	height: 35px;
+	background: #000;
+	border: 1px solid #000;
+	cursor: pointer;
+	color: #fff;
+	border-radius: 2px;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	margin-left: 5px;
+}
+
+.formlabel {
+	font-style: bold;
+}
