@@ -1,12 +1,11 @@
 # Simple Blog
 
-Tugas 1 IF3110.
 
 ![Simple Blog](http://i655.photobucket.com/albums/uu275/sonnylazuardi/ss-5.jpg)
 
 ## Deskripsi
 
-Gunakan template ini untuk membuat sebuah blog sederhana dengan menggunakan bahasa pemrograman PHP.
+Sebuah blog sederhana dengan menggunakan bahasa pemrograman PHP dan MySQL untuk penanganan basis data blog.
 
 ## Spesifikasi
 
@@ -45,15 +44,13 @@ Lakukan **validasi** email pada form komentar dengan menggunakan javascript. Kom
 
 ## Tools
 
-Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascript.
+Pembuatan blog ini tidak menggunakan framework PHP dan framework javascript.
 
-**Tidak boleh menggunakan jquery untuk ajax.**
-
-## Deliverable
-
-Masing-masing orang lakukan Fork pada repo ini. Jika sudah selesai tambahkan pull request ke repo ini.
+**Tidak menggunakan jquery untuk ajax.**
 
 ## Lisensi
+
+Developed by: Rakhmatullah Yoga Sutrisna - 1312053
 
 &copy; 2014 Asisten IF3110
 

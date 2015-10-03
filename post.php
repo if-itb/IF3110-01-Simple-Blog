@@ -71,6 +71,14 @@
             
             <h2>Komentar</h2>
 
+            <ul class="art-list-body">
+                <div id="Comment">
+                </div>
+                
+            </ul>
+
+            <h3>Tulis komentar Anda</h3>
+
             <div id="contact-area">
                 <form name="commentForm" method="post" id="commentForm" action="#" onsubmit="return comment()">
                     <label for="Nama">Nama:</label>
@@ -83,12 +91,6 @@
                     <input type="submit" name="submit" value="Kirim" class="submit-button">
                 </form>
             </div>
-
-            <ul class="art-list-body">
-                <div id="Comment">
-                </div>
-                
-            </ul>
         </div>
     </div>
 

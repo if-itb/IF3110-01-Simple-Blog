@@ -64,24 +64,17 @@
                   }
                   echo $string?></a></h2>
                       <div class="art-list-time"><?php echo $key['Tanggal'] ?></div>
+                      <a href="edit_post.php?var=<?php echo $key['ID']?>">Edit</a> | <a href="delete.php?var=<?php echo $key['ID']?>" onclick="return confirmDelete()">Hapus</a>
+                  
                   </div>
+
                   <p><?php 
                   $string = $key['Konten'];
                   $string = strip_tags($string);
-                  if (strlen($string) > 200) {
-                      $stringCut = substr($string, 0, 200);
-                      $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'... '; 
-                      echo $string;?>
-                      <a href="post.php?var=<?php echo $key['ID']?>">Read More</a><?php
-                  }
-                  else {
                       echo $string;
-                  }
                    
                   ?></p>
-                  <p>                    
-                    <a href="edit_post.php?var=<?php echo $key['ID']?>">Edit</a> | <a href="delete.php?var=<?php echo $key['ID']?>" onclick="return confirmDelete()">Hapus</a>
-                  </p>
+                  
               </li>
             <?php
               }
