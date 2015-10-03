@@ -29,7 +29,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
-<title>rakhmatullah25 | Tambah Post</title>
+<title>Simple Blog | Tambah Post</title>
 
 
 </head>
@@ -37,8 +37,8 @@
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.php"><h1>Coretan<span>-</span>Yoga</h1></a>
+<nav class="nav" id="#top">
+    <a style="border:none;" id="logo" href="index.php"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.php">+ Tambah Post</a></li>
     </ul>
@@ -67,7 +67,7 @@
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">

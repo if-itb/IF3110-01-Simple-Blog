@@ -39,15 +39,15 @@
     }
 ?>
 
-<title>rakhmatullah25 | Edit Post</title>
+<title>Simple Blog | Edit Post</title>
 
 </head>
 
 <body class="default">
 <div class="wrapper">
 
-<nav class="nav">
-    <a style="border:none;" id="logo" href="index.html"><h1>Coretan<span>-</span>Yoga</h1></a>
+<nav class="nav" id="#top">
+    <a style="border:none;" id="logo" href="index.html"><h1>Simple<span>-</span>Blog</h1></a>
     <ul class="nav-primary">
         <li><a href="new_post.html">+ Edit Post</a></li>
     </ul>
@@ -78,7 +78,7 @@
 </article>
 
 <footer class="footer">
-    <div class="back-to-top"><a href="">Back to top</a></div>
+    <div class="back-to-top"><a href="#top">Back to top</a></div>
     <!-- <div class="footer-nav"><p></p></div> -->
     <div class="psi">&Psi;</div>
     <aside class="offsite-links">
