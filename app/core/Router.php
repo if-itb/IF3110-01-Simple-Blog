@@ -5,6 +5,7 @@
  * A singleton that handles and registers routes
  *
  * Inspired by dannyvankooten/AltoRouter
+ * @see https://github.com/dannyvankooten/AltoRouter
  * @package App\Core
  */
 class Router
@@ -28,7 +29,9 @@ class Router
         'integer' => '[0-9]++',
         'alphanumeric' => '[0-9A-Za-z]++',
         'hexadecimal' => '[0-9A-Fa-f]++',
-
+        '*'  => '.+?',
+        '**' => '.++',
+        ''   => '[^/\.]++'
     ];
 
     /**
@@ -233,7 +236,7 @@ class Router
      * Compile the regex for a given route (EXPENSIVE)
      *
      * @param string $route the route being compared against
-     * @return string
+     * @return string regex of the compiled route
      */
     private function compileRoute($route) {
         if (preg_match_all('`(/|\.|)\[([^:\]]*+)(?::([^:\]]*+))?\](\?|)`', $route, $matches, PREG_SET_ORDER)) {
