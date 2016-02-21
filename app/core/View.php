@@ -24,7 +24,7 @@ class View
     public function __construct($file, $values = []) {
         // try to resolve the file path
         if (!realpath($file)) {
-            $this->file = ROOT_PATH."/templates/{$file}";
+            $this->file = ROOT_PATH."/resources/views/{$file}";
         } else {
             $this->file = $file;
         }
