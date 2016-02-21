@@ -19,5 +19,9 @@
     </ul>
   </nav>
 
+  <footer class="footer">
+    <div class="back-to-top"><a href="#">Back to top</a></div>
+  </footer>
+
 </div>
 </body>

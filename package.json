@@ -5,7 +5,8 @@
   "main": "public/index.php",
   "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +19,9 @@
     "php",
     "hardening"
   ],
-  "author": "Alvin Natawiguna <alvin.nt.gg@gmail.com>",
+  "authors": [
+    "Alvin Natawiguna <alvin.nt.gg@gmail.com>",
+    "Akhmad Fahoni Listryani Dede"
+  ],
   "license": "MIT"
 }
