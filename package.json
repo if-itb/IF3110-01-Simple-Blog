@@ -1,0 +1,23 @@
+{
+  "name": "if4033-simple-blog-reloaded",
+  "version": "0.0.1",
+  "description": "Simple, PHP-based blog",
+  "main": "public/index.php",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.informatika.org/alvin-nt/if4033-simple-blog-reloaded"
+  },
+  "keywords": [
+    "php",
+    "hardening"
+  ],
+  "author": "Alvin Natawiguna <alvin.nt.gg@gmail.com>",
+  "license": "MIT"
+}

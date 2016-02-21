@@ -1,8 +1,6 @@
-# Simple Blog
+# Simple Blog - Reloaded
 
-Tugas 1 IF3110.
-
-![Simple Blog](http://i655.photobucket.com/albums/uu275/sonnylazuardi/ss-5.jpg)
+Tugas 1 IF4033.
 
 ## Deskripsi
 
@@ -49,14 +47,9 @@ Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascrip
 
 **Tidak boleh menggunakan jquery untuk ajax.**
 
-## Deliverable
-
-Masing-masing orang lakukan Fork pada repo ini. Jika sudah selesai tambahkan pull request ke repo ini.
 
 ## Lisensi
 
-&copy; 2014 Asisten IF3110
-
-Yogi | [Sonny](http://github.com/sonnylazuardi) | Fathan | Renusa | Kelvin | Yanuar
+&copy; 2016
 
 Dosen: [Yudistira Dwi Wardhana](http://github.com/yudis)
