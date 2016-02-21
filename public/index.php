@@ -8,8 +8,19 @@ spl_autoload_register(function ($class) {
     include ROOT_PATH."/{$class}.php";
 });
 
-use App\Core\View;
+if (!session_start()) {
+    throw new RuntimeException("Cannot start session!");
+};
 
-$view = new View('layout.tpl');
+// get the router
+$router = \App\Core\Router::getInstance();
 
-echo $view->output();
+/**
+ * Register the routes here
+ */
+$router->get('/', function () {
+    echo 'hello world!';
+});
+
+// ...and off we go!
+$router->dispatch();

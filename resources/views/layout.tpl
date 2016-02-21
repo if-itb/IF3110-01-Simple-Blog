@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
   <link rel="stylesheet" type="text/css" href="/assets/css/screen.css"/>
-  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico"/>
 
 <body class="default">
 <div class="wrapper">
