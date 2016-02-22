@@ -1,5 +1,6 @@
 <?php
 
+use App\Core\ConfigLoader as Config;
 
 /**
  * Stores the database config.
@@ -13,10 +14,10 @@
  * - password: the password used to connect
  */
 return [
-    'driver' => 'mysql',
-    'database' => 'simple_blog',
-    'host' => 'localhost',
-    'port' => 3306,
-    'username' => 'simple-blog',
-    'password' => 'keren'
+    'driver' => Config::env('DB_DRIVER', 'mysql'),
+    'database' => Config::env('DB_DATABASE', 'simple_blog'),
+    'host' => Config::env('DB_HOST', 'localhost'),
+    'port' => Config::env('DB_PORT', 3306),
+    'username' => Config::env('DB_USERNAME', 'simple-blog'),
+    'password' => Config::env('DB_PASSWORD', '')
 ];

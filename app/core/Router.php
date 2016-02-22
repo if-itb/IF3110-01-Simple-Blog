@@ -1,5 +1,8 @@
 <?php namespace App\Core;
 
+use RuntimeException;
+use Exception;
+
 /**
  * Class Router
  * A singleton that handles and registers routes
@@ -26,9 +29,9 @@ class Router
      * @var array holds regex types
      */
     protected $matchTypes = [
-        'integer' => '[0-9]++',
-        'alphanumeric' => '[0-9A-Za-z]++',
-        'hexadecimal' => '[0-9A-Fa-f]++',
+        'int' => '[0-9]++',
+        'alpha' => '[0-9A-Za-z]++',
+        'hex' => '[0-9A-Fa-f]++',
         '*'  => '.+?',
         '**' => '.++',
         ''   => '[^/\.]++'
@@ -289,29 +292,52 @@ class Router
                     list($controllerName, $controllerMethod) = explode('@', $target);
                     $controllerClass = "App\\Controller\\$controllerName";
 
+                    // currently not supporting IoC/dependency injections to Controller...
                     $controller = new $controllerClass;
 
                     if (method_exists($controller, $controllerMethod)) {
                         call_user_func_array([$controller, $controllerMethod], $params);
                     } else {
-                        throw new \HttpRuntimeException("Missing controller method: $target", 500);
+                        throw new RuntimeException("Missing controller method: $target", 500);
                     }
 
                 } elseif (is_callable($target)) {
-                    call_user_func($target, $params);
+                    call_user_func_array($target, $params);
                 } else {
-                    throw new \HttpRuntimeException("Unknown type of target bound to route $requestMethod $requestUrl", 500);
+                    throw new RuntimeException("Unknown type of target bound to route $target", 500);
                 }
 
             } else {
-                throw new \HttpRuntimeException("No matching method found for $requestMethod $requestUrl", 404);
+                $message = "No route found for ";
+                $message .= empty($requestMethod) ? "{$_SERVER['REQUEST_METHOD']} "  : "{$requestMethod} ";
+                $message .= empty($requestUrl) ? "{$_SERVER['REQUEST_URI']}" : "{$requestUrl}";
+
+                throw new RuntimeException($message, 404);
             }
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
-            http_response_code($e->getCode());
+            $code = $e->getCode();
+            if ($code === 404) {
+                echo "Sorry, content not found.<br/>";
+            } else {
+                echo "Whoops, looks like something's wrong.<br/>";
+            }
 
-            die($e->getTraceAsString());
+            // print the stack trace here
+            if (ConfigLoader::env('APP_DEBUG') == true) {
+                echo "Caught exception: {$e->getMessage()}<br/>";
+                echo "from line {$e->getLine()}<br/>";
+
+                echo "Stack trace: <br/>";
+                foreach ($e->getTrace() as $trace) {
+                    echo "{$trace['class']}::{$trace['function']}(), from {$trace['file']}:{$trace['line']}";
+                }
+            }
+
+            http_response_code($code);
+
+            exit();
         }
     }
 }
