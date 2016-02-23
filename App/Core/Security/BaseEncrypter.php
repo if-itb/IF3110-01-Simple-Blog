@@ -89,7 +89,7 @@ abstract class BaseEncrypter {
      * @param  mixed  $b
      * @return boolean
      */
-    protected function isHashEqual($a, $b) {
+    public function isHashEqual($a, $b) {
         if (!is_string($a) || !is_string($b)) {
             return false;
         }

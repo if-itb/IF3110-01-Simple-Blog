@@ -19,6 +19,21 @@ class PDOConnection implements ConnectionInterface
     protected $pdo;
 
     /**
+     * @param array|null $config
+     *
+     * @return PDOConnection
+     */
+    public static function getInstance(array $config = null) {
+        if (!is_array($config)) {
+
+
+
+        } else {
+
+        }
+    }
+
+    /**
      * PDOConnection constructor.
      *
      * @param PDO $pdo
@@ -92,12 +107,52 @@ class PDOConnection implements ConnectionInterface
 
         // two modes:
         // if it is an array, then do batch insert
+        // assume that the rest are also arrays with equal number elements
         if (is_array(current($bindings))) {
+            $count = 1;
+            $_bindings = [];
+
             foreach ($bindings as $values) {
+                $keys = array_keys($values);
+                assert (!empty($keys));
 
+                $keyCount = count($keys);
+                $query .= '(';
+                for ($i = 0; $i < $keyCount; $i++) {
+                    $paramBinding = ":{$keys[$i]}{$count}";
+                    if ($i === $keyCount-1) {
+                        $query .= "$paramBinding";
+                    } else {
+                        $query .= "$paramBinding,";
+                    }
+
+                    $_bindings[$paramBinding] = $values[$keys[$i]];
+                }
+                $query .= ')';
+
+                $count++;
             }
-        } else {
 
+            $statement = $this->pdo->prepare($query);
+            return $statement->execute($_bindings);
+        } else {
+            $keys = array_keys($bindings);
+            assert (!empty($keys));
+
+            $keyCount = count($keys);
+            $query .= '(';
+
+            for ($i = 0; $i < $keyCount; $i++) {
+                if ($i === $keyCount-1) {
+                    $query .= ":{$keys[$i]}";
+                } else {
+                    $query .= ":{$keys[$i]},";
+                }
+            }
+            $query .= ')';
+
+            $statement = $this->pdo->prepare($query);
+            return $statement->execute($bindings);
         }
     }
 
@@ -111,9 +166,19 @@ class PDOConnection implements ConnectionInterface
         // TODO: Implement delete() method.
     }
 
-    public function rawQuery($query)
+    /**
+     * @param $query
+     * @param bool $select
+     * @param array $options
+     * @return int|\PDOStatement
+     */
+    public function rawQuery($query, $select = false, array $options)
     {
-        // TODO: Implement rawQuery() method.
+        if ($select) {
+            return $this->pdo->query($query);
+        } else {
+            return $this->pdo->exec($query);
+        }
     }
 
     public function beginTransaction()

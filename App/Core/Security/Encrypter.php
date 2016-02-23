@@ -14,12 +14,22 @@ class Encrypter extends BaseEncrypter
 {
     protected $cipher;
 
+    /**
+     * Encrypter constructor.
+     *
+     * @param string $key
+     * @param string $cipher
+     *
+     * @throws EncryptException
+     */
     public function __construct($key, $cipher = 'AES-256-CBC') {
         $key = (string) $key;
 
         if (static::supported($key, $cipher)) {
             $this->key = $key;
             $this->cipher = $cipher;
+        } else {
+            throw new EncryptException('Cannot create Encrypter. Make sure your key is suitable with the used cipher.');
         }
     }
 
@@ -104,5 +114,17 @@ class Encrypter extends BaseEncrypter
      */
     public function getIvSize() {
         return intval(ConfigLoader::env('IV_SIZE', 16));
+    }
+
+    /**
+     * Get an instance of the encrypter.
+     *
+     * @param string $key the key to be used. Default indicates we're using APP_KEY
+     * @return Encrypter
+     */
+    public static function getInstance($key = null) {
+        $key = is_null($key) ? ConfigLoader::env('APP_KEY') : $key;
+
+        return new Encrypter($key);
     }
 }

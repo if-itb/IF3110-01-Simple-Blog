@@ -326,12 +326,17 @@ class Router
 
             // print the stack trace here
             if (ConfigLoader::env('APP_DEBUG') == true) {
-                echo "Caught exception: {$e->getMessage()}<br/>";
+                echo "Caught exception: <strong>{$e->getMessage()}</strong><br/>";
                 echo "from line {$e->getLine()}<br/>";
 
                 echo "Stack trace: <br/>";
                 foreach ($e->getTrace() as $trace) {
-                    echo "{$trace['class']}::{$trace['function']}(), from {$trace['file']}:{$trace['line']}";
+                    $trace['file'] = isset($trace['file']) ? $trace['file'] : null;
+                    $trace['class'] = isset($trace['class']) ? $trace['class'] : null;
+                    $trace['function'] = isset($trace['function']) ? $trace['function'] : null;
+                    $trace['line'] = isset($trace['line']) ? $trace['line'] : null;
+
+                    echo "{$trace['class']}::{$trace['function']}(), from {$trace['file']}:{$trace['line']} <br/>";
                 }
             }
 

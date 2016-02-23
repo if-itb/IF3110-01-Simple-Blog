@@ -15,10 +15,6 @@ spl_autoload_register(function ($class) {
     include $path;
 });
 
-if (!session_start()) {
-    throw new RuntimeException("Cannot start session!");
-};
-
 // load our .env file, if exists
 if (file_exists(ROOT_PATH.'/.env')) {
     \App\Core\ConfigLoader::loadEnv();
@@ -32,9 +28,18 @@ $router = \App\Core\Router::getInstance();
  */
 $router->get('/', function () {
     echo 'Hello, world!';
+
+    $session = \App\Core\SessionManager::getManager();
+    if ($session->isLoggedIn()) {
+        echo " Your user id is <strong>{$session->get('user_id')}</strong>.";
+    }
 });
 
-$router->get('/auth/login', 'UserController@getLogin');
+$router->get('/auth/login', 'AuthController@getLogin');
+$router->post('/auth/login', 'AuthController@postLogin');
+
+$router->get('/auth/register', 'AuthController@getRegister');
+$router->post('/auth/register', 'AuthController@getRegister');
 
 $router->get('/users/[int:id]', 'UserController@index');
 
