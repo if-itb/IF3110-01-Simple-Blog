@@ -28,6 +28,8 @@ $router->get('/', function () {
     echo 'Hello, world!';
 });
 
+$router->get('/auth/login', 'UserController@getLogin');
+
 $router->get('/users/[int:id]', 'UserController@index');
 
 // ...and off we go!

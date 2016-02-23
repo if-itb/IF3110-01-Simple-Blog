@@ -24,7 +24,7 @@ class View
     public function __construct($file, $values = []) {
         // try to resolve the file path
         if (!realpath($file)) {
-            $this->file = ROOT_PATH."/resources/views/{$file}";
+            $this->file = ROOT_PATH."/resources/views/{$file}.tpl";
         } else {
             $this->file = $file;
         }
@@ -68,8 +68,17 @@ class View
      *
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->output();
+    }
+
+    /**
+     * Convenient wrapper to immediately inject a view to a param
+     *
+     * @param string $key
+     * @param string $view
+     */
+    public function inject($key, $view) {
+        $this->values[$key] = (new View($view))->output();
     }
 }
