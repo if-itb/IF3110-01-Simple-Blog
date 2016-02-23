@@ -87,9 +87,18 @@ class PDOConnection implements ConnectionInterface
         if (empty ($bindings)) {
             throw new \RuntimeException('Cannot insert empty values!');
         }
-        
+
         $query = str_replace('<values>', implode(',', array_keys($bindings)), "INSERT INTO {$table} (<values>) VALUES ");
 
+        // two modes:
+        // if it is an array, then do batch insert
+        if (is_array(current($bindings))) {
+            foreach ($bindings as $values) {
+
+            }
+        } else {
+
+        }
     }
 
     public function update($table, array $updateBindings = [], array $whereBindings = [])

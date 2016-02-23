@@ -122,7 +122,7 @@ class MySqlSessionHandler implements \SessionHandlerInterface
                 ->prepare("UPDATE {$this->table} SET payload=:payload, last_activity=:last_activity WHERE id:id ");
         } else {
             $preparedStatement = $this->connection
-                ->prepare("INSERT INTO {$this->table} (id, payload, last_activity) VALUE (:id, :payload, :last_activity)");
+                ->prepare("INSERT INTO {$this->table} (id, payload, last_activity) VALUES (:id, :payload, :last_activity)");
         }
 
         return $preparedStatement->execute([

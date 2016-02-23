@@ -6,7 +6,13 @@ define('ROOT_PATH', dirname(__DIR__));
 // PHASE 1: bootstrapping
 // register the autoloader
 spl_autoload_register(function ($class) {
-    include ROOT_PATH."/{$class}.php";
+    $path = ROOT_PATH."/{$class}.php";
+    if (strpos(php_uname('s'), 'Windows') === false) {
+        // running linux; change the slashes
+        $path = str_replace('/', '\\', $path);
+    }
+    
+    include $path;
 });
 
 if (!session_start()) {
