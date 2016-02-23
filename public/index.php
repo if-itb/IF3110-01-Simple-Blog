@@ -9,9 +9,9 @@ spl_autoload_register(function ($class) {
     $path = ROOT_PATH."/{$class}.php";
     if (strpos(php_uname('s'), 'Windows') === false) {
         // running linux; change the slashes
-        $path = str_replace('/', '\\', $path);
+        $path = str_replace('\\', '/', $path);
     }
-    
+
     include $path;
 });
 
