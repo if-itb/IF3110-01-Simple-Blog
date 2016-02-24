@@ -96,7 +96,13 @@ Class PostController extends BaseController{
     {
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
-        $view->inject('content', 'post_form');
+
+        $post_form = new View('post_form');
+        $post_form->set('form_url', '/post/create',false);
+        $post_form->set('title_value', '', false);
+        $post_form->set('content_value', '');
+
+        $view->set('content', $post_form->output(), false);
         echo $view->output();
     }
     public function postCreate()
@@ -132,7 +138,7 @@ Class PostController extends BaseController{
 
         if($result)
         {
-            header('Location: /', true, 200);
+            header('Location: /post', true, 301);
         }
         else {
             $error = $connection->getDriver()->errorInfo();

@@ -1,16 +1,16 @@
 <div class="container">
     <div class="row">
-        <h2 class="center-align">Create form</h2>
-            <form class="col s12" action="/post/create" method="post">
+        <h2 class="center-align">Membuat post</h2>
+            <form class="col s12" action="[@form_url]" method="post">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="input_text" type="text" length="20" name="judul">
+                        <input id="input_text" type="text" length="20" name="judul" value="[@title_value]">
                         <label for="input_text">Title</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="textarea1" class="materialize-textarea" length="1000" name="konten"></textarea>
+                        <textarea id="textarea1" class="materialize-textarea" length="1000" name="konten">[@content_value]</textarea>
                         <label for="textarea1">Konten</label>
                     </div>
                 </div>
