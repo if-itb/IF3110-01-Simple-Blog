@@ -49,20 +49,47 @@ Class PostController extends BaseController{
 
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
-
         $postContent = new View('post');
-
         $postContent->set('listofpost', $list_of_post, false);
-
         $view->set('content', $postContent->output(), false);
-
         echo $view->output();
     }
     public function getView($id)
     {
+
+        $connection = PDOConnection::getInstance();
+        $pdo = $connection->getDriver();
+        $stmt = $pdo->prepare('select * from posts where id = :id');
+        $stmt->execute(array('id' => $id));
+
+        $list_of_post = '';
+        if($posts = $stmt->fetchAll())
+        {
+            foreach($posts as $post)
+            {
+                $id = $post['id'];
+                $title = $post['title'];
+                $content = substr($post['content'],0,200);
+                $list_of_post = $list_of_post.
+                    "<div class=\"row\">
+                        <div class=\"col s12\">
+                            <div class=\"card\">
+                                <div class=\"card-content\">
+                                    <span class=\"card-title\">$title</span>
+                                    <p>$content</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+            }
+        }
+
+
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
-        $view->inject('content', 'post_content');
+        $postContent = new View('post_content');
+        $postContent->set('post', $list_of_post, false);
+        $view->set('content', $postContent->output(), false);
         echo $view->output();
     }
     public function getCreate()
