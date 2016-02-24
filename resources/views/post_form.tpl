@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <h2 class="center-align">Membuat post</h2>
+        <h2 class="center-align">[@form_title]</h2>
             <form class="col s12" action="[@form_url]" method="post">
                 <div class="row">
                     <div class="input-field col s6">

@@ -56,39 +56,34 @@ Class PostController extends BaseController{
     }
     public function getView($id)
     {
-
         $connection = PDOConnection::getInstance();
         $pdo = $connection->getDriver();
         $stmt = $pdo->prepare('select * from posts where id = :id');
         $stmt->execute(array('id' => $id));
 
-        $list_of_post = '';
-        if($posts = $stmt->fetchAll())
+        $one_post = '';
+        if($post = $stmt->fetchAll())
         {
-            foreach($posts as $post)
-            {
-                $id = $post['id'];
-                $title = $post['title'];
-                $content = substr($post['content'],0,200);
-                $list_of_post = $list_of_post.
-                    "<div class=\"row\">
-                        <div class=\"col s12\">
-                            <div class=\"card\">
-                                <div class=\"card-content\">
-                                    <span class=\"card-title\">$title</span>
-                                    <p>$content</p>
-                                </div>
+            $id = $post[0]['id'];
+            $title = $post[0]['title'];
+            $content = $post[0]['content'];
+            $one_post = $one_post.
+                "<div class=\"row\">
+                    <div class=\"col s12\">
+                        <div class=\"card\">
+                            <div class=\"card-content\">
+                                <span class=\"card-title\">$title</span>
+                                <p>$content</p>
                             </div>
                         </div>
-                    </div>";
-            }
+                    </div>
+                </div>";
         }
-
 
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
         $postContent = new View('one_post');
-        $postContent->set('post', $list_of_post, false);
+        $postContent->set('post', $one_post, false);
         $view->set('content', $postContent->output(), false);
         echo $view->output();
     }
@@ -98,9 +93,10 @@ Class PostController extends BaseController{
         $view->inject('navbar', 'navbar');
 
         $post_form = new View('post_form');
-        $post_form->set('form_url', '/post/create',false);
-        $post_form->set('title_value', '', false);
-        $post_form->set('content_value', '');
+        $post_form->set('form_title', 'Membuat post');
+        $post_form->set('form_url', '/post/create');
+        $post_form->set('title_value', '');
+        $post_form->set('content_value', '', false);
 
         $view->set('content', $post_form->output(), false);
         echo $view->output();
@@ -146,5 +142,33 @@ Class PostController extends BaseController{
 
             throw new \RuntimeException("Cannot create post:", 500);
         }
+    }
+
+    public function getUpdate($id)
+    {
+        $view = new View('layout');
+        $view->inject('navbar', 'navbar');
+
+        $connection = PDOConnection::getInstance();
+        $pdo = $connection->getDriver();
+        $stmt = $pdo->prepare('select * from posts where id = :id');
+        $stmt->execute(array('id' => $id));
+
+        $list_of_post = '';
+        if($post = $stmt->fetchAll())
+        {
+            $id = $post[0]['id'];
+            $title = $post[0]['title'];
+            $content = $post[0]['content'];
+            $post_form = new View('post_form');
+            $post_form->set('form_title', 'Update post');
+            $post_form->set('form_url', '/post/update');
+            $post_form->set('title_value', $title);
+            $post_form->set('content_value', $content);
+
+            $view->set('content', $post_form->output(), false);
+        }
+
+        echo $view->output();
     }
 }

@@ -47,6 +47,7 @@ $router->get('/post', 'PostController@index');
 
 $router->get('/post/create', 'PostController@getCreate');
 $router->post('/post/create', 'PostController@postCreate');
+$router->get('/post/update/[int:id]', 'PostController@getUpdate');
 
 $router->get('/post/view/[int:id]', 'PostController@getView');
 
