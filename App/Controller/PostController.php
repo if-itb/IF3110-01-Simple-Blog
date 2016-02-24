@@ -16,9 +16,45 @@ use App\Core\SessionManager;
 Class PostController extends BaseController{
     public function index()
     {
+        $connection = PDOConnection::getInstance();
+        $pdo = $connection->getDriver();
+        $stmt = $pdo->prepare('select * from posts');
+        $stmt->execute();
+
+        $list_of_post = '';
+
+        if($posts = $stmt->fetchAll())
+        {
+            foreach($posts as $post)
+            {
+                $title = $post['title'];
+                $content = $post['content'];
+                $list_of_post = $list_of_post.
+                    "<div class=\"row\">
+                        <div class=\"col s12\">
+                            <div class=\"card\">
+                                <div class=\"card-content\">
+                                    <span class=\"card-title\">$title</span>
+                                    <p>$content</p>
+                                </div>
+                                <div class=\"card-action\">
+                                    <a href=\"#\">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+            }
+        }
+
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
-        $view->inject('content', 'post');
+
+        $postContent = new View('post_content');
+
+        $postContent->set('post', $list_of_post, false);
+
+        $view->set('content', $postContent->output(), false);
+
         echo $view->output();
     }
     public function getView($id)
