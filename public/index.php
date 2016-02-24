@@ -31,7 +31,7 @@ $router->get('/', function () {
 
     $session = \App\Core\SessionManager::getManager();
     if ($session->isLoggedIn()) {
-        echo " Your user id is <strong>{$session->get('user_id')}</strong>.";
+        echo " Your user id is <strong>{$session->get('user')['id']}</strong>.";
     }
 });
 

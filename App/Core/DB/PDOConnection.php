@@ -1,5 +1,6 @@
 <?php namespace App\Core\DB;
 
+use App\Core\ConfigLoader;
 use PDO;
 use PDOException;
 
@@ -25,12 +26,14 @@ class PDOConnection implements ConnectionInterface
      */
     public static function getInstance(array $config = null) {
         if (!is_array($config)) {
-
-
-
-        } else {
-
+            $config = ConfigLoader::load('database');
         }
+
+        $pdo = new PDO("{$config['driver']}:host={$config['host']};port={$config['port']};dbname={$config['database']}",
+            $config['username'],
+            $config['password']);
+
+        return new PDOConnection($pdo);
     }
 
     /**

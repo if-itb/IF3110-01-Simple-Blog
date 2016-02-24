@@ -11,17 +11,18 @@ class AuthController extends BaseController
     public function getLogin() {
 
         // redirect if user has been logged in
-
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
         $view->inject('content', 'login');
+        $view->addJavascript('/assets/js/login.js');
 
         // csrf
         $manager = SessionManager::getManager();
         $csrf = $manager->generateCsrfToken();
 
-        // put the token at the header
-        header("X-XSRF-TOKEN: {$csrf}");
+        // put the token at the cookie
+        // give 5 minutes to reregister
+        setcookie("X-XSRF-TOKEN", $csrf, time() + 300);
 
         echo $view->output();
     }
@@ -39,8 +40,12 @@ class AuthController extends BaseController
         }
 
         // check the CSRF token
-        $fetchedCsrf = isset($_POST['CSRF-TOKEN']) ? $_POST['CSRF-TOKEN'] :
-            isset($_SERVER['HTTP_X-XSRF-TOKEN']) ? $_SERVER['HTTP_X-XSRF-TOKEN'] : null;
+        $fetchedCsrf = null;
+        if (isset($_POST['csrf_token'])) {
+            $fetchedCsrf = $_POST['csrf_token'];
+        } elseif (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+            $fetchedCsrf = $_SERVER['HTTP_X_CSRF_TOKEN'];
+        }
 
         if (!$fetchedCsrf) {
             throw new \RuntimeException("Missing CSRF token.", 400);
@@ -62,10 +67,22 @@ class AuthController extends BaseController
             // and regenerate its CSRF token
             $csrf = $session->generateCsrfToken();
 
-            header("X-XSRF-TOKEN: {$csrf}");
-            header('Location: /auth/login', true, 302);
+            setcookie("X-XSRF-TOKEN", $csrf, time() + 30);
+            header('Location: /auth/login', true, 301);
         } else {
+            // match the user password
+            $valid = password_verify($_POST['password'], $user['password']);
 
+            if ($valid) {
+                $session->regenerateId(true);
+                $session->set('user', $user);
+
+                // redirect to home page
+                header('Location: /', true, 301);
+            } else {
+                // redirect back to login page
+                header('Location: /auth/login', true, 301);
+            }
         }
 
         $session->regenerateId(true);
@@ -106,8 +123,12 @@ class AuthController extends BaseController
         }
 
         // check the CSRF token
-        $fetchedCsrf = isset($_POST['CSRF-TOKEN']) ? $_POST['CSRF-TOKEN'] :
-            isset($_SERVER['HTTP_X-XSRF-TOKEN']) ? $_SERVER['HTTP_X-XSRF-TOKEN'] : null;
+        $fetchedCsrf = null;
+        if (isset($_POST['csrf_token'])) {
+            $fetchedCsrf = $_POST['csrf_token'];
+        } elseif (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+            $fetchedCsrf = $_SERVER['HTTP_X_CSRF_TOKEN'];
+        }
 
         if (!$fetchedCsrf) {
             throw new \RuntimeException("Missing CSRF token.", 400);

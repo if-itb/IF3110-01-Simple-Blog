@@ -30,6 +30,14 @@ class View
         }
 
         $this->values = $values;
+
+        if (!isset($this->values['scripts'])) {
+            $this->values['scripts'] = '';
+        }
+
+        if (!isset($this->values['stylesheets'])) {
+            $this->values['stylesheets'] = '';
+        }
     }
 
     /**
@@ -41,6 +49,24 @@ class View
      */
     public function set($key, $value, $filter = true) {
         $this->values[$key] = $filter ? htmlspecialchars($value) : $value;
+    }
+
+    /**
+     * Add a Javascript file to the current view
+     *
+     * @param string $file path to the javascript file
+     */
+    public function addJavascript($file) {
+       $this->values['scripts'] .= "<script src='$file'></script>";
+    }
+
+    /**
+     * Add a CSS file to the current view
+     *
+     * @param string $file path to the javascript file
+     */
+    public function addCss($file) {
+        $this->values['stylesheets'] .= "<link rel='stylesheet' type='text/css' href='$file' />";
     }
 
     /**
@@ -59,6 +85,9 @@ class View
             $tagToReplace = "[@$key]";
             $output = str_replace($tagToReplace, $value, $output);
         }
+
+        // filter out other keys without matches
+        preg_replace('/\[\@\w+]/m', '', $output);
 
         return $output;
     }

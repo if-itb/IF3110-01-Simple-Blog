@@ -115,7 +115,7 @@ class SessionManager
             session_regenerate_id($destroy);
         } else {
             // If this session is obsolete it means there already is a new id
-            if(isset($_SESSION['OBSOLETE']) || $_SESSION['OBSOLETE'] == true)
+            if(isset($_SESSION['OBSOLETE']) && $_SESSION['OBSOLETE'] == true)
                 return;
 
             // Set current session to expire in 10 seconds
@@ -145,7 +145,10 @@ class SessionManager
         // generate random string
         $randBytes = bin2hex(openssl_random_pseudo_bytes(16));
 
-        $_SESSION['CSRF-TOKEN'] = $randBytes;
+        $_SESSION['CSRF-TOKEN'] = [
+            'value' => $randBytes,
+            'expires_at' => time() + 300 // expires after 5 minutes
+        ];
 
         $crypt = Encrypter::getInstance();
         $csrf = $crypt->encrypt($randBytes);
@@ -154,7 +157,7 @@ class SessionManager
     }
 
     public function isLoggedIn() {
-        return isset($_SESSION) && isset($_SESSION['user_id']);
+        return isset($_SESSION) && isset($_SESSION['user']);
     }
 
     public function checkCsrf($token) {
@@ -164,7 +167,12 @@ class SessionManager
 
         $calculatedCsrf = $crypt->decrypt($token);
         $storedCsrf = $this->get('CSRF-TOKEN');
+        assert (isset($storedCsrf) && isset($storedCsrf['value']) && isset($storedCsrf['expires_at']));
 
-        return $crypt->isHashEqual($calculatedCsrf, $storedCsrf);
+        if ($storedCsrf['expires_at'] < time()) {
+            return false;
+        }
+
+        return $crypt->isHashEqual($calculatedCsrf, $storedCsrf['value']);
     }
 }
