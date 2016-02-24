@@ -27,8 +27,9 @@ Class PostController extends BaseController{
         {
             foreach($posts as $post)
             {
+                $id = $post['id'];
                 $title = $post['title'];
-                $content = $post['content'];
+                $content = substr($post['content'],0,200);
                 $list_of_post = $list_of_post.
                     "<div class=\"row\">
                         <div class=\"col s12\">
@@ -38,7 +39,7 @@ Class PostController extends BaseController{
                                     <p>$content</p>
                                 </div>
                                 <div class=\"card-action\">
-                                    <a href=\"#\">Read more</a>
+                                    <a href=\"/post/view/$id\">Read more</a>
                                 </div>
                             </div>
                         </div>
@@ -49,9 +50,9 @@ Class PostController extends BaseController{
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
 
-        $postContent = new View('post_content');
+        $postContent = new View('post');
 
-        $postContent->set('post', $list_of_post, false);
+        $postContent->set('listofpost', $list_of_post, false);
 
         $view->set('content', $postContent->output(), false);
 
