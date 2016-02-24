@@ -130,13 +130,15 @@ class AuthController extends BaseController
             $_POST['username'], $matches);
 
         if (!$regexResult) {
-            header('Location: /auth/register', true, 302);
+            // the username is problematic
+
+            header('Location: /auth/register', true, 301);
         }
         $username = $matches[0];
 
         // check for password sameness
         if (strcmp($_POST['password'], $_POST['password_confirmation']) !== 0) {
-            header('Location: /auth/register', true, 302);
+            header('Location: /auth/register', true, 301);
         }
         $password = $_POST['password'];
 
@@ -153,13 +155,18 @@ class AuthController extends BaseController
 
 
             if ($result) { // user successfully registered
-                
+                header('Location: /auth/login', true, 301);
+            } else {
+                $error = $connection->getDriver()->errorInfo();
+                var_dump($error);
+
+                throw new \RuntimeException("Cannot create user:", 500);
             }
         } else {
             // redirect back to register page
             // TODO: show error page!
 
-            header('Location: /auth/register', true, 302);
+            header('Location: /auth/register', true, 301);
         }
     }
 }

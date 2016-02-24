@@ -2,6 +2,28 @@
 
 Tugas 1 IF4033.
 
+## System Requirements
+1. MySQL (&ge; 5.6.x) atau MariaDB (&ge; 10.x)
+2. PHP &ge; 5.5
+3. Windows atau UNIX-like OS
+
+## Quick Start (Development)
+1. *Clone* repo ini
+2. Ubah direktori ke tempat *clone*
+3. Buat file `.env` yang berisi parameter-parameter berikut:
+```
+APP_DEBUG=true
+APP_KEY=[32 random chars]
+
+DB_HOST=[host database]
+DB_PORT=[port database]
+DB_DATABASE=[nama database]
+DB_USERNAME=[nama username untuk database]
+DB_PASSWORD=[password]
+```
+4. `php -S localhost:8080 -t public`
+
+
 ## Deskripsi
 
 Gunakan template ini untuk membuat sebuah blog sederhana dengan menggunakan bahasa pemrograman PHP.
@@ -46,6 +68,10 @@ Lakukan **validasi** email pada form komentar dengan menggunakan javascript. Kom
 Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascript.
 
 **Tidak boleh menggunakan jquery untuk ajax.**
+
+## Pengamanan
+* Untuk melakukan filtrasi HTML, gunakan fungsi`strip_tags()`. Walaupun demikian, fungsi ini hanya bisa mengamankan jika digunakan untuk melakukan filtrasi keseluruhan tag. Walaupun `strip_tags()` mendukung *whitelist*, [link ini](http://php.net/manual/en/function.strip-tags.php#118183) menyatakan bahwa fungsi ini lemah untuk mengamankan HTML secara keseluruhan.
+* Jangan lupa untuk membubuhkan `APP_KEY` di `.env`
 
 
 ## Lisensi

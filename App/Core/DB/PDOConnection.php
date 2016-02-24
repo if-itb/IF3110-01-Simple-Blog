@@ -34,6 +34,13 @@ class PDOConnection implements ConnectionInterface
     }
 
     /**
+     * @return PDO
+     */
+    public function getDriver() {
+        return $this->pdo;
+    }
+
+    /**
      * PDOConnection constructor.
      *
      * @param PDO $pdo
