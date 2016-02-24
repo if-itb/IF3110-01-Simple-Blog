@@ -7,8 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-
   <link rel="stylesheet" type="text/css" href="/assets/css/materialize.css"/>
+  [@stylesheets]
+
   <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico"/>
 
 <body>
@@ -57,6 +58,7 @@
 <script src="/assets/js/jquery.js"></script>
 <script src="/assets/js/materialize.js"></script>
 <script src="/assets/js/index.js"></script>
+[@scripts]
 
 </body>
 </html>
