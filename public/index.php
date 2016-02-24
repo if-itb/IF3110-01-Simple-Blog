@@ -43,5 +43,11 @@ $router->post('/auth/register', 'AuthController@getRegister');
 
 $router->get('/users/[int:id]', 'UserController@index');
 
+$router->get('/post', 'PostController@index');
+
+$router->get('/post/create', 'PostController@create');
+
+
+
 // ...and off we go!
 $router->dispatch();
