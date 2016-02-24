@@ -87,7 +87,7 @@ Class PostController extends BaseController{
 
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
-        $postContent = new View('post_content');
+        $postContent = new View('one_post');
         $postContent->set('post', $list_of_post, false);
         $view->set('content', $postContent->output(), false);
         echo $view->output();
