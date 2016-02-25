@@ -17,7 +17,6 @@ Class PostController extends BaseController{
     public function index()
     {
         SessionManager::getManager();
-        print_r($_SESSION);
         $connection = PDOConnection::getInstance();
         $pdo = $connection->getDriver();
         $stmt = $pdo->prepare('select * from posts ORDER BY created_at DESC');
@@ -286,9 +285,7 @@ Class PostController extends BaseController{
             throw new \RuntimeException("Missing title or konten.", 400);
         }
 
-        $post_id = 0;
         $files_id = 0;
-        $upload_status = 0;
 
         $session = SessionManager::getManager();
         $user = $session->get('user');
@@ -306,7 +303,6 @@ Class PostController extends BaseController{
             $expensions= array("png");
 
             if(in_array($file_ext,$expensions)=== false){
-                print_r($_FILES);
                 throw new \RuntimeException("File not allowed. png only.", 500);
             }
 
@@ -480,7 +476,6 @@ Class PostController extends BaseController{
         }
 
         // inisialisasi files id
-        $file_id = 0;
         $connection = PDOConnection::getInstance();
         $pdo = $connection->getDriver();
 
@@ -549,7 +544,6 @@ Class PostController extends BaseController{
         }
         else
         {
-            print_r($_POST);
             $error = $connection->getDriver()->errorInfo();
             var_dump($error);
 
