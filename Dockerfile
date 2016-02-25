@@ -12,7 +12,7 @@ RUN apt-get update && \
   apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db && \
   add-apt-repository -y 'deb [arch=amd64,i386] http://kartolo.sby.datautama.net.id/mariadb/repo/10.1/ubuntu trusty main'
 RUN apt-get update && \
-  apt-get -y install supervisor git apache2 libapache2-mod-php5 php5-mysql pwgen php-apc php5-mcrypt mariadb-server dos2unix && \
+  apt-get -y install supervisor git apache2 libapache2-mod-php5 php5-gd php5-mysql pwgen php-apc php5-mcrypt mariadb-server dos2unix && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Add image configuration and scripts
@@ -49,8 +49,7 @@ RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 RUN dos2unix /*.sh
 
 # some cleanups
-RUN apt-cache clean -qq && \
- apt-cache autoclean -qq
+RUN apt-get clean -qq
 
 # Environment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
@@ -59,8 +58,8 @@ ENV PHP_POST_MAX_SIZE 10M
 # Add volumes for MySQL
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 
-# Add volumes for images
-VOLUME ["/app/public/images", "/var/if4033-simple-blog/images"]
+# Add volumes for images and .env
+VOLUME ["/var/if4033-simple-blog/images", "/app/images"]
 
 EXPOSE 80 3306
 CMD ["/run.sh"]
