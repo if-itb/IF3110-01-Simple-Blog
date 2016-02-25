@@ -61,6 +61,7 @@ Class PostController extends BaseController{
         $stmt = $pdo->prepare('select * from posts where id = :id');
         $stmt->execute(array('id' => $id));
 
+        $postContent = new View('one_post');
         $one_post = '';
         if($post = $stmt->fetchAll())
         {
@@ -78,12 +79,32 @@ Class PostController extends BaseController{
                         </div>
                     </div>
                 </div>";
+
+            $stmt = $pdo->prepare('select * from comments where post_id = :id');
+            $stmt->execute(array('id' => $id));
+            $comments_string = '';
+            if($comments = $stmt->fetchAll())
+            {
+                foreach($comments as $comment)
+                {
+                    $comment_title = $comment['judul'];
+                    $comment_body = $comment['content'];
+                    $comments_string = $comments_string.
+                        "<div class=\"divider\"></div>
+                        <div class=\"section\">
+                            <h5>$comment_title</h5>
+                            <p>$comment_body</p>
+                        </div>";
+                }
+            }
+            $postContent->set('comments', $comments_string, false);
         }
 
+        $postContent->set('post', $one_post, false);
+
+        $postContent->inject('comment_form', 'comment_form');
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
-        $postContent = new View('one_post');
-        $postContent->set('post', $one_post, false);
         $view->set('content', $postContent->output(), false);
         echo $view->output();
     }

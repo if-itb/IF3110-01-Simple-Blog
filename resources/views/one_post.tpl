@@ -1,8 +1,12 @@
 <div class="container">
     <div class="row">
-        <h2 class="center-align">Login</h2>
+        <h2 class="center-align">Post</h2>
 
         [@post]
+
+        [@comment_form]
+
+        [@comments]
 
         <div class="divider"></div>
         <div class="section">
