@@ -25,6 +25,24 @@ DB_PASSWORD=[password]
 
 4. Jalankan `php -S localhost:8080 -t public`
 
+## Deployment (Docker)
+Parameter-parameter berkut digunakan saat melakukan build:
+* `gitlab_token`: token yang digunakan untuk otentikasi. **WAJIB**
+* `http_proxy`: proxy yang digunakan untuk build. Dibutuhkan jika melakukan build via proxy (contoh: ITB).
+Kedua parameter di atas di-passing saat build menggunakan `--build-arg`
+
+Berikut adalah tahapan untuk build:
+1. Jalankan `docker build --build-arg gitlab_token=[token gitlab] http://gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git`
+2. ID dari image yang di-generate akan terpampang pada output terminal.
+3. Jalankan `docker run -d -p 80:80 -p 3306:3306 [id image]`
+
+### Catatan
+1. Agar file-file yang disimpan tetap *persistent*, lakukan mounting dengan menambahkan flag berikut:
+  1. `-v <path ke .env kosong>:/app/.env`
+  2. `-v <path ke folder mysql>:/var/lib/mysql`
+  3. `-v <path ke folder images>:/app/public/images`
+2. Karena fitur *persistence* belum dites, maka bagian ini (mungkin) bisa diabaikan~
+
 ## Deskripsi
 
 Gunakan template ini untuk membuat sebuah blog sederhana dengan menggunakan bahasa pemrograman PHP.

@@ -1,6 +1,8 @@
 FROM ubuntu:trusty
 MAINTAINER "Alvin Natawiguna <13512030@std.stei.itb.ac.id>"
 
+# note: for ARG, you need to pass --build-arg <arg_name>=<arg_value>, since these are required
+# this parameter is optional
 ARG 'http_proxy'
 
 # Install packages
@@ -10,7 +12,7 @@ RUN apt-get update && \
   apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db && \
   add-apt-repository -y 'deb [arch=amd64,i386] http://kartolo.sby.datautama.net.id/mariadb/repo/10.1/ubuntu trusty main'
 RUN apt-get update && \
-  apt-get -y install supervisor git apache2 libapache2-mod-php5 php5-mysql pwgen php-apc php5-mcrypt mariadb-server && \
+  apt-get -y install supervisor git apache2 libapache2-mod-php5 php5-gd php5-mysql pwgen php-apc php5-mcrypt mariadb-server dos2unix && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Add image configuration and scripts
@@ -37,19 +39,27 @@ ADD ./init/config/apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # pull the image from gitlab.informatika.org
-ARG 'gitlab_user'
-ARG 'gitlab_pass'
+ARG 'gitlab_token'
 
 RUN rm -rf /app && \
-  git clone http://${gitlab_user}:${gitlab_pass}@gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git /app
+  git clone http://gitlab-ci-token:${gitlab_token}@gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git /app
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 
-#Environment variables to configure php
+# fix broken files on windows
+RUN dos2unix /*.sh
+
+# some cleanups
+RUN apt-get clean -qq
+
+# Environment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
 
 # Add volumes for MySQL
-VOLUME  ["/etc/mysql", "/var/lib/mysql"]
+VOLUME ["/etc/mysql", "/var/lib/mysql"]
+
+# Add volumes for images and .env
+VOLUME ["/var/if4033-simple-blog/images", "/app/images"]
 
 EXPOSE 80 3306
 CMD ["/run.sh"]
