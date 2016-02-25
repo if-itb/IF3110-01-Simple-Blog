@@ -7,11 +7,11 @@ PASS=${MYSQL_PASS:-$(pwgen -s 12 1)}
 _word=$( [ ${MYSQL_PASS} ] && echo "preset" || echo "random" )
 echo "=> Creating MySQL simple_blog user with ${_word} password"
 
-mysql -uroot -e "CREATE USER 'simple_blog'@'localhost' IDENTIFIED BY '$PASS'"
+mysql -hlocalhost -uroot -e "CREATE USER 'simple_blog'@'localhost' IDENTIFIED BY '$PASS'"
 
 # create the DB and stuff
-mysql -uroot < /app/config/schema.sql
-mysql -uroot -e "GRANT ALL PRIVILEGES ON simple_blog.* to simple_blog@'localhost' WITH GRANT OPTION"
+mysql -hlocalhost -uroot < /app/config/schema.sql
+mysql -hlocalhost -uroot -e "GRANT ALL PRIVILEGES ON simple_blog.* to simple_blog@'localhost' WITH GRANT OPTION"
 
 # remove the admin user...
 # oh wait, we do not have ACL.. oh well~
