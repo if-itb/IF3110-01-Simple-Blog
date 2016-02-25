@@ -11,9 +11,9 @@ RUN rm -rf /app && \
 # replace the symlink
 RUN sed -i "s/\/var\/www\/html/\/var\/www\/html\/public/g" /etc/apache2/sites-enabled/000-default.conf
 
-# run the initialization script
-RUN chmod +x /app/init.sh && \
-  /app/init.sh
+# prep the initialization script
+COPY /app/init.sh /mysql-setup.sh
+RUN chmod +x /mysql-setup.sh
 
 EXPOSE 80 3306
 
