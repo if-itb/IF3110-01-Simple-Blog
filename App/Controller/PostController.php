@@ -102,7 +102,10 @@ Class PostController extends BaseController{
 
         $postContent->set('post', $one_post, false);
 
-        $postContent->inject('comment_form', 'comment_form');
+        $comment_form = new View('comment_form');
+        $comment_form->set('form_url','/comment/create');
+
+        $postContent->set('comment_form', $comment_form->output(),false);
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
         $view->set('content', $postContent->output(), false);
