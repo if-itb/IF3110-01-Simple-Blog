@@ -31,7 +31,13 @@ abstract class Controller
         return $this->ignoreBeforeList;
     }
 
-    protected function redirect($location)
+    /**
+     * Redirects the user
+     *
+     * @param string $location the relative location to redirect
+     * @param bool $immediately immediately redirects the user. Stops the currently running script
+     */
+    protected function redirect($location, $immediately = true)
     {
         if (isset($_SERVER['SERVER_NAME']) and isset($_SERVER['SERVER_PORT'])) {
             // assumed using http.
@@ -41,6 +47,10 @@ abstract class Controller
             header("Location: http://$host:$port{$location}");
         } else {
             header("Location: ./index.php{$location}");
+        }
+
+        if ($immediately) {
+            exit;
         }
     }
 }
