@@ -30,8 +30,38 @@ Class PostController extends BaseController{
                 $id = $post['id'];
                 $title = $post['title'];
                 $content = substr($post['content'],0,200);
-                $list_of_post = $list_of_post.
-                    "<div class=\"row\">
+
+                if($post['files_id'] != NULL)
+                {
+                    $connection = PDOConnection::getInstance();
+                    $pdo = $connection->getDriver();
+                    $stmt = $pdo->prepare('select path from files where id = :id');
+                    $stmt->execute(array('id' => $post['files_id']));
+
+                    $file = $stmt->fetchAll();
+                    $path = substr($file[0]['path'],7);
+                    $list_of_post = $list_of_post.
+                        "<div class=\"row\">
+                        <div class=\"col s12\">
+                            <div class=\"card\">
+                            <div class=\"card-image\">
+                              <img src=\"$path\">
+                              <span class=\"card-title\">$title</span>
+                            </div>
+                                <div class=\"card-content\">
+                                    <p>$content</p>
+                                </div>
+                                <div class=\"card-action\">
+                                    <a href=\"/post/view/$id\">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                }
+                else
+                {
+                    $list_of_post = $list_of_post.
+                        "<div class=\"row\">
                         <div class=\"col s12\">
                             <div class=\"card\">
                                 <div class=\"card-content\">
@@ -44,6 +74,7 @@ Class PostController extends BaseController{
                             </div>
                         </div>
                     </div>";
+                }
             }
         }
 
@@ -68,8 +99,35 @@ Class PostController extends BaseController{
             $id = $post[0]['id'];
             $title = $post[0]['title'];
             $content = $post[0]['content'];
-            $one_post = $one_post.
-                "<div class=\"row\">
+
+            if($post[0]['files_id'] != NULL)
+            {
+                $connection = PDOConnection::getInstance();
+                $pdo = $connection->getDriver();
+                $stmt = $pdo->prepare('select path from files where id = :id');
+                $stmt->execute(array('id' => $post[0]['files_id']));
+
+                $file = $stmt->fetchAll();
+                $path = substr($file[0]['path'],7);
+                $one_post = $one_post.
+                    "<div class=\"row\">
+                        <div class=\"col s12\">
+                            <div class=\"card\">
+                            <div class=\"card-image\">
+                              <img src=\"$path\">
+                              <span class=\"card-title\">$title</span>
+                            </div>
+                                <div class=\"card-content\">
+                                    <p>$content</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+            }
+            else
+            {
+                $one_post = $one_post.
+                    "<div class=\"row\">
                     <div class=\"col s12\">
                         <div class=\"card\">
                             <div class=\"card-content\">
@@ -79,6 +137,7 @@ Class PostController extends BaseController{
                         </div>
                     </div>
                 </div>";
+            }
 
             $stmt = $pdo->prepare('select * from comments where post_id = :id');
             $stmt->execute(array('id' => $id));
@@ -196,7 +255,7 @@ Class PostController extends BaseController{
         $result = $connection->insert('posts', [
             'title' => $judul,
             'content' => $konten,
-            'image_id' => $files_id,
+            'files_id' => $files_id,
             // TODO: change 1 jadi id user berdasarkan username
             'user_id' => 1,
         ]);
