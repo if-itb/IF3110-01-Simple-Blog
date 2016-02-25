@@ -98,6 +98,10 @@ Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascrip
 ## Catatan
 * Jangan lupa untuk membubuhkan `APP_KEY` di `.env`
 
+## Live Demo
+
+Akses ke https://blog-kpi.akhfa.me
+
 ## Lisensi
 
 &copy; 2016
