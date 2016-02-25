@@ -35,14 +35,12 @@ $router->get('/', function () {
     }
 });
 
+// authentication block
 $router->get('/auth/login', 'AuthController@getLogin');
 $router->post('/auth/login', 'AuthController@postLogin');
 $router->get('/auth/logout', 'AuthController@getLogout');
-
 $router->get('/auth/register', 'AuthController@getRegister');
 $router->post('/auth/register', 'AuthController@postRegister');
-
-$router->get('/users/[int:id]', 'UserController@index');
 
 $router->get('/post', 'PostController@index');
 

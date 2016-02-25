@@ -63,6 +63,7 @@ class SessionManager
     protected $injected = false;
 
     public static function getManager($driver = 'database') {
+        $manager = null;
         switch ($driver) {
             case 'database':
                 if (!isset(self::$currentManager)) {
@@ -71,7 +72,6 @@ class SessionManager
                     $manager = new SessionManager($handler);
 
                     $manager->injectToPhp();
-                    return $manager;
                 } else {
                     if (self::$currentManager instanceof MySqlSessionHandler) {
                         return self::$currentManager;
@@ -82,13 +82,20 @@ class SessionManager
 
                         $manager->injectToPhp();
                         assert($manager->injected === true);
-                        return $manager;
                     }
                 }
+                break;
+            default:
+                // should not reach this part
+                throw new \RuntimeException('No driver defined!');
         }
 
-        // should not reach this part
-        throw new \RuntimeException('No driver defined!');
+        // 5% chance of regenerating id
+        if (rand(1, 99) <= 5) {
+            $manager->regenerateId();
+        }
+
+        return $manager;
     }
 
     public function __construct($handler, $id = null, $name = null) {
@@ -159,7 +166,7 @@ class SessionManager
                 session_name($this->name);
 
                 // start the session
-                session_start();
+                @session_start();
                 $this->id = session_id();
 
                 assert(!empty($this->id));

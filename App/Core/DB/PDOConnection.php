@@ -169,7 +169,7 @@ class PDOConnection implements ConnectionInterface
 
     public function update($table, array $updateBindings = [], array $whereBindings = [])
     {
-        // TODO: Implement update() method.
+        // TODO: implement update() method, correctly!
     }
 
     public function delete($table, array $bindings = [])

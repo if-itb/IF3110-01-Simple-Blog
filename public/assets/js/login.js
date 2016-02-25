@@ -12,6 +12,13 @@
 
         $loginForm.appendChild($hiddenCsrf);
 
+        // hash the password
+        // output is hex
+        var hasher = new jsSHA('SHA-512', 'TEXT');
+        var passwordInput = document.querySelector('input[name=password]');
+        hasher.update(passwordInput.value);
+        passwordInput.value = hasher.getHash('HEX');
+
         // continue the form submission
         var eventTarget = event.target;
         setTimeout(function () {
