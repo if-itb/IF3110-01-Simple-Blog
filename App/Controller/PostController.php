@@ -33,10 +33,12 @@ Class PostController extends BaseController{
                 $title = $post['title'];
                 $content = substr($post['content'],0,200);
 
-                // cek logged_in buat link delete
+                // cek logged_in buat link edit dan delete
+                $action_edit = '';
                 $action_delete = '';
                 if($logged_in)
                 {
+                    $action_edit = "<a href=\"/post/edit/$id\">Edit</a>";
                     $action_delete = "<a href=\"/post/delete/$id\">Delete</a>";
                 }
 
@@ -63,6 +65,7 @@ Class PostController extends BaseController{
                                 </div>
                                 <div class=\"card-action\">
                                     <a href=\"/post/view/$id\">Read more</a>
+                                    $action_edit
                                     $action_delete
                                 </div>
                             </div>
@@ -81,6 +84,7 @@ Class PostController extends BaseController{
                                 </div>
                                 <div class=\"card-action\">
                                     <a href=\"/post/view/$id\">Read more</a>
+                                    $action_edit
                                     $action_delete
                                 </div>
                             </div>
@@ -94,7 +98,6 @@ Class PostController extends BaseController{
         if($logged_in)
         {
             $navbar = new View('navbar.auth');
-
             $navbar->set('username', $_SESSION['user']['username']);
             $view->set('navbar', $navbar->output(),false);
         }
@@ -109,6 +112,7 @@ Class PostController extends BaseController{
     }
     public function getView($id)
     {
+        $logged_in = $this->isLoggedIn();
         $connection = PDOConnection::getInstance();
         $pdo = $connection->getDriver();
         $stmt = $pdo->prepare('select * from posts where id = :id');
@@ -121,6 +125,15 @@ Class PostController extends BaseController{
             $id = $post[0]['id'];
             $title = $post[0]['title'];
             $content = $post[0]['content'];
+
+            // cek logged_in buat link delete
+            $action_edit = '';
+            $action_delete = '';
+            if($logged_in)
+            {
+                $action_edit = "<a href=\"/post/edit/$id\">Edit</a>";
+                $action_delete = "<a href=\"/post/delete/$id\">Delete</a>";
+            }
 
             if($post[0]['files_id'] != NULL && $post[0]['files_id'] != 0)
             {
@@ -142,6 +155,10 @@ Class PostController extends BaseController{
                                 <div class=\"card-content\">
                                     <p>$content</p>
                                 </div>
+                                <div class=\"card-action\">
+                                    $action_edit
+                                    $action_delete
+                                </div>
                             </div>
                         </div>
                     </div>";
@@ -156,6 +173,10 @@ Class PostController extends BaseController{
                                 <span class=\"card-title\">$title</span>
                                 <p>$content</p>
                             </div>
+                            <div class=\"card-action\">
+                                    $action_edit
+                                    $action_delete
+                                </div>
                         </div>
                     </div>
                 </div>";
@@ -221,7 +242,6 @@ Class PostController extends BaseController{
         $view = new View('layout');
 
         $navbar = new View('navbar.auth');
-
         $navbar->set('username', $_SESSION['user']['username']);
         $view->set('navbar', $navbar->output(),false);
 
