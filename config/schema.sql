@@ -14,7 +14,6 @@
 CREATE DATABASE IF NOT EXISTS `simple_blog` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `simple_blog`;
 
-
 -- Dumping structure for table simple_blog.comments
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `content` text NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP,
   `metadata` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -57,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `content` text NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP,
   `highlight_image_id` char(36) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `highlight_image_files_id` (`highlight_image_id`),
