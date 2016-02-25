@@ -208,23 +208,8 @@ Class PostController extends BaseController{
         }
         else
         {
-            $path = "/images/error.gif";
-            $one_post = $one_post.
-                "<div class=\"row\">
-                        <div class=\"col s12\">
-                            <div class=\"card\">
-                                <div class=\"card - image\">
-                                  <img src=\"$path\">
-                                  <span class=\"card-title\">NOT FOUND</span>
-                                </div>
-                                <div class=\"card-content\">
-                                    <p>Konten tidak ditemukan.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>";
             $postContent->set('comments', '', false);
-            $postContent->set('post', $one_post, false);
+            $postContent->inject('post', 'not_found_card');
             $postContent->set('comment_form', '',false);
         }
         $view = new View('layout');
@@ -387,6 +372,7 @@ Class PostController extends BaseController{
             $id = $post[0]['id'];
             $title = $post[0]['title'];
             $content = $post[0]['content'];
+
             $post_form = new View('post_form');
             $post_form->set('form_title', 'Edit post');
             $post_form->set('form_url', "/post/edit/$id");
@@ -394,6 +380,10 @@ Class PostController extends BaseController{
             $post_form->set('content_value', $content);
 
             $view->set('content', $post_form->output(), false);
+        }
+        else
+        {
+            $view->inject('content', 'not_found_card');
         }
 
         echo $view->output();
