@@ -26,14 +26,7 @@ $router = \App\Core\Router::getInstance();
 /**
  * Register the routes here
  */
-$router->get('/', function () {
-    echo 'Hello, world!';
-
-    $session = \App\Core\SessionManager::getManager();
-    if ($session->isLoggedIn()) {
-        echo " Your user id is <strong>{$session->get('user')['id']}</strong>.";
-    }
-});
+$router->get('/', 'PostController@index');
 
 // authentication block
 $router->get('/auth/login', 'AuthController@getLogin');
