@@ -3,7 +3,7 @@
 Tugas 1 IF4033.
 
 ## System Requirements
-1. MySQL (&ge; 5.6.x) atau MariaDB (&ge; 10.x)
+1. MySQL (&ge; 5.5.x) atau MariaDB (&ge; 10.x)
 2. PHP &ge; 5.5
 3. Windows atau UNIX-like OS
 
@@ -11,6 +11,7 @@ Tugas 1 IF4033.
 1. *Clone* repo ini
 2. Ubah direktori ke tempat *clone*
 3. Buat file `.env` yang berisi parameter-parameter berikut:
+
 ```
 APP_DEBUG=true
 APP_KEY=[32 random chars]
@@ -21,8 +22,8 @@ DB_DATABASE=[nama database]
 DB_USERNAME=[nama username untuk database]
 DB_PASSWORD=[password]
 ```
-4. `php -S localhost:8080 -t public`
 
+4. Jalankan `php -S localhost:8080 -t public`
 
 ## Deskripsi
 
