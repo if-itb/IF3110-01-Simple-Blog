@@ -115,10 +115,10 @@ Class PostController extends BaseController{
                     "<div class=\"row\">
                         <div class=\"col s12\">
                             <div class=\"card\">
-                            <div class=\"card-image\">
-                              <img src=\"$path\">
-                              <span class=\"card-title\">$title</span>
-                            </div>
+                                <div class=\"card-image\">
+                                  <img src=\"$path\">
+                                  <span class=\"card-title\">$title</span>
+                                </div>
                                 <div class=\"card-content\">
                                     <p>$content</p>
                                 </div>
@@ -159,14 +159,33 @@ Class PostController extends BaseController{
                 }
             }
             $postContent->set('comments', $comments_string, false);
+            $postContent->set('post', $one_post, false);
+            $comment_form = new View('comment_form');
+            $comment_form->set('form_url',"/comment/create/$id");
+
+            $postContent->set('comment_form', $comment_form->output(),false);
         }
-
-        $postContent->set('post', $one_post, false);
-
-        $comment_form = new View('comment_form');
-        $comment_form->set('form_url',"/comment/create/$id");
-
-        $postContent->set('comment_form', $comment_form->output(),false);
+        else
+        {
+            $path = "/images/error.gif";
+            $one_post = $one_post.
+                "<div class=\"row\">
+                        <div class=\"col s12\">
+                            <div class=\"card\">
+                                <div class=\"card - image\">
+                                  <img src=\"$path\">
+                                  <span class=\"card-title\">NOT FOUND</span>
+                                </div>
+                                <div class=\"card-content\">
+                                    <p>Konten tidak ditemukan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+            $postContent->set('comments', '', false);
+            $postContent->set('post', $one_post, false);
+            $postContent->set('comment_form', '',false);
+        }
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
         $view->set('content', $postContent->output(), false);
