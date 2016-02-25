@@ -228,14 +228,18 @@ class AuthController extends BaseController
         // 3. no __ or _. or ._ or .. inside
         // 4. allowed characters: alphanumeric, dot (.) and underscore (_)
         // 5. no _ or . at the end
-        $regexResult = preg_match('/(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])/',
-            $_POST['username'], $matches);
+//        $regexResult = preg_match('/(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])/',
+//            $_POST['username'], $matches);
+//
+//        if (!$regexResult) {
+//            // the username is problematic
+//            $this->redirect('/auth/register');
+//        }
 
-        if (!$regexResult) {
-            // the username is problematic
-            $this->redirect('/auth/register');
-        }
-        $username = $matches[0];
+        require_once ROOT_PATH.'/App/library/HTMLPurifier.auto.php';
+        $purifier = new \HTMLPurifier();
+
+        $username = strip_tags($purifier->purify($_POST['username']));
 
         // check for password sameness
         if (strcmp($_POST['password'], $_POST['password_confirmation']) !== 0) {
