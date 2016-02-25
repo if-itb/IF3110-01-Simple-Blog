@@ -295,6 +295,12 @@ class Router
                     // currently not supporting IoC/dependency injections to Controller...
                     $controller = new $controllerClass;
 
+                    // call ::before(), if exists
+                    // and the method is not in exemption
+                    if (method_exists($controller, 'before') and in_array($controllerMethod, $controller->getExceptBefore())) {
+                        call_user_func_array([$controller, 'before'], []);
+                    }
+
                     if (method_exists($controller, $controllerMethod)) {
                         call_user_func_array([$controller, $controllerMethod], $params);
                     } else {
@@ -306,7 +312,6 @@ class Router
                 } else {
                     throw new RuntimeException("Unknown type of target bound to route $target", 500);
                 }
-
             } else {
                 $message = "No route found for ";
                 $message .= empty($requestMethod) ? "{$_SERVER['REQUEST_METHOD']} "  : "{$requestMethod} ";
@@ -317,7 +322,7 @@ class Router
         }
         catch (Exception $e)
         {
-            $code = $e->getCode();
+            $code = $e->getCode() !== 0 ? $e->getCode() : 500;
             if ($code === 404) {
                 echo "Sorry, content not found.<br/>";
             } else {

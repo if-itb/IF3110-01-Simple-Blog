@@ -87,7 +87,7 @@ class View
         }
 
         // filter out other keys without matches
-        preg_replace('/\[\@\w+]/m', '', $output);
+        preg_replace('/\[\@.*]/m', '', $output);
 
         return $output;
     }

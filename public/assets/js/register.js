@@ -1,5 +1,5 @@
 (function () {
-    var $loginForm = document.forms['login'];
+    var $loginForm = document.forms['register'];
 
     $loginForm.addEventListener('submit', function (event) {
         var $csrf = Cookies.get('X-XSRF-TOKEN');

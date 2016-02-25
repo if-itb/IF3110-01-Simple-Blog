@@ -20,5 +20,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "Materialize": "materialize#^0.97.5",
+    "jsSHA": "jssha#^2.0.2"
+  }
 }

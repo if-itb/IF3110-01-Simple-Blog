@@ -1,5 +1,6 @@
 <?php namespace App\Core\DB;
 
+use App\Core\ConfigLoader;
 use PDO;
 
 class MySqlSessionHandler implements \SessionHandlerInterface
@@ -20,21 +21,14 @@ class MySqlSessionHandler implements \SessionHandlerInterface
     protected $connection;
 
     /**
-     * Existence state of the session
-     *
-     * @var bool
-     */
-    protected $exists;
-
-    /**
      * MySqlSessionHandler constructor.
      *
      * @param PDO $connection
      * @param string $table
      */
-    public function __construct($connection, $table) {
+    public function __construct($connection, $table = null) {
         $this->connection = $connection;
-        $this->table = $table;
+        $this->table = !empty($table) ? $table : ConfigLoader::env('SESSION_TABLE', 'sessions');
     }
 
     /**
@@ -103,9 +97,11 @@ class MySqlSessionHandler implements \SessionHandlerInterface
         $preparedStatement = $this->connection
             ->prepare("SELECT * FROM {$this->table} WHERE id=:id");
 
-        $preparedStatement->bindParam(':id', $session_id);
-        if ($preparedStatement->execute()) {
-            return base64_decode($preparedStatement->fetch(PDO::FETCH_ASSOC)['payload']);
+        if ($preparedStatement->execute([':id' => $session_id])) {
+            $result = current($preparedStatement->fetchAll(PDO::FETCH_ASSOC));
+            $payload = base64_decode($result['payload']);
+
+            return $payload;
         } else {
             throw new \PDOException("Cannot fetch session from database!");
         }
@@ -116,19 +112,17 @@ class MySqlSessionHandler implements \SessionHandlerInterface
      */
     public function write($session_id, $session_data)
     {
-        $preparedStatement = null;
-        if ($this->exists) {
-            $preparedStatement = $this->connection
-                ->prepare("UPDATE {$this->table} SET payload=:payload, last_activity=:last_activity WHERE id:id ");
-        } else {
-            $preparedStatement = $this->connection
-                ->prepare("INSERT INTO {$this->table} (id, payload, last_activity) VALUES (:id, :payload, :last_activity)");
-        }
+        $preparedStatement = $this->connection->prepare("REPLACE INTO {$this->table} VALUES (:id, :payload, :last_activity)");
 
-        return $preparedStatement->execute([
+        $result = $preparedStatement->execute([
             ':id' => $session_id,
             ':payload' => base64_encode($session_data),
             ':last_activity' => time()
         ]);
+        if (!$result) {
+            throw new \RuntimeException('Cannot write session to database!', 500);
+        }
+
+        return $result;
     }
 }

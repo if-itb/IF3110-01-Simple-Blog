@@ -11,7 +11,8 @@
   [@stylesheets]
 
   <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico"/>
-
+  <title>Simple Blog | [@pageTitle]</title>
+</head>
 <body>
 [@navbar]
 

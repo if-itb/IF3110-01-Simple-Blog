@@ -103,8 +103,9 @@ class PDOConnection implements ConnectionInterface
                 $statement->bindParam(":{$key}", $value);
             }
         }
+        $statement->execute();
 
-        return $statement->fetchAll(PDO::FETCH_BOTH);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function insert($table, array $bindings)
