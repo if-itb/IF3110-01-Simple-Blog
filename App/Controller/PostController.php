@@ -23,6 +23,8 @@ Class PostController extends BaseController{
 
         $list_of_post = '';
 
+        $logged_in = $this->isLoggedIn();
+
         if($posts = $stmt->fetchAll())
         {
             foreach($posts as $post)
@@ -30,6 +32,13 @@ Class PostController extends BaseController{
                 $id = $post['id'];
                 $title = $post['title'];
                 $content = substr($post['content'],0,200);
+
+                // cek logged_in buat link delete
+                $action_delete = '';
+                if($logged_in)
+                {
+                    $action_delete = "<a href=\"/post/delete/$id\">Delete</a>";
+                }
 
                 if($post['files_id'] != NULL && $post['files_id'] != 0)
                 {
@@ -40,6 +49,7 @@ Class PostController extends BaseController{
 
                     $file = $stmt->fetchAll();
                     $path = substr($file[0]['path'],7);
+
                     $list_of_post = $list_of_post.
                         "<div class=\"row\">
                         <div class=\"col s12\">
@@ -53,7 +63,7 @@ Class PostController extends BaseController{
                                 </div>
                                 <div class=\"card-action\">
                                     <a href=\"/post/view/$id\">Read more</a>
-                                    <a href=\" /post/delete/$id\">Delete</a>
+                                    $action_delete
                                 </div>
                             </div>
                         </div>
@@ -71,7 +81,7 @@ Class PostController extends BaseController{
                                 </div>
                                 <div class=\"card-action\">
                                     <a href=\"/post/view/$id\">Read more</a>
-                                    <a href=\"/post/delete/$id\">Delete</a>
+                                    $action_delete
                                 </div>
                             </div>
                         </div>
@@ -81,7 +91,17 @@ Class PostController extends BaseController{
         }
 
         $view = new View('layout');
-        $view->inject('navbar', 'navbar');
+        if($logged_in)
+        {
+            $navbar = new View('navbar.auth');
+
+            $navbar->set('username', $_SESSION['user']['username']);
+            $view->set('navbar', $navbar->output(),false);
+        }
+        else
+        {
+            $view->inject('navbar', 'navbar');
+        }
         $postContent = new View('post');
         $postContent->set('listofpost', $list_of_post, false);
         $view->set('content', $postContent->output(), false);
@@ -202,7 +222,6 @@ Class PostController extends BaseController{
 
         $navbar = new View('navbar.auth');
 
-//        $session = SessionManager::getManager();
         $navbar->set('username', $_SESSION['user']['username']);
         $view->set('navbar', $navbar->output(),false);
 
