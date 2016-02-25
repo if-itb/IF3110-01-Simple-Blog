@@ -193,8 +193,18 @@ Class PostController extends BaseController{
     }
     public function getCreate()
     {
+        if(!$this->isLoggedIn())
+        {
+            $this->redirect('/auth/login');
+        }
+
         $view = new View('layout');
-        $view->inject('navbar', 'navbar');
+
+        $navbar = new View('navbar.auth');
+
+//        $session = SessionManager::getManager();
+        $navbar->set('username', $_SESSION['user']['username']);
+        $view->set('navbar', $navbar->output(),false);
 
         $post_form = new View('post_form');
         $post_form->set('form_title', 'Membuat post');
@@ -207,6 +217,11 @@ Class PostController extends BaseController{
     }
     public function postCreate()
     {
+        if(!$this->isLoggedIn())
+        {
+            $this->redirect('/auth/login');
+        }
+
         // Set html purifier
         require_once ROOT_PATH.'/App/library/HTMLPurifier.auto.php';
         $purifier = new \HTMLPurifier();
@@ -295,6 +310,11 @@ Class PostController extends BaseController{
 
     public function getEdit($id)
     {
+        if(!$this->isLoggedIn())
+        {
+            $this->redirect('/auth/login');
+        }
+
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
 
@@ -330,6 +350,11 @@ Class PostController extends BaseController{
 
     public function postEdit($id)
     {
+        if(!$this->isLoggedIn())
+        {
+            $this->redirect('/auth/login');
+        }
+
         // Set html purifier
         require_once ROOT_PATH.'/App/library/HTMLPurifier.auto.php';
         $purifier = new \HTMLPurifier();
@@ -376,6 +401,11 @@ Class PostController extends BaseController{
 
     public function getDelete($id)
     {
+        if(!$this->isLoggedIn())
+        {
+            $this->redirect('/auth/login');
+        }
+
         if (!isset($_POST)) {
             throw new \RuntimeException("No data posted.", 400);
         }
@@ -455,5 +485,50 @@ Class PostController extends BaseController{
 
             throw new \RuntimeException("Cannot create comment:", 500);
         }
+    }
+
+    private function isLoggedIn()
+    {
+        $logged_in = false;
+        $session = SessionManager::getManager();
+
+        if ($session->isLoggedIn()) {
+            $logged_in = true;
+        }
+
+        $rememberToken = null;
+        if (isset($_COOKIE) && isset($_COOKIE['remember_token'])) {
+            try {
+                $encrypter = Encrypter::getInstance();
+                $rememberToken = $encrypter->decrypt($_COOKIE['remember_token']);
+            } catch (DecryptException $e) {
+                // the cookie is invalid!
+                $rememberToken = null;
+
+                // unset the cookie
+                setcookie('remember_token', '', 1);
+            }
+        }
+
+        if ($rememberToken) {
+            $connection = PDOConnection::getInstance();
+            $user = $connection->selectOne('users', [
+                'remember_token' => $rememberToken
+            ]);
+
+            if ($user) {
+                // log in the user
+                $session->destroy();
+                $session->start();
+
+                $session->set('user', $user);
+                $logged_in = true;
+            } else {
+
+                // unset the cookie
+                setcookie('remember_token', '', 1);
+            }
+        }
+        return $logged_in;
     }
 }
