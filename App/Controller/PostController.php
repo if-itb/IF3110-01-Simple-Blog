@@ -174,9 +174,9 @@ Class PostController extends BaseController{
                                 <p>$content</p>
                             </div>
                             <div class=\"card-action\">
-                                    $action_edit
-                                    $action_delete
-                                </div>
+                                $action_edit
+                                $action_delete
+                            </div>
                         </div>
                     </div>
                 </div>";
@@ -234,7 +234,8 @@ Class PostController extends BaseController{
     }
     public function getCreate()
     {
-        if(!$this->isLoggedIn())
+        $logged_in = $this->isLoggedIn();
+        if(!$logged_in)
         {
             $this->redirect('/auth/login');
         }
@@ -256,7 +257,8 @@ Class PostController extends BaseController{
     }
     public function postCreate()
     {
-        if(!$this->isLoggedIn())
+        $logged_in = $this->isLoggedIn();
+        if(!$logged_in)
         {
             $this->redirect('/auth/login');
         }
@@ -349,13 +351,23 @@ Class PostController extends BaseController{
 
     public function getEdit($id)
     {
-        if(!$this->isLoggedIn())
+        $logged_in = $this->isLoggedIn();
+        if(!$logged_in)
         {
             $this->redirect('/auth/login');
         }
 
         $view = new View('layout');
-        $view->inject('navbar', 'navbar');
+        if($logged_in)
+        {
+            $navbar = new View('navbar.auth');
+            $navbar->set('username', $_SESSION['user']['username']);
+            $view->set('navbar', $navbar->output(),false);
+        }
+        else
+        {
+            $view->inject('navbar', 'navbar');
+        }
 
         $connection = PDOConnection::getInstance();
         $pdo = $connection->getDriver();
@@ -389,7 +401,8 @@ Class PostController extends BaseController{
 
     public function postEdit($id)
     {
-        if(!$this->isLoggedIn())
+        $logged_in = $this->isLoggedIn();
+        if(!$logged_in)
         {
             $this->redirect('/auth/login');
         }
@@ -440,7 +453,8 @@ Class PostController extends BaseController{
 
     public function getDelete($id)
     {
-        if(!$this->isLoggedIn())
+        $logged_in = $this->isLoggedIn();
+        if(!$logged_in)
         {
             $this->redirect('/auth/login');
         }
