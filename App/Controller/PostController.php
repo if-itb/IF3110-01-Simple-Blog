@@ -476,30 +476,28 @@ Class PostController extends BaseController{
         // get files id dari post yang mau dihapus
         $stmt = $pdo->prepare('select files_id from posts where id = :id');
         $stmt->bindParam(':id', $id);
-        if($stmt->execute())
-        {
-            $files = $stmt->fetchAll();
-            $file_id = $files[0]['files_id'];
+        $stmt->execute();
+        $files = $stmt->fetchAll();
+        $file_id = $files[0]['files_id'];
 
-            //delete image
-            $stmt = $pdo->prepare('delete from files where id = :file_id');
-            $stmt->bindParam(':file_id', $file_id);
-            if($stmt->execute())
-            {
-                // delete post
-                $stmt = $pdo->prepare('delete from posts where id = :id');
-                $stmt->bindParam(':id', $id);
-                $stmt->execute();
-                header("Location: /post", true, 301);
-            }
-            else
-            {
-                $error = $connection->getDriver()->errorInfo();
-                var_dump($error);
+        // get image path
+        $stmt = $pdo->prepare('select path from files where id = :file_id');
+        $stmt->bindParam(':file_id', $file_id);
+        $stmt->execute();
+        $files = $stmt->fetchAll();
+        $path = $files[0]['path'];
 
-                throw new \RuntimeException("Cannot delete", 500);
-            }
-        }
+        //delete image file and database
+        $stmt = $pdo->prepare('delete from files where id = :file_id');
+        $stmt->bindParam(':file_id', $file_id);
+        $stmt->execute();
+        unlink(ROOT_PATH.$path);
+
+        // delete post
+        $stmt = $pdo->prepare('delete from posts where id = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        header("Location: /post", true, 301);
     }
 
     public function postCreateComment($post_id)
