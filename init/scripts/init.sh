@@ -26,7 +26,7 @@ else
   # create user
   echo "=> Creating MySQL ${DB_USERNAME} user..."
 
-  mysql -uroot -e "CREATE USER '${DB_USERNAME}'@'localhost' IDENTIFIED BY '$PASS'"
+  mysql -uroot -e "CREATE USER '${DB_USERNAME}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}'"
 
   # create the DB and stuff
   # assumption: the DB_DATABASE is set dynamically
