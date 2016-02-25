@@ -144,6 +144,22 @@ Class PostController extends BaseController{
 
         $username = $user['username'];
 
+        if(isset($_FILES['image']))
+        {
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type = $_FILES['image']['type'];
+            $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+            $expensions= array("png");
+
+            if(in_array($file_ext,$expensions)=== false){
+                throw new \RuntimeException("File not allowed. png only.", 500);
+            }
+
+            move_uploaded_file($file_tmp,ROOT_PATH."/public/images/$file_name");
+        }
+
         // Filter input
         $judul = strip_tags($_POST['judul']);
         $konten = $purifier->purify($_POST['konten']);
