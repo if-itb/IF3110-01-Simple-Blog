@@ -140,6 +140,8 @@ Class PostController extends BaseController{
         }
 
         $post_id = 0;
+        $files_id = 0;
+        $upload_status = 0;
 
         $session = SessionManager::getManager();
         $user = $session->get('user');
@@ -148,8 +150,9 @@ Class PostController extends BaseController{
 
         $connection = PDOConnection::getInstance();
 
-        if(isset($_FILES['image']))
+        if($_FILES['image']['name'] != NULL)
         {
+            $upload_status = 1;
             $file_name = $_FILES['image']['name'];
             $file_size = $_FILES['image']['size'];
             $file_tmp = $_FILES['image']['tmp_name'];
@@ -158,6 +161,7 @@ Class PostController extends BaseController{
             $expensions= array("png");
 
             if(in_array($file_ext,$expensions)=== false){
+                print_r($_FILES);
                 throw new \RuntimeException("File not allowed. png only.", 500);
             }
 
@@ -173,12 +177,16 @@ Class PostController extends BaseController{
 
             move_uploaded_file($file_tmp,ROOT_PATH."/public/images/$file_name");
 
-            $connection->insert('files', [
+            $result = $connection->insert('files', [
                 'path' => "/public/images/$file_name",
                 'size' => $file_size,
                 'mime' => $file_type,
                 // TODO: Isi post_id setelah insert post
             ]);
+            if($result)
+            {
+                $files_id = $connection->get_last_inserted_id();
+            }
         }
 
         // Filter input
@@ -196,11 +204,15 @@ Class PostController extends BaseController{
         }
 
         // insert post id ke tabel files
-        $connection = PDOConnection::getInstance();
-        $pdo = $connection->getDriver();
-        $stmt = $pdo->prepare('update files set post_id = :post_id');
-        $stmt->bindParam(':post_id', $post_id);
-        $stmt->execute();
+        if($upload_status === 1)
+        {
+            $connection = PDOConnection::getInstance();
+            $pdo = $connection->getDriver();
+            $stmt = $pdo->prepare('update files set post_id = :post_id where id = :files_id');
+            $stmt->bindParam(':post_id', $post_id);
+            $stmt->bindParam(':files_id', $files_id);
+            $stmt->execute();
+        }
 
         if($result)
         {
@@ -226,6 +238,14 @@ Class PostController extends BaseController{
 
         if($post = $stmt->fetchAll())
         {
+            $image_path = NULL;
+            //get picture path
+            $stmt = $pdo->prepare('select path from files where post_id = :post_id');
+            $stmt->execute(array('post_id' => $id));
+
+            if($files = $stmt->fetchAll())
+                $image_path = $files[0]['path'];
+
             $id = $post[0]['id'];
             $title = $post[0]['title'];
             $content = $post[0]['content'];
