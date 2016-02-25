@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `content` text NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP,
   `highlight_image_id` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `highlight_image_files_id` (`highlight_image_id`)
