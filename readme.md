@@ -2,6 +2,13 @@
 
 Tugas 1 IF4033.
 
+## Fitur Pengamanan
+* Untuk melakukan filtrasi HTML, digunakan fungsi`strip_tags()`. Walaupun demikian, fungsi ini hanya bisa mengamankan jika digunakan untuk melakukan filtrasi keseluruhan tag. Walaupun `strip_tags()` mendukung *whitelist*, [link ini](http://php.net/manual/en/function.strip-tags.php#118183) menyatakan bahwa fungsi ini lemah untuk mengamankan HTML secara keseluruhan.
+* Cookie diencrypt
+* File yang dapat diupload adalah file yang memiliki tipe png
+* Ketika user login, maka password di hash, sehingga password tidak terkirim secara plain
+* Edit dan delete post hanya bisa dilakukan oleh user yang sudah logged in
+
 ## System Requirements
 1. MySQL (&ge; 5.5.x) atau MariaDB (&ge; 10.x)
 2. PHP &ge; 5.5
@@ -88,10 +95,8 @@ Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascrip
 
 **Tidak boleh menggunakan jquery untuk ajax.**
 
-## Pengamanan
-* Untuk melakukan filtrasi HTML, gunakan fungsi`strip_tags()`. Walaupun demikian, fungsi ini hanya bisa mengamankan jika digunakan untuk melakukan filtrasi keseluruhan tag. Walaupun `strip_tags()` mendukung *whitelist*, [link ini](http://php.net/manual/en/function.strip-tags.php#118183) menyatakan bahwa fungsi ini lemah untuk mengamankan HTML secara keseluruhan.
+## Catatan
 * Jangan lupa untuk membubuhkan `APP_KEY` di `.env`
-
 
 ## Lisensi
 
