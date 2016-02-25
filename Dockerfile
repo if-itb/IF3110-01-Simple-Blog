@@ -1,6 +1,8 @@
 FROM ubuntu:trusty
 MAINTAINER "Alvin Natawiguna <13512030@std.stei.itb.ac.id>"
 
+# note: for ARG, you need to pass --build-arg <arg_name>=<arg_value>, since these are required
+# this parameter is optional
 ARG 'http_proxy'
 
 # Install packages
@@ -37,11 +39,10 @@ ADD ./init/config/apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # pull the image from gitlab.informatika.org
-ARG 'gitlab_user'
-ARG 'gitlab_pass'
+ARG 'gitlab_token'
 
 RUN rm -rf /app && \
-  git clone http://${gitlab_user}:${gitlab_pass}@gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git /app
+  git clone http://gitlab-ci-token:${gitlab_token}@gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git /app
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 
 #Environment variables to configure php

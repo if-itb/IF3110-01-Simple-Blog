@@ -25,6 +25,16 @@ DB_PASSWORD=[password]
 
 4. Jalankan `php -S localhost:8080 -t public`
 
+## Deployment (Docker)
+Parameter-parameter berkut digunakan saat melakukan build:
+* `gitlab_token`: token yang digunakan untuk otentikasi. **WAJIB**
+* `http_proxy`: proxy yang digunakan untuk build. Dibutuhkan jika melakukan build via proxy.
+
+Berikut adalah tahapan untuk build:
+1. Jalankan `docker build --build-arg gitlab_token=[token gitlab] http://gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git`
+2. ID dari image yang di-generate akan terpampang pada build.
+
+
 ## Deskripsi
 
 Gunakan template ini untuk membuat sebuah blog sederhana dengan menggunakan bahasa pemrograman PHP.
