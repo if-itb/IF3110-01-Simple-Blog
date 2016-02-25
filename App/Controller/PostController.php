@@ -196,23 +196,10 @@ Class PostController extends BaseController{
         $result = $connection->insert('posts', [
             'title' => $judul,
             'content' => $konten,
+            'image_id' => $files_id,
             // TODO: change 1 jadi id user berdasarkan username
             'user_id' => 1,
         ]);
-        if ($result) {
-            $post_id = $connection->get_last_inserted_id();
-        }
-
-        // insert post id ke tabel files
-        if($upload_status === 1)
-        {
-            $connection = PDOConnection::getInstance();
-            $pdo = $connection->getDriver();
-            $stmt = $pdo->prepare('update files set post_id = :post_id where id = :files_id');
-            $stmt->bindParam(':post_id', $post_id);
-            $stmt->bindParam(':files_id', $files_id);
-            $stmt->execute();
-        }
 
         if($result)
         {
