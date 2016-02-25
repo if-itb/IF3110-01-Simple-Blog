@@ -217,7 +217,16 @@ Class PostController extends BaseController{
             $postContent->set('comment_form', '',false);
         }
         $view = new View('layout');
-        $view->inject('navbar', 'navbar');
+        if($logged_in)
+        {
+            $navbar = new View('navbar.auth');
+            $navbar->set('username', $_SESSION['user']['username']);
+            $view->set('navbar', $navbar->output(),false);
+        }
+        else
+        {
+            $view->inject('navbar', 'navbar');
+        }
         $view->set('content', $postContent->output(), false);
 
         // csrf
