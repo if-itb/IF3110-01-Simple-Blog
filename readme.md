@@ -28,12 +28,13 @@ DB_PASSWORD=[password]
 ## Deployment (Docker)
 Parameter-parameter berkut digunakan saat melakukan build:
 * `gitlab_token`: token yang digunakan untuk otentikasi. **WAJIB**
-* `http_proxy`: proxy yang digunakan untuk build. Dibutuhkan jika melakukan build via proxy.
+* `http_proxy`: proxy yang digunakan untuk build. Dibutuhkan jika melakukan build via proxy (contoh: ITB).
+Kedua parameter di atas di-passing saat build menggunakan `--build-arg`
 
 Berikut adalah tahapan untuk build:
 1. Jalankan `docker build --build-arg gitlab_token=[token gitlab] http://gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git`
-2. ID dari image yang di-generate akan terpampang pada build.
-
+2. ID dari image yang di-generate akan terpampang pada hasil.
+3.
 
 ## Deskripsi
 
