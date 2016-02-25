@@ -61,6 +61,7 @@ Class PostController extends BaseController{
         $stmt = $pdo->prepare('select * from posts where id = :id');
         $stmt->execute(array('id' => $id));
 
+        $postContent = new View('one_post');
         $one_post = '';
         if($post = $stmt->fetchAll())
         {
@@ -78,12 +79,35 @@ Class PostController extends BaseController{
                         </div>
                     </div>
                 </div>";
+
+            $stmt = $pdo->prepare('select * from comments where post_id = :id');
+            $stmt->execute(array('id' => $id));
+            $comments_string = '';
+            if($comments = $stmt->fetchAll())
+            {
+                foreach($comments as $comment)
+                {
+                    $comment_title = $comment['title'];
+                    $comment_body = $comment['content'];
+                    $comments_string = $comments_string.
+                        "<div class=\"divider\"></div>
+                        <div class=\"section\">
+                            <h5>$comment_title</h5>
+                            <p>$comment_body</p>
+                        </div>";
+                }
+            }
+            $postContent->set('comments', $comments_string, false);
         }
 
+        $postContent->set('post', $one_post, false);
+
+        $comment_form = new View('comment_form');
+        $comment_form->set('form_url',"/comment/create/$id");
+
+        $postContent->set('comment_form', $comment_form->output(),false);
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
-        $postContent = new View('one_post');
-        $postContent->set('post', $one_post, false);
         $view->set('content', $postContent->output(), false);
         echo $view->output();
     }
@@ -215,6 +239,48 @@ Class PostController extends BaseController{
 
             throw new \RuntimeException("Cannot edit post:", 500);
         }
+    }
 
+    public function postCreateComment($post_id)
+    {
+        // Set html purifier
+        require_once ROOT_PATH.'/App/library/HTMLPurifier.auto.php';
+        $purifier = new \HTMLPurifier();
+
+        if (!isset($_POST)) {
+            throw new \RuntimeException("No data posted.", 400);
+        }
+//
+        if (!isset($_POST['name']) or !isset($_POST['title']) or !isset($_POST['email']) or !isset($_POST['content'])) {
+            throw new \RuntimeException("Missing name or email or konten.", 400);
+        }
+
+        // Filter input
+        $name = strip_tags($_POST['name']);
+        $title = strip_tags($_POST['title']);
+        $email = strip_tags($_POST['email']);
+        $content = $purifier->purify($_POST['content']);
+
+        $connection = PDOConnection::getInstance();
+        $result = $connection->insert('comments', [
+            'name' => $name,
+            'title' => $title,
+            'email' => $email,
+            'content' => $content,
+            'post_id' => $post_id,
+        ]);
+
+        if($result)
+        {
+            header("Location: /post/view/$post_id", true, 301);
+        }
+        else
+        {
+            print_r($_POST);
+            $error = $connection->getDriver()->errorInfo();
+            var_dump($error);
+
+            throw new \RuntimeException("Cannot create comment:", 500);
+        }
     }
 }

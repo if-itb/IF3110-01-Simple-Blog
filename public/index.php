@@ -51,7 +51,7 @@ $router->post('/post/edit/[int:id]', 'PostController@postEdit');
 
 $router->get('/post/view/[int:id]', 'PostController@getView');
 
-
+$router->post('/comment/create/[int:id]', 'PostController@postCreateComment');
 
 
 // ...and off we go!
