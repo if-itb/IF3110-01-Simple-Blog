@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2016 at 06:08 PM
+-- Generation Time: Feb 25, 2016 at 07:43 PM
 -- Server version: 10.1.11-MariaDB-1~trusty-log
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -48,12 +48,11 @@ CREATE TABLE IF NOT EXISTS `files` (
   `path` text NOT NULL,
   `size` int(10) unsigned NOT NULL,
   `mime` varchar(128) NOT NULL,
-  `post_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `metadata` text,
   PRIMARY KEY (`id`),
   KEY `mime` (`mime`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -66,10 +65,11 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `title` text NOT NULL,
   `content` text NOT NULL,
   `user_id` int(11) NOT NULL,
+  `files_id` int(4) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
