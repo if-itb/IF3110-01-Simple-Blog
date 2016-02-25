@@ -2,16 +2,28 @@
 
 set -e
 
+# starting MySQLd
+# from https://github.com/tutumcloud/lamp/blob/master/create_mysql_admin_user.sh
+/usr/bin/mysqld_safe > /dev/null 2>&1 &
+
+RET=1
+while [[ RET -ne 0 ]]; do
+    echo "=> Waiting for confirmation of MySQL service startup"
+    sleep 5
+    mysql -uroot -e "status" > /dev/null 2>&1
+    RET=$?
+done
+
 # create password
 PASS=${MYSQL_PASS:-$(pwgen -s 12 1)}
 _word=$( [ ${MYSQL_PASS} ] && echo "preset" || echo "random" )
 echo "=> Creating MySQL simple_blog user with ${_word} password"
 
-mysql -uroot -e "CREATE USER 'simple_blog'@'localhost' IDENTIFIED BY '$PASS'"
+mysql -hlocalhost -uroot -e "CREATE USER 'simple_blog'@'localhost' IDENTIFIED BY '$PASS'"
 
 # create the DB and stuff
-mysql -uroot < /app/config/schema.sql
-mysql -uroot -e "GRANT ALL PRIVILEGES ON simple_blog.* to simple_blog@'localhost' WITH GRANT OPTION"
+mysql -hlocalhost -uroot < /app/config/schema.sql
+mysql -hlocalhost -uroot -e "GRANT ALL PRIVILEGES ON simple_blog.* to simple_blog@'localhost' WITH GRANT OPTION"
 
 # remove the admin user...
 # oh wait, we do not have ACL.. oh well~
