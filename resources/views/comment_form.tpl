@@ -8,6 +8,11 @@
                     <label class="white-text" for="input_text">Nama</label>
                 </div>
 
+                <div class="input-field col s6">
+                    <input type="text" length="20" name="title" >
+                    <label class="white-text" for="input_text">Judul</label>
+                </div>
+
                 <div class="row">
                     <div class="input-field col s12">
                         <input type="email" length="50" name="email">
@@ -17,7 +22,7 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea class="materialize-textarea" length="1000" name="konten"></textarea>
+                        <textarea class="materialize-textarea" length="200" name="content"></textarea>
                         <label class="white-text" for="textarea1">Komentar</label>
                     </div>
                 </div>
