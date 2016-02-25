@@ -46,6 +46,7 @@ $router->get('/post/view/[int:id]', 'PostController@getView');
 
 $router->post('/comment/create/[int:id]', 'PostController@postCreateComment');
 
+$router->get('/post/delete/[int:id]', 'PostController@getDelete');
 
 // ...and off we go!
 $router->dispatch();

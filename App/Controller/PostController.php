@@ -31,7 +31,7 @@ Class PostController extends BaseController{
                 $title = $post['title'];
                 $content = substr($post['content'],0,200);
 
-                if($post['files_id'] != NULL)
+                if($post['files_id'] != NULL && $post['files_id'] != 0)
                 {
                     $connection = PDOConnection::getInstance();
                     $pdo = $connection->getDriver();
@@ -53,6 +53,7 @@ Class PostController extends BaseController{
                                 </div>
                                 <div class=\"card-action\">
                                     <a href=\"/post/view/$id\">Read more</a>
+                                    <a href=\" /post/delete/$id\">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -70,6 +71,7 @@ Class PostController extends BaseController{
                                 </div>
                                 <div class=\"card-action\">
                                     <a href=\"/post/view/$id\">Read more</a>
+                                    <a href=\"/post/delete/$id\">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +102,7 @@ Class PostController extends BaseController{
             $title = $post[0]['title'];
             $content = $post[0]['content'];
 
-            if($post[0]['files_id'] != NULL)
+            if($post[0]['files_id'] != NULL && $post[0]['files_id'] != 0)
             {
                 $connection = PDOConnection::getInstance();
                 $pdo = $connection->getDriver();
@@ -350,6 +352,46 @@ Class PostController extends BaseController{
             var_dump($error);
 
             throw new \RuntimeException("Cannot edit post:", 500);
+        }
+    }
+
+    public function getDelete($id)
+    {
+        if (!isset($_POST)) {
+            throw new \RuntimeException("No data posted.", 400);
+        }
+
+        // inisialisasi files id
+        $file_id = 0;
+        $connection = PDOConnection::getInstance();
+        $pdo = $connection->getDriver();
+
+        // get files id dari post yang mau dihapus
+        $stmt = $pdo->prepare('select files_id from posts where id = :id');
+        $stmt->bindParam(':id', $id);
+        if($stmt->execute())
+        {
+            $files = $stmt->fetchAll();
+            $file_id = $files[0]['files_id'];
+
+            //delete image
+            $stmt = $pdo->prepare('delete from files where id = :file_id');
+            $stmt->bindParam(':file_id', $file_id);
+            if($stmt->execute())
+            {
+                // delete post
+                $stmt = $pdo->prepare('delete from posts where id = :id');
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                header("Location: /post", true, 301);
+            }
+            else
+            {
+                $error = $connection->getDriver()->errorInfo();
+                var_dump($error);
+
+                throw new \RuntimeException("Cannot delete", 500);
+            }
         }
     }
 
