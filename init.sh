@@ -3,16 +3,7 @@
 set -e
 
 # starting MySQLd
-# from https://github.com/tutumcloud/lamp/blob/master/create_mysql_admin_user.sh
-/usr/bin/mysqld_safe > /dev/null 2>&1 &
-
-RET=1
-while [[ RET -ne 0 ]]; do
-    echo "=> Waiting for confirmation of MySQL service startup"
-    sleep 5
-    mysql -uroot -e "status" > /dev/null 2>&1
-    RET=$?
-done
+/start-mysqld.sh
 
 # create password
 PASS=${MYSQL_PASS:-$(pwgen -s 12 1)}
