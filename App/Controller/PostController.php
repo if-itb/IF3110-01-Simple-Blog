@@ -20,7 +20,7 @@ Class PostController extends BaseController{
         print_r($_SESSION);
         $connection = PDOConnection::getInstance();
         $pdo = $connection->getDriver();
-        $stmt = $pdo->prepare('select * from posts');
+        $stmt = $pdo->prepare('select * from posts ORDER BY created_at DESC');
         $stmt->execute();
 
         $list_of_post = '';
@@ -184,7 +184,7 @@ Class PostController extends BaseController{
                 </div>";
             }
 
-            $stmt = $pdo->prepare('select * from comments where post_id = :id');
+            $stmt = $pdo->prepare('select * from comments where post_id = :id ORDER BY created_at DESC');
             $stmt->execute(array('id' => $id));
             $comments_string = '';
             if($comments = $stmt->fetchAll())
