@@ -16,6 +16,8 @@ use App\Core\SessionManager;
 Class PostController extends BaseController{
     public function index()
     {
+        SessionManager::getManager();
+        print_r($_SESSION);
         $connection = PDOConnection::getInstance();
         $pdo = $connection->getDriver();
         $stmt = $pdo->prepare('select * from posts');
@@ -266,14 +268,12 @@ Class PostController extends BaseController{
 
         $session = SessionManager::getManager();
         $user = $session->get('user');
-
-        $username = $user['username'];
+        $user_id = $user['id'];
 
         $connection = PDOConnection::getInstance();
 
         if($_FILES['image']['name'] != NULL)
         {
-            $upload_status = 1;
             $file_name = $_FILES['image']['name'];
             $file_size = $_FILES['image']['size'];
             $file_tmp = $_FILES['image']['tmp_name'];
@@ -302,7 +302,6 @@ Class PostController extends BaseController{
                 'path' => "/public/images/$file_name",
                 'size' => $file_size,
                 'mime' => $file_type,
-                // TODO: Isi post_id setelah insert post
             ]);
             if($result)
             {
@@ -318,8 +317,7 @@ Class PostController extends BaseController{
             'title' => $judul,
             'content' => $konten,
             'files_id' => $files_id,
-            // TODO: change 1 jadi id user berdasarkan username
-            'user_id' => 1,
+            'user_id' => $user_id,
         ]);
 
         if($result)
@@ -411,10 +409,7 @@ Class PostController extends BaseController{
 
         $session = SessionManager::getManager();
         $user = $session->get('user');
-
-        $username = $user['username'];
-        // TODO: ganti 1 jadi user idnya username;
-        $user_id = 1;
+        $user_id = $user['id'];
 
         // Filter input
         $judul = strip_tags($_POST['judul']);
