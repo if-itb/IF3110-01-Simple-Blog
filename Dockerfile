@@ -59,5 +59,8 @@ ENV PHP_POST_MAX_SIZE 10M
 # Add volumes for MySQL
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 
+# Add volumes for images
+VOLUME ["/app/public/images", "/var/if4033-simple-blog/images"]
+
 EXPOSE 80 3306
 CMD ["/run.sh"]
