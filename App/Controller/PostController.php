@@ -33,7 +33,8 @@ Class PostController extends BaseController{
             {
                 $id = $post['id'];
                 $title = $post['title'];
-                $content = substr($post['content'],0,200);
+                $date = substr($post['created_at'],0,10);
+                $content = "$date<br>".substr($post['content'],0,200);
 
                 // cek logged_in buat link edit dan delete
                 $action_edit = '';
@@ -126,7 +127,8 @@ Class PostController extends BaseController{
         {
             $id = $post[0]['id'];
             $title = $post[0]['title'];
-            $content = $post[0]['content'];
+            $date = substr($post[0]['created_at'],0,10);
+            $content = "$date<br>".$post[0]['content'];
 
             // cek logged_in buat link delete
             $action_edit = '';
