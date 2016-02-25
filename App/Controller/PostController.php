@@ -139,6 +139,8 @@ Class PostController extends BaseController{
             throw new \RuntimeException("Missing title or konten.", 400);
         }
 
+        $post_id = 0;
+
         $session = SessionManager::getManager();
         $user = $session->get('user');
 
@@ -171,12 +173,11 @@ Class PostController extends BaseController{
 
             move_uploaded_file($file_tmp,ROOT_PATH."/public/images/$file_name");
 
-            $result = $connection->insert('files', [
+            $connection->insert('files', [
                 'path' => "/public/images/$file_name",
                 'size' => $file_size,
                 'mime' => $file_type,
                 // TODO: Isi post_id setelah insert post
-
             ]);
         }
 
@@ -190,6 +191,16 @@ Class PostController extends BaseController{
             // TODO: change 1 jadi id user berdasarkan username
             'user_id' => 1,
         ]);
+        if ($result) {
+            $post_id = $connection->get_last_inserted_id();
+        }
+
+        // insert post id ke tabel files
+        $connection = PDOConnection::getInstance();
+        $pdo = $connection->getDriver();
+        $stmt = $pdo->prepare('update files set post_id = :post_id');
+        $stmt->bindParam(':post_id', $post_id);
+        $stmt->execute();
 
         if($result)
         {

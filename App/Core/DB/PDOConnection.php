@@ -221,4 +221,9 @@ class PDOConnection implements ConnectionInterface
     {
         // TODO: Implement executePrepared() method.
     }
+
+    public function get_last_inserted_id()
+    {
+        return $this->pdo->lastInsertId();
+    }
 }

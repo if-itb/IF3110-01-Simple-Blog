@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2016 at 05:26 PM
+-- Generation Time: Feb 25, 2016 at 06:08 PM
 -- Server version: 10.1.11-MariaDB-1~trusty-log
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -44,16 +44,16 @@ CREATE TABLE IF NOT EXISTS `comments` (
 --
 
 CREATE TABLE IF NOT EXISTS `files` (
-  `id` char(36) NOT NULL,
+  `id` int(4) NOT NULL AUTO_INCREMENT,
   `path` text NOT NULL,
   `size` int(10) unsigned NOT NULL,
   `mime` varchar(128) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `metadata` text,
   PRIMARY KEY (`id`),
   KEY `mime` (`mime`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -68,10 +68,8 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `highlight_image_id` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `highlight_image_files_id` (`highlight_image_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -102,16 +100,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `posts`
---
-ALTER TABLE `posts`
-  ADD CONSTRAINT `highlight_image_files_id` FOREIGN KEY (`highlight_image_id`) REFERENCES `files` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
