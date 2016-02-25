@@ -144,6 +144,8 @@ Class PostController extends BaseController{
 
         $username = $user['username'];
 
+        $connection = PDOConnection::getInstance();
+
         if(isset($_FILES['image']))
         {
             $file_name = $_FILES['image']['name'];
@@ -157,14 +159,31 @@ Class PostController extends BaseController{
                 throw new \RuntimeException("File not allowed. png only.", 500);
             }
 
+            if(!getimagesize($file_tmp))
+            {
+                throw new \RuntimeException("File not allowed. png only.", 500);
+            }
+
+            if($file_type != 'image/png')
+            {
+                throw new \RuntimeException("File not allowed. png only.", 500);
+            }
+
             move_uploaded_file($file_tmp,ROOT_PATH."/public/images/$file_name");
+
+            $result = $connection->insert('files', [
+                'path' => "/public/images/$file_name",
+                'size' => $file_size,
+                'mime' => $file_type,
+                // TODO: Isi post_id setelah insert post
+
+            ]);
         }
 
         // Filter input
         $judul = strip_tags($_POST['judul']);
         $konten = $purifier->purify($_POST['konten']);
 
-        $connection = PDOConnection::getInstance();
         $result = $connection->insert('posts', [
             'title' => $judul,
             'content' => $konten,
