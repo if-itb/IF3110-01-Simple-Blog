@@ -87,7 +87,7 @@ Class PostController extends BaseController{
             {
                 foreach($comments as $comment)
                 {
-                    $comment_title = $comment['judul'];
+                    $comment_title = $comment['title'];
                     $comment_body = $comment['content'];
                     $comments_string = $comments_string.
                         "<div class=\"divider\"></div>
