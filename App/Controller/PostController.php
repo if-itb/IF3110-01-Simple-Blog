@@ -31,7 +31,7 @@ Class PostController extends BaseController{
                 $title = $post['title'];
                 $content = substr($post['content'],0,200);
 
-                if($post['files_id'] != NULL)
+                if($post['files_id'] != NULL && $post['files_id'] != 0)
                 {
                     $connection = PDOConnection::getInstance();
                     $pdo = $connection->getDriver();
@@ -102,7 +102,7 @@ Class PostController extends BaseController{
             $title = $post[0]['title'];
             $content = $post[0]['content'];
 
-            if($post[0]['files_id'] != NULL)
+            if($post[0]['files_id'] != NULL && $post[0]['files_id'] != 0)
             {
                 $connection = PDOConnection::getInstance();
                 $pdo = $connection->getDriver();
