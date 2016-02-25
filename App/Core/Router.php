@@ -297,8 +297,15 @@ class Router
 
                     // call ::before(), if exists
                     // and the method is not in exemption
-                    if (method_exists($controller, 'before') and in_array($controllerMethod, $controller->getExceptBefore())) {
-                        call_user_func_array([$controller, 'before'], []);
+                    if (method_exists($controller, 'before')) {
+                        $beforeIgnoreList = [];
+                        if (method_exists($controller, 'getBeforeIgnoreList')) {
+                            $beforeIgnoreList = $controller->getBeforeIgnoreList();
+                        }
+
+                        if (!in_array($controllerMethod, $beforeIgnoreList)) {
+                            call_user_func_array([$controller, 'before'], []);
+                        }
                     }
 
                     if (method_exists($controller, $controllerMethod)) {

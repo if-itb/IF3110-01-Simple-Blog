@@ -15,15 +15,20 @@ abstract class Controller
      *
      * @var array
      */
-    protected $exceptBefore = [];
+    protected $ignoreBeforeList = [];
 
     /**
      * Execute some code before firing the controller.
      */
     public function before() {}
 
-    public function getExceptBefore() {
-        return $this->exceptBefore;
+    /**
+     * Get the ignoreBeforeList
+     *
+     * @return array
+     */
+    public function getBeforeIgnoreList() {
+        return $this->ignoreBeforeList;
     }
 
     protected function redirect($location)

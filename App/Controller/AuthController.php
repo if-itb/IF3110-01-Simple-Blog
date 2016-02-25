@@ -10,7 +10,7 @@ use App\Core\View;
 
 class AuthController extends BaseController
 {
-    protected $exceptBefore = [
+    protected $ignoreBeforeList = [
         'getLogout'
     ];
 
@@ -23,6 +23,7 @@ class AuthController extends BaseController
      */
     public function before() {
         $session = SessionManager::getManager();
+        var_dump($session);
 
         if ($session->isLoggedIn()) {
             $this->redirect('/');
