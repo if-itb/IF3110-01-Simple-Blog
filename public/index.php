@@ -46,7 +46,13 @@ $router->get('/users/[int:id]', 'UserController@index');
 
 $router->get('/post', 'PostController@index');
 
-$router->get('/post/create', 'PostController@create');
+$router->get('/post/create', 'PostController@getCreate');
+$router->post('/post/create', 'PostController@postCreate');
+$router->get('/post/edit/[int:id]', 'PostController@getEdit');
+$router->post('/post/edit/[int:id]', 'PostController@postEdit');
+
+$router->get('/post/view/[int:id]', 'PostController@getView');
+
 
 
 
