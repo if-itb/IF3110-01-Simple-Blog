@@ -144,7 +144,7 @@ Class PostController extends BaseController{
         }
     }
 
-    public function getUpdate($id)
+    public function getEdit($id)
     {
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
@@ -154,15 +154,14 @@ Class PostController extends BaseController{
         $stmt = $pdo->prepare('select * from posts where id = :id');
         $stmt->execute(array('id' => $id));
 
-        $list_of_post = '';
         if($post = $stmt->fetchAll())
         {
             $id = $post[0]['id'];
             $title = $post[0]['title'];
             $content = $post[0]['content'];
             $post_form = new View('post_form');
-            $post_form->set('form_title', 'Update post');
-            $post_form->set('form_url', '/post/update');
+            $post_form->set('form_title', 'Edit post');
+            $post_form->set('form_url', "/post/edit/$id");
             $post_form->set('title_value', $title);
             $post_form->set('content_value', $content);
 
@@ -170,5 +169,52 @@ Class PostController extends BaseController{
         }
 
         echo $view->output();
+    }
+
+    public function postEdit($id)
+    {
+        // Set html purifier
+        require_once ROOT_PATH.'/App/library/HTMLPurifier.auto.php';
+        $purifier = new \HTMLPurifier();
+
+        if (!isset($_POST)) {
+            throw new \RuntimeException("No data posted.", 400);
+        }
+//
+        if (!isset($_POST['judul']) or !isset($_POST['konten'])) {
+            throw new \RuntimeException("Missing title or konten.", 400);
+        }
+
+        $session = SessionManager::getManager();
+        $user = $session->get('user');
+
+        $username = $user['username'];
+        // TODO: ganti 1 jadi user idnya username;
+        $user_id = 1;
+
+        // Filter input
+        $judul = strip_tags($_POST['judul']);
+        $konten = $purifier->purify($_POST['konten']);
+
+        $connection = PDOConnection::getInstance();
+        $pdo = $connection->getDriver();
+        $stmt = $pdo->prepare('update posts set title = :title, content = :content, user_id = :user_id where id = :id');
+        $stmt->bindParam(':title', $judul);
+        $stmt->bindParam(':content', $konten);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':id', $id);
+
+        if($stmt->execute())
+        {
+            header("Location: /post/view/$id", true, 301);
+        }
+        else
+        {
+            $error = $connection->getDriver()->errorInfo();
+            var_dump($error);
+
+            throw new \RuntimeException("Cannot edit post:", 500);
+        }
+
     }
 }
