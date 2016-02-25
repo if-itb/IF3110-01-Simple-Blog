@@ -217,6 +217,11 @@ Class PostController extends BaseController{
         $view = new View('layout');
         $view->inject('navbar', 'navbar');
         $view->set('content', $postContent->output(), false);
+
+        // csrf
+        $manager = SessionManager::getManager();
+        $manager->generateCsrfToken();
+
         echo $view->output();
     }
     public function getCreate()
@@ -240,6 +245,11 @@ Class PostController extends BaseController{
         $post_form->set('content_value', '', false);
 
         $view->set('content', $post_form->output(), false);
+
+        // csrf
+        $manager = SessionManager::getManager();
+        $manager->generateCsrfToken();
+
         echo $view->output();
     }
     public function postCreate()
@@ -249,6 +259,9 @@ Class PostController extends BaseController{
         {
             $this->redirect('/auth/login');
         }
+
+        if(!$this->csrf_valid())
+            throw new \RuntimeException("CSRF token error.", 400);
 
         // Set html purifier
         require_once ROOT_PATH.'/App/library/HTMLPurifier.auto.php';
@@ -384,6 +397,10 @@ Class PostController extends BaseController{
             $view->inject('content', 'not_found_card');
         }
 
+        // csrf
+        $manager = SessionManager::getManager();
+        $manager->generateCsrfToken();
+
         echo $view->output();
     }
 
@@ -394,6 +411,9 @@ Class PostController extends BaseController{
         {
             $this->redirect('/auth/login');
         }
+
+        if(!$this->csrf_valid())
+            throw new \RuntimeException("CSRF token error.", 400);
 
         // Set html purifier
         require_once ROOT_PATH.'/App/library/HTMLPurifier.auto.php';
@@ -491,6 +511,9 @@ Class PostController extends BaseController{
         if (!isset($_POST)) {
             throw new \RuntimeException("No data posted.", 400);
         }
+
+        if(!$this->csrf_valid())
+            throw new \RuntimeException("CSRF token error.", 400);
 //
         if (!isset($_POST['name']) or !isset($_POST['title']) or !isset($_POST['email']) or !isset($_POST['content'])) {
             throw new \RuntimeException("Missing name or email or konten.", 400);
@@ -568,5 +591,19 @@ Class PostController extends BaseController{
             }
         }
         return $logged_in;
+    }
+
+    private function csrf_valid()
+    {
+        $session = SessionManager::getManager();
+        // check the CSRF token
+        $fetchedCsrf = null;
+        if (isset($_POST['csrf_token'])) {
+            $fetchedCsrf = $_POST['csrf_token'];
+        } elseif (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+            $fetchedCsrf = $_SERVER['HTTP_X_CSRF_TOKEN'];
+        }
+
+        return !$fetchedCsrf || !$session->checkCsrf($fetchedCsrf);
     }
 }
