@@ -1,8 +1,54 @@
-# Simple Blog
+# Simple Blog - Reloaded
 
-Tugas 1 IF3110.
+Tugas 1 IF4033.
 
-![Simple Blog](http://i655.photobucket.com/albums/uu275/sonnylazuardi/ss-5.jpg)
+## Fitur Pengamanan
+* Untuk melakukan filtrasi HTML, digunakan fungsi`strip_tags()`. Walaupun demikian, fungsi ini hanya bisa mengamankan jika digunakan untuk melakukan filtrasi keseluruhan tag. Walaupun `strip_tags()` mendukung *whitelist*, [link ini](http://php.net/manual/en/function.strip-tags.php#118183) menyatakan bahwa fungsi ini lemah untuk mengamankan HTML secara keseluruhan.
+* Cookie diencrypt
+* File yang dapat diupload adalah file yang memiliki tipe png
+* Ketika user login, maka password di hash, sehingga password tidak terkirim secara plain
+* Edit dan delete post hanya bisa dilakukan oleh user yang sudah logged in
+
+## System Requirements
+1. MySQL (&ge; 5.5.x) atau MariaDB (&ge; 10.x)
+2. PHP &ge; 5.5
+3. Windows atau UNIX-like OS
+
+## Quick Start (Development)
+1. *Clone* repo ini
+2. Ubah direktori ke tempat *clone*
+3. Buat file `.env` yang berisi parameter-parameter berikut:
+
+```
+APP_DEBUG=true
+APP_KEY=[32 random chars]
+
+DB_HOST=[host database]
+DB_PORT=[port database]
+DB_DATABASE=[nama database]
+DB_USERNAME=[nama username untuk database]
+DB_PASSWORD=[password]
+```
+
+4. Jalankan `php -S localhost:8080 -t public`
+
+## Deployment (Docker)
+Parameter-parameter berkut digunakan saat melakukan build:
+* `gitlab_token`: token yang digunakan untuk otentikasi. **WAJIB**
+* `http_proxy`: proxy yang digunakan untuk build. Dibutuhkan jika melakukan build via proxy (contoh: ITB).
+Kedua parameter di atas di-passing saat build menggunakan `--build-arg`
+
+Berikut adalah tahapan untuk build:
+1. Jalankan `docker build --build-arg gitlab_token=[token gitlab] http://gitlab.informatika.org/if4033/if4033-simple-blog-reloaded.git`
+2. ID dari image yang di-generate akan terpampang pada output terminal.
+3. Jalankan `docker run -d -p 80:80 -p 3306:3306 [id image]`
+
+### Catatan
+1. Agar file-file yang disimpan tetap *persistent*, lakukan mounting dengan menambahkan flag berikut:
+  1. `-v <path ke .env kosong>:/app/.env`
+  2. `-v <path ke folder mysql>:/var/lib/mysql`
+  3. `-v <path ke folder images>:/app/public/images`
+2. Karena fitur *persistence* belum dites, maka bagian ini (mungkin) bisa diabaikan~
 
 ## Deskripsi
 
@@ -49,14 +95,15 @@ Pembuatan blog ini tidak boleh menggunakan framework PHP dan framework javascrip
 
 **Tidak boleh menggunakan jquery untuk ajax.**
 
-## Deliverable
+## Catatan
+* Jangan lupa untuk membubuhkan `APP_KEY` di `.env`
 
-Masing-masing orang lakukan Fork pada repo ini. Jika sudah selesai tambahkan pull request ke repo ini.
+## Live Demo
+
+Akses ke https://blog-kpi.akhfa.me
 
 ## Lisensi
 
-&copy; 2014 Asisten IF3110
-
-Yogi | [Sonny](http://github.com/sonnylazuardi) | Fathan | Renusa | Kelvin | Yanuar
+&copy; 2016
 
 Dosen: [Yudistira Dwi Wardhana](http://github.com/yudis)

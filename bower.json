@@ -1,0 +1,28 @@
+{
+  "name": "if4033-simple-blog-reloaded",
+  "homepage": "http://gitlab.informatika.org/alvin-nt/if4033-simple-blog-reloaded",
+  "authors": [
+    "Alvin Natawiguna <alvin.nt.gg@gmail.com>",
+    "Akhmad Fahoni Listryani Dede"
+  ],
+  "description": "Simple blog, created using PHP",
+  "main": "public/index.php",
+  "moduleType": [],
+  "keywords": [
+    "php",
+    "hardening"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Materialize": "materialize#^0.97.5",
+    "jsSHA": "jssha#^2.0.2"
+  }
+}
