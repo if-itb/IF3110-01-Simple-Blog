@@ -50,7 +50,7 @@ Pembuatan blog ini tidak menggunakan framework PHP dan framework javascript.
 
 ## Lisensi
 
-Developed by: Rakhmatullah Yoga Sutrisna - 1312053
+Developed by: Rakhmatullah Yoga Sutrisna - 13512053
 
 &copy; 2014 Asisten IF3110
 
